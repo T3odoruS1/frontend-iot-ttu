@@ -37,7 +37,16 @@ height: 60px;
 
 }
 
+.quill-editor iframe {
+  pointer-events: none;
+}
 
+.ql-editor .ql-video {
+  display: block;
+  width: 40rem;
+  /* height: 50%; */
+  min-height:20rem;
+}
 
 .top-gradient{
   background: linear-gradient(-90deg,#342b60,#60c3d5);

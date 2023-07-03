@@ -2,8 +2,15 @@ import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // import styles
 import "react-quill/dist/quill.core.css";
+import  ImageResize  from 'quill-image-resize-module-react';
+import Quill from 'quill';
+
+Quill.register('modules/imageResize', ImageResize);
 
 const modules = {
+    imageResize: {
+        parchment: Quill.import('parchment')
+    },
 	toolbar: [
 		["bold", "italic", "underline", "strike"],
 		["blockquote", "code-block"],
@@ -23,6 +30,7 @@ const modules = {
 		["clean"],
 
 		["link", "image", "video"],
+       
 	],
 };
 
@@ -89,6 +97,7 @@ const NewsDemoPage = () => {
 
 			<h2>Exported result in plain HTML</h2>
             <hr />
+            <hr /><hr /><hr /><hr />    
             <h4>Title here</h4>
 			<div className="result-div ql-container ql-snow">
 				<div

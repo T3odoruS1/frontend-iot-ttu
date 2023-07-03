@@ -8,6 +8,8 @@ import ErrorPage from './routes/ErrorPage';
 import Root from './routes/Root';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import NewsDemoPage from './routes/News/NewsDemoPage';
+import NewsListPage from './routes/News/NewsListPage';
+import NewsDetailsPage from './routes/News/NewsDetailsPage';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,13 @@ const router = createBrowserRouter([
       {
         path:"newsDemo/", 
         element: <NewsDemoPage/>
+      },
+      {
+        path:"news",
+        element:<NewsListPage/>
+      },
+      {path:"news/:id",
+      element:<NewsDetailsPage/>
       }
     ]
 
