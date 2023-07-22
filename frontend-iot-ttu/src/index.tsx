@@ -6,7 +6,6 @@ import './index.css';
 import ErrorPage from './routes/ErrorPage';
 import Root from './routes/Root';
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import NewsDemoPage from './routes/News/NewsDemoPage';
 import NewsListPage from './routes/News/NewsListPage';
 import NewsDetailsPage from './routes/News/NewsDetailsPage';
 import NewsCreatePage from './routes/News/NewsCreatePage';
@@ -20,6 +19,9 @@ i18n
     resources: {
       eng: {
         translation:{
+          fileIsTooBig: "File is too large. Maximum size is {{size}} MB.",
+          clickToUploadFile: "Click to upload file",
+          chooseFile:"Choose file",
           header: {
             "Welcome to React": "Welcome to React",
             home: "Home",
@@ -43,6 +45,9 @@ i18n
       },
       est: {
         translation:{
+          fileIsTooBig: "Faili suurus on liiga suur. Maksimum suurus on {{size}} MB.",
+          clickToUploadFile: "Vajuta faili lisamiseks",
+          chooseFile:"Vali file",
           header: {
             "Welcome to React": "Tere tulemast",
             home: "Koduleht",
@@ -63,12 +68,11 @@ i18n
           }
         }
       },
-      // other languages...
     },
-    lng: "eng", // language to use
-    fallbackLng: "eng", // use en if detected lng is not available
+    lng: "eng", 
+    fallbackLng: "eng",
     interpolation: {
-      escapeValue: false // react already safes from xss
+      escapeValue: false
     }
   });
 
@@ -84,10 +88,6 @@ i18n
       element: <Root />,
       errorElement: <ErrorPage />,
       children: [
-        {
-          path: "newsDemo",
-          element: <NewsDemoPage />,
-        },
         {
           path: "news",
           element: <NewsListPage />,

@@ -64,8 +64,9 @@ const NewsForm: React.FC<IProps> = ({
 					</span>
 				</FormLabel>
 			</FormFloating>
-			<ImageUploader register={register} setValue={setValue} name={"file"} />
+			<ImageUploader label={t("createNews.uploadPoster")} register={register} setValue={setValue} name={"file"} fileSize={5} />
 			<div>
+        <h3>{t("createNews.contentEng")}</h3>
 				<ReactQuill
 					theme="snow"
 					value={editorHtmlEng}
@@ -77,6 +78,7 @@ const NewsForm: React.FC<IProps> = ({
 			<br />
 			<br />
 			<div>
+        <h3>{t("createNews.contentEst")}</h3>
 				<ReactQuill
 					theme="snow"
 					value={editorHtmlEst}

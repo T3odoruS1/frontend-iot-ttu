@@ -40,7 +40,7 @@ function LanguageSwitcher() {
 					<a
 						className="language-switcher"
 						onClick={() => changeLanguage("est")}>
-						EE
+						EST
 					</a>
 				</div>
 			):(
@@ -48,7 +48,7 @@ function LanguageSwitcher() {
 					<a
 						className="language-switcher m-2"
 						onClick={() => changeLanguage("eng")}>
-						EST
+						ENG
 					</a>
 					<a
 						className="language-switcher selected"

@@ -67,7 +67,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 						checked={preview}
 						onChange={() => {
 							setPreview(!preview);
-						}}></FormCheck>
+						}}/>
 				</FormFloating>
 			</div>
 			<hr />
