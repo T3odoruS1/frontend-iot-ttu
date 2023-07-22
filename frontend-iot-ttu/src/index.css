@@ -3,9 +3,7 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: ProximaNova,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -88,4 +86,49 @@ height: 60px;
 
 .result-div.ql-container.ql-snow{
   border: none !important;
+}
+
+.language-switcher{
+  margin-top: 3rem;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #e4067e;
+}
+
+.language-switcher.selected{
+  color:#e4067e;
+}
+
+.under-language{
+  margin-top: 20px;
+}
+
+.content_image{
+  width: 100%;
+}
+
+.page-title{
+  font-weight: 900;
+  font-size: 2.625rem;
+  color: #342b60;
+  text-transform: uppercase;
+  line-height: 2.5rem;
+  margin: 0;
+  font-family: ProximaNovaBlack,serif;
+}
+
+.header-date{
+  font-size: 1.25rem;
+    color: #e4067e;
+    font-weight: 700;
+    margin-top: 1.5rem;
+}
+
+.content-bg{
+  background-color: white;
 }

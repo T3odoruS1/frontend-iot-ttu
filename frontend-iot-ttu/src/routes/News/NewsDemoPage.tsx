@@ -4,58 +4,13 @@ import "react-quill/dist/quill.snow.css"; // import styles
 import "react-quill/dist/quill.core.css";
 import  ImageResize  from 'quill-image-resize-module-react';
 import Quill from 'quill';
+// import dotenv from "dotenv";
+import { formats, modules } from "../../Configurations/configurations";
+
+
+// dotenv.config();
 
 Quill.register('modules/imageResize', ImageResize);
-
-const modules = {
-    imageResize: {
-        parchment: Quill.import('parchment')
-    },
-	toolbar: [
-		["bold", "italic", "underline", "strike"],
-		["blockquote", "code-block"],
-
-		[{ list: "ordered" }, { list: "bullet" }],
-		[{ script: "sub" }, { script: "super" }],
-		[{ indent: "-1" }, { indent: "+1" }],
-		[{ direction: "rtl" }],
-
-		[{ size: ["small", false, "large", "huge"] }],
-		[{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-		[{ color: [] }, { background: [] }],
-		[{ font: [] }],
-		[{ align: [] }],
-
-		["clean"],
-
-		["link", "image", "video"],
-       
-	],
-};
-
-const formats = [
-	"header",
-	"font",
-	"size",
-	"bold",
-	"italic",
-	"underline",
-	"strike",
-	"blockquote",
-	"list",
-	"bullet",
-	"indent",
-	"link",
-	"image",
-	"video",
-	"color",
-	"background",
-	"align",
-	"direction",
-	"code-block",
-	"script",
-];
 
 const NewsDemoPage = () => {
 	const [editorHtml, setEditorHtml] = useState<string>("");
@@ -63,6 +18,11 @@ const NewsDemoPage = () => {
 	const handleChange = (html: string) => {
 		setEditorHtml(html);
 	};
+
+    const displayMode = () => {
+    //   console.log(process.env.MODE);
+      
+    }
 
 	const onSubmit = () => {
 		console.log(editorHtml);
@@ -94,7 +54,7 @@ const NewsDemoPage = () => {
 				</button>
 			</div>
 			<hr />
-
+            <button onClick={displayMode}>Mode</button>
 			<h2>Exported result in plain HTML</h2>
             <hr />
             <hr /><hr /><hr /><hr />    
