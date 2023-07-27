@@ -17,7 +17,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources: {
-      eng: {
+      en: {
         translation:{
           fileIsTooBig: "File is too large. Maximum size is {{size}} MB.",
           clickToUploadFile: "Click to upload file",
@@ -43,7 +43,7 @@ i18n
         }
        
       },
-      est: {
+      et: {
         translation:{
           fileIsTooBig: "Faili suurus on liiga suur. Maksimum suurus on {{size}} MB.",
           clickToUploadFile: "Vajuta faili lisamiseks",
@@ -69,8 +69,8 @@ i18n
         }
       },
     },
-    lng: "eng", 
-    fallbackLng: "eng",
+    lng: "en", 
+    fallbackLng: "en",
     interpolation: {
       escapeValue: false
     }
@@ -81,7 +81,7 @@ i18n
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Navigate to="/est" />,
+      element: <Navigate to="/en" />,
     },
     {
       path: "/:lang",
