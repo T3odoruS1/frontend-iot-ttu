@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormCheck, FormFloating } from "react-bootstrap";
-import { INewsOutput } from "../DTO/INewsOutput";
+import { INewsOutput } from "../DTO/News/INewsOutput";
 import NewsContent from "./NewsContent";
 
 interface IProps {

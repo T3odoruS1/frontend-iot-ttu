@@ -1,9 +1,9 @@
-import { INewsOutput } from "../../DTO/INewsOutput";
 import { FormControl, FormFloating, FormLabel, Button } from "react-bootstrap";
-import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { UseFormHandleSubmit, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { TFunction } from "i18next";
 import ReactQuill from "react-quill";
 import ImageUploader from "../../components/ImageUpload";
+import { INewsOutput } from "../../DTO/News/INewsOutput";
 
 interface IProps {
 	register: UseFormRegister<INewsOutput>;
@@ -17,6 +17,7 @@ interface IProps {
 	onSubmit: (event: any) => void;
 	modules: any;
 	formats: any;
+	handleSubmit: UseFormHandleSubmit<INewsOutput, undefined>;
 }
 
 const NewsForm: React.FC<IProps> = ({
@@ -31,9 +32,10 @@ const NewsForm: React.FC<IProps> = ({
 	setValue,
 	modules,
 	formats,
+	handleSubmit
 }) => {
 	return (
-		<form onSubmit={onSubmit} id="news-form">
+		<form onSubmit={handleSubmit(onSubmit)} id="news-form">
 			<FormFloating className="mb-2">
 				<FormControl
 					{...register("titleEng")}

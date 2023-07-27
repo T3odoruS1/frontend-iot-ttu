@@ -3,12 +3,12 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { formats, modules } from "../../Configurations/configurations";
-import { INewsOutput } from "../../DTO/INewsOutput";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import NewsForm from "./NewsForm";
 import ContentPreview from "../../components/ContentPreview";
 import { FormCheck, FormFloating } from "react-bootstrap";
+import { INewsOutput } from "../../DTO/News/INewsOutput";
 
 interface IProps {
 	onSubmit: (event: FieldValues) => void;
@@ -32,6 +32,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 		register,
 		setValue,
 		getValues,
+		handleSubmit,
 		formState: { errors },
 	} = useForm<INewsOutput>({
 		resolver: yupResolver(schema),
@@ -58,7 +59,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 		<>
 			<br />
 			<div className="d-flex">
-				<h2 className="m-2">Create news</h2>
+				<h2 className="m-2">{t('createNews.createNewPost')}</h2>
 				<FormFloating>
 					<FormCheck
 						type="switch"
@@ -77,6 +78,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 					register={register}
 					t={t}
 					errors={errors}
+					handleSubmit={handleSubmit}
 					onEditorStateChangeEng={onEditorStateChangeEng}
 					onEditorChangeEst={onEditorChangeEst}
 					editorHtmlEng={editorHtmlEng}

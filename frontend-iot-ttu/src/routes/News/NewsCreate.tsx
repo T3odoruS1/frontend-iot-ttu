@@ -1,10 +1,10 @@
 import { FieldValues } from "react-hook-form";
 import NewsCreateForm from "./NewsCreateFormWithPreview";
-import { INewsOutputDTO } from "../../DTO/INewsOutputDTO";
 import { NewsService } from "../../services/NewsService";
 import i18n from "i18next";
+import { INewsOutputDTO } from "../../DTO/News/INewsOutputDTO";
 
-const NewsCreatePage = () => {
+const NewsCreate = () => {
     const newsService = new NewsService();
 
     const onSubmit = async (formValues: FieldValues) => {
@@ -12,24 +12,27 @@ const NewsCreatePage = () => {
       let newsOutput: INewsOutputDTO = {
         title: [
           {
-            value: formValues.titleEng,
-            culture: "eng"
+            value: "Title value in eng",
+            culture: "en"
           },
           {
-            value: formValues.titleEst,
-            culture: "est"
+            value: "Title value in est",
+            culture: "et"
           }
         ],
         body: [
           {
-            value: formValues.contentEng,
-            culture: "eng"
+            value: "Body in eng",
+            culture: "en"
           },
           {
-            value: formValues.contentEst,
-            culture: "est"
+            value:  "Body in est",
+            culture: "et"
           }
-        ]
+        ],
+        image: formValues.file,
+        author: "Mingi Mees",
+        topicAreas: [{id: "f88c04d2-b664-4e24-bc76-0f786094e840"}]
       }
       const result = await newsService.post(`/${i18n.language}/news/create`, newsOutput);
       console.log(result);
@@ -37,11 +40,8 @@ const NewsCreatePage = () => {
     }
 
   return <>
-    <div>
         <NewsCreateForm onSubmit={onSubmit}/>
-        <hr />
-    </div>
   </>
 }
 
-export default NewsCreatePage;
+export default NewsCreate;

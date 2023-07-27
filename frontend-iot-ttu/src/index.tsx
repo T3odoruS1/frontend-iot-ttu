@@ -6,11 +6,11 @@ import './index.css';
 import ErrorPage from './routes/ErrorPage';
 import Root from './routes/Root';
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import NewsListPage from './routes/News/NewsListPage';
-import NewsDetailsPage from './routes/News/NewsDetailsPage';
-import NewsCreatePage from './routes/News/NewsCreatePage';
 import { initReactI18next } from 'react-i18next';
 import i18n from "i18next";
+import NewsCreate from './routes/News/NewsCreate';
+import NewsDetails from './routes/News/NewsDetails';
+import NewsList from './routes/News/NewsList';
 
 
 i18n
@@ -90,15 +90,15 @@ i18n
       children: [
         {
           path: "news",
-          element: <NewsListPage />,
+          element: <NewsList />,
         },
         {
           path: "news/:id",
-          element: <NewsDetailsPage />,
+          element: <NewsDetails />,
         },
         {
           path: "addNews",
-          element: <NewsCreatePage />,
+          element: <NewsCreate />,
         },
       ],
     },
