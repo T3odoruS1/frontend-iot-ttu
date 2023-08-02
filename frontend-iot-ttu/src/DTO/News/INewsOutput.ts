@@ -4,4 +4,6 @@ export interface INewsOutput{
     file: string,
     contentEng: string,
     contentEst: string
+    topicAreas: {id: string}[],
+    author: string,
 }

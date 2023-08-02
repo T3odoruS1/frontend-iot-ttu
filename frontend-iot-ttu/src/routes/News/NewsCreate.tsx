@@ -32,7 +32,7 @@ const NewsCreate = () => {
         ],
         image: formValues.file,
         author: "Mingi Mees",
-        topicAreas: [{id: "f88c04d2-b664-4e24-bc76-0f786094e840"}]
+        topicAreas: [{id: "f815be93-f9e0-4391-b400-95251e889f07"}]
       }
       const result = await newsService.post(`/${i18n.language}/news/create`, newsOutput);
       console.log(result);

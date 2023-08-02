@@ -30,16 +30,16 @@ function LanguageSwitcher() {
 
 	return (
 		<div className="">
-			{lang === "eng" ? (
+			{lang === "en" ? (
 				<div>
 					<a
 						className="language-switcher m-2 selected"
-						onClick={() => changeLanguage("eng")}>
+						onClick={() => changeLanguage("en")}>
 						ENG
 					</a>
 					<a
 						className="language-switcher"
-						onClick={() => changeLanguage("est")}>
+						onClick={() => changeLanguage("et")}>
 						EST
 					</a>
 				</div>
@@ -47,12 +47,12 @@ function LanguageSwitcher() {
 				<div>
 					<a
 						className="language-switcher m-2"
-						onClick={() => changeLanguage("eng")}>
+						onClick={() => changeLanguage("en")}>
 						ENG
 					</a>
 					<a
 						className="language-switcher selected"
-						onClick={() => changeLanguage("est")}>
+						onClick={() => changeLanguage("et")}>
 						EST
 					</a>
 				</div>

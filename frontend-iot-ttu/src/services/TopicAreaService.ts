@@ -1,7 +1,6 @@
-import { ITopicAreaGet } from "../DTO/TopicArea/ITopicAreaGet";
 import { BaseEntityService } from "./BaseEntityService";
 
-export class NewsService extends BaseEntityService<ITopicAreaGet>{
+export class TopicAreaService extends BaseEntityService{
     constructor(){
         super("");
     }

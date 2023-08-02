@@ -20,6 +20,18 @@ const schema = yup.object().shape({
 	contentEng: yup.string().required(),
 	contentEst: yup.string().required(),
 	file: yup.mixed(),
+	author: yup
+		.string()
+		.min(1, "Author name should be at least 1 letter")
+		.required(),
+	topicAreas: yup
+		.array()
+		.of(
+			yup.object().shape({
+				id: yup.string().uuid().required()
+			})
+		)
+		.required(),
 });
 
 const NewsCreateFormWithPreview = (props: IProps) => {
@@ -33,6 +45,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 		setValue,
 		getValues,
 		handleSubmit,
+		control,
 		formState: { errors },
 	} = useForm<INewsOutput>({
 		resolver: yupResolver(schema),
@@ -59,8 +72,10 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 		<>
 			<br />
 			<div className="d-flex">
-				<h2 className="m-2">{t('createNews.createNewPost')}</h2>
-				<FormFloating>
+				<h2 className="m-2 page_title">{t("createNews.createNewPost")}</h2>
+				
+			</div>
+			<FormFloating>
 					<FormCheck
 						type="switch"
 						id="custom-switch"
@@ -68,15 +83,15 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 						checked={preview}
 						onChange={() => {
 							setPreview(!preview);
-						}}/>
+						}}
+					/>
 				</FormFloating>
-			</div>
 			<hr />
 
-			<div style={{display: preview ? "none" : "block"}}>
+			<div style={{ display: preview ? "none" : "block" }}>
 				<NewsForm
+					control={control}
 					register={register}
-					t={t}
 					errors={errors}
 					handleSubmit={handleSubmit}
 					onEditorStateChangeEng={onEditorStateChangeEng}
@@ -85,13 +100,13 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 					editorHtmlEst={editorHtmlEst}
 					onSubmit={props.onSubmit}
 					setValue={setValue}
+					getValues={getValues}
 					modules={modules}
 					formats={formats}
 				/>
 			</div>
-			<div style={{display: preview ? "block" : "none"}}>
-				<ContentPreview
-				 formValues={getValues()} />
+			<div style={{ display: preview ? "block" : "none" }}>
+				<ContentPreview formValues={getValues()} />
 			</div>
 		</>
 	);

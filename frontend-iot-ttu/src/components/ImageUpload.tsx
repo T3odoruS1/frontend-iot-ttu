@@ -44,36 +44,43 @@ const ImageUploader: FC<Props> = ({
 	};
 
 	return (
-		<div className="mb-3">
-			<label className="form-label">{label}</label>
-			<div className="input-group">
-				<button
-					className="btn btn-secondary"
-					type="button"
-					id="button-addon2">
-					<label htmlFor="file-input" style={{ marginBottom: 0 }}>
-						{t("chooseFile")}
+		<div className="mb-3 row">
+			<div className="col-md-8">
+				{/* <label className="form-label">{label}</label> */}
+				<div className="input-group">
+					<button
+						className="btn btn-ttu-pink"
+						type="button"
+						id="button-addon2">
+						<label htmlFor="file-input" style={{ marginBottom: 0 }}>
+							{t("chooseFile")}
+						</label>
+					</button>
+					<input
+						type="file"
+						className="form-control d-none" // Hide actual input
+						onChange={onImageChange}
+						id="file-input" // Id to associate with label
+					/>
+					<label htmlFor="file-input" className="form-control">
+						{fileName || t("clickToUploadFile")}
 					</label>
-				</button>
-				<input
-					type="file"
-					className="form-control d-none" // Hide actual input
-					onChange={onImageChange}
-					id="file-input" // Id to associate with label
-				/>
-				<label htmlFor="file-input" className="form-control">
-					{fileName || t("clickToUploadFile")}
-				</label>
+				</div>
+
 			</div>
+			<div className="col-md-4">
 			{preview && (
 				<div className="mt-3">
 					<img
 						src={preview as string}
 						alt="Thumbnail preview"
-						className="content_image w-25"
+						className="content_image"
 					/>
 				</div>
+				
 			)}
+			</div>
+
 			<input {...register(name)} type="hidden" />
 		</div>
 	);
