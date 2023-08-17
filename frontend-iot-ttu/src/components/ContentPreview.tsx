@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { FormCheck, FormFloating } from "react-bootstrap";
-import { INewsOutput } from "../DTO/News/INewsOutput";
 import NewsContent from "./NewsContent";
+import { INewsOutputDTO } from "../DTO/News/INewsOutputDTO";
 
 interface IProps {
-	formValues: INewsOutput;
+	formValues: INewsOutputDTO;
 }
 
 const ContentPreview = (props: IProps) => {
@@ -25,20 +25,20 @@ const ContentPreview = (props: IProps) => {
 					onChange={onLanguageChange}></FormCheck>
 			</FormFloating>
 			<br />
-			<div className="d-inline-flex justify-content-center align-items-center">
+			<div className="d-inline-flex justify-content-center align-items-center w-100">
 				<NewsContent
 					title={
 						language === "et"
-							? props.formValues.titleEst
-							: props.formValues.titleEng
+							? (props.formValues?.title?.at(1)?.value ?? "")
+							: (props.formValues?.title?.at(0)?.value ?? "")
 					}
-					image={props.formValues.file}
-					createdAt={"10:00:00"}
-					author={"Mr. Author"}
+					image={props.formValues.image}
+					createdAt={Date.now().toString()}
+					author={props.formValues.author}
 					content={
 						language === "et"
-							? props.formValues.contentEst
-							: props.formValues.contentEng
+							? (props.formValues?.body?.at(1)?.value ?? "")
+							: (props.formValues?.body?.at(0)?.value ?? "")
 					}
 					lang={language}
 				/>

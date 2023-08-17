@@ -8,24 +8,24 @@ import {
 } from "react-hook-form";
 import ReactQuill from "react-quill";
 import ImageUploader from "../../components/ImageUpload";
-import { INewsOutput } from "../../DTO/News/INewsOutput";
 import { useTranslation } from "react-i18next";
 import NewsTopicAreaInput from "./NewsTopicAreaInput";
+import { INewsOutputDTO } from "../../DTO/News/INewsOutputDTO";
 
 interface IProps {
-	register: UseFormRegister<INewsOutput>;
+	register: UseFormRegister<INewsOutputDTO>;
 	errors: any;
-	control: Control<INewsOutput, any>;
+	control: Control<INewsOutputDTO, any>;
 	onEditorStateChangeEng: (html: string) => void;
 	onEditorChangeEst: (html: string) => void;
 	editorHtmlEng: string;
 	editorHtmlEst: string;
-	setValue: UseFormSetValue<INewsOutput>;
-	getValues: UseFormGetValues<INewsOutput>
+	setValue: UseFormSetValue<INewsOutputDTO>;
+	getValues: UseFormGetValues<INewsOutputDTO>;
 	onSubmit: (event: any) => void;
 	modules: any;
 	formats: any;
-	handleSubmit: UseFormHandleSubmit<INewsOutput, undefined>;
+	handleSubmit: UseFormHandleSubmit<INewsOutputDTO, undefined>;
 }
 
 const NewsForm: React.FC<IProps> = ({
@@ -49,28 +49,60 @@ const NewsForm: React.FC<IProps> = ({
 			<h2 className="header-purple">Titles</h2>
 			<FormFloating className="mb-2">
 				<FormControl
-					{...register("titleEng")}
+					{...register(`title.${0}.value`)}
 					placeholder="Title in English"
 					type="text"
-					id="titleEng"
-					name="titleEng"
+					id={`title.${0}.value`}
+					name={`title.${0}.value`}
 				/>
-				<FormLabel htmlFor="titleEng">
+				<FormLabel htmlFor={`title.${0}.value`}>
 					{t("createNews.titleInEnglish")}
 					<span className="text-danger">
 						{errors.titleEng?.message?.toString()}
 					</span>
 				</FormLabel>
 			</FormFloating>
+			<input
+				type="text"
+				{...register(`title.${0}.culture`)}
+				name={`title.${0}.culture`}
+				id={`title.${0}.culture`}
+				value={"en"}
+				hidden
+			/>
+			<input
+				type="text"
+				{...register(`title.${1}.culture`)}
+				name={`title.${1}.culture`}
+				id={`title.${1}.culture`}
+				value={"et"}
+				hidden
+			/>
+			<input
+				type="text"
+				{...register(`body.${0}.culture`)}
+				name={`body.${0}.culture`}
+				id={`body.${0}.culture`}
+				value={"en"}
+				hidden
+			/>
+			<input
+				type="text"
+				{...register(`body.${1}.culture`)}
+				name={`body.${1}.culture`}
+				id={`body.${1}.culture`}
+				value={"et"}
+				hidden
+			/>
 			<FormFloating className="mb-2">
 				<FormControl
-					{...register("titleEst")}
+					{...register(`title.${1}.value`)}
 					placeholder="Title est"
 					type="text"
-					id="titleEst"
-					name="titleEst"
+					id={`title.${1}.value`}
+					name={`title.${1}.value`}
 				/>
-				<FormLabel htmlFor="titleEst">
+				<FormLabel htmlFor={`title.${1}.value`}>
 					{t("createNews.titleInEstonian")}
 					<span className="text-danger">
 						{errors.titleEst?.message?.toString()}
@@ -82,10 +114,10 @@ const NewsForm: React.FC<IProps> = ({
 				label={t("createNews.uploadPoster")}
 				register={register}
 				setValue={setValue}
-				name={"file"}
+				name={"image"}
 				fileSize={5}
 			/>
-			<h2 className="mt-5 header-purple">Post author</h2>
+			<h2 className="mt-5 header-purple">{t("createNews.author")}</h2>
 			<FormFloating className="mb-2">
 				<FormControl
 					{...register("author")}
@@ -95,14 +127,20 @@ const NewsForm: React.FC<IProps> = ({
 					name="author"
 				/>
 				<FormLabel htmlFor="author">
-					{t("createNews.author")}
+					{t("createNews.authorName")}
 					<span className="text-danger">
 						{errors.author?.message?.toString()}
 					</span>
 				</FormLabel>
 			</FormFloating>
-			<h2 className="mt-5 header-purple">Categories</h2>
-			<NewsTopicAreaInput control={control} setValue={setValue} getValues={getValues} register={register} errors={errors}/>
+			<h2 className="mt-5 header-purple">{t("createNews.categories")}</h2>
+			<NewsTopicAreaInput
+				control={control}
+				setValue={setValue}
+				getValues={getValues}
+				register={register}
+				errors={errors}
+			/>
 
 			<h2 className="mt-5 header-purple">{t("createNews.contentEng")}</h2>
 			<ReactQuill
@@ -124,6 +162,7 @@ const NewsForm: React.FC<IProps> = ({
 
 			<br />
 			<br />
+			
 			<Button
 				type="submit"
 				id="registerSubmit"

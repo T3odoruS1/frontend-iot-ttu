@@ -8,18 +8,34 @@ import { useTranslation } from "react-i18next";
 import NewsForm from "./NewsForm";
 import ContentPreview from "../../components/ContentPreview";
 import { FormCheck, FormFloating } from "react-bootstrap";
-import { INewsOutput } from "../../DTO/News/INewsOutput";
+import { INewsOutputDTO } from "../../DTO/News/INewsOutputDTO";
 
 interface IProps {
 	onSubmit: (event: FieldValues) => void;
 }
 
 const schema = yup.object().shape({
-	titleEng: yup.string().min(1, "This field is required").required(),
-	titleEst: yup.string().min(1, "This field is required").required(),
-	contentEng: yup.string().required(),
-	contentEst: yup.string().required(),
-	file: yup.mixed(),
+	title: yup
+		.array()
+		.length(2)
+		.of(
+			yup.object().shape({
+				value: yup.string().min(1, "This field is required").required(),
+				culture: yup.string().min(1, "This field is required").required(),
+			})
+		)
+		.required(),
+	body: yup
+		.array()
+		.length(2)
+		.of(
+			yup.object().shape({
+				value: yup.string().min(1, "This field is required").required(),
+				culture: yup.string().min(1, "This field is required").required(),
+			})
+		)
+		.required(),
+	image: yup.mixed(),
 	author: yup
 		.string()
 		.min(1, "Author name should be at least 1 letter")
@@ -28,7 +44,7 @@ const schema = yup.object().shape({
 		.array()
 		.of(
 			yup.object().shape({
-				id: yup.string().uuid().required()
+				id: yup.string().uuid().required(),
 			})
 		)
 		.required(),
@@ -47,24 +63,23 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<INewsOutput>({
+	} = useForm<INewsOutputDTO>({
 		resolver: yupResolver(schema),
 	});
 
 	useEffect(() => {
-		register("contentEng", { required: true, minLength: 11 });
-	}, [register]);
-	useEffect(() => {
-		console.log(getValues().file.toString());
+		console.log(getValues().image.toString());
 	}, [preview, getValues]);
 
 	const onEditorStateChangeEng = (html: string) => {
-		setValue("contentEng", html);
+		console.log(errors);
+		
+		setValue(`body.${0}.value`, html);
 		setEditorHtmlEng(html);
 	};
 
-	const onEditorChangeEst = (html: string) => {
-		setValue("contentEst", html);
+	const onEditorStateChangeEst = (html: string) => {
+		setValue(`body.${1}.value`, html);
 		setEditorHtmlEst(html);
 	};
 
@@ -73,19 +88,18 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 			<br />
 			<div className="d-flex">
 				<h2 className="m-2 page_title">{t("createNews.createNewPost")}</h2>
-				
 			</div>
 			<FormFloating>
-					<FormCheck
-						type="switch"
-						id="custom-switch"
-						label="Preview"
-						checked={preview}
-						onChange={() => {
-							setPreview(!preview);
-						}}
-					/>
-				</FormFloating>
+				<FormCheck
+					type="switch"
+					id="custom-switch"
+					label="Preview"
+					checked={preview}
+					onChange={() => {
+						setPreview(!preview);
+					}}
+				/>
+			</FormFloating>
 			<hr />
 
 			<div style={{ display: preview ? "none" : "block" }}>
@@ -95,7 +109,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 					errors={errors}
 					handleSubmit={handleSubmit}
 					onEditorStateChangeEng={onEditorStateChangeEng}
-					onEditorChangeEst={onEditorChangeEst}
+					onEditorChangeEst={onEditorStateChangeEst}
 					editorHtmlEng={editorHtmlEng}
 					editorHtmlEst={editorHtmlEst}
 					onSubmit={props.onSubmit}

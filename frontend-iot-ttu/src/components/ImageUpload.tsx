@@ -2,11 +2,12 @@ import React, { ChangeEvent, FC, useState } from "react";
 import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { INewsOutput } from "../DTO/News/INewsOutput";
 import { useTranslation } from "react-i18next";
+import { INewsOutputDTO } from "../DTO/News/INewsOutputDTO";
 
 interface Props {
-	register: UseFormRegister<INewsOutput>;
-	setValue: UseFormSetValue<INewsOutput>;
-	name: keyof INewsOutput;
+	register: UseFormRegister<INewsOutputDTO>;
+	setValue: UseFormSetValue<INewsOutputDTO>;
+	name: keyof INewsOutputDTO;
 	label: string;
 	fileSize: number;
 }

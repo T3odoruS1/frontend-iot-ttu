@@ -81,7 +81,8 @@ height: 60px;
 }
 
 .result-div{
-  border: none !important;;
+  border: none !important;
+  font-family: ProximaNova,sans-serif;
 }
 
 .result-div.ql-container.ql-snow{
@@ -155,4 +156,10 @@ a:hover{
 .header-purple{
   color: #342b60;
   font-weight: 700;
+}
+
+.text-purple-main{
+  color: #342b60;
+  font-weight: 900;
+  font-size: 1.2rem;
 }

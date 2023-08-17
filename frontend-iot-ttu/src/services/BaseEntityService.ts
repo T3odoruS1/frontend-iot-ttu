@@ -12,6 +12,6 @@ export abstract class BaseEntityService extends BaseService {
     }
 
     async get<TEntity>(url: string): Promise<TEntity | undefined>{
-        return await  this.axios.get(url)
+        return (await this.axios.get(url)).data
     }
 }

@@ -6,20 +6,20 @@ import {
 	UseFormSetValue,
 	useFieldArray,
 } from "react-hook-form";
-import { INewsOutput } from "../../DTO/News/INewsOutput";
 import { FormFloating, FormLabel, FormSelect } from "react-bootstrap";
 import { TopicAreaService } from "../../services/TopicAreaService";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ITopicAreaGet } from "../../DTO/TopicArea/ITopicAreaGet";
 import i18n from "i18next";
+import { ITopicAreaWithChildren } from "../../DTO/TopicArea/ITopicAreaWithChildren";
+import { INewsOutputDTO } from "../../DTO/News/INewsOutputDTO";
 
 interface IProps {
-	control: Control<INewsOutput, any>;
-	setValue: UseFormSetValue<INewsOutput>;
-	register: UseFormRegister<INewsOutput>;
-	errors: FieldErrors<INewsOutput>;
-	getValues: UseFormGetValues<INewsOutput>;
+	control: Control<INewsOutputDTO, any>;
+	setValue: UseFormSetValue<INewsOutputDTO>;
+	register: UseFormRegister<INewsOutputDTO>;
+	errors: FieldErrors<INewsOutputDTO>;
+	getValues: UseFormGetValues<INewsOutputDTO>;
 }
 
 const NewsTopicAreaInput: React.FC<IProps> = ({
@@ -36,17 +36,18 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 
 	const topicAreaService = new TopicAreaService();
 	const { t } = useTranslation();
-	const [topicAreas, setTopicAreas] = useState<ITopicAreaGet[]>([]);
+	const [topicAreas, setTopicAreas] = useState<ITopicAreaWithChildren[]>([]);
 
 	const fetchTopicAreas = async () => {
 		console.log("Sent request");
 
-		const topicAreaResponse = await topicAreaService.get<ITopicAreaGet[]>(
-			`${i18n.language}/topicAreas/get`
-		);
+		const topicAreaResponse = await topicAreaService.get<
+			ITopicAreaWithChildren[]
+		>(`${i18n.language}/topicAreas/get`);
 		if (topicAreaResponse !== undefined) {
+			console.log(topicAreaResponse);
+
 			setTopicAreas(topicAreaResponse);
-			console.log(topicAreas.length);
 		}
 	};
 
@@ -62,17 +63,38 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 						<section className="m-2">
 							<div className="row">
 								<FormFloating className="col-md-9">
-									<FormSelect id="topicAreas" name="topicAreas">
+									<FormSelect
+										{...register(`topicAreas.${index}.id`)}
+										id={`topicAreas.${index}.id`}
+										name={`topicAreas.${index}.id`}>
 										<option></option>
-                                        {topicAreas.map((topicArea) => {
-                                            return <>aaaa</>
-                                        })}
+										{topicAreas.map((topicArea) => {
+											return (
+												<>
+													<option id={topicArea.id} value={topicArea.id} key={topicArea.id}>
+														{topicArea.name}
+													</option>
+													{/* {topicArea.childrenTopicAreas?.map((child) => {
+														return (
+															<option
+																id={child.id}
+																className="pl-2"
+																key={child.id}>
+																&nbsp;&nbsp;&nbsp;{child.name}
+															</option>
+														);
+													})} */}
+												</>
+											);
+										})}
 									</FormSelect>
-									<FormLabel htmlFor="topicAreas">Topic areas</FormLabel>
+									<FormLabel htmlFor={`topicAreas.${index}.id`}>
+										{t("createNews.chooseTopicArea")}
+									</FormLabel>
 								</FormFloating>
 								<div className="col-md-2">
 									<button className=" btn btn-ttu-pink m-2" type="button">
-										Create category
+										{t("createNews.createTopicArea")}
 									</button>
 								</div>
 								<div className="col-md-1">
@@ -92,7 +114,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 							id: "",
 						});
 					}}>
-					Add category
+					{t("createNews.addTopicArea")}
 				</button>
 			</div>
 		</>

@@ -9,32 +9,7 @@ const NewsCreate = () => {
 
     const onSubmit = async (formValues: FieldValues) => {
       console.log(formValues)
-      let newsOutput: INewsOutputDTO = {
-        title: [
-          {
-            value: "Title value in eng",
-            culture: "en"
-          },
-          {
-            value: "Title value in est",
-            culture: "et"
-          }
-        ],
-        body: [
-          {
-            value: "Body in eng",
-            culture: "en"
-          },
-          {
-            value:  "Body in est",
-            culture: "et"
-          }
-        ],
-        image: formValues.file,
-        author: "Mingi Mees",
-        topicAreas: [{id: "f815be93-f9e0-4391-b400-95251e889f07"}]
-      }
-      const result = await newsService.post(`/${i18n.language}/news/create`, newsOutput);
+      const result = await newsService.post(`/${i18n.language}/news/create`, formValues as INewsOutputDTO);
       console.log(result);
       
     }
