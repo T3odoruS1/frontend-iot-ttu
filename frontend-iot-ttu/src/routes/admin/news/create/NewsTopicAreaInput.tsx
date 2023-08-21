@@ -82,6 +82,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 														return (
 															<option
 																id={child.id}
+																value={child.id}
 																className="pl-2"
 																key={child.id}>
 																&nbsp;&nbsp;&nbsp;{child.name}
