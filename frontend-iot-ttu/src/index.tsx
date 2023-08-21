@@ -12,8 +12,8 @@ import {
 } from "react-router-dom";
 import { initReactI18next } from "react-i18next";
 import i18n from "i18next";
-import NewsDetails from "./routes/news/NewsDetails";
-import NewsList from "./routes/news/NewsList";
+import NewsDetails from "./routes/newss/NewsDetails";
+import NewsList from "./routes/newss/NewsList";
 import Admin from "./routes/admin/Admin";
 import AdminNews from "./routes/admin/news/AdminNews";
 import NewsCreate from "./routes/admin/news/create/NewsCreate";
