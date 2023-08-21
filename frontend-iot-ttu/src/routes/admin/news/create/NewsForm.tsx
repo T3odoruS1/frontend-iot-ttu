@@ -10,7 +10,7 @@ import ReactQuill from "react-quill";
 import { useTranslation } from "react-i18next";
 import NewsTopicAreaInput from "./NewsTopicAreaInput";
 import ImageUploader from "../../../../components/ImageUpload";
-import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
+import { INewsOutputDTO } from "../../../../dtoo/news/INewsOutputDTO";
 
 interface IProps {
 	register: UseFormRegister<INewsOutputDTO>;

@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import { UseFormRegister, UseFormSetValue } from "react-hook-form";
-import { INewsOutput } from "../dto/news/INewsOutput";
+import { INewsOutput } from "../dtoo/news/INewsOutput";
 import { useTranslation } from "react-i18next";
-import { INewsOutputDTO } from "../dto/news/INewsOutputDTO";
+import { INewsOutputDTO } from "../dtoo/news/INewsOutputDTO";
 
 interface Props {
 	register: UseFormRegister<INewsOutputDTO>;

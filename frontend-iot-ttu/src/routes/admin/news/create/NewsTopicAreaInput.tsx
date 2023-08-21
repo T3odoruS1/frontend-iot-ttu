@@ -10,8 +10,8 @@ import { FormFloating, FormLabel, FormSelect } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
-import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
-import { ITopicAreaWithChildren } from "../../../../dto/topicarea/ITopicAreaWithChildren";
+import { INewsOutputDTO } from "../../../../dtoo/news/INewsOutputDTO";
+import { ITopicAreaWithChildren } from "../../../../dtoo/topicarea/ITopicAreaWithChildren";
 import { TopicAreaService } from "../../../../services/TopicAreaService";
 
 

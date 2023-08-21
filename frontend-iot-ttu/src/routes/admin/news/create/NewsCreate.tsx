@@ -1,7 +1,7 @@
 import { FieldValues } from "react-hook-form";
 import NewsCreateForm from "./NewsCreateFormWithPreview";
 import i18n from "i18next";
-import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
+import { INewsOutputDTO } from "../../../../dtoo/news/INewsOutputDTO";
 import { NewsService } from "../../../../services/NewsService";
 
 
