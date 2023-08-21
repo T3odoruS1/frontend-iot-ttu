@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { FormCheck, FormFloating } from "react-bootstrap";
 import NewsForm from "./NewsForm";
 import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
-import { formats, modules } from "../../../../configurations/configurations";
+import { formats, modules } from "../../../../configs/configurations";
 import ContentPreview from "../../../../components/ContentPreview";
 
 interface IProps {
