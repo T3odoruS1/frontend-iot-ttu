@@ -2,13 +2,13 @@ import { useForm, FieldValues } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { formats, modules } from "../../Configurations/configurations";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import NewsForm from "./NewsForm";
-import ContentPreview from "../../components/ContentPreview";
 import { FormCheck, FormFloating } from "react-bootstrap";
-import { INewsOutputDTO } from "../../DTO/News/INewsOutputDTO";
+import NewsForm from "./NewsForm";
+import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
+import { formats, modules } from "../../../../configurations/configurations";
+import ContentPreview from "../../../../components/ContentPreview";
 
 interface IProps {
 	onSubmit: (event: FieldValues) => void;

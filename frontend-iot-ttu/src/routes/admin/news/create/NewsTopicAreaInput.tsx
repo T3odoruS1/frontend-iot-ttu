@@ -7,12 +7,13 @@ import {
 	useFieldArray,
 } from "react-hook-form";
 import { FormFloating, FormLabel, FormSelect } from "react-bootstrap";
-import { TopicAreaService } from "../../services/TopicAreaService";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
-import { ITopicAreaWithChildren } from "../../DTO/TopicArea/ITopicAreaWithChildren";
-import { INewsOutputDTO } from "../../DTO/News/INewsOutputDTO";
+import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
+import { ITopicAreaWithChildren } from "../../../../dto/topicarea/ITopicAreaWithChildren";
+import { TopicAreaService } from "../../../../services/TopicAreaService";
+
 
 interface IProps {
 	control: Control<INewsOutputDTO, any>;
@@ -60,21 +61,24 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 			<div>
 				{fields.map((item, index) => {
 					return (
-						<section className="m-2">
+						<section className="m-2" key={index}>
 							<div className="row">
+								<div>
+								{errors.topicAreas?.[index]?.message?.toString()}
+								</div>
 								<FormFloating className="col-md-9">
 									<FormSelect
 										{...register(`topicAreas.${index}.id`)}
 										id={`topicAreas.${index}.id`}
 										name={`topicAreas.${index}.id`}>
-										<option></option>
+										<option key="default">Choose topic area</option>
 										{topicAreas.map((topicArea) => {
 											return (
 												<>
 													<option id={topicArea.id} value={topicArea.id} key={topicArea.id}>
 														{topicArea.name}
 													</option>
-													{/* {topicArea.childrenTopicAreas?.map((child) => {
+													{topicArea.childrenTopicAreas?.map((child) => {
 														return (
 															<option
 																id={child.id}
@@ -83,13 +87,13 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 																&nbsp;&nbsp;&nbsp;{child.name}
 															</option>
 														);
-													})} */}
+													})}
 												</>
 											);
 										})}
 									</FormSelect>
 									<FormLabel htmlFor={`topicAreas.${index}.id`}>
-										{t("createNews.chooseTopicArea")}
+										{t("createNews.chooseTopicArea")} 
 									</FormLabel>
 								</FormFloating>
 								<div className="col-md-2">

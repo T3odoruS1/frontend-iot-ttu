@@ -7,10 +7,10 @@ import {
 	UseFormSetValue,
 } from "react-hook-form";
 import ReactQuill from "react-quill";
-import ImageUploader from "../../components/ImageUpload";
 import { useTranslation } from "react-i18next";
 import NewsTopicAreaInput from "./NewsTopicAreaInput";
-import { INewsOutputDTO } from "../../DTO/News/INewsOutputDTO";
+import ImageUploader from "../../../../components/ImageUpload";
+import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
 
 interface IProps {
 	register: UseFormRegister<INewsOutputDTO>;

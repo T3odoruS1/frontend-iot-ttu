@@ -1,5 +1,4 @@
-import { FieldValues } from "react-hook-form";
-import { INewsOutputDTO } from "../DTO/News/INewsOutputDTO";
+import { INewsOutputDTO } from "../dto/news/INewsOutputDTO";
 import { NewsService } from "../services/NewsService";
 
 class NewSubmitHandler{
