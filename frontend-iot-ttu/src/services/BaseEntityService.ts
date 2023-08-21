@@ -1,4 +1,4 @@
-import { IBaseEntity } from "../dtoo/IBaseEntity";
+import { IBaseEntity } from "../dto/IBaseEntity";
 import { BaseService } from "./BaseService";
 
 export abstract class BaseEntityService extends BaseService {

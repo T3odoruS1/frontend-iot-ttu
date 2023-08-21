@@ -1,4 +1,4 @@
-import { INewsOutputDTO } from "../dtoo/news/INewsOutputDTO";
+import { INewsOutputDTO } from "../dto/news/INewsOutputDTO";
 import { NewsService } from "../services/NewsService";
 
 class NewSubmitHandler{
