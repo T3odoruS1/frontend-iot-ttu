@@ -14,7 +14,6 @@ import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
 import { ITopicAreaWithChildren } from "../../../../dto/topicarea/ITopicAreaWithChildren";
 import { TopicAreaService } from "../../../../services/TopicAreaService";
 
-
 interface IProps {
 	control: Control<INewsOutputDTO, any>;
 	setValue: UseFormSetValue<INewsOutputDTO>;
@@ -46,8 +45,6 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 			ITopicAreaWithChildren[]
 		>(`${i18n.language}/topicAreas/get`);
 		if (topicAreaResponse !== undefined) {
-			console.log(topicAreaResponse);
-
 			setTopicAreas(topicAreaResponse);
 		}
 	};
@@ -63,9 +60,6 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 					return (
 						<section className="m-2" key={index}>
 							<div className="row">
-								<div>
-								{errors.topicAreas?.[index]?.message?.toString()}
-								</div>
 								<FormFloating className="col-md-9">
 									<FormSelect
 										{...register(`topicAreas.${index}.id`)}
@@ -75,7 +69,10 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 										{topicAreas.map((topicArea) => {
 											return (
 												<>
-													<option id={topicArea.id} value={topicArea.id} key={topicArea.id}>
+													<option
+														id={topicArea.id}
+														value={topicArea.id}
+														key={topicArea.id}>
 														{topicArea.name}
 													</option>
 													{topicArea.childrenTopicAreas?.map((child) => {
@@ -94,12 +91,18 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 										})}
 									</FormSelect>
 									<FormLabel htmlFor={`topicAreas.${index}.id`}>
-										{t("createNews.chooseTopicArea")} 
+										{t("admin.news.adminNews.create.chooseTopicArea")}
+										<span className="text-danger">
+											{" "}
+											
+												{errors.topicAreas?.[index]?.id?.message?.toString()}
+											
+										</span>
 									</FormLabel>
 								</FormFloating>
 								<div className="col-md-2">
-									<button className=" btn btn-ttu-pink m-2" type="button">
-										{t("createNews.createTopicArea")}
+									<button className="btn btn-ttu-pink m-2" type="button">
+										{t("admin.news.adminNews.create.createTopicArea")}
 									</button>
 								</div>
 								<div className="col-md-1">
@@ -115,11 +118,13 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 					type="button"
 					className="mt-2 btn btn-ttu-pink"
 					onClick={() => {
+						console.log(errors.topicAreas?.[0]?.message?.toString());
+
 						append({
 							id: "",
 						});
 					}}>
-					{t("createNews.addTopicArea")}
+					{t("admin.news.adminNews.create.addTopicArea")}
 				</button>
 			</div>
 		</>

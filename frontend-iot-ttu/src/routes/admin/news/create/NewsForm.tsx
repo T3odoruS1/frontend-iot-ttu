@@ -46,7 +46,7 @@ const NewsForm: React.FC<IProps> = ({
 	const { t } = useTranslation();
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} id="news-form">
-			<h2 className="header-purple">Titles</h2>
+			<h2 className="header-purple">{t("admin.news.adminNews.create.titles")}</h2>
 			<FormFloating className="mb-2">
 				<FormControl
 					{...register(`title.${0}.value`)}
@@ -56,7 +56,7 @@ const NewsForm: React.FC<IProps> = ({
 					name={`title.${0}.value`}
 				/>
 				<FormLabel htmlFor={`title.${0}.value`}>
-					{t("createNews.titleInEnglish")}
+					{t("admin.news.adminNews.create.titleInEnglish")}
 					<span className="text-danger">
 						{errors.titleEng?.message?.toString()}
 					</span>
@@ -103,21 +103,21 @@ const NewsForm: React.FC<IProps> = ({
 					name={`title.${1}.value`}
 				/>
 				<FormLabel htmlFor={`title.${1}.value`}>
-					{t("createNews.titleInEstonian")}
+					{t("admin.news.adminNews.create.titleInEstonian")}
 					<span className="text-danger">
 						{errors.titleEst?.message?.toString()}
 					</span>
 				</FormLabel>
 			</FormFloating>
-			<h2 className="mt-5 header-purple">Thumbnail</h2>
+			<h2 className="mt-5 header-purple">{t("admin.news.adminNews.create.thumbnail")}</h2>
 			<ImageUploader
-				label={t("createNews.uploadPoster")}
+				label={t("admin.news.adminNews.create.uploadPoster")}
 				register={register}
 				setValue={setValue}
 				name={"image"}
 				fileSize={5}
 			/>
-			<h2 className="mt-5 header-purple">{t("createNews.author")}</h2>
+			<h2 className="mt-5 header-purple">{t("admin.news.adminNews.create.author")}</h2>
 			<FormFloating className="mb-2">
 				<FormControl
 					{...register("author")}
@@ -127,13 +127,13 @@ const NewsForm: React.FC<IProps> = ({
 					name="author"
 				/>
 				<FormLabel htmlFor="author">
-					{t("createNews.authorName")}
+					{t("admin.news.adminNews.create.authorName")}
 					<span className="text-danger">
 						{errors.author?.message?.toString()}
 					</span>
 				</FormLabel>
 			</FormFloating>
-			<h2 className="mt-5 header-purple">{t("createNews.categories")}</h2>
+			<h2 className="mt-5 header-purple">{t("admin.news.adminNews.create.categories")}</h2>
 			<NewsTopicAreaInput
 				control={control}
 				setValue={setValue}
@@ -142,7 +142,7 @@ const NewsForm: React.FC<IProps> = ({
 				errors={errors}
 			/>
 
-			<h2 className="mt-5 header-purple">{t("createNews.contentEng")}</h2>
+			<h2 className="mt-5 header-purple">{t("admin.news.adminNews.create.contentEng")}</h2>
 			<ReactQuill
 				theme="snow"
 				value={editorHtmlEng}
@@ -151,7 +151,7 @@ const NewsForm: React.FC<IProps> = ({
 				formats={formats}
 			/>
 
-			<h2 className="mt-5 header-purple">{t("createNews.contentEst")}</h2>
+			<h2 className="mt-5 header-purple">{t("admin.news.adminNews.create.contentEst")}</h2>
 			<ReactQuill
 				theme="snow"
 				value={editorHtmlEst}
@@ -167,7 +167,7 @@ const NewsForm: React.FC<IProps> = ({
 				type="submit"
 				id="registerSubmit"
 				className="w-100 btn_custom_out">
-				{t("createNews.create")}
+				{t("admin.news.adminNews.create.create")}
 			</Button>
 		</form>
 	);

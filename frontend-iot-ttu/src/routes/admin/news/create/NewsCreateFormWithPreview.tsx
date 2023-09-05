@@ -44,7 +44,7 @@ const schema = yup.object().shape({
 		.array()
 		.of(
 			yup.object().shape({
-				id: yup.string().uuid().required(),
+				id: yup.string().uuid("Topic area must be chosen").required(),
 			})
 		)
 		.required(),
@@ -87,7 +87,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 		<>
 			<br />
 			<div className="d-flex">
-				<h2 className="m-2 page_title">{t("createNews.createNewPost")}</h2>
+				<h2 className="m-2 page_title">{t("admin.news.adminNews.create.createNewPost")}</h2>
 			</div>
 			<FormFloating>
 				<FormCheck

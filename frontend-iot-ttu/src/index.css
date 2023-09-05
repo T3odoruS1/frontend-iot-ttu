@@ -61,11 +61,15 @@ height: 60px;
 }
 
 .top-text:hover, .dropdown-menu-custom:hover :active {
+  color:#e4067e;
+}
+
+.top-text:focus {
   color:white;
-  text-decoration: underline;
-  text-decoration-color: white;
-  text-underline-offset: 0.6rem;
-  text-decoration-thickness: 6rem;
+}
+
+.top-text-active{
+  color:#e4067e;
 }
 
 .navbar-placement{
@@ -106,7 +110,7 @@ a:hover{
 }
 
 .under-language{
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .content_image{

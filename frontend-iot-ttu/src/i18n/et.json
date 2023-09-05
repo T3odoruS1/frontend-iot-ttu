@@ -1,0 +1,50 @@
+{
+  "admin": {
+    "header": {
+      "news": "Uudised",
+      "openSourceSolutions": "Vabavaralised lahendused",
+      "projects": "Projektid",
+      "public": "Avalik leht",
+      "statistics": "Statistika",
+      "technology": "Tehnoloogia",
+      "users": "Kasutajad"
+    },
+    "imageUploader": {
+      "chooseFile": "Vali file",
+      "clickToUploadFile": "Vajuta faili lisamiseks"
+    },
+    "news": {
+      "adminNews": {
+        "create": {
+          "addTopicArea": "Loo kategoria",
+          "author": "Autor",
+          "authorName": "Autori nimi",
+          "categories": "Kategooriad",
+          "chooseTopicArea": "Vali kategooria",
+          "contentEng": "Postituse sisu inglise keeles",
+          "contentEst": "Postituse sisu eesti keeles",
+          "create": "Salvesta",
+          "createNewPost": "Uus postitus",
+          "createTopicArea": "Loo kategoria",
+          "fileIsTooBig": "Faili suurus on liiga suur. Maksimum suurus on {{size}} MB.",
+          "thumbnail": "Postituse pilt",
+          "titleInEnglish": "Pealkiri inglise keeles",
+          "titleInEstonian": "Pealkiri eesti keeles",
+          "titles": "Pealkirjad",
+          "uploadPoster": "Pilt"
+        }
+      }
+    }
+  },
+  "public": {
+    "header": {
+      "adminPanel": "Admiini panel",
+      "contactUs": "Võta ühendust",
+      "home": "Koduleht",
+      "news": "Uudised",
+      "openSourceSolutions": "Vabavaralised lahendused",
+      "projects": "Projektid",
+      "technology": "Tehnoloogia"
+    }
+  }
+}

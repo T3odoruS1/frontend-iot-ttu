@@ -11,7 +11,7 @@ const Header = () => {
 		<>
 			<nav className="top-gradient navbar navbar-expand-lg navbar-light bg-light pb-0">
 				<div className="container-fluid">
-					<Link className="navbar-brand mr-auto pb-0" to="/">
+					<Link className="navbar-brand mr-auto pb-0"  to={`/${i18n.language}`}>
 						<TalTechSVG />
 					</Link>
 					<button
@@ -30,37 +30,37 @@ const Header = () => {
 						<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 							<HeaderNavLink
 								to={`/${i18n.language}`}
-								title={t("header.home")}
+								title={t("public.header.home")}
 							/>
 							<HeaderNavLink
-								to={`/${i18n.language}/newsDemo`}
-								title={t("header.news")}
+								to={`/${i18n.language}/news`}
+								title={t("public.header.news")}
 							/>
 							<HeaderNavLink
-								to={`/${i18n.language}`}
-								title={t("header.technology")}
+								to={`/${i18n.language}/technology`}
+								title={t("public.header.technology")}
 							/>
 
 							<li className="nav-item dropdown">
 								<Link
 									className="nav-link dropdown-toggle top-text"
-									to={`/${i18n.language}`}
+									to={`/${i18n.language}/projects`}
 									id="navbarDropdown"
 									role="button"
 									data-bs-toggle="dropdown"
 									aria-expanded="false">
-									{t("header.projects")}
+									{t("public.header.projects")}
 								</Link>
 								<ul
 									className="dropdown-menu dropdown-menu-custom"
 									aria-labelledby="navbarDropdown">
 									<li>
-										<Link className="dropdown-item" to={`/${i18n.language}`}>
+										<Link className="dropdown-item" to={`/${i18n.language}/projects`}>
 											Projekt 1
 										</Link>
 									</li>
 									<li>
-										<Link className="dropdown-item" to={`/${i18n.language}`}>
+										<Link className="dropdown-item" to={`/${i18n.language}/projects`}>
 											Projekt 2
 										</Link>
 									</li>
@@ -70,30 +70,34 @@ const Header = () => {
 							<li className="nav-item dropdown">
 								<Link
 									className="nav-link dropdown-toggle top-text"
-									to={`/${i18n.language}`}
+									to={`/${i18n.language}/opensourcesolutions`}
 									id="navbarDropdown"
 									role="button"
 									data-bs-toggle="dropdown"
 									aria-expanded="false">
-									{t("header.openSourceSolutions")}
+									{t("public.header.openSourceSolutions")}
 								</Link>
 								<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
 									<li>
-										<Link className="dropdown-item" to="#">
+										<Link className="dropdown-item" to={`/${i18n.language}/opensourcesolutions`}>
 											Lahendus 1
 										</Link>
 									</li>
 									<li>
-										<Link className="dropdown-item" to="#">
+										<Link className="dropdown-item" to={`/${i18n.language}/opensourcesolutions`}>
 											Lahendus 2
 										</Link>
 									</li>
 								</ul>
 							</li>
+							<HeaderNavLink
+								to={`/${i18n.language}/admin`}
+								title={t("public.header.adminPanel")}
+							/>
 							<li>
 								<LanguageSwitcher />
-								<Link className="nav-link top-text under-language" to={"/"}>
-								{t('header.contactUs')}
+								<Link className="nav-link top-text under-language" to={`/${i18n.language}/contact`}>
+								{t('public.header.contactUs')}
 								</Link>
 							</li>
 						</ul>

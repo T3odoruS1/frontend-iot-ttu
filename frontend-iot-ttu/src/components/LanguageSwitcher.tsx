@@ -11,7 +11,6 @@ function LanguageSwitcher() {
 	const { lang } = useParams();
 
 	useEffect(() => {
-		console.log("Path segments: " + lang);
 
 		i18n.changeLanguage(lang);
 
@@ -20,38 +19,38 @@ function LanguageSwitcher() {
 
 	const changeLanguage = (lng: string) => {
 		// console.log("Lang: " + lng);
-
+		i18n.changeLanguage(lng);
 		const pathSegments = location.pathname.split("/");
 
 		pathSegments[1] = lng;
-
+		
 		navigate(pathSegments.join("/"));
 	};
 
 	return (
 		<div className="">
 			{lang === "en" ? (
-				<div>
+				<div className="d-flex justify-content-end">
 					<a
 						className="language-switcher m-2 selected"
 						onClick={() => changeLanguage("en")}>
 						ENG
 					</a>
 					<a
-						className="language-switcher"
+						className="language-switcher m-2"
 						onClick={() => changeLanguage("et")}>
 						EST
 					</a>
 				</div>
 			):(
-				<div>
+				<div className="d-flex justify-content-end">
 					<a
 						className="language-switcher m-2"
 						onClick={() => changeLanguage("en")}>
 						ENG
 					</a>
 					<a
-						className="language-switcher selected"
+						className="language-switcher m-2 selected"
 						onClick={() => changeLanguage("et")}>
 						EST
 					</a>

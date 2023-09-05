@@ -1,0 +1,50 @@
+{
+  "admin": {
+    "header": {
+      "news": "News",
+      "openSourceSolutions": "Open source solutions",
+      "projects": "Projects",
+      "public": "Public website",
+      "statistics": "Statistics",
+      "technology": "Technology",
+      "users": "Users"
+    },
+    "imageUploader": {
+      "chooseFile": "Choose file",
+      "clickToUploadFile": "Click to upload file"
+    },
+    "news": {
+      "adminNews": {
+        "create": {
+          "addTopicArea": "Add topic area",
+          "author": "Author",
+          "authorName": "Author name",
+          "categories": "Categories",
+          "chooseTopicArea": "Choose topic area",
+          "contentEng": "Main content in English",
+          "contentEst": "Main content in Estonian",
+          "create": "Create",
+          "createNewPost": "Create new post",
+          "createTopicArea": "Create topic area",
+          "fileIsTooBig": "File is too large. Maximum size is {{size}} MB.",
+          "thumbnail": "Thumbnail",
+          "titleInEnglish": "Title in English",
+          "titleInEstonian": "Title in Estonian",
+          "titles": "Titles",
+          "uploadPoster": "Upload a poster"
+        }
+      }
+    }
+  },
+  "public": {
+    "header": {
+      "adminPanel": "Admin panel",
+      "contactUs": "Contact us",
+      "home": "Home",
+      "news": "News",
+      "openSourceSolutions": "Open source solutions",
+      "projects": "Projects",
+      "technology": "Technology"
+    }
+  }
+}

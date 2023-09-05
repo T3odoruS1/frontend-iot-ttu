@@ -54,7 +54,7 @@ const ImageUploader: FC<Props> = ({
 						type="button"
 						id="button-addon2">
 						<label htmlFor="file-input" style={{ marginBottom: 0 }}>
-							{t("chooseFile")}
+							{t("admin.imageUploader.chooseFile")}
 						</label>
 					</button>
 					<input
@@ -64,7 +64,7 @@ const ImageUploader: FC<Props> = ({
 						id="file-input" // Id to associate with label
 					/>
 					<label htmlFor="file-input" className="form-control">
-						{fileName || t("clickToUploadFile")}
+						{fileName || t("admin.imageUploader.clickToUploadFile")}
 					</label>
 				</div>
 
