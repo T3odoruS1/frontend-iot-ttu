@@ -44,6 +44,14 @@ const ImageUploader: FC<Props> = ({
 		}
 	};
 
+	const onImageRemove = () => {
+	  if(fileName){
+		setValue(name, "");
+		setFileName("");
+		setPreview("");
+	  }
+	};
+
 	return (
 		<div className="mb-3 row">
 			<div className="col-md-8">
@@ -66,8 +74,9 @@ const ImageUploader: FC<Props> = ({
 					<label htmlFor="file-input" className="form-control">
 						{fileName || t("admin.imageUploader.clickToUploadFile")}
 					</label>
+					
 				</div>
-
+				<button className="btn btn-ttu-pink mt-2"  onClick={onImageRemove} type="button">Remove</button>
 			</div>
 			<div className="col-md-4">
 			{preview && (

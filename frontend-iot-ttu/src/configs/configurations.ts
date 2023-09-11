@@ -1,7 +1,15 @@
 import Quill from "quill";
 import ImageResize from 'quill-image-resize-module-react'
 
+let Size = Quill.import('attributors/style/size');
+// let Font = Quill.import('formats/font');
+// Font.whitelist = ['ProximaNova', 'black']
 
+//   font-family: ProximaNovaBlack,sans-serif;
+
+
+Size.whitelist = ['8pt', '12pt', '14pt', '16pt', '18pt', '20pt', '32pt'];
+Quill.register(Size, true);
 
 
 export const modules = {
@@ -17,11 +25,11 @@ export const modules = {
 		[{ indent: "-1" }, { indent: "+1" }],
 		[{ direction: "rtl" }],
 
-		[{ size: ["small", false, "large", "huge"] }],
+		// [{ 'size': ['8pt', '10pt', '12pt' , '14pt', false, '18pt', '20pt', '32pt'] }],
 		[{ header: [1, 2, 3, 4, 5, 6, false] }],
 
 		[{ color: [] }, { background: [] }],
-		[{ font: [] }],
+		// [{ font: [] }],
 		[{ align: [] }],
 
 		["clean"],

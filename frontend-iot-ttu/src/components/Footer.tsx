@@ -2,8 +2,8 @@ const Footer = () => {
 	return (
 		<>
 
-				<footer className="footer bg-light text-center">
-					<div className="container">Here is the footer</div>
+				<footer className="footer top-gradient text-center">
+					<div className="container text-light"><b>Here is the footer</b></div>
 				</footer>
 
 		</>

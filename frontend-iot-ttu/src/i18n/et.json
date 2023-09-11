@@ -36,6 +36,7 @@
       }
     }
   },
+  "author": "autor",
   "public": {
     "header": {
       "adminPanel": "Admiini panel",

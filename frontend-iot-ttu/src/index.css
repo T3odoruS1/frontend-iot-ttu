@@ -13,38 +13,68 @@ code {
     monospace;
 }
 
-*{
-  padding: 0;
-  margin: 0;
+h1{
+  line-height: 3.5rem;
 }
 
+h2{
+  line-height: 3.25rem;
+}
+
+h3{
+  line-height: 3rem;
+}
+
+h4{
+  line-height: 2.75rem;
+}
+
+h5{
+  line-height: 2.5rem;
+}
+
+.max-w{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100% !important;
+}
+
+.root-div {
+  max-width: 1500px;
+  width: 100%;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  line-height: 1.42;
+  margin:2rem;
+
+}
 html {
 position: relative;
 min-height: 100%;
+font-size: 16px;
+line-height: 2.25rem;
 }
 body {
 /* Margin bottom by footer height */
 margin-bottom: 60px;
 }
-.footer {
+/* .footer {
 position: absolute;
 bottom: 0;
 width: 100%;
+z-index: 5;
 /* Set the fixed height of the footer here */
-height: 60px;
+/* height: 60px; */
 
-}
+/* }  */
 
-.quill-editor iframe {
-  pointer-events: none;
-}
-
-.ql-editor .ql-video {
-  display: block;
-  width: 40rem;
-  /* height: 50%; */
-  min-height:20rem;
-}
 
 .top-gradient{
   background: linear-gradient(-90deg,#342b60,#60c3d5);
@@ -86,11 +116,15 @@ height: 60px;
 
 .result-div{
   border: none !important;
+  max-width: 1500px;
+  margin-right:auto;
+  margin-left:auto;
   font-family: ProximaNova,sans-serif;
 }
 
 .result-div.ql-container.ql-snow{
   border: none !important;
+  min-height: none;
 }
 
 .language-switcher{
@@ -113,15 +147,16 @@ a:hover{
   margin-top: 5px;
 }
 
-.content_image{
+img.content_image{
   width: 100%;
+  aspect-ratio:16/9;
 }
 
 .page-title{
-  font-weight: 900;
-  font-size: 2.625rem;
+  font-weight: 700;
+  font-size: 2.0rem;
   color: #342b60;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   line-height: 2.5rem;
   margin: 0;
   font-family: ProximaNovaBlack,sans-serif;
@@ -143,7 +178,7 @@ a:hover{
   font-family: ProximaNovaBlack,sans-serif;
   font-weight: 900;
   text-transform: uppercase;
-  font-size: 2.625rem;
+  font-size: 2.0rem;
 
 }
 
@@ -171,3 +206,122 @@ a:hover{
 .admin-menu{
   border-top:#342b60 4px solid
 }
+
+.gray-bg-fill{
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100vw; /* 100% of the viewport width */
+  background-color: #F1EEEE; /* Change to your desired background color */
+  z-index: 1; 
+}
+
+.gray-bg-fill::before {
+  position: relative; /* Necessary for the absolute positioning of the pseudo-element to relate to this element */
+    z-index: 0; /* Reset z-index to default stacking context */
+    background-color: #F1EEEE; /* Change to your desired background color */
+
+}
+
+/* .sticky-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #333; 
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+} */
+
+a{
+  color:#e4067e;
+}
+
+a:hover{
+  color: #a8045c;
+}
+
+.footer {
+  margin-top:5rem;
+  min-height: 6rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -60px;
+  z-index: 5;
+} 
+
+
+/* 
+Quill
+*/
+
+.ql-editor p{
+  line-height: 2.25rem;
+  font-family: ProximaNovaBlack,sans-serif;
+
+}
+
+.ql-container{
+  font-size:inherit;
+}
+
+.quill-editor iframe {
+  pointer-events: none;
+}
+
+.ql-editor .ql-video {
+  display: block;
+  width: 40rem;
+  font-family: ProximaNovaBlack,sans-serif;
+  overflow: auto;
+  min-height:20rem;
+  margin-bottom: auto;
+}
+/* 
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="8px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="8px"]::before {
+  content: '8';
+  font-size: 8px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+  content: '16';
+  font-size: 16px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="12px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="12px"]::before {
+  content: '12';
+  font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="10px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="10px"]::before {
+  content: '10';
+  font-size: 10px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="14px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="14px"]::before {
+  content: '14';
+  font-size: 14px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="18px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="18px"]::before {
+  content: '18';
+  font-size: 18px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="20px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="20px"]::before {
+  content: '20';
+  font-size: 20px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="32px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="32px"]::before {
+  content: '32';
+  font-size: 32px;
+} */

@@ -6,9 +6,11 @@ const Public = () => {
 	return (
 		<>
 			<Header />
-			<div className="m-5">
+			<main>
+				<div className="root-div">
 				<Outlet />
-			</div>
+				</div>
+			</main>
 			<Footer />
 		</>
 	);

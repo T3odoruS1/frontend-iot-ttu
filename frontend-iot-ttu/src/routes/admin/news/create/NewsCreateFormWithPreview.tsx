@@ -72,8 +72,6 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 	}, [preview, getValues]);
 
 	const onEditorStateChangeEng = (html: string) => {
-		console.log(errors);
-		
 		setValue(`body.${0}.value`, html);
 		setEditorHtmlEng(html);
 	};
@@ -86,8 +84,10 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 	return (
 		<>
 			<br />
-			<div className="d-flex">
-				<h2 className="m-2 page_title">{t("admin.news.adminNews.create.createNewPost")}</h2>
+			<div className="d-flex w-100">
+				<h4 className="m-2 page_title">
+					{t("admin.news.adminNews.create.createNewPost")}
+				</h4>
 			</div>
 			<FormFloating>
 				<FormCheck
@@ -102,7 +102,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 			</FormFloating>
 			<hr />
 
-			<div style={{ display: preview ? "none" : "block" }}>
+			<div className="w-100" style={{ display: preview ? "none" : "block" }}>
 				<NewsForm
 					control={control}
 					register={register}

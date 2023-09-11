@@ -36,6 +36,7 @@
       }
     }
   },
+  "author": "author",
   "public": {
     "header": {
       "adminPanel": "Admin panel",
