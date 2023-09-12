@@ -1,4 +1,4 @@
-import { FormControl, FormFloating, FormLabel, Button } from "react-bootstrap";
+import { FormControl, FormFloating, FormLabel } from "react-bootstrap";
 import {
 	Control,
 	UseFormGetValues,
@@ -6,7 +6,7 @@ import {
 	UseFormRegister,
 	UseFormSetValue,
 } from "react-hook-form";
-import ReactQuill from "react-quill";
+import ReactQuill, {Quill} from "react-quill";
 import { useTranslation } from "react-i18next";
 import NewsTopicAreaInput from "./NewsTopicAreaInput";
 import ImageUploader from "../../../../components/ImageUpload";
@@ -163,12 +163,12 @@ const NewsForm: React.FC<IProps> = ({
 			<br />
 			<br />
 			
-			<Button
+			<button
 				type="submit"
 				id="registerSubmit"
-				className="w-100 btn_custom_out">
+				className="w-100 btn btn-ttu-pink">
 				{t("admin.news.adminNews.create.create")}
-			</Button>
+			</button>
 		</form>
 	);
 };

@@ -1,7 +1,6 @@
 import { useForm, FieldValues } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FormCheck, FormFloating } from "react-bootstrap";
@@ -35,7 +34,7 @@ const schema = yup.object().shape({
 			})
 		)
 		.required(),
-	image: yup.mixed(),
+	image: yup.string().required(),
 	author: yup
 		.string()
 		.min(1, "Author name should be at least 1 letter")
@@ -88,7 +87,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 				<h4 className="m-2 page_title">
 					{t("admin.news.adminNews.create.createNewPost")}
 				</h4>
-			</div>
+				<div className="mt-3 ml-4">
 			<FormFloating>
 				<FormCheck
 					type="switch"
@@ -100,6 +99,10 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 					}}
 				/>
 			</FormFloating>
+			</div>
+			</div>
+			
+			
 			<hr />
 
 			<div className="w-100" style={{ display: preview ? "none" : "block" }}>

@@ -1,20 +1,14 @@
-import Quill from "quill";
 import ImageResize from 'quill-image-resize-module-react'
-
-let Size = Quill.import('attributors/style/size');
-// let Font = Quill.import('formats/font');
-// Font.whitelist = ['ProximaNova', 'black']
-
-//   font-family: ProximaNovaBlack,sans-serif;
+import {Quill} from 'react-quill'
+import 'quill/dist/quill.snow.css';
 
 
-Size.whitelist = ['8pt', '12pt', '14pt', '16pt', '18pt', '20pt', '32pt'];
-Quill.register(Size, true);
-
+Quill.register('modules/imageResize', ImageResize);
 
 export const modules = {
     imageResize: {
-        parchment: Quill.import('parchment')
+        parchment: Quill.import('parchment'),
+		modules: ['Resize', 'DisplaySize'],
     },
 	toolbar: [
 		["bold", "italic", "underline", "strike"],
@@ -62,6 +56,5 @@ export const formats = [
 	"script",
 ];
 
-Quill.register('modules/imageResize', ImageResize);
 
 export const SUPPORTED_FILE_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
