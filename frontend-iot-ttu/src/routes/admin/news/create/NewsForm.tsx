@@ -140,6 +140,7 @@ const NewsForm: React.FC<IProps> = ({
 				getValues={getValues}
 				register={register}
 				errors={errors}
+				
 			/>
 
 			<h2 className="mt-5 header-purple">{t("admin.news.adminNews.create.contentEng")}</h2>

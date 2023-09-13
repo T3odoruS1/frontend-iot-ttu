@@ -1,14 +1,15 @@
-import ImageResize from 'quill-image-resize-module-react'
-import {Quill} from 'react-quill'
+import ImageResize from '../module/quill-image-resize-react/src/ImageResize.js';
+import {Quill} from 'react-quill';
 import 'quill/dist/quill.snow.css';
 
 
 Quill.register('modules/imageResize', ImageResize);
 
+
 export const modules = {
     imageResize: {
         parchment: Quill.import('parchment'),
-		modules: ['Resize', 'DisplaySize'],
+		modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
     },
 	toolbar: [
 		["bold", "italic", "underline", "strike"],
@@ -19,11 +20,9 @@ export const modules = {
 		[{ indent: "-1" }, { indent: "+1" }],
 		[{ direction: "rtl" }],
 
-		// [{ 'size': ['8pt', '10pt', '12pt' , '14pt', false, '18pt', '20pt', '32pt'] }],
 		[{ header: [1, 2, 3, 4, 5, 6, false] }],
 
 		[{ color: [] }, { background: [] }],
-		// [{ font: [] }],
 		[{ align: [] }],
 
 		["clean"],
@@ -55,6 +54,7 @@ export const formats = [
 	"code-block",
 	"script",
 ];
+
 
 
 export const SUPPORTED_FILE_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];

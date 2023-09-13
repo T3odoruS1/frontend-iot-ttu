@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FormCheck, FormFloating } from "react-bootstrap";
 import NewsContent from "./NewsContent";
 import { INewsOutputDTO } from "../dto/news/INewsOutputDTO";
 import placeholder from "../assets/placeholder.webp"
@@ -11,12 +10,6 @@ interface IProps {
 }
 
 const ContentPreview = (props: IProps) => {
-	const [language, setLanguage] = useState("et"); // default language is Estonian
-	const {t} = useTranslation();
-	const onLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setLanguage(event.target.checked ? "en" : "et");
-	};
-
 	const getContent = (value: string | undefined, def: string) => {
 		if(value !== undefined && value.length > 0){
 			return value;
@@ -24,29 +17,15 @@ const ContentPreview = (props: IProps) => {
 		return def;
 	}
 
-	const getImage = (imageContent: string) => {
-		console.log(imageContent);
-		
+	const getImage = (imageContent: string) => {		
 		if(imageContent !== undefined && imageContent && imageContent.length > 0){
 			return imageContent;
-		}
-		console.log("Returning placeholder");
-		
-		// return placeholder;
+		}		
 		return placeholder;
 	}
 
 	return (
 		<>
-			{/* <FormFloating>
-				<FormCheck
-					type="switch"
-					id="custom-switch"
-					label={i18n.language === "et" ? "Estonian" : "English"}
-					checked={i18n.language === "en"}
-					onChange={onLanguageChange}></FormCheck>
-			</FormFloating>
-			<br /> */}
 			<div className="d-inline-flex justify-content-center align-items-center w-100">
 				<NewsContent
 					title={
