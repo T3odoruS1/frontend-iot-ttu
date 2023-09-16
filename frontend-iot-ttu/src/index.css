@@ -13,24 +13,28 @@ code {
     monospace;
 }
 
-h1{
+.ql-editor h1 {
   line-height: 3.5rem;
 }
 
-h2{
+h2 .ql-editor{
   line-height: 3.25rem;
 }
 
-h3{
+h3 .ql-editor{
   line-height: 3rem;
 }
 
-h4{
+h4 .ql-editor{
   line-height: 2.75rem;
 }
 
-h5{
+h5 .ql-editor{
   line-height: 2.5rem;
+}
+
+.result-div .ql-editor{
+  padding: 0px;
 }
 
 .max-w{
@@ -176,7 +180,7 @@ img.content_image{
 .page_title{
   color: #e4067e;
   font-family: ProximaNovaBlack,sans-serif;
-  font-weight: 900;
+  font-weight: bold;
   text-transform: uppercase;
   font-size: 2.0rem;
 
@@ -194,6 +198,46 @@ img.content_image{
 
 .header-purple{
   color: #342b60;
+  font-weight: 900;
+}
+
+.topic-area-list{
+  color: gray;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.filter-box{
+  border-left: #342b60 1px solid;
+}
+ul li
+{
+    list-style-type: none;
+}
+
+.news-card{
+  max-width: 550px;
+}
+
+.thumbnail{
+  aspect-ratio: 16/9;
+  width: 100%;
+  object-fit:cover;
+
+}
+
+.link-no-underline{
+  text-decoration: none;
+  color: #342b60;
+  font-weight: 700;
+}
+
+.link-no-underline:hover{
+  color: #e4067e;
+}
+
+.header-pink{
+  color: #e4067e;
   font-weight: 700;
 }
 
@@ -257,8 +301,8 @@ Quill
 
 .ql-editor p{
   line-height: 2.25rem;
+  font-size: 16px;
   font-family: ProximaNovaBlack,sans-serif;
-
 }
 
 .ql-container{
@@ -325,3 +369,32 @@ Quill
   content: '32';
   font-size: 32px;
 } */
+
+
+.header-figma-test {
+  color: #e4067e;
+  font-family: "Proxima Nova-Black", Helvetica;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.btn-primary-pink{
+    font-size: 1.125rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    border: 4px solid #e4067e;
+    line-height: 1.25rem;
+    background-color: #e4067e;
+    transition: all .3s ease;
+    display: inline-block;
+    text-decoration: none;
+    padding: calc(1.1rem - 4px) calc(2.3125rem - 4px) calc(1.4rem - 4px);
+    border-radius: 60px;
+}
+
+.container-fluid{
+  max-width: 1500px;
+}

@@ -1,5 +1,8 @@
 import { useTranslation } from "react-i18next";
 import capitalize from "../utils/capitalize";
+import { ITopicAreaGet } from "../dto/topicarea/ITopicAreaGet";
+import SubHeadingPurple from "./common/SubheadingPurple";
+import { Row } from "react-bootstrap";
 
 interface IProps {
 	title: string;
@@ -7,16 +10,19 @@ interface IProps {
 	createdAt: string;
 	author: string;
 	content: string;
-	lang: string;
+	topicAreas: ITopicAreaGet[];
 }
 
 const NewsContent = (props: IProps) => {
 	const [t] = useTranslation();
+
+	const joinTopicAreas = (): string => {
+		return props.topicAreas.map(area => area.name).join(", ");
+	}
 	return (
-		<div className="m-2 w-100">
-			<h2 className=" p-3 header-purple">{props.title}</h2>
-			<br />
-			<div className="row w-100 mb-5 p-3">
+		<div className="w-100">
+			<SubHeadingPurple className="mt-5">{props.title}</SubHeadingPurple>
+			<Row className="w-100 mb-5">
 				{props.image !== undefined && props.image.length > 0 ? (
 					<>
 						<div className="col-md-9">
@@ -36,7 +42,7 @@ const NewsContent = (props: IProps) => {
 								</b>
 							</p>
 							<p className="text-purple-main">
-								<b><a href=".">Technology</a>, <a href=".">Electricity</a></b>
+								<b>{joinTopicAreas()}</b>
 							</p>
 
 						</div>
@@ -59,7 +65,7 @@ const NewsContent = (props: IProps) => {
 						</div>
 					</>
 				)}
-			</div>
+			</Row>
 			<div className="w-100 mt-2">
 				<div className="quill">
 					<div className="result-div ql-container ql-snow" style={{position:"relative"}}>

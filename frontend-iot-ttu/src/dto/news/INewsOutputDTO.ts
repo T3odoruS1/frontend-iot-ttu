@@ -5,5 +5,9 @@ export interface INewsOutputDTO{
     body: IContent[];
     author: string;
     image: string;
-    topicAreas: {id: string}[];
+    topicAreas: {
+        id: string,
+        title?: string,
+        culture?:string;
+    }[];
 }

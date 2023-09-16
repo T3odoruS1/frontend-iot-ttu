@@ -18,18 +18,18 @@ export abstract class BaseService{
 
 
 		
-		this.axios.interceptors.request.use(request => {
-            console.log('Starting Request', JSON.stringify(request, null, 2))
-            return request
-        })
-		this.axios.interceptors.response.use(function (response) {
-			console.warn("Getting response", JSON.stringify(response, null, 2));
+		// this.axios.interceptors.request.use(request => {
+        //     console.log('Starting Request', JSON.stringify(request, null, 2))
+        //     return request
+        // })
+		// this.axios.interceptors.response.use(function (response) {
+		// 	console.warn("Getting response", JSON.stringify(response, null, 2));
 			
-			return response;
-		  }, function (error) {
-			console.warn("Getting response", JSON.stringify(error as Error, null, 2));
-			return error;
-		  });
+		// 	return response;
+		//   }, function (error) {
+		// 	console.warn("Getting response", JSON.stringify(error as Error, null, 2));
+		// 	return error;
+		//   });
 
 	}
 }
