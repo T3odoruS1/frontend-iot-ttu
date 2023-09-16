@@ -14,9 +14,7 @@ const NewsPiece = () => {
   const [image, setImage] = useState();
 
 	const fetchNewsPiece = async () => {
-  		const newsResult = await newsService.get<INews>(
-			`${i18n.language}/news/getById?id=${params.id}`
-		);
+  		const newsResult = await newsService.getById(i18n.language, params.id!)
 		if (newsResult !== undefined) {
 			setNews(newsResult);
 		}

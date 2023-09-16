@@ -10,7 +10,7 @@ const NewsCreate = () => {
 
     const onSubmit = async (formValues: FieldValues) => {
       console.log(formValues)
-      const result = await newsService.post(`/${i18n.language}/news/create`, formValues as INewsOutputDTO);
+      const result = await newsService.create(formValues as INewsOutputDTO);
       console.warn(result);
       
     }

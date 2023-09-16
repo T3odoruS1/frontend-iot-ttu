@@ -2,7 +2,8 @@ import { useTranslation } from "react-i18next";
 import capitalize from "../utils/capitalize";
 import { ITopicAreaGet } from "../dto/topicarea/ITopicAreaGet";
 import SubHeadingPurple from "./common/SubheadingPurple";
-import { Row } from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
+import DatePink from "./common/DatePink";
 
 interface IProps {
 	title: string;
@@ -25,16 +26,16 @@ const NewsContent = (props: IProps) => {
 			<Row className="w-100 mb-5">
 				{props.image !== undefined && props.image.length > 0 ? (
 					<>
-						<div className="col-md-9">
+						<Col md="9">
 							<img
 								src={props.image}
 								alt="Poster_image"
 								className="content_image max-w"
 							/>
-						</div>
-						<div className="col-md-3">
+						</Col>
+						<Col md="3">
 						<p className="header-date">
-								<b>{props.createdAt}</b>
+								<DatePink date={props.createdAt}/>
 							</p>
 							<p>
 								<b>
@@ -45,11 +46,11 @@ const NewsContent = (props: IProps) => {
 								<b>{joinTopicAreas()}</b>
 							</p>
 
-						</div>
+						</Col>
 					</>
 				) : (
 					<>
-						<div className="col-md-12">
+						<Col md="12">
 							<p>
 								<b>
 									Author:{" "}
@@ -62,7 +63,7 @@ const NewsContent = (props: IProps) => {
 							<p className="header-date">
 								<b>{props.createdAt}</b>
 							</p>
-						</div>
+						</Col>
 					</>
 				)}
 			</Row>
