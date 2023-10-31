@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import i18n from "i18next";
 
 function LanguageSwitcher() {
-	const { i18n } = useTranslation();
+	// const { i18n } = useTranslation();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { lang } = useParams();

@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import PageTitle from "../../../components/common/PageTitle";
 
 const AdminNews = () => {
 	return (

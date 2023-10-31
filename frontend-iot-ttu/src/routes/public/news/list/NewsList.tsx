@@ -1,69 +1,31 @@
-import { useEffect, useState } from "react";
-import { ITopicAreaWithChildren } from "../../../../dto/topicarea/ITopicAreaWithChildren";
-import { useTranslation } from "react-i18next";
-import { TopicAreaService } from "../../../../services/TopicAreaService";
-import i18n from "i18next";
-import TopicAreaElement from "./TopicAreaElement";
+import {Col, Row} from "react-bootstrap";
 import NewsElement from "./NewsElement";
-import { NewsService } from "../../../../services/NewsService";
-import { INews } from "../../../../dto/news/INews";
-import { Col, Row } from "react-bootstrap";
+import TopicAreaFilters from "../../../../components/common/FilterBox";
+import useNewsList from "../../../../hooks/useNewsList";
+import PageTitle from "../../../../components/common/PageTitle";
+import {useEffect} from "react";
+import i18n from "i18next";
 
 const NewsList = () => {
-	const [topicAreas, setTopicAreas] = useState<ITopicAreaWithChildren[]>([]);
-	const [news, setNews] = useState<INews[]>([]);
-	const { t } = useTranslation();
-	const topicAreaService = new TopicAreaService();
-	const newsService = new NewsService();
 
-	const fetchNews = async () => {
-		const newsResponse = await newsService.get<INews[]>(
-			`${i18n.language}/news/get`
-		);
-		if (newsResponse !== undefined) {
-			setNews(newsResponse);
-		}
-	};
+    const {news, pending} = useNewsList();
 
-	const fetchTopicAreas = async () => {
-		const topicAreaResponse = await topicAreaService.get<
-			ITopicAreaWithChildren[]
-		>(`${i18n.language}/topicAreas/get`);
-		if (topicAreaResponse !== undefined) {
-			setTopicAreas(topicAreaResponse);
-		}
-	};
-
-	useEffect(() => {
-		fetchTopicAreas();
-		fetchNews();
-	}, [i18n.language]);
-
-	return (
-		<Row>
-			<Col md="10">
-				<Row >
-					{news.map((article) => {
-						return <NewsElement news={article} />;
-					})}
-				</Row>
-			</Col>
-			<Col md="2" className="filter-box px-4">
-				<h3 className="header-pink">Filters</h3>
-				<ul className="p-0">
-					{topicAreas.map((topicArea) => {
-						return (
-							<TopicAreaElement
-								name={topicArea.name}
-								childrenTopicAreas={topicArea.childrenTopicAreas}
-								id={topicArea.id}
-							/>
-						);
-					})}
-				</ul>
-			</Col>
-		</Row>
-	);
+    return <>
+        <PageTitle>Uudised</PageTitle>
+        {pending ? <p>Loading...</p> :
+            (<Row className="flex-column flex-md-row">
+                <Col className="col-md-10 order-md-0 order-1">
+                    <Row>
+                        {news.map((article) => {
+                            return <NewsElement key={article.id} news={article}/>;
+                        })}
+                    </Row>
+                </Col>
+                <Col className="filter-box px-md-4 col-md-2 order-md-1 order-0">
+                    <TopicAreaFilters/>
+                </Col>
+            </Row>)}
+    </>;
 };
 
 export default NewsList;

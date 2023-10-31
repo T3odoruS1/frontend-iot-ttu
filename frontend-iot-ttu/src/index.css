@@ -3,14 +3,10 @@
 
 body {
   margin: 0;
-  font-family: ProximaNova,sans-serif;
+  font-family: ProximaNovaBlack, "Proxima Nova",sans-serif;
+  font-weight: 600;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
 
 .ql-editor h1 {
@@ -35,6 +31,11 @@ h5 .ql-editor{
 
 .result-div .ql-editor{
   padding: 0px;
+  font-weight: 400;
+}
+
+* .ql-editor{
+  font-weight: 400;
 }
 
 .max-w{
@@ -64,6 +65,8 @@ position: relative;
 min-height: 100%;
 font-size: 16px;
 line-height: 2.25rem;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 body {
 /* Margin bottom by footer height */
@@ -210,6 +213,12 @@ img.content_image{
 .filter-box{
   border-left: #342b60 1px solid;
 }
+
+@media(max-width: 767px) {
+  .filter-box {
+    border: none;
+  }
+}
 ul li
 {
     list-style-type: none;
@@ -231,6 +240,10 @@ ul li
   color: #342b60;
   font-weight: 700;
 }
+.dropdown-icon {
+  color: #e4067e;
+  font-size: 1rem;  /* Adjust as needed */
+}
 
 .link-no-underline:hover{
   color: #e4067e;
@@ -241,10 +254,28 @@ ul li
   font-weight: 700;
 }
 
+.card_custom_form {
+  position: relative;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+  /*padding: 32px;*/
+  border-radius: 0px;
+  overflow: hidden;
+  min-height: 600px;
+  min-width: 500px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 .text-purple-main{
   color: #342b60;
   font-weight: 900;
   font-size: 1.2rem;
+}
+
+.adm-title{
+  font-weight: 900;
 }
 
 .admin-menu{
@@ -299,7 +330,7 @@ a:hover{
 Quill
 */
 
-.ql-editor p{
+.ql-editor *{
   line-height: 2.25rem;
   font-size: 16px;
   font-family: ProximaNovaBlack,sans-serif;
@@ -397,4 +428,16 @@ Quill
 
 .container-fluid{
   max-width: 1500px;
+}
+
+.weight-fix{
+  font-weight: 600 !important;
+}
+
+.close-button{
+  font-weight: 600;
+  color: #342b60;
+  width: 40px;
+  background-color: transparent;
+  border: none;
 }
