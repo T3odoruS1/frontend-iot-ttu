@@ -2,16 +2,21 @@ import TopicAreaElement from "../../routes/public/news/list/TopicAreaElement";
 import {Col} from "react-bootstrap";
 import {FC, useEffect, useState} from "react";
 import {ITopicAreaWithChildren} from "../../dto/topicarea/ITopicAreaWithChildren";
+import useTopicAreas from "../../hooks/useTopicAreas";
+import i18n from "i18next";
 
-const FilterBox: FC<{ topicAreas: ITopicAreaWithChildren[] }> = ({topicAreas, ...rest}) => {
+const FilterBox: FC = ({...rest}) => {
     const [selected, setSelected] = useState(window.innerWidth >= 768);
-
+    const [mobile, setMobile] = useState(window.innerWidth >= 768);
+    const {topicAreas, pending: tPending} = useTopicAreas();
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth < 768) {
                 setSelected(false);
+                setMobile(false)
             } else {
                 setSelected(true);
+                setMobile(true);
             }
         };
 
@@ -25,7 +30,8 @@ const FilterBox: FC<{ topicAreas: ITopicAreaWithChildren[] }> = ({topicAreas, ..
     }, []);  // Empty dependency array to ensure this effect runs only on mount and unmount
 
     return (
-        <Col className="filter-box px-md-4 col-md-2 order-md-1 order-0">
+        <div>
+            {tPending && <p>Loading...</p>}
             <h3 onClick={() => {
                 setSelected(!selected)
             }} className="header-pink">Filters
@@ -36,6 +42,7 @@ const FilterBox: FC<{ topicAreas: ITopicAreaWithChildren[] }> = ({topicAreas, ..
                 {topicAreas.map((topicArea) => {
                     return (
                         <TopicAreaElement
+                            key={topicArea.id}
                             name={topicArea.name}
                             childrenTopicAreas={topicArea.childrenTopicAreas}
                             id={topicArea.id}
@@ -43,7 +50,8 @@ const FilterBox: FC<{ topicAreas: ITopicAreaWithChildren[] }> = ({topicAreas, ..
                     );
                 })}
             </ul>}
-        </Col>
+            {!mobile && <hr/>}
+        </div>
     );
 };
 
