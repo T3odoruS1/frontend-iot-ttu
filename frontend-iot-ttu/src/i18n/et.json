@@ -16,7 +16,7 @@
     "news": {
       "adminNews": {
         "create": {
-          "addTopicArea": "Loo kategoria",
+          "addTopicArea": "Lisa kategoria",
           "author": "Autor",
           "authorName": "Autori nimi",
           "categories": "Kategooriad",

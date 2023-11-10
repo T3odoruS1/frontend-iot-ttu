@@ -15,5 +15,9 @@ export abstract class BaseEntityService extends BaseService {
         return (await this.axios.get(url)).data
     }
 
+    async delete<TEntity>(url: string): Promise<void | undefined>{
+        return (await this.axios.delete(url)).data
+    }
+
 
 }

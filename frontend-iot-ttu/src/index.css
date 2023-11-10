@@ -129,6 +129,11 @@ z-index: 5;
   font-family: ProximaNova,sans-serif;
 }
 
+p{
+  font-family: ProximaNova,sans-serif;
+  font-weight: 100;
+}
+
 .result-div.ql-container.ql-snow{
   border: none !important;
   min-height: none;
@@ -268,8 +273,27 @@ ul li
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+.git-popup{
+  position: relative;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+  /*padding: 32px;*/
+  border-radius: 0px;
+  overflow: hidden;
+  min-width: 500px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 .text-purple-main{
   color: #342b60;
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.text-pink-main{
+  color: #e4067e;
   font-weight: 900;
   font-size: 1.2rem;
 }
@@ -440,4 +464,8 @@ Quill
   width: 40px;
   background-color: transparent;
   border: none;
+}
+
+.git-style-card{
+  border: 1px solid black;
 }

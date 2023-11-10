@@ -14,6 +14,8 @@ import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
 import { ITopicAreaWithChildren } from "../../../../dto/topicarea/ITopicAreaWithChildren";
 import { TopicAreaService } from "../../../../services/TopicAreaService";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
+import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
+import useTopicAreas from "../../../../hooks/useTopicAreas";
 
 interface IProps {
 	control: Control<INewsOutputDTO, any>;
@@ -37,20 +39,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 	const topicAreaService = new TopicAreaService();
 	const { t } = useTranslation();
 	
-	const [topicAreas, setTopicAreas] = useState<ITopicAreaWithChildren[]>([]);
-
-	const fetchTopicAreas = async () => {
-		const topicAreaResponse = await topicAreaService.get<
-			ITopicAreaWithChildren[]
-		>(`${i18n.language}/topicAreas/get`);
-		if (topicAreaResponse !== undefined) {
-			setTopicAreas(topicAreaResponse);
-		}
-	};
-
-	useEffect(() => {
-		fetchTopicAreas();
-	}, []);
+	const {topicAreas, pending} = useTopicAreas();
 
 	return (
 		<>

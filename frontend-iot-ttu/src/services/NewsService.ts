@@ -9,14 +9,18 @@ export class NewsService extends BaseEntityService {
     }
 
     getAll = async (lang: string): Promise<INews[] | undefined> => {
-        return await this.get<INews[]>(`${lang}/news/get`);
+        return await this.get<INews[]>(`${lang}/news`);
     }
 
     getById = async (lang: string, id: string): Promise<INews| undefined> => {
-        return await this.get<INews>(`${lang}/news/getById?id=${id}`);
+        return await this.get<INews>(`${lang}/news/${id}`);
     }
 
     create = async (data: INewsOutputDTO): Promise<{id: string} | undefined> => {
-        return await this.post(`/et/news/create`, data);
+        return await this.post(`/news`, data);
+    }
+
+    remove = async (id: string): Promise<void> => {
+        return await this.delete(`/news/${id}`);
     }
 }

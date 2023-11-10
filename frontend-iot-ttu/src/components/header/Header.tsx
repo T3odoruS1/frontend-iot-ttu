@@ -40,56 +40,15 @@ const Header = () => {
 								to={`/${i18n.language}/technology`}
 								title={t("public.header.technology")}
 							/>
+							<HeaderNavLink
+								to={`/${i18n.language}/projects`}
+								title={t("public.header.projects")}
+							/>
+							<HeaderNavLink
+								to={`/${i18n.language}/opensourcesolutions`}
+								title={t("public.header.openSourceSolutions")}
+							/>
 
-							<li className="nav-item dropdown">
-								<Link
-									className="nav-link dropdown-toggle top-text"
-									to={`/${i18n.language}/projects`}
-									id="navbarDropdown"
-									role="button"
-									data-bs-toggle="dropdown"
-									aria-expanded="false">
-									{t("public.header.projects")}
-								</Link>
-								<ul
-									className="dropdown-menu dropdown-menu-custom"
-									aria-labelledby="navbarDropdown">
-									<li>
-										<Link className="dropdown-item" to={`/${i18n.language}/projects`}>
-											Projekt 1
-										</Link>
-									</li>
-									<li>
-										<Link className="dropdown-item" to={`/${i18n.language}/projects`}>
-											Projekt 2
-										</Link>
-									</li>
-								</ul>
-							</li>
-
-							<li className="nav-item dropdown">
-								<Link
-									className="nav-link dropdown-toggle top-text"
-									to={`/${i18n.language}/opensourcesolutions`}
-									id="navbarDropdown"
-									role="button"
-									data-bs-toggle="dropdown"
-									aria-expanded="false">
-									{t("public.header.openSourceSolutions")}
-								</Link>
-								<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-									<li>
-										<Link className="dropdown-item" to={`/${i18n.language}/opensourcesolutions`}>
-											Lahendus 1
-										</Link>
-									</li>
-									<li>
-										<Link className="dropdown-item" to={`/${i18n.language}/opensourcesolutions`}>
-											Lahendus 2
-										</Link>
-									</li>
-								</ul>
-							</li>
 							<HeaderNavLink
 								to={`/${i18n.language}/admin`}
 								title={t("public.header.adminPanel")}

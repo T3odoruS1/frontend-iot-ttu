@@ -1,7 +1,7 @@
 import {useForm, FieldValues} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {FormCheck, FormFloating} from "react-bootstrap";
 import NewsForm from "./NewsForm";
@@ -9,8 +9,7 @@ import {INewsOutputDTO} from "../../../../dto/news/INewsOutputDTO";
 import {formats, modules} from "../../../../configs/configurations";
 import ContentPreview from "../../../../components/ContentPreview";
 import PageTitle from "../../../../components/common/PageTitle";
-import {TopicAreaService} from "../../../../services/TopicAreaService";
-import {ITopicAreaGetMultilang} from "../../../../dto/topicarea/ITopicAreaGet";
+import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
@@ -57,8 +56,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     const [editorHtmlEng, setEditorHtmlEng] = useState<string>("");
     const [editorHtmlEst, setEditorHtmlEst] = useState<string>("");
     const [preview, setPreview] = useState<boolean>(false);
-    const [topicAreas, setTopicAreas] = useState<ITopicAreaGetMultilang[]>([]);
-    const topicAreaService = new TopicAreaService();
+    const {topicAreas, pending} = useTranslatedTopicAreas();
 
     const {
         register,
@@ -71,16 +69,9 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         resolver: yupResolver(schema),
     });
 
-    const fetchTopicAreas = async ()=> {
-        const result = await topicAreaService.getWithTranslations();
-        if(result !== undefined){
-            setTopicAreas(result);
-        }
-    }
 
-    useEffect(() => {
-        fetchTopicAreas();
-    }, []);
+
+
 
     const onEditorStateChangeEng = (html: string) => {
         setValue(`body.${0}.value`, html);

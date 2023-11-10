@@ -27,6 +27,7 @@ import Project from "./routes/public/projects/details/Project";
 import Technologies from "./routes/public/technology/Technologies";
 import Technology from "./routes/public/technology/details/Technology";
 import NewsList from "./routes/public/news/list/NewsList";
+import NewsListAdm from "./routes/admin/news/list/NewsListAdm";
 
 export const router = createBrowserRouter([
 	{
@@ -46,7 +47,10 @@ export const router = createBrowserRouter([
 						path: "news",
 						element: <AdminNews />,
 						children: [
-							
+							{
+								path:"",
+								element: <NewsListAdm/>
+							},
 							{
 								path: "create",
 								element: <NewsCreate />,
