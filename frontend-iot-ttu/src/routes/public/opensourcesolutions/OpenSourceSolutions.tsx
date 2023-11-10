@@ -3,7 +3,9 @@ import {Col, Row} from "react-bootstrap";
 import NewsElement from "../news/list/NewsElement";
 import TopicAreaFilters from "../../../components/common/FilterBox";
 import {IOpenSourceSolution} from "../../../dto/IOpenSourceSolution";
-import {OpenSourceSolutionElement} from "./OpenSourceSolutionElement";
+import Popup from "../../../Popup";
+import {OpenSourceElementCard} from "./OpenSourceElementCard";
+import {OpenSourceSolutionRequestPopup} from "./OpenSourceSolutionRequestPopup";
 
 const OpenSourceSolutions = () => {
     const pending = false;
@@ -32,9 +34,14 @@ const OpenSourceSolutions = () => {
         {pending ? <p>Loading...</p> :
             (<Row className="flex-column flex-md-row">
                 <Col className="col-md-10 order-md-0 order-1">
-                    <Row className="m-2">
+                    <Row className="m-2 px-0">
                         {solutions.map((solution) => {
-                            return <OpenSourceSolutionElement key={solution.id} data={solution}/>
+                            // return <OpenSourceSolutionElement key={solution.id} data={solution}/>
+                            return <Popup
+                                trigger={<div><OpenSourceElementCard data={solution}/></div>}
+                                content={<OpenSourceSolutionRequestPopup />}
+                                cname={"my-2"}
+                                key={solution.id}/>
                         })}
                     </Row>
                 </Col>

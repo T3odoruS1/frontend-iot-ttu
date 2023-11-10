@@ -469,3 +469,35 @@ Quill
 .git-style-card{
   border: 1px solid black;
 }
+
+
+.popup{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(25px);
+  z-index: 9999;
+}
+
+.popup-content{
+
+}
+
+.code-block {
+  font-family: 'Courier New', Courier, monospace; /* Monospace font for code-like appearance */
+  background-color: #f9f9f9; /* Light grey background */
+  border: 1px solid #ddd; /* Light grey border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px; /* Padding inside the box */
+  overflow-x: auto; /* Horizontal scroll for long lines */
+  white-space: pre-wrap; /* Keeps the format of whitespaces and new lines */
+  word-break: break-all; /* Ensures long words do not overflow */
+  line-height: 1.5; /* Adjust line height for readability */
+  color: #333; /* Darker text color for contrast */
+}

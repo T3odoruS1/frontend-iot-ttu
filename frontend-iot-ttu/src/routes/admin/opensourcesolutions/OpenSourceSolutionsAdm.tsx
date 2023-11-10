@@ -1,10 +1,12 @@
 import {IOpenSourceSolution} from "../../../dto/IOpenSourceSolution";
 import PageTitle from "../../../components/common/PageTitle";
 import {Col, Row} from "react-bootstrap";
-import {OpenSourceSolutionElement} from "../../public/opensourcesolutions/OpenSourceSolutionElement";
 import TopicAreaFilters from "../../../components/common/FilterBox";
-import ButtonPrimary from "../../../components/common/ButtonPrimary";
 import ButtonSmaller from "../../../components/common/ButtonSmaller";
+import Popup from "../../../Popup";
+import {OpenSourceElementCard} from "../../public/opensourcesolutions/OpenSourceElementCard";
+import {OpenSourceSolutionRequestPopup} from "../../public/opensourcesolutions/OpenSourceSolutionRequestPopup";
+import OpensourceSolutionCreatePopup from "./create/OpensourceSolutionCreatePopup";
 
 const OpenSourceSolutionAdm = () => {
   const pending = false;
@@ -30,13 +32,19 @@ const OpenSourceSolutionAdm = () => {
 
   return <>
     <PageTitle>Vabavaralised lahendused</PageTitle>
-    <ButtonSmaller>Create</ButtonSmaller>
+    <Popup trigger={<ButtonSmaller>Create</ButtonSmaller>}
+           content={<OpensourceSolutionCreatePopup/>}/>
     {pending ? <p>Loading...</p> :
         (<Row className="flex-column flex-md-row">
           <Col className="col-md-10 order-md-0 order-1">
-            <Row className="m-2">
+            <Row className="m-2 px-0">
               {solutions.map((solution) => {
-                return <OpenSourceSolutionElement key={solution.id} data={solution}/>
+                return <Popup
+                    trigger={<OpenSourceElementCard data={solution}/>}
+                    content={<OpenSourceSolutionRequestPopup />}
+                    cname={"my-2"}
+                    key={solution.id}
+                />
               })}
             </Row>
           </Col>

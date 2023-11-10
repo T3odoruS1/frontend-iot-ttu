@@ -6,7 +6,7 @@ import Admin from "./routes/admin/Admin";
 import AdminNews from "./routes/admin/news/AdminNews";
 import NewsCreate from "./routes/admin/news/create/NewsCreate";
 import OpenSourceSolutionAdm from "./routes/admin/opensourcesolutions/OpenSourceSolutionsAdm";
-import OpenSourceSolutionCreate from "./routes/admin/opensourcesolutions/create/OpensourceSolutionCreate";
+import OpensourceSolutionCreatePopup from "./routes/admin/opensourcesolutions/create/OpensourceSolutionCreatePopup";
 import ProjectsAdm from "./routes/admin/projects/ProjectsAdm";
 import ProjectCreate from "./routes/admin/projects/create/ProjectCreate";
 import Statistics from "./routes/admin/statistics/Statistics";
@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
 						children: [
 							{
 								path: "create",
-								element: <OpenSourceSolutionCreate />,
+								element: <OpensourceSolutionCreatePopup />,
 							},
 						],
 					},
