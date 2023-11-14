@@ -9,7 +9,7 @@ const Header = () => {
 	const { t } = useTranslation();
 	return (
 		<>
-			<nav className="top-gradient navbar navbar-expand-lg navbar-light bg-light pb-0">
+			<nav className=" sticky-top top-gradient navbar navbar-expand-lg navbar-light bg-light pb-0">
 				<div className="container-fluid">
 					<Link className="navbar-brand mr-auto pb-0"  to={`/${i18n.language}`}>
 						<TalTechSVG />

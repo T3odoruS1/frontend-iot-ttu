@@ -52,6 +52,11 @@ h5 .ql-editor{
   margin-left:auto;
 }
 
+.home-page-main{
+  margin: 0px;
+  width: 100vw;
+}
+
 main{
   display: flex;
   flex-direction: column;
@@ -85,6 +90,9 @@ z-index: 5;
 
 .top-gradient{
   background: linear-gradient(-90deg,#342b60,#60c3d5);
+  width: 100vw;
+  max-width: 100vw;
+  overflow: hidden;
 }
 .top-text, .dropdown-menu-custom{
   margin-top: 3rem;
@@ -501,3 +509,119 @@ Quill
   line-height: 1.5; /* Adjust line height for readability */
   color: #333; /* Darker text color for contrast */
 }
+
+.home-page-carousel-img{
+  min-width: 100%;
+  aspect-ratio:16/9;
+  object-fit: contain;
+  position: fixed;
+  /*z-index: 100;*/
+}
+
+.image-carousel{
+  overflow: hidden;
+  /*position: relative;*/
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.home-page-img-div{
+  /*position: flex;*/
+  /*width: 100%;*/
+  /*display: flex;*/
+  /*margin-left: -110px;*/
+  /*margin-top: -31px;*/
+  background-image: url("./assets/ttu-hall.jpeg");
+  background-position: 50% 39px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /*z-index: 0;*/
+  background-attachment: fixed;
+  left: 1548px;
+  /*z-index: 100;*/
+}
+
+.carousel-container{
+  margin-left: -100px;
+  margin-right: -100px;
+}
+.banner-container {
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.6);
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 60vh;
+  height: 90vh;
+  /*width: 100%;*/
+  width: 100vw;
+  /*min-width: 100vw;*/
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-blend-mode: overlay;
+  align-items: center;
+}
+
+.carousel-inner{
+  transition: initial 500ms ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animated-text {
+  animation: slideIn 1s ease;
+}
+
+.home-page-title{
+  font-size: 5rem;
+  text-shadow: #1a1d20;
+  font-weight: 900;
+}
+
+.underline-last-line {
+  position: relative;
+  display: inline-block; /* Ensures the ::after is relative to the text */
+}
+
+.underline-last-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0; /* Aligns the line at the bottom of the text */
+  left: 50%; /* Starts from the middle */
+  transform: translateX(-50%); /* Centers the line */
+  width: 300px; /* Fixed width of the underline */
+  height: 1px; /* Thickness of the underline */
+  background-color: #e4067e; /* Makes the line the same color as the text */
+}
+
+.home-page-pink-divider{
+  max-height: 5px;
+  max-width: 200px;
+  background-color:#e4067e;
+}
+
+.home-page-subtitle{
+  font-weight: 600;
+}
+

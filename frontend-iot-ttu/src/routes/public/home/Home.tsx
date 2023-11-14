@@ -1,5 +1,10 @@
+import CarouselComponent from "./CarouselComponent";
+
 const Home = () => {
-  return <>Home</>
+  return <>
+    <CarouselComponent/>
+
+  </>
 }
 
 export default Home;
