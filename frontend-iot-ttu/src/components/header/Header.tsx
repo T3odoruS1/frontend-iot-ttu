@@ -49,10 +49,10 @@ const Header = () => {
 								title={t("public.header.openSourceSolutions")}
 							/>
 
-							<HeaderNavLink
-								to={`/${i18n.language}/admin`}
-								title={t("public.header.adminPanel")}
-							/>
+							{/*<HeaderNavLink*/}
+							{/*	to={`/${i18n.language}/admin`}*/}
+							{/*	title={t("public.header.adminPanel")}*/}
+							{/*/>*/}
 							<li>
 								<LanguageSwitcher />
 								<Link className="nav-link top-text under-language" to={`/${i18n.language}/contact`}>

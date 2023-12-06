@@ -3,7 +3,7 @@ import PageTitle from "../../../components/common/PageTitle";
 import {Col, Row} from "react-bootstrap";
 import TopicAreaFilters from "../../../components/common/FilterBox";
 import ButtonSmaller from "../../../components/common/ButtonSmaller";
-import Popup from "../../../Popup";
+import Popup from "../../../components/Popup";
 import {OpenSourceElementCard} from "../../public/opensourcesolutions/OpenSourceElementCard";
 import {OpenSourceSolutionRequestPopup} from "../../public/opensourcesolutions/OpenSourceSolutionRequestPopup";
 import OpensourceSolutionCreatePopup from "./create/OpensourceSolutionCreatePopup";
@@ -25,8 +25,8 @@ const OpenSourceSolutionAdm = () => {
       title: "Some repo 2",
       description: "Here is other description. Check this repo out. There is Shrek photos",
       topicAreas: [
-        {id: "1", name: "Shrek"},
-        {id: "1", name: "Hardcore coding"}]
+        {id: "1", name: "5G"},
+        {id: "1", name: "Robotics"}]
     }
   ]
 

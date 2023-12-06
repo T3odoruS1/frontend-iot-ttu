@@ -16,6 +16,7 @@ import { TopicAreaService } from "../../../../services/TopicAreaService";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
 import useTopicAreas from "../../../../hooks/useTopicAreas";
+import TopicAreaCreatePopup from "../topicareas/TopicAreaCreatePopup";
 
 interface IProps {
 	control: Control<INewsOutputDTO, any>;
@@ -36,10 +37,9 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 		control: control,
 		name: "topicAreas",
 	});
-	const topicAreaService = new TopicAreaService();
 	const { t } = useTranslation();
 	
-	const {topicAreas, pending} = useTopicAreas();
+	const {topicAreas} = useTopicAreas();
 
 	return (
 		<>
@@ -89,9 +89,8 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 									</FormFloating>
 								</Col>
 								<Col md="2">
-									<ButtonSmaller className="m-2" type="button">
-										{t("admin.news.adminNews.create.createTopicArea")}
-									</ButtonSmaller>
+								{/*<TopicAreaCreatePopup topicAreas={topicAreasTranslated}/>*/}
+
 								</Col>
 								<Col md="1">
 									<ButtonSmaller className="m-2" type="button">

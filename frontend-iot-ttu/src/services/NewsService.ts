@@ -2,6 +2,7 @@ import {BaseEntityService} from "./BaseEntityService";
 import {INews} from "../dto/news/INews";
 import i18n from "i18next";
 import {INewsOutputDTO} from "../dto/news/INewsOutputDTO";
+import {IErrorResponse} from "../dto/IErrorResponse";
 
 export class NewsService extends BaseEntityService {
     constructor() {
@@ -16,7 +17,7 @@ export class NewsService extends BaseEntityService {
         return await this.get<INews>(`${lang}/news/${id}`);
     }
 
-    create = async (data: INewsOutputDTO): Promise<{id: string} | undefined> => {
+    create = async (data: INewsOutputDTO): Promise<{id: string}| IErrorResponse | undefined> => {
         return await this.post(`/news`, data);
     }
 

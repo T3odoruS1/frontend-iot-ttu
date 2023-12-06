@@ -28,6 +28,7 @@ import Technologies from "./routes/public/technology/Technologies";
 import Technology from "./routes/public/technology/details/Technology";
 import NewsList from "./routes/public/news/list/NewsList";
 import NewsListAdm from "./routes/admin/news/list/NewsListAdm";
+import {TopicAreaForm} from "./routes/admin/news/topicareas/TopicAreaForm";
 
 export const router = createBrowserRouter([
 	{
@@ -52,8 +53,15 @@ export const router = createBrowserRouter([
 								element: <NewsListAdm/>
 							},
 							{
-								path: "create",
+								path:":id?",
+								element: <NewsPiece/>
+							},
+							{
+								path: "create/:id?",
 								element: <NewsCreate />,
+							},{
+								path: "topicarea",
+								element: <TopicAreaForm/>
 							},
 						],
 					},
@@ -167,4 +175,4 @@ export const router = createBrowserRouter([
 			},
 		],
 	},
-]);
+], {});

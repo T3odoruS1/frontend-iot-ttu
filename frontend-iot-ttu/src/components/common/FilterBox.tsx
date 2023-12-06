@@ -6,17 +6,28 @@ import useTopicAreas from "../../hooks/useTopicAreas";
 import i18n from "i18next";
 
 const FilterBox: FC = ({...rest}) => {
-    const [selected, setSelected] = useState(window.innerWidth >= 768);
-    const [mobile, setMobile] = useState(window.innerWidth >= 768);
+
     const {topicAreas, pending: tPending} = useTopicAreas();
+
+    // Initially check if we're in mobile view
+    const isInitiallyMobile = window.innerWidth < 768;
+
+    // Set initial states based on the window width
+    const [selected, setSelected] = useState(!isInitiallyMobile);
+    const [mobile, setMobile] = useState(isInitiallyMobile);
+
+    // ... other state and context
+
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 768) {
-                setSelected(false);
-                setMobile(false)
-            } else {
-                setSelected(true);
-                setMobile(true);
+            const isMobileNow = window.innerWidth < 768;
+
+            // Check if the mobile state has changed
+            if (mobile !== isMobileNow) {
+                setMobile(isMobileNow);
+
+                // Change selected only if there is a state change
+                setSelected(!isMobileNow);
             }
         };
 
@@ -27,19 +38,33 @@ const FilterBox: FC = ({...rest}) => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);  // Empty dependency array to ensure this effect runs only on mount and unmount
+    }, [mobile]); // Depend on the mobile state
+
+    // ... your component render logic
 
     return (
-        <div>
+        <div className={`filter_box ${mobile ? "mb-2" : ""}`}>
             {tPending && <p>Loading...</p>}
             <h3 onClick={() => {
                 setSelected(!selected)
-            }} className="header-pink">Filters
-                <span
-                    className="dropdown-icon">{selected ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}</span>
+            }} className="header-pink m-0">Filters
             </h3>
             {selected && <ul className="p-0">
-                {topicAreas.map((topicArea) => {
+                {topicAreas
+                    .sort((a, b) => {
+                        let nameA = a.name.toLowerCase(); // convert to lowercase for case-insensitive comparison
+                        let nameB = b.name.toLowerCase();
+
+                        if (nameA < nameB) {
+                            return -1; // nameA comes first
+                        }
+                        if (nameA > nameB) {
+                            return 1; // nameB comes first
+                        }
+
+                        return 0; // names are equal
+                    })
+                    .map((topicArea) => {
                     return (
                         <TopicAreaElement
                             key={topicArea.id}
@@ -50,7 +75,6 @@ const FilterBox: FC = ({...rest}) => {
                     );
                 })}
             </ul>}
-            {!mobile && <hr/>}
         </div>
     );
 };

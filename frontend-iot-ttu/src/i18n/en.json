@@ -31,7 +31,8 @@
           "titleInEnglish": "Title in English",
           "titleInEstonian": "Title in Estonian",
           "titles": "Titles",
-          "uploadPoster": "Upload a poster"
+          "uploadPoster": "Upload a poster",
+          "NAME_ALREADY_EXISTS": "Topic area with this name already exists"
         }
       }
     }

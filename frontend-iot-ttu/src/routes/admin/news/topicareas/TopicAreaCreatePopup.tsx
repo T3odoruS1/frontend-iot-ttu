@@ -14,7 +14,7 @@ import {IBaseEntity} from "../../../../dto/IBaseEntity";
 import {useTranslation} from "react-i18next";
 
 const schema = yup.object().shape({
-    parentTopicId: yup.string().uuid().optional(),
+    parentTopicId: yup.string().optional(),
     name: yup.array().of(yup.object().shape({
         value: yup.string().required(),
         culture: yup.string().required()
@@ -34,23 +34,23 @@ const TopicAreaCreatePopup: React.FC<{ topicAreas: ITopicAreaGetMultilang[] }> =
         handleSubmit,
         control,
         formState: {errors},
-    } = useForm<ITopicAreaPost>({resolver: yupResolver(schema)})
+    } = useForm<ITopicAreaPost>({resolver: yupResolver(schema)});
     const [confirmDelete, setConfirmDelete] = useState(false);
 
     const onSubmit = async (formValues: FieldValues) => {
-        const result = await topicAreaService.create(formValues as ITopicAreaPost);
+        const data = formValues as ITopicAreaPost;
+        data.parentTopicId = data.parentTopicId !== "" ? data.parentTopicId : undefined;
+        const result = await topicAreaService.create(data);
         if (result === undefined) {
             setErrorResponse("Oops... Something went wrong")
-            return;
         }
-        if ("id" in result) {
+        else if ("id" in result) {
             // Success
-            return;
+            setConfirmDelete(false);
         }
-        if ("message" in result) {
+        else if ("message" in result) {
             setErrorResponse(result.message);
         }
-        // Error message
 
     }
 
@@ -90,13 +90,11 @@ const TopicAreaCreatePopup: React.FC<{ topicAreas: ITopicAreaGetMultilang[] }> =
                     <div className={"px-3 pb-3 d-flex flex-column"}>
                         <Form onSubmit={handleSubmit(onSubmit)}>
                             <SubHeadingPurple>Create new topic area</SubHeadingPurple>
-                            <div className={"text-danger"}>
-                                {/*{errorResponse}*/}
-                                ALREADY_EXISTS | PARENT_NOT_FOUND
-                            </div>
+                            {errorResponse && <div className={"text-danger"}>
+                                {t(`admin.news.adminNews.create.${errorResponse}`)}
+                            </div>}
                             <FormFloating className={"m-2"}>
                                 <FormSelect
-                                    required={false}
                                     aria-label="Choose topic area"
                                     className={"weight-fix"}
                                     placeholder={"Choose topic area"}

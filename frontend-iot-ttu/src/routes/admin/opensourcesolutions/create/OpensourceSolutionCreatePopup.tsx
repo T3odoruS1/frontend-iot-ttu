@@ -7,11 +7,13 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
-  repoName: yup.string().required(" - please input desired repo name")
+  repoName: yup.string().required(" - please input desired repo name"),
+  description: yup.string().required()
 });
 
 interface IFormOutput {
   repoName: string;
+  description: string;
 }
 
 interface ICloseProps {
@@ -59,10 +61,17 @@ const OpensourceSolutionCreatePopup : React.FC<ICloseProps> = ({close}) => {
       <div className="git-popup p-5">
         <TitlePink>Repo lisatud</TitlePink>
 
-        <p>Siin on käsud, et kasutada selle repo</p>
+        <p>Järgi neid käske, et lisada repositoorium.</p>
         <div className={"code-block"}>
+          # Navigeeri kausta kus projekt asub<br/><br/>
+
+          # Windows<br/>
+          dir kausta_asukoht_kettal<br/><br/>
+          # MacOs/Linux<br/>
+          cd kausta_asukoht_kettal<br/><br/>
           git init <br/>
-          git add README.md<br/>
+          git add . <br/>
+          {/*git add README.md<br/>*/}
           git commit -m "first commit"<br/>
           git branch -M main<br/>
           git remote add origin https://ttuiot.gitlab.com/iot/{getValues("repoName").replaceAll(" ", "_")}.git<br/>
@@ -82,7 +91,7 @@ const OpensourceSolutionCreatePopup : React.FC<ICloseProps> = ({close}) => {
   return <>
     <div className="git-popup p-5">
       <TitlePink>Loo repo</TitlePink>
-      {message && <p>{ message}</p>}
+      {message && <p className={"text-danger"}>{ message}</p>}
       <p>Palun sisesta repo nimi</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputControl type={"text"}
@@ -90,6 +99,12 @@ const OpensourceSolutionCreatePopup : React.FC<ICloseProps> = ({close}) => {
                       register={register}
                       label={"Repository name"}
                       name={"repoName"}></InputControl>
+
+        <InputControl className={"mt-2"} type={"text"}
+                      error={errors.repoName?.message?.toString()}
+                      register={register}
+                      label={"Description"}
+                      name={"description"}></InputControl>
 
         <div className="d-inline">
           <ButtonSmaller

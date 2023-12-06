@@ -31,7 +31,8 @@
           "titleInEnglish": "Pealkiri inglise keeles",
           "titleInEstonian": "Pealkiri eesti keeles",
           "titles": "Pealkirjad",
-          "uploadPoster": "Pilt"
+          "uploadPoster": "Pilt",
+          "NAME_ALREADY_EXISTS": "Kategooria selle nimega on juba olemas"
         }
       }
     }

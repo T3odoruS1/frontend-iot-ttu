@@ -12,7 +12,7 @@ const AdminHeader = () => {
 			<nav className="top-gradient navbar navbar-expand-lg navbar-light bg-light pb-0">
 				<div className="container-fluid">
 					<Link className="nav-link top-text" to="/admin">
-						<h3>Admin panel</h3>
+						<h3 className={"admin-header-title"}>Admin panel</h3>
 					</Link>
 					<button
 						className="navbar-toggler"

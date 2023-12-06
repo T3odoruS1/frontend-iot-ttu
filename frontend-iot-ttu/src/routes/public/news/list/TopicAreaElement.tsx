@@ -5,14 +5,14 @@ const TopicAreaElement = (topicArea: ITopicAreaWithChildren) => {
 	return (
 		<div>
 
-				<li className="my-2">
-					<Link to="." className="link-no-underline mb-2">
+				<li className="">
+					<Link to="." className="link-no-underline">
 						{topicArea.name}
 					</Link>
 				</li>
 				{topicArea.childrenTopicAreas?.map((child) => {
 					return (
-							<li className="my-2" key={child.id}>
+							<li className="" key={child.id}>
 								<Link to="." className="px-4 link-no-underline">
 									{child.name}
 								</Link>

@@ -1,6 +1,7 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {ITopicAreaGetMultilang} from "../dto/topicarea/ITopicAreaGetMultilang";
 import {TopicAreaService} from "../services/TopicAreaService";
+import i18n from "i18next";
 
 const useTranslatedTopicAreas = () => {
     const [topicAreas, setTopicAreas] =
@@ -15,6 +16,10 @@ const useTranslatedTopicAreas = () => {
             setPending(false);
         })
     }
+
+    useEffect(() => {
+        fetch();
+    }, [i18n.language])
     return {topicAreas, pending}
 }
 

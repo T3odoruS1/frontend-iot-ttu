@@ -14,14 +14,14 @@ const NewsList = () => {
         <PageTitle>Uudised</PageTitle>
         {pending ? <p>Loading...</p> :
             (<Row className="flex-column flex-md-row">
-                <Col className="col-md-10 order-md-0 order-1">
+                <Col className="col-md-9 order-md-0 order-1">
                     <Row>
                         {news.map((article) => {
                             return <NewsElement key={article.id} news={article}/>;
                         })}
                     </Row>
                 </Col>
-                <Col className="filter-box px-md-4 col-md-2 order-md-1 order-0">
+                <Col className="filter-box col-md-3 order-md-1 order-0">
                     <TopicAreaFilters/>
                 </Col>
             </Row>)}

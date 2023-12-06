@@ -3,15 +3,18 @@ import NewsCreateForm from "./NewsCreateFormWithPreview";
 import i18n from "i18next";
 import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
 import { NewsService } from "../../../../services/NewsService";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 
 const NewsCreate = () => {
     const newsService = new NewsService();
-
+    const navigate = useNavigate();
 
     const onSubmit = async (formValues: FieldValues) => {
-      await newsService.create(formValues as INewsOutputDTO);
+      const result = await newsService.create(formValues as INewsOutputDTO);
+      if(result !== undefined){
+          navigate("../")
+      }
     }
 
   return <>

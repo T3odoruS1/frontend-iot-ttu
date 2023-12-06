@@ -1,7 +1,7 @@
 import {useForm, FieldValues} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {useState} from "react";
+import {useDebugValue, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {FormCheck, FormFloating} from "react-bootstrap";
 import NewsForm from "./NewsForm";
@@ -10,6 +10,9 @@ import {formats, modules} from "../../../../configs/configurations";
 import ContentPreview from "../../../../components/ContentPreview";
 import PageTitle from "../../../../components/common/PageTitle";
 import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
+import {useNavigate, useParams} from "react-router-dom";
+import useNews from "../../../../hooks/useNews";
+import newsPiece from "../../../public/news/details/NewsPiece";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
@@ -57,6 +60,8 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     const [editorHtmlEst, setEditorHtmlEst] = useState<string>("");
     const [preview, setPreview] = useState<boolean>(false);
     const {topicAreas, pending} = useTranslatedTopicAreas();
+    const {id} = useParams();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -68,7 +73,6 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     } = useForm<INewsOutputDTO>({
         resolver: yupResolver(schema),
     });
-
 
 
 

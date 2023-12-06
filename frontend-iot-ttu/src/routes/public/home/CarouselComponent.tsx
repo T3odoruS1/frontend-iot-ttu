@@ -13,16 +13,23 @@ const CarouselComponent = () => {
         territory,
     ];
 
-
-    // Key attribute is needed to fire up animaitons on content change
     const contents = [
-        <BannerContent key={0} heading={"Embedded AI Research Lab"} content={"Tallinn University of Technology"}/>,
-        <BannerContent key={1} heading={"You have an idea to develop?"} content={"Check out our references and services"}/>,
-        <BannerContent key={2} heading={"Looking for cooperation possibilities?"} content={"Optimize your machine learning algorithm for speed, memory or power consumption"}/>
+        <BannerContent
+            key={0}
+            heading={"Embedded AI Research Lab"}
+            content={"Tallinn University of Technology"}/>,
+        <BannerContent
+            key={1}
+            heading={"You have an idea to develop?"}
+            content={"Check out our references and services"}/>,
+        <BannerContent
+            key={2}
+            heading={"Looking for cooperation possibilities?"}
+            content={"Optimize your machine learning algorithm for speed, memory or power consumption"}/>
     ]
 
     const handleScroll = () => {
-        setOffsetY(window.pageYOffset);
+        setOffsetY(window.scrollY);
     };
 
     useEffect(() => {
@@ -39,9 +46,9 @@ const CarouselComponent = () => {
         }
     }, [backgrounds.length]);
 
-    // const currentBackground = backgrounds[index];
 
     const parallaxSpeed =-0.25;
+
     const backgroundStyle = {
         backgroundImage: `url(${backgrounds[index]})`,
         backgroundSize: 'cover',
@@ -55,6 +62,7 @@ const CarouselComponent = () => {
         >
             {contents[index]}
         </div>
+
     );
 };
 

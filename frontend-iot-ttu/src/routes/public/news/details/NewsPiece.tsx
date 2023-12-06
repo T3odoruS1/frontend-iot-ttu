@@ -9,9 +9,7 @@ const NewsPiece = () => {
 	const {id} = useParams();
 	const navigate = useNavigate();
 	const {newsPiece: news, pending} = useNews(id ?? "");
-	useEffect(() => {
-		console.log(i18n.language, "NewsPiece")
-	})
+
 	return (
 		<div>
 

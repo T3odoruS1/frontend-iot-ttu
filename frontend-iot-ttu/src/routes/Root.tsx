@@ -1,11 +1,19 @@
 import { useEffect } from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import {Outlet, useLocation, useNavigate, useParams} from "react-router-dom";
 
 
 const Root = () => {
 	const {lang} = useParams();
 	const navigate = useNavigate();
 	const langs = ["en", "et"];
+
+
+	const location = useLocation();
+
+	// useEffect(() => {
+	// 	window.scrollTo({top: 0, left: 0, behavior: "auto"});
+	// }, [location]);
+
 	useEffect(() => {
 		if(!langs.includes(lang!)){
 			navigate("/et")

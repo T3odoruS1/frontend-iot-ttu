@@ -40,7 +40,7 @@ export const OpenSourceSolutionRequestPopup: React.FC<ICloseProps> = ({close}) =
             close!();
             setMessage("");
             setValue("email", "");
-        }, 1000)
+        }, 3000)
     }
 
     const onFail = () => {

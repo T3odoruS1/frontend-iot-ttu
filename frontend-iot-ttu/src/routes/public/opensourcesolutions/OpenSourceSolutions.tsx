@@ -3,7 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import NewsElement from "../news/list/NewsElement";
 import TopicAreaFilters from "../../../components/common/FilterBox";
 import {IOpenSourceSolution} from "../../../dto/IOpenSourceSolution";
-import Popup from "../../../Popup";
+import Popup from "../../../components/Popup";
 import {OpenSourceElementCard} from "./OpenSourceElementCard";
 import {OpenSourceSolutionRequestPopup} from "./OpenSourceSolutionRequestPopup";
 
