@@ -6,13 +6,15 @@ import {useTranslation} from "react-i18next";
 import {FormCheck, FormFloating} from "react-bootstrap";
 import NewsForm from "./NewsForm";
 import {INewsOutputDTO} from "../../../../dto/news/INewsOutputDTO";
-import {formats, modules} from "../../../../configs/configurations";
 import ContentPreview from "../../../../components/ContentPreview";
 import PageTitle from "../../../../components/common/PageTitle";
 import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
 import {useNavigate, useParams} from "react-router-dom";
 import useNews from "../../../../hooks/useNews";
 import newsPiece from "../../../public/news/details/NewsPiece";
+import {NewsService} from "../../../../services/NewsService";
+import useUpdatableNews from "../../../../hooks/useUpdatableNews";
+import {INewsWTranslations} from "../../../../dto/news/INewsWTranslations";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
@@ -60,6 +62,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     const [editorHtmlEst, setEditorHtmlEst] = useState<string>("");
     const [preview, setPreview] = useState<boolean>(false);
     const {topicAreas, pending} = useTranslatedTopicAreas();
+    const newsService = new NewsService();
     const {id} = useParams();
     const navigate = useNavigate();
 
@@ -74,7 +77,26 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         resolver: yupResolver(schema),
     });
 
+    useEffect(() => {
+        if (id !== undefined) {
+            newsService.getMultiLang(id).then(res => {
+                if (res !== undefined && "body" in res) {
+                    console.log(res);
+                    setFormValues(res);
+                }
+            })
+        }
+    }, []);
 
+
+    const setFormValues = (news: INewsWTranslations) => {
+        onEditorStateChangeEng(news!.body.find(b => {
+            return b.culture === "en"
+        })?.value ?? "");
+        onEditorStateChangeEst(news!.body.find(b => {
+            return b.culture === "et"
+        })?.value ?? "");
+    }
 
 
     const onEditorStateChangeEng = (html: string) => {
@@ -88,8 +110,8 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     };
 
     const onSubmit = (formValues: FieldValues) => {
-        console.log(errors);
         props.onSubmit(formValues);
+        navigate("./")
     }
 
     return (
@@ -125,8 +147,6 @@ const NewsCreateFormWithPreview = (props: IProps) => {
                     onSubmit={onSubmit}
                     setValue={setValue}
                     getValues={getValues}
-                    modules={modules}
-                    formats={formats}
                 />
             </div>
             <div style={{display: preview ? "block" : "none"}}>

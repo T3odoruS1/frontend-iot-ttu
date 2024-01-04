@@ -74,10 +74,6 @@ const Home = () => {
             <img className={"partner-image"} src={tallink} alt={"Tallink"}/>
             <img className={"partner-image"} src={kinema} alt={"Kinema"}/>
 
-            <br/>
-            <br/>
-            <br/>
-            <SubHeadingPurple>Latest news</SubHeadingPurple>
 
 
         </div>

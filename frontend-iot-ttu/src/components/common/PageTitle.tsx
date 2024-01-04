@@ -8,6 +8,7 @@ const PageTitle: React.FC<IBaseProps> = ({ children, className }) => {
 				style={{
 					color: "#342b60",
 					fontWeight: 900,
+					fontFamily: "ThickTTU sans-serif",
 					fontSize: "2.5rem",
 					textTransform: "uppercase",
 					lineHeight: "2.5rem",

@@ -48,7 +48,8 @@ const NewsContent = (props: IProps) => {
                 </Col>
 
             </Row>
-            <div className="w-100 mt-2">
+            <hr/>
+            <div className="w-100 mt-5">
                 <div className="quill">
                     <div className="result-div ql-container ql-snow" style={{position: "relative"}}>
                         <div

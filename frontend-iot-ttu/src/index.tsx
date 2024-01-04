@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./index.css";
+import "./index.scss";
 import { RouterProvider } from "react-router-dom";
 import { initReactI18next } from "react-i18next";
 import i18n from "i18next";

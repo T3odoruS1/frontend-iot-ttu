@@ -4,13 +4,14 @@ import 'quill/dist/quill.snow.css';
 
 
 Quill.register('modules/imageResize', ImageResize);
-
+Quill.register(Quill.import("blots/inline"), true);
 
 export const modules = {
     imageResize: {
         parchment: Quill.import('parchment'),
-		modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+		modules: [ 'Resize', 'DisplaySize', "Toolbar" ]
     },
+
 	toolbar: [
 		["bold", "italic", "underline", "strike"],
 		["blockquote", "code-block"],
@@ -29,10 +30,11 @@ export const modules = {
 
 		["link", "image", "video"],
        
-	],
+	]
 };
 
 export const formats = [
+	"style",
 	"header",
 	"font",
 	"size",
@@ -53,6 +55,12 @@ export const formats = [
 	"direction",
 	"code-block",
 	"script",
+	"width",
+	"height",
+	"display",
+	"margin",
+	"float",
+	"cursor"
 ];
 
 

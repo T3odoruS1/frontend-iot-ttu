@@ -14,6 +14,7 @@ import InputControl from "../../../../components/form/InputControl";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
 import {useEffect} from "react";
+import {formats, modules} from "../../../../configs/configurations";
 
 interface IProps {
     register: UseFormRegister<INewsOutputDTO>;
@@ -26,8 +27,6 @@ interface IProps {
     setValue: UseFormSetValue<INewsOutputDTO>;
     getValues: UseFormGetValues<INewsOutputDTO>;
     onSubmit: (event: any) => void;
-    modules: any;
-    formats: any;
     handleSubmit: UseFormHandleSubmit<INewsOutputDTO, undefined>;
 }
 
@@ -43,8 +42,6 @@ const NewsForm: React.FC<IProps> =
          onSubmit,
          setValue,
          getValues,
-         modules,
-         formats,
          handleSubmit,
      }) => {
         useEffect(() => {

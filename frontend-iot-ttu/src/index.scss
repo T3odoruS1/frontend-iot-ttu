@@ -3,11 +3,13 @@
 
 body {
   margin: 0;
-  font-family: ProximaNovaBlack, "Proxima Nova",sans-serif;
-  font-weight: 600;
-  -webkit-font-smoothing: antialiased;
+  font-family: RegularTTU sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 .ql-editor h1 {
   line-height: 3.5rem;
@@ -17,7 +19,7 @@ h2 .ql-editor{
   line-height: 3.25rem;
 }
 
-img .ql-editor :{
+img .ql-editor {
   padding: 2rem;
 }
 
@@ -47,9 +49,6 @@ h5 .ql-editor{
   font-weight: 400;
 }
 
-p{
-
-}
 
 .max-w{
   display: flex;
@@ -68,6 +67,7 @@ p{
 .home-page-main{
   margin: 0px;
   width: 100vw;
+  padding: 0px;
 }
 
 main{
@@ -75,7 +75,9 @@ main{
   flex-direction: column;
   min-height: 100vh;
   line-height: 2.25rem;
-  margin:2rem;
+  /*margin:2rem;*/
+  /*max-width: 1200px;*/
+  padding: 12px;
 }
 
 
@@ -92,15 +94,7 @@ body {
 /* Margin bottom by footer height */
 margin-bottom: 60px;
 }
-/* .footer {
-position: absolute;
-bottom: 0;
-width: 100%;
-z-index: 5;
-/* Set the fixed height of the footer here */
-/* height: 60px; */
 
-/* }  */
 
 
 .top-gradient{
@@ -112,8 +106,9 @@ z-index: 5;
 .top-text, .dropdown-menu-custom{
   margin-top: 3rem;
   color: white;
+  font-family: RegularTTU sans-serif;
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 100;
 }
 
 .demo{
@@ -149,22 +144,19 @@ z-index: 5;
   max-width: 1500px;
   margin-right:auto;
   margin-left:auto;
-  font-family: ProximaNova,sans-serif;
+  font-family: RegularTTU sans-serif;
 }
 
-p{
-  font-family: ProximaNova,sans-serif;
-  font-weight: 400;
-}
 
 .result-div.ql-container.ql-snow{
   border: none !important;
-  min-height: none;
+  min-height: 0;
 }
 
 .language-switcher{
   margin-top: 3rem;
   color: white;
+  font-family: ThickTTU sans-serif;
   font-size: 1.125rem;
   font-weight: 700;
   text-decoration: none;
@@ -194,13 +186,14 @@ img.content_image{
   /* text-transform: uppercase; */
   line-height: 2.5rem;
   margin: 0;
-  font-family: ProximaNovaBlack,sans-serif;
+  font-family: ThickTTU sans-serif;
 }
 
 .header-date{
   font-size: 1.25rem;
     color: #e4067e;
     font-weight: 700;
+    font-family: ThickTTU sans-serif;
     margin-top: 1.5rem;
 }
 
@@ -210,7 +203,7 @@ img.content_image{
 
 .page_title{
   color: #e4067e;
-  font-family: ProximaNovaBlack,sans-serif;
+  font-family: ThickTTU sans-serif;
   font-weight: bold;
   text-transform: uppercase;
   font-size: 2.0rem;
@@ -229,12 +222,14 @@ img.content_image{
 
 .header-purple{
   color: #342b60;
-  font-weight: 900;
+  font-weight: 400;
+  font-family: ThickTTU sans-serif;
 }
 
 .topic-area-list{
   color: gray;
-  font-weight: 700;
+  font-family: ThickTTU sans-serif;
+  font-weight: 400;
   font-size: 14px;
 }
 
@@ -252,9 +247,11 @@ ul li
     list-style-type: none;
 }
 
-.news-card :hover{
+.clickable-pointer :hover{
   cursor: pointer;
+  pointer-events: auto;
 }
+
 
 .thumbnail{
   aspect-ratio: 16/9;
@@ -263,7 +260,9 @@ ul li
 }
 
 .filter_box{
+  overflow: hidden;
   padding: 1rem;
+  min-width: 200px;
   border-radius: 8px;
   background-color: #F1EEEE;
 }
@@ -271,7 +270,8 @@ ul li
 .link-no-underline{
   text-decoration: none;
   color: #342b60;
-  font-weight: 700;
+  font-family: ThickTTU sans-serif;
+  font-weight: 400;
 }
 .dropdown-icon {
   color: #e4067e;
@@ -280,6 +280,29 @@ ul li
 
 .link-no-underline:hover{
   color: #e4067e;
+}
+
+.align-right{
+  text-align: right;
+}
+
+.filter_header{
+  font-family: ThickTTU sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rotate {
+
+
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+
+}
+
+.child_list_element{
+  padding-left: 1.2rem;
 }
 
 .header-pink{
@@ -340,7 +363,7 @@ ul li
   right: 0;
   width: 100vw; /* 100% of the viewport width */
   background-color: #F1EEEE; /* Change to your desired background color */
-  z-index: 1; 
+  z-index: 1;
 }
 
 .gray-bg-fill::before {
@@ -354,7 +377,7 @@ ul li
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #333; 
+  background-color: #333;
   color: white;
   text-align: center;
   padding: 10px 0;
@@ -369,6 +392,8 @@ a:hover{
 }
 
 .footer {
+  font-family: RegularTTU sans-serif;
+  font-weight: 100;
   margin-top:5rem;
   min-height: 6rem;
   position: relative;
@@ -385,7 +410,7 @@ Quill
 .ql-editor *{
   line-height: 2.25rem;
   font-size: 16px;
-  font-family: ProximaNovaBlack,sans-serif;
+  font-family: RegularTTU sans-serif;
 }
 
 .ql-container{
@@ -399,12 +424,12 @@ Quill
 .ql-editor .ql-video {
   display: block;
   width: 40rem;
-  font-family: ProximaNovaBlack,sans-serif;
+  font-family: RegularTTU sans-serif;
   overflow: auto;
   min-height:20rem;
   margin-bottom: auto;
 }
-/* 
+/*
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="8px"]::before,
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="8px"]::before {
   content: '8';
@@ -454,15 +479,6 @@ Quill
 } */
 
 
-.header-figma-test {
-  color: #e4067e;
-  font-family: "Proxima Nova-Black", Helvetica;
-  font-size: 40px;
-  font-weight: 900;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
 .btn-primary-pink{
     font-size: 1.125rem;
     font-weight: 900;
@@ -478,10 +494,14 @@ Quill
     border-radius: 60px;
 }
 
-.container-fluid{
+.container-fluid {
   max-width: 1200px;
-}
+  padding: 0 12px; // Default padding of 12px
 
+  @media (min-width: 1213px) {
+    padding-inline: 0; // No padding for screens wider than 1212px
+  }
+}
 .weight-fix{
   font-weight: 600 !important;
 }
@@ -573,6 +593,12 @@ Quill
   margin-left: -100px;
   margin-right: -100px;
 }
+
+body.safari .banner-container {
+  /* Your specific styles for Safari */
+  background-attachment: scroll; /* example */
+}
+
 .banner-container {
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.6);
@@ -596,6 +622,7 @@ Quill
   justify-content: center;
   background-blend-mode: overlay;
   align-items: center;
+  will-change: transform;
 }
 
 .carousel-inner{
@@ -617,8 +644,10 @@ Quill
   animation: slideIn 1s ease;
 }
 
+
 .home-page-title{
   font-size: 5rem;
+  font-family: ThickTTU sans-serif;
   text-shadow: #1a1d20;
   font-weight: 900;
 }
@@ -644,8 +673,9 @@ Quill
   font-weight: 600;
 }
 
-.home-page-content-container{
-  margin:2rem;
+.home-page-content-container
+{
+  margin-top:2rem;
 }
 
 .home-page-li{
@@ -654,6 +684,8 @@ Quill
 
 
 .image-link {
+  font-family: ThickTTU sans-serif;
+  font-weight: 900;
   background-blend-mode: overlay;
   background-color: rgba(0, 0, 0, 0.4);
   box-sizing: border-box;
@@ -732,4 +764,30 @@ Quill
 
 .admin-header-title{
   font-weight: 900;
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+@font-face {
+  font-family: ThickTTU sans-serif;
+  src:
+          url("./assets/fonts/black/ProximaNova-Black.woff2") format('woff2'),
+          url("./assets/fonts/black/ProximaNova-Black.woff") format('woff'),
+          url("./assets/fonts/black/ProximaNova-Black.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: RegularTTU sans-serif;
+  src:
+          url("./assets/fonts/regular/ProximaNova-Regular.woff2") format('woff2'),
+          url("./assets/fonts/regular/ProximaNova-Regular.woff") format('woff'),
+          url("./assets/fonts/regular/ProximaNova-Regular.ttf") format('truetype');
 }

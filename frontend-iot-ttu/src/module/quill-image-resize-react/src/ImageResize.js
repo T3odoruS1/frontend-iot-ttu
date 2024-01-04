@@ -1,10 +1,10 @@
 import defaultsDeep from 'lodash/defaultsDeep';
 import DefaultOptions from './DefaultOptions';
-import { DisplaySize } from './modules/DisplaySize';
-import { Toolbar } from './modules/Toolbar';
-import { Resize } from './modules/Resize';
+import {DisplaySize} from './modules/DisplaySize';
+import {Toolbar} from './modules/Toolbar';
+import {Resize} from './modules/Resize';
 
-const knownModules = { DisplaySize, Toolbar, Resize };
+const knownModules = {DisplaySize, Toolbar, Resize};
 
 /**
  * Custom module for quilljs to allow user to resize <img> elements
@@ -48,6 +48,14 @@ export default class ImageResize {
         this.moduleClasses = this.options.modules;
 
         this.modules = [];
+
+        document.addEventListener('keyup', (event) => {
+            if (event.keyCode === 8 && this.img) {
+                this.img.remove();
+                this.hide();
+            }
+            ;
+        }, true);
     }
 
     initializeModules = () => {
@@ -189,18 +197,21 @@ export default class ImageResize {
         });
     };
 
+
     checkImage = (evt) => {
         if (this.img) {
             if (evt.keyCode === 46 || evt.keyCode === 8) {
-                try{
+                try {
                     window.Quill.find(this.img).deleteAt(0)
-                }catch(e){
+                } catch (e) {
                     console.log("Error deleting image");
-                };
+                }
+                ;
             }
             this.hide();
         }
-    };
+        ;
+    }
 }
 
 if (window.Quill) {

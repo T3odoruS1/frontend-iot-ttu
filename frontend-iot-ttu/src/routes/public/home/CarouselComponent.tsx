@@ -28,12 +28,19 @@ const CarouselComponent = () => {
             content={"Optimize your machine learning algorithm for speed, memory or power consumption"}/>
     ]
 
-    const handleScroll = () => {
-        setOffsetY(window.scrollY);
-    };
 
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
+
+        const handleScroll = () => {
+            setOffsetY(window.scrollY);
+        };
+
+        if(!document.body.classList.contains("safari")){
+            window.addEventListener('scroll', handleScroll);
+        }
+
+
+
 
 
         const intervalId = setInterval(() => {
@@ -53,6 +60,10 @@ const CarouselComponent = () => {
         backgroundImage: `url(${backgrounds[index]})`,
         backgroundSize: 'cover',
         backgroundPosition: `center ${offsetY * parallaxSpeed}px`};
+
+    if(!document.body.classList.contains("safari")){
+        backgroundStyle.backgroundPosition = `center`
+    }
 
     return (
         <div

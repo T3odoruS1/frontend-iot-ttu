@@ -43,13 +43,18 @@ const FilterBox: FC = ({...rest}) => {
     // ... your component render logic
 
     return (
-        <div className={`filter_box ${mobile ? "mb-2" : ""}`}>
+        <div className={`filter_box ${!selected ? "clickable-pointer" : ""}  ${mobile ? "mb-2" : ""}`}>
             {tPending && <p>Loading...</p>}
-            <h3 onClick={() => {
-                setSelected(!selected)
-            }} className="header-pink m-0">Filters
-            </h3>
-            {selected && <ul className="p-0">
+
+            <div className={"filter_header w-100"}>
+                <h3 onClick={() => {
+                    setSelected(!selected)
+                }} className="w-100 header-pink unselectable m-0">
+                    {/*{!selected ?  <span>›</span> : <span className='rotate'>›</span>} */}
+                    Filters
+                </h3>
+            </div>
+            {selected && <ul className={`p-0 ${selected ? "open" : ""}`}>
                 {topicAreas
                     .sort((a, b) => {
                         let nameA = a.name.toLowerCase(); // convert to lowercase for case-insensitive comparison
@@ -65,15 +70,15 @@ const FilterBox: FC = ({...rest}) => {
                         return 0; // names are equal
                     })
                     .map((topicArea) => {
-                    return (
-                        <TopicAreaElement
-                            key={topicArea.id}
-                            name={topicArea.name}
-                            childrenTopicAreas={topicArea.childrenTopicAreas}
-                            id={topicArea.id}
-                        />
-                    );
-                })}
+                        return (
+                            <TopicAreaElement
+                                key={topicArea.id}
+                                name={topicArea.name}
+                                childrenTopicAreas={topicArea.childrenTopicAreas}
+                                id={topicArea.id}
+                            />
+                        );
+                    })}
             </ul>}
         </div>
     );

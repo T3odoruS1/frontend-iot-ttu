@@ -11,6 +11,7 @@ const NewsList = () => {
     const {news, pending} = useNewsList();
 
     return <>
+
         <PageTitle>Uudised</PageTitle>
         {pending ? <p>Loading...</p> :
             (<Row className="flex-column flex-md-row">

@@ -8,11 +8,11 @@ export abstract class BaseEntityService extends BaseService {
     constructor(baseUrl: string){
         super(baseUrl);
     }
-    async post<TEntity>(url: string, data: {}): Promise<TEntity | IErrorResponse | undefined>{
+    async post<TEntity>(url: string, data: {}): Promise<TEntity>{
         try{
             return await this.axios.post(url, data)
         }catch (error){
-            return (error as AxiosError)!.response!.data as IErrorResponse;
+            return (error as AxiosError)!.response!.data as TEntity;
         }
 
     }
@@ -23,6 +23,10 @@ export abstract class BaseEntityService extends BaseService {
 
     async delete<TEntity>(url: string): Promise<void | undefined>{
         return (await this.axios.delete(url)).data
+    }
+
+    async put<TEntity>(url: string, data: {}): Promise<TEntity>{
+        return (await this.axios.put(url, data)).data;
     }
 
 
