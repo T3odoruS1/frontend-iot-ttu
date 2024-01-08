@@ -8,7 +8,7 @@ interface IProps {
 const HeaderNavLink = (props: IProps) => {
 	return (
 		<>
-			<li className="nav-item">
+			<li className="nav-item header-item">
 				<Link className="nav-link top-text" aria-current="page" to={props.to}>
 					{props.title}
 				</Link>

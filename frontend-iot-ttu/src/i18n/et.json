@@ -49,6 +49,9 @@
       "technology": "Tehnoloogia"
     },
     "news": {
+      "news": "Uudised",
+      "filters": "Filtrid",
+      "news-list": "Teised uudised",
       "contact": "Huvitatud? Võta ühendust!"
     }
   }

@@ -1,25 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import i18n from "i18next";
+import {bool, boolean} from "yup";
 
-function LanguageSwitcher() {
+
+interface IProps{
+	toLeft?: boolean;
+}
+
+const LanguageSwitcher = (props: IProps) => {
 	// const { i18n } = useTranslation();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { lang } = useParams();
 
-	useEffect(() => {
-
-		i18n.changeLanguage(lang);
-
-		// console.log(i18n.language);
-	}, [location, i18n, lang]);
+	// useEffect(() => {
+	// 	i18n.changeLanguage(lang);
+	// }, [location]);
 
 	const changeLanguage = (lng: string) => {
-		// console.log("Lang: " + lng);
 		i18n.changeLanguage(lng);
 		const pathSegments = location.pathname.split("/");
 
@@ -31,7 +32,7 @@ function LanguageSwitcher() {
 	return (
 		<div className="">
 			{lang === "en" ? (
-				<div className="d-flex justify-content-end">
+				<div className={`d-flex ${props.toLeft ? "justify-content-end" : ""}`}>
 					<a
 						className="language-switcher m-2 selected"
 						onClick={() => changeLanguage("en")}>
@@ -44,7 +45,7 @@ function LanguageSwitcher() {
 					</a>
 				</div>
 			):(
-				<div className="d-flex justify-content-end">
+				<div className={`d-flex ${props.toLeft ? "justify-content-end": ""}`}>
 					<a
 						className="language-switcher m-2"
 						onClick={() => changeLanguage("en")}>

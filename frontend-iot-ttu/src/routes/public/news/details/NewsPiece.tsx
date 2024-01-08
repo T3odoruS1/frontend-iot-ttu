@@ -19,10 +19,9 @@ const NewsPiece = () => {
 		<div>
 
 			<div className={"mb-4"}>
-				<NavigationButton to={"../"}>News list</NavigationButton>
+				<NavigationButton to={"../"}>{t("public.news.news-list")}</NavigationButton>
 			</div>
 
-			{/*<PageTitle>Uudised</PageTitle>*/}
 			{pending ? <p>Loading...</p> : (<NewsContent
 				title={news?.title ?? ""}
 				image={news?.image ?? ""}

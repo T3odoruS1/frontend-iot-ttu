@@ -91,11 +91,48 @@ line-height: 2.25rem;
   -webkit-tap-highlight-color: transparent;
 }
 body {
-/* Margin bottom by footer height */
 margin-bottom: 60px;
 }
 
+.header-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+.header-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 
+.responsive-header{
+  display: flex;
+  justify-content: space-between;
+}
+.hamburger{
+  width: 25px;
+  height: 25px;
+}
+
+.hamburger-button{
+  background-color: transparent;
+  border: 0.5px solid slategray;
+  border-radius: 3px;
+}
+
+.transition-class {
+  transition: max-height 0.2s ease-out;
+  overflow: hidden;
+}
+
+.collapsed {
+  max-height: 0;
+}
+
+.expanded {
+  max-height: 500px; /* Adjust this value to suit your needs */
+}
 
 .top-gradient{
   background: linear-gradient(-90deg,#342b60,#60c3d5);
@@ -104,12 +141,15 @@ margin-bottom: 60px;
   overflow: hidden;
 }
 .top-text, .dropdown-menu-custom{
-  margin-top: 3rem;
   color: white;
   font-family: ThickTTU sans-serif;
   font-size: 1.125rem;
   font-weight: 100;
 }
+
+
+
+
 
 .demo{
   border: 1px solid black;
@@ -806,3 +846,6 @@ body.safari .banner-container {
           url("./assets/fonts/regular/ProximaNova-Regular.woff") format('woff'),
           url("./assets/fonts/regular/ProximaNova-Regular.ttf") format('truetype');
 }
+
+
+

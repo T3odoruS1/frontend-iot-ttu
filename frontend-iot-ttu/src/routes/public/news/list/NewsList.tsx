@@ -5,14 +5,15 @@ import useNewsList from "../../../../hooks/useNewsList";
 import PageTitle from "../../../../components/common/PageTitle";
 import {useEffect} from "react";
 import i18n from "i18next";
+import {useTranslation} from "react-i18next";
 
 const NewsList = () => {
-
+    const { t } = useTranslation();
     const {news, pending} = useNewsList();
 
     return <>
 
-        <PageTitle>Uudised</PageTitle>
+        <PageTitle>{t("public.news.news")}</PageTitle>
         {pending ? <p>Loading...</p> :
             (<Row className="flex-column flex-md-row">
                 <Col className="col-md-9 order-md-0 order-1">

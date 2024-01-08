@@ -5,6 +5,7 @@ const ScrollToTop = () => {
     const { pathname } = useLocation();
 
     useEffect(() => {
+        // @ts-ignore
         window.scrollTo({ top: 0, behavior: 'instant' });
     }, [pathname]);
 

@@ -4,43 +4,35 @@ import {FC, useEffect, useState} from "react";
 import {ITopicAreaWithChildren} from "../../dto/topicarea/ITopicAreaWithChildren";
 import useTopicAreas from "../../hooks/useTopicAreas";
 import i18n from "i18next";
+import {useTranslation} from "react-i18next";
 
 const FilterBox: FC = ({...rest}) => {
-
+    const { t } = useTranslation();
     const {topicAreas, pending: tPending} = useTopicAreas();
 
-    // Initially check if we're in mobile view
     const isInitiallyMobile = window.innerWidth < 768;
 
-    // Set initial states based on the window width
     const [selected, setSelected] = useState(!isInitiallyMobile);
     const [mobile, setMobile] = useState(isInitiallyMobile);
 
-    // ... other state and context
 
     useEffect(() => {
         const handleResize = () => {
             const isMobileNow = window.innerWidth < 768;
 
-            // Check if the mobile state has changed
             if (mobile !== isMobileNow) {
                 setMobile(isMobileNow);
-
-                // Change selected only if there is a state change
                 setSelected(!isMobileNow);
             }
         };
 
-        // Attach the resize event listener
         window.addEventListener('resize', handleResize);
 
-        // Clean up the event listener on component unmount
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [mobile]); // Depend on the mobile state
+    }, [mobile]);
 
-    // ... your component render logic
 
     return (
         <div className={`filter_box ${!selected ? "clickable-pointer" : ""}  ${mobile ? "mb-2" : ""}`}>
@@ -50,24 +42,23 @@ const FilterBox: FC = ({...rest}) => {
                 <h3 onClick={() => {
                     setSelected(!selected)
                 }} className="w-100 header-pink unselectable m-0">
-                    {/*{!selected ?  <span>›</span> : <span className='rotate'>›</span>} */}
-                    Filters
+                    {t("public.news.filters")}
                 </h3>
             </div>
             {selected && <ul className={`p-0 ${selected ? "open" : ""}`}>
                 {topicAreas
                     .sort((a, b) => {
-                        let nameA = a.name.toLowerCase(); // convert to lowercase for case-insensitive comparison
+                        let nameA = a.name.toLowerCase();
                         let nameB = b.name.toLowerCase();
 
                         if (nameA < nameB) {
-                            return -1; // nameA comes first
+                            return -1;
                         }
                         if (nameA > nameB) {
-                            return 1; // nameB comes first
+                            return 1;
                         }
 
-                        return 0; // names are equal
+                        return 0;
                     })
                     .map((topicArea) => {
                         return (

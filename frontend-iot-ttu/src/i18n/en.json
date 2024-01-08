@@ -49,6 +49,9 @@
       "technology": "Technology"
     },
     "news": {
+      "news": "News",
+      "filters": "Filters",
+      "news-list": "News list",
       "contact": "Interested? Contact us!"
     }
   }
