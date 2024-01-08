@@ -2,7 +2,6 @@ import ImageResize from '../module/quill-image-resize-react/src/ImageResize.js';
 import {Quill} from 'react-quill';
 import 'quill/dist/quill.snow.css';
 
-
 Quill.register('modules/imageResize', ImageResize);
 Quill.register(Quill.import("blots/inline"), true);
 

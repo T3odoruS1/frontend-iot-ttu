@@ -4,11 +4,16 @@ import i18n from "i18next";
 import NewsContent from "../../../../components/NewsContent";
 import NavigationButton from "../../../../components/common/NavigationButton";
 import useNews from "../../../../hooks/useNews";
+import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 
 const NewsPiece = () => {
 	const {id} = useParams();
 	const navigate = useNavigate();
 	const {newsPiece: news, pending} = useNews(id ?? "");
+
+	const onContactUsClick = ()=> {
+		navigate("../../contact")
+	}
 
 	return (
 		<div>
@@ -26,6 +31,10 @@ const NewsPiece = () => {
 				content={news?.body ?? ""}
 				topicAreas={news?.topicAreas ?? []}
 			/>)}
+
+			<div className={"mt-5"}>
+				<ButtonPrimary onClick={onContactUsClick}>Huvitatud? Vota uhendust!</ButtonPrimary>
+			</div>
 
 		</div>
 	);

@@ -101,6 +101,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 
     const onEditorStateChangeEng = (html: string) => {
         setValue(`body.${0}.value`, html);
+
         setEditorHtmlEng(html);
     };
 

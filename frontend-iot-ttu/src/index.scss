@@ -106,7 +106,7 @@ margin-bottom: 60px;
 .top-text, .dropdown-menu-custom{
   margin-top: 3rem;
   color: white;
-  font-family: RegularTTU sans-serif;
+  font-family: ThickTTU sans-serif;
   font-size: 1.125rem;
   font-weight: 100;
 }
@@ -144,6 +144,7 @@ margin-bottom: 60px;
   max-width: 1500px;
   margin-right:auto;
   margin-left:auto;
+  font-weight: 500;
   font-family: RegularTTU sans-serif;
 }
 
@@ -307,7 +308,8 @@ ul li
 
 .header-pink{
   color: #e4067e;
-  font-weight: 700;
+  font-family: ThickTTU sans-serif;
+  font-weight: 500;
 }
 
 .card_custom_form {
@@ -339,7 +341,8 @@ ul li
 
 .text-purple-main{
   color: #342b60;
-  font-weight: 900;
+  font-weight: 500;
+  font-family: ThickTTU sans-serif;
   font-size: 1.2rem;
 }
 
@@ -355,6 +358,11 @@ ul li
 
 .admin-menu{
   border-top:#342b60 4px solid
+}
+
+b {
+  font-family: ThickTTU sans-serif;
+  font-weight: 500;
 }
 
 .gray-bg-fill{
@@ -420,6 +428,13 @@ Quill
 .quill-editor iframe {
   pointer-events: none;
 }
+
+
+.ql-editor strong{
+  font-weight: 500;
+  font-family: ThickTTU sans-serif;
+}
+
 
 .ql-editor .ql-video {
   display: block;
@@ -649,7 +664,7 @@ body.safari .banner-container {
   font-size: 5rem;
   font-family: ThickTTU sans-serif;
   text-shadow: #1a1d20;
-  font-weight: 900;
+  font-weight: 500;
 }
 
 .underline-last-line {
@@ -670,7 +685,7 @@ body.safari .banner-container {
 
 
 .home-page-subtitle{
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .home-page-content-container
@@ -714,7 +729,7 @@ body.safari .banner-container {
   bottom: 0;
   color: white;
   margin: 1rem;
-  font-weight: 900;
+  font-weight: 500;
   font-size: 1.125rem;
   transition: border-bottom 0.3s ease; /* Add this for smooth transition */
   border-bottom: 3px solid transparent;

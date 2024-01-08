@@ -189,7 +189,7 @@ export default class ImageResize {
             'userSelect',
             'mozUserSelect',
             'webkitUserSelect',
-            'msUserSelect',
+            'msUerSelect',
         ].forEach((prop) => {
             // set on contenteditable element and <html>
             this.quill.root.style[prop] = value;
@@ -205,8 +205,7 @@ export default class ImageResize {
                     window.Quill.find(this.img).deleteAt(0)
                 } catch (e) {
                     console.log("Error deleting image");
-                }
-                ;
+                };
             }
             this.hide();
         }

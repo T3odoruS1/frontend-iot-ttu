@@ -6,7 +6,8 @@ const ButtonPrimary = ({...rest}) => {
 		<button
 			style={{
 				fontSize: "1.125rem",
-				fontWeight: 900,
+				fontWeight: 500,
+				fontFamily: "ThickTTU sans-serif",
 				textTransform: "uppercase",
 				color: "#fff",
 				border: "4px solid #e4067e",

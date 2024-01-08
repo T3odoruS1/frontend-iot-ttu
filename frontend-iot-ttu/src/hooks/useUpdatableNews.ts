@@ -9,7 +9,7 @@ const useUpdatableNews = () => {
         useState<INewsWTranslations | null>(null);
     const update = newsService.update;
 
-    const fetch = async (id: string) => {
+    const fetch= async (id: string) => {
         await newsService.getMultiLang(id).then((res) => {
             if(res !== undefined && "titles" in res){
                 setNews(res)

@@ -35,13 +35,12 @@ const CarouselComponent = () => {
             setOffsetY(window.scrollY);
         };
 
+
+
         if(!document.body.classList.contains("safari")){
+
             window.addEventListener('scroll', handleScroll);
         }
-
-
-
-
 
         const intervalId = setInterval(() => {
             setIndex((prevIndex) => (prevIndex === backgrounds.length - 1 ? 0 : prevIndex + 1));
@@ -78,7 +77,6 @@ const CarouselComponent = () => {
 };
 
 export default CarouselComponent;
-
 
 const BannerContent: FC<{heading: string, content: string}> = ({heading, content}) => {
     return <div className="">
