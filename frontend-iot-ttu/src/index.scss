@@ -848,4 +848,27 @@ body.safari .banner-container {
 }
 
 
+.menu-enter {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.menu-enter-active {
+  opacity: 1;
+  max-height: 500px; // or set this to the max required height
+  transition: opacity 300ms, max-height 300ms;
+}
+
+.menu-exit {
+  opacity: 1;
+  max-height: 500px;
+}
+
+.menu-exit-active {
+  opacity: 0;
+  max-height: 0 !important;
+  transition: opacity 300ms, max-height 300ms;
+}
+
 

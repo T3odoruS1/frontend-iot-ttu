@@ -1,14 +1,10 @@
 import {useTranslation} from "react-i18next";
-import React, {CSSProperties, useState} from "react";
-import TalTechSVG from "./TalTechSVG";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import i18n from "i18next";
 import hamburgerIcon from '../../assets/hamburger.png';
-
-import {Transition, TransitionStatus} from 'react-transition-group';
-import {TransitionProps} from "react-transition-group/Transition";
 import LanguageSwitcher from "../LanguageSwitcher";
-
+import { CSSTransition } from "react-transition-group";
 
 
 
@@ -18,24 +14,11 @@ interface IProps {
 }
 
 export const MobileHeaderBody: React.FC<IProps> = (props) => {
-    const {t} = useTranslation();
     const [expanded, setExpanded] = useState(false);
-    const duration = 300;
     const toggleExpand = () => {
         setExpanded(!expanded);
     }
 
-    const defaultStyle = {
-        transition: `height ${duration}ms ease-in-out`,
-        height: '0',
-    };
-
-    const transitionStyles: { [K in TransitionStatus]?: CSSProperties } = {
-        entering: { height: '0' },
-        entered:  { height: 'auto' },
-        exiting:  { height: 'auto' },
-        exited:  { height: '0' },
-    };
 
     return (
         <nav className="top-gradient navbar navbar-expand-lg navbar-light bg-light pb-0">
@@ -49,7 +32,6 @@ export const MobileHeaderBody: React.FC<IProps> = (props) => {
                             <img src={hamburgerIcon} className={"hamburger"} alt={"toggle menu"}/>
                         </button>
                     </div>
-
                 </div>
 
 
@@ -62,7 +44,6 @@ export const MobileHeaderBody: React.FC<IProps> = (props) => {
                         ))}
                         <LanguageSwitcher/>
                     </ul>
-
                 }
             </div>
         </nav>
