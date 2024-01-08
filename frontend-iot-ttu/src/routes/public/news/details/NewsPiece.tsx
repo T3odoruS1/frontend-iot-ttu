@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import i18n from "i18next";
 import NewsContent from "../../../../components/NewsContent";
 import NavigationButton from "../../../../components/common/NavigationButton";
 import useNews from "../../../../hooks/useNews";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
+import {useTranslation} from "react-i18next";
 
 const NewsPiece = () => {
+	const { t } = useTranslation();
 	const {id} = useParams();
 	const navigate = useNavigate();
 	const {newsPiece: news, pending} = useNews(id ?? "");
@@ -33,7 +33,7 @@ const NewsPiece = () => {
 			/>)}
 
 			<div className={"mt-5"}>
-				<ButtonPrimary onClick={onContactUsClick}>Huvitatud? Vota uhendust!</ButtonPrimary>
+				<ButtonPrimary onClick={onContactUsClick}>{t("public.news.contact")}</ButtonPrimary>
 			</div>
 
 		</div>
