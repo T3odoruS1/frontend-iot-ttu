@@ -12,6 +12,7 @@ import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
 import {useNavigate, useParams} from "react-router-dom";
 import {NewsService} from "../../../../services/NewsService";
 import {INewsWTranslations} from "../../../../dto/news/INewsWTranslations";
+import news from "../../../public/news/News";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
@@ -22,6 +23,7 @@ interface IProps {
 const NewsCreateFormWithPreview = (props: IProps) => {
     const {t} = useTranslation();
     const schema = yup.object().shape({
+        id: yup.string().nullable(),
         title: yup
             .array()
             .length(2)
@@ -94,14 +96,30 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         onEditorStateChangeEst(news!.body.find(b => {
             return b.culture === "et"
         })?.value ?? "");
+
+        setValue(`topicAreas`, news.topicAreas);
+
+        console.log("NEWS!")
+        console.log(news.title)
+        setValue(`title.0.value`, news!.title!.find(t => {
+            return t.culture === "en"
+        })?.value ?? "");
+        setValue(`title.0.culture`, "en")
+
+        setValue(`title.1.value`, news!.title!.find(t => {
+            return t.culture === "et"
+        })?.value ?? "");
+        setValue(`title.1.culture`, "et")
+
+        setValue(`image`, news.image);
+        setValue(`author`, news.author);
+        setValue(`id`, news.id);
     }
 
 
     const onEditorStateChangeEng = (html: string) => {
-        // console.log(html)
         setValue(`body.${0}.value`, html);
         setEditorHtmlEng(html);
-        console.log(errors?.image?.message?.toString())
     };
 
     const onEditorStateChangeEst = (html: string) => {

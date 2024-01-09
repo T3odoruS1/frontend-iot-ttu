@@ -23,7 +23,6 @@ interface IProps {
 	setValue: UseFormSetValue<INewsOutputDTO>;
 	register: UseFormRegister<INewsOutputDTO>;
 	errors: FieldErrors<INewsOutputDTO>;
-	getValues: UseFormGetValues<INewsOutputDTO>;
 }
 
 const NewsTopicAreaInput: React.FC<IProps> = ({
@@ -31,7 +30,6 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 	setValue,
 	register,
 	errors,
-	getValues,
 }) => {
 	const { fields, remove, append } = useFieldArray({
 		control: control,

@@ -1,5 +1,9 @@
+import {Outlet} from "react-router-dom";
+
 const ProjectsAdm = () => {
-  return <>Projects admin</>
+  return <div>
+    <Outlet/>
+  </div>
 }
 
 export default ProjectsAdm;

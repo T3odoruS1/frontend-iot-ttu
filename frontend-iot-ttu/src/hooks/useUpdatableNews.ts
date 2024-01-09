@@ -11,7 +11,7 @@ const useUpdatableNews = () => {
 
     const fetch= async (id: string) => {
         await newsService.getMultiLang(id).then((res) => {
-            if(res !== undefined && "titles" in res){
+            if(res !== undefined && "title" in res){
                 setNews(res)
                 setPending(false);
             }

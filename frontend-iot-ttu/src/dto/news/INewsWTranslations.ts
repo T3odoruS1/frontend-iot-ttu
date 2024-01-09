@@ -2,7 +2,7 @@ import {IBaseEntity} from "../IBaseEntity";
 import {IContent} from "../IContent";
 
 export interface INewsWTranslations extends IBaseEntity{
-    titles: IContent[];
+    title: IContent[];
     createdAt: string;
     image: string;
     author: string;

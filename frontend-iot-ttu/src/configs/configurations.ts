@@ -8,7 +8,11 @@ Quill.register(Quill.import("blots/inline"), true);
 export const modules = {
     imageResize: {
         parchment: Quill.import('parchment'),
-		modules: [ 'Resize', 'DisplaySize', "Toolbar" ]
+		modules: [
+			'Resize',
+			'DisplaySize'
+			// "Toolbar"
+		]
     },
 
 	toolbar: [

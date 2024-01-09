@@ -1,7 +1,7 @@
 import { IContent } from "../IContent";
 
 export interface INewsOutputDTO{
-    title: IContent[];
+    id?: string | null | undefined;    title: IContent[];
     body: IContent[];
     author: string;
     image: string;

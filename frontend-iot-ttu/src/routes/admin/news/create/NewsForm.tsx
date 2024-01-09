@@ -98,6 +98,7 @@ const NewsForm: React.FC<IProps> =
                     label={t("admin.news.adminNews.create.uploadPoster")}
                     register={register}
                     setValue={setValue}
+                    getValue={getValues}
                     name={"image"}
                     fileSize={5}
                 />
@@ -121,7 +122,6 @@ const NewsForm: React.FC<IProps> =
                 <NewsTopicAreaInput
                     control={control}
                     setValue={setValue}
-                    getValues={getValues}
                     register={register}
                     errors={errors}
                 />

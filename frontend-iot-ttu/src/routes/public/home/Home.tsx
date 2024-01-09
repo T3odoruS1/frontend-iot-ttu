@@ -9,7 +9,6 @@ import tallink from './../../../assets/partners/Tallink.png'
 import kinema from './../../../assets/partners/kinema_.png'
 import haridusmin from './../../../assets/partners/haridusmin.png'
 import dfsd from './../../../assets/partners/dfsd.png'
-import i18n from "i18next";
 
 const Home = () => {
     return <>
@@ -17,7 +16,7 @@ const Home = () => {
         <div className="home-page-content-container">
             <Row>
 
-                <Col md={9}>
+                <Col lg={9} md={8}>
                     <div>
                         <SubHeadingPurple>About us</SubHeadingPurple>
                         <p>
@@ -52,11 +51,11 @@ const Home = () => {
                         </ul>
                     </div>
                 </Col>
-                <Col md={3}>
-                    <div className="mb-3">
+                <Col lg={3} md={4}>
+                    <div className="m-3 home-page-link-container">
                         <ImageLinkContainer image={territory} to={`./news`} label={"Uudised!"}/>
                     </div>
-                    <div className="mb-2">
+                    <div className="m-3 home-page-link-container">
                         <ImageLinkContainer image={hall} to={`./contact`} label={"Kontakt!"}/>
                     </div>
                 </Col>

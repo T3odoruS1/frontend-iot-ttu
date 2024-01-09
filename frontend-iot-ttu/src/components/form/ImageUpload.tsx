@@ -1,5 +1,5 @@
-import React, {ChangeEvent, FC, useState} from "react";
-import {UseFormRegister, UseFormSetValue} from "react-hook-form";
+import React, {ChangeEvent, FC, useEffect, useState} from "react";
+import {UseFormGetValues, UseFormRegister, UseFormSetValue} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {INewsOutputDTO} from "../../dto/news/INewsOutputDTO";
 import ButtonSmaller from "../common/ButtonSmaller";
@@ -7,6 +7,7 @@ import ButtonSmaller from "../common/ButtonSmaller";
 interface Props {
     register: UseFormRegister<INewsOutputDTO>;
     setValue: UseFormSetValue<INewsOutputDTO>;
+    getValue: UseFormGetValues<INewsOutputDTO>;
     name: keyof INewsOutputDTO;
     label: string;
     fileSize: number;
@@ -16,18 +17,19 @@ const ImageUploader: FC<Props> = ({
                                       register,
                                       setValue,
                                       name,
+                                      getValue,
                                       label,
                                       fileSize,
                                   }) => {
-    const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
-    const [fileName, setFileName] = useState<string | null>(null);
+    const [preview, setPreview] = useState<string | ArrayBuffer | null>(getValue().image);
+    const [fileName, setFileName] = useState<string | null>(" ");
     const {t} = useTranslation();
 
     const onImageChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event?.target?.files?.[0];
         if (file) {
             if (file.size > fileSize * 1024 * 1024) {
-                // 2MB
+
                 alert(t("fileIsTooBig", {size: fileSize}));
                 event.target.value = "";
             } else {
@@ -45,6 +47,10 @@ const ImageUploader: FC<Props> = ({
         }
     };
 
+    useEffect(() => {
+        setPreview(getValue().image)
+    }, [getValue().image]);
+
     const onImageRemove = () => {
         if (fileName) {
             setValue(name, "");
@@ -61,7 +67,8 @@ const ImageUploader: FC<Props> = ({
                         className="btn btn-ttu-pink"
                         type="button"
                         id="button-addon2">
-                        <label htmlFor="file-input" style={{marginBottom: 0}}>
+                        <label htmlFor="file-input" style={{
+                            marginBottom: 0}}>
                             {t("admin.imageUploader.chooseFile")}
                         </label>
                     </button>

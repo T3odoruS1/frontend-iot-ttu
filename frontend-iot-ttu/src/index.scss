@@ -712,7 +712,7 @@ body.safari .banner-container {
 
 
 .home-page-title {
-  font-size: 5rem;
+  font-size: 3rem;
   font-family: ThickTTU sans-serif;
   text-shadow: #1a1d20;
   font-weight: 500;
@@ -741,12 +741,18 @@ body.safari .banner-container {
 
 .home-page-content-container {
   margin-top: 2rem;
+  margin: 8px;
 }
 
 .home-page-li {
   list-style-type: circle;
 }
 
+.home-page-link-container{
+  display: flex;
+  //align-items: center;
+  justify-content: center;
+}
 
 .image-link {
   font-family: ThickTTU sans-serif;
