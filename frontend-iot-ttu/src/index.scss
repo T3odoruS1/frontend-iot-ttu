@@ -11,12 +11,22 @@ body {
 }
 
 
-.ql-editor h1 {
+.ql-snow .ql-editor h1 {
   line-height: 3.5rem;
+  font-family: ThickTTU sans-serif;
+  color: #342b60;
+  // TODO sizes
+  font-size: 2.5rem !important;
+  font-weight: 500;
 }
 
-h2 .ql-editor {
+.ql-snow .ql-editor h2{
   line-height: 3.25rem;
+  font-family: ThickTTU sans-serif;
+  color: #342b60;
+  // TODO sizes
+  font-size: 1.88rem !important;
+  font-weight: 500;
 }
 
 img .ql-editor {
@@ -28,17 +38,15 @@ img .ql-editor {
   padding-right: 1rem;
 }
 
-h3 .ql-editor {
+.ql-snow .ql-editor h3 {
   line-height: 3rem;
+  font-family: ThickTTU sans-serif;
+  color: #342b60;
+  // TODO sizes
+  font-size: 1.6rem !important;
+  font-weight: 500;
 }
 
-h4 .ql-editor {
-  line-height: 2.75rem;
-}
-
-h5 .ql-editor {
-  line-height: 2.5rem;
-}
 
 .result-div .ql-editor {
   padding: 0px;

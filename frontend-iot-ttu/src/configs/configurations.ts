@@ -20,7 +20,7 @@ export const modules = {
 		[{ indent: "-1" }, { indent: "+1" }],
 		[{ direction: "rtl" }],
 
-		[{ header: [1, 2, 3, 4, 5, 6, false] }],
+		[{ header: [1, 2, 3, false] }],
 
 		[{ color: [] }, { background: [] }],
 		[{ align: [] }],

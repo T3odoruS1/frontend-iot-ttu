@@ -50,7 +50,6 @@ const NewsList = () => {
             totalItemsCount={total}
             pageRangeDisplayed={5}
             onChange={handlePageClick.bind(this)}
-
             innerClass={"pagination-navigation"}
             linkClass={"pagination-element"}
             activeLinkClass={"active-page-li"}
