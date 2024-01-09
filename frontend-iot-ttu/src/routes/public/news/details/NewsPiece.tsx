@@ -4,6 +4,7 @@ import NavigationButton from "../../../../components/common/NavigationButton";
 import useNews from "../../../../hooks/useNews";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
+import {Loader} from "../../../../components/Loader";
 
 const NewsPiece = () => {
 	const { t } = useTranslation();
@@ -22,7 +23,7 @@ const NewsPiece = () => {
 				<NavigationButton to={"../"}>{t("public.news.news-list")}</NavigationButton>
 			</div>
 
-			{pending ? <p>Loading...</p> : (<NewsContent
+			{pending ? <Loader/> : (<NewsContent
 				title={news?.title ?? ""}
 				image={news?.image ?? ""}
 				createdAt={new Date(news?.createdAt ?? "").toLocaleDateString()}

@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useEffect } from "react";
+import {useCallback, useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import i18n from "i18next";
-import {bool, boolean} from "yup";
+// import i18n from "i18next";
+// import {bool, boolean} from "yup";
+import {useTranslation} from "react-i18next";
 
 
 interface IProps{
@@ -11,23 +12,24 @@ interface IProps{
 }
 
 const LanguageSwitcher = (props: IProps) => {
-	// const { i18n } = useTranslation();
+	const { i18n} = useTranslation()
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { lang } = useParams();
 
-	// useEffect(() => {
-	// 	i18n.changeLanguage(lang);
-	// }, [location]);
+	useEffect(() => {
+		changeLanguage(lang!);
+		// No return function needed here unless you have specific cleanup logic
+	}, [lang, i18n]);
 
-	const changeLanguage = (lng: string) => {
+	const changeLanguage = useCallback((lng: string) => {
+		if (lng === i18n.language) return; // Prevent unnecessary language changes
 		i18n.changeLanguage(lng);
 		const pathSegments = location.pathname.split("/");
-
 		pathSegments[1] = lng;
-		
 		navigate(pathSegments.join("/"));
-	};
+	}, [i18n, location.pathname, navigate]);
+
 
 	return (
 		<div className="">

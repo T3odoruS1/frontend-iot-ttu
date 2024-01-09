@@ -1,9 +1,6 @@
 import {useEffect} from "react";
 
 const DatePink: React.FC<{ date: string }> = ({date}) => {
-    useEffect(() => {
-        console.log(date);
-    })
     return (
         <span style={{
             fontSize: "1.25rem",

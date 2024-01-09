@@ -32,7 +32,13 @@
           "titleInEstonian": "Title in Estonian",
           "titles": "Titles",
           "uploadPoster": "Upload a poster",
-          "NAME_ALREADY_EXISTS": "Topic area with this name already exists"
+          "NAME_ALREADY_EXISTS": "Topic area with this name already exists",
+          "validation": {
+            "fieldIsRequired": "This field is mandatory",
+            "AuthorNameLen": "Author name should be at least 1 letter",
+            "topicAreaMandatory": "Choose at least 1 topic area",
+            "imageRequired": "Add some image for this post"
+          }
         }
       }
     }

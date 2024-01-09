@@ -83,7 +83,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 										<FormLabel htmlFor={`topicAreas.${index}.id`}>
 											{t("admin.news.adminNews.create.chooseTopicArea")}
 											<span className="text-danger">
-												{errors.topicAreas?.[index]?.id?.message?.toString()}
+												{/*{errors.topicAreas?.[index]?.id?.message?.toString()}*/}
 											</span>
 										</FormLabel>
 									</FormFloating>

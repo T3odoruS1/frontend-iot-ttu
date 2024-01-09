@@ -13,8 +13,9 @@ import {INewsOutputDTO} from "../../../../dto/news/INewsOutputDTO";
 import InputControl from "../../../../components/form/InputControl";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {formats, modules} from "../../../../configs/configurations";
+import {FormLabel} from "react-bootstrap";
 
 interface IProps {
     register: UseFormRegister<INewsOutputDTO>;
@@ -51,9 +52,16 @@ const NewsForm: React.FC<IProps> =
             setValue(`body.${1}.culture`, "et");
         }, []);
 
+
+
+
         const {t} = useTranslation();
         return (
-            <form onSubmit={handleSubmit(onSubmit)} id="news-form">
+            <form onSubmit={
+                handleSubmit((dto) => {
+                    onSubmit(dto);
+                })
+            } id="news-form">
                 <SubHeadingPurple>
                     {t("admin.news.adminNews.create.titles")}
                 </SubHeadingPurple>
@@ -63,7 +71,7 @@ const NewsForm: React.FC<IProps> =
                         name={`title.${0}.value`}
                         register={register}
                         type="text"
-                        error={errors.titleEng?.message?.toString()}
+                        error={t(errors.title?.[0]?.value?.message?.toString())}
                         label={t("admin.news.adminNews.create.titleInEnglish")}
                     />
                 </div>
@@ -72,7 +80,7 @@ const NewsForm: React.FC<IProps> =
                         name={`title.${1}.value`}
                         register={register}
                         type="text"
-                        error={errors.titleEst?.message?.toString()}
+                        error={t(errors.title?.[1]?.value?.message?.toString())}
                         label={t("admin.news.adminNews.create.titleInEstonian")}
                     />
                 </div>
@@ -81,7 +89,12 @@ const NewsForm: React.FC<IProps> =
                     {t("admin.news.adminNews.create.thumbnail")}
                 </SubHeadingPurple>
 
-                <ImageUploader
+
+                <FormLabel>{errors.image?.message &&
+                    <span className="text-danger"> {t(errors.image?.message.toString())}</span>
+                }
+                </FormLabel>
+                    <ImageUploader
                     label={t("admin.news.adminNews.create.uploadPoster")}
                     register={register}
                     setValue={setValue}
@@ -95,13 +108,16 @@ const NewsForm: React.FC<IProps> =
                     name={"author"}
                     register={register}
                     type="text"
-                    error={errors.author?.message?.toString()}
+                    error={t(errors.author?.message?.toString())}
                     label={t("admin.news.adminNews.create.authorName")}
                 />
 
                 <SubHeadingPurple className="mt-5">
                     {t("admin.news.adminNews.create.categories")}
                 </SubHeadingPurple>
+                {errors?.topicAreas?.message &&
+                    <p><span className="text-danger"> {t(errors?.topicAreas?.message?.toString())}</span></p>
+                }
                 <NewsTopicAreaInput
                     control={control}
                     setValue={setValue}

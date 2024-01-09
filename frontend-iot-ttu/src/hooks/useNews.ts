@@ -4,6 +4,7 @@ import {NewsService} from "../services/NewsService";
 import i18n from 'i18next';
 
 const useNews = (id: string) => {
+
     const [newsPiece, setNewsPiece] = useState<INews | null>(null);
     const [pending, setPending] = useState(true);
     const newsService = new NewsService();

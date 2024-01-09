@@ -22,6 +22,7 @@ i18n.use(initReactI18next).init({
 	},
 });
 
+
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );

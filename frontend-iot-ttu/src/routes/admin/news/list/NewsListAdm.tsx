@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import useNewsList from "../../../../hooks/useNewsList";
 import PageTitle from "../../../../components/common/PageTitle";
 import useTopicAreas from "../../../../hooks/useTopicAreas";
+import {Loader} from "../../../../components/Loader";
 
 const NewsListAdm = () => {
 
@@ -43,7 +44,7 @@ const NewsListAdm = () => {
         <div>
             <PageTitle>News</PageTitle>
             <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>Create</ButtonSmaller></div>
-            {pending && <p>Loading...</p>}
+            {pending && <Loader/>}
             <Table variant="striped">
                 <caption>News list</caption>
                 <thead>

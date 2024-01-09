@@ -32,7 +32,13 @@
           "titleInEstonian": "Pealkiri eesti keeles",
           "titles": "Pealkirjad",
           "uploadPoster": "Pilt",
-          "NAME_ALREADY_EXISTS": "Kategooria selle nimega on juba olemas"
+          "NAME_ALREADY_EXISTS": "Kategooria selle nimega on juba olemas",
+          "validation": {
+            "fieldIsRequired": "See väli on kohustuslik",
+            "AuthorNameLen": "Autori nimi peab olema vähemalt 1 täht",
+            "topicAreaMandatory": "Vali vähemalt 1 kategooria",
+            "imageRequired": "Lisa pilt"
+          }
         }
       }
     }

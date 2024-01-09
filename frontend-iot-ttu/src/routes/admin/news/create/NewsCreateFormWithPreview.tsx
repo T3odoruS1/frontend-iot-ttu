@@ -1,7 +1,7 @@
 import {useForm, FieldValues} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {useDebugValue, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {FormCheck, FormFloating} from "react-bootstrap";
 import NewsForm from "./NewsForm";
@@ -10,54 +10,52 @@ import ContentPreview from "../../../../components/ContentPreview";
 import PageTitle from "../../../../components/common/PageTitle";
 import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
 import {useNavigate, useParams} from "react-router-dom";
-import useNews from "../../../../hooks/useNews";
-import newsPiece from "../../../public/news/details/NewsPiece";
 import {NewsService} from "../../../../services/NewsService";
-import useUpdatableNews from "../../../../hooks/useUpdatableNews";
 import {INewsWTranslations} from "../../../../dto/news/INewsWTranslations";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
 }
 
-const schema = yup.object().shape({
-    title: yup
-        .array()
-        .length(2)
-        .of(
-            yup.object().shape({
-                value: yup.string().min(1, "This field is required").required(),
-                culture: yup.string().min(1, "This field is required").required(),
-            })
-        )
-        .required(),
-    body: yup
-        .array()
-        .length(2)
-        .of(
-            yup.object().shape({
-                value: yup.string().min(1, "This field is required").required(),
-                culture: yup.string().min(1, "This field is required").required(),
-            })
-        )
-        .required(),
-    image: yup.string().required(),
-    author: yup
-        .string()
-        .min(1, "Author name should be at least 1 letter")
-        .required(),
-    topicAreas: yup
-        .array()
-        .of(
-            yup.object().shape({
-                id: yup.string().uuid("Topic area must be chosen").required(),
-            })
-        )
-        .required(),
-});
+
 
 const NewsCreateFormWithPreview = (props: IProps) => {
     const {t} = useTranslation();
+    const schema = yup.object().shape({
+        title: yup
+            .array()
+            .length(2)
+            .of(
+                yup.object().shape({
+                    value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+                    culture: yup.string().min(1, "").required(),
+                })
+            )
+            .required(),
+        body: yup
+            .array()
+            .length(2)
+            .of(
+                yup.object().shape({
+                    value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+                    culture: yup.string().min(1, "").required(),
+                })
+            )
+            .required(),
+        image: yup.string().required(`admin.news.adminNews.create.validation.imageRequired`),
+        author: yup
+            .string()
+            .min(1, `admin.news.adminNews.create.validation.AuthorNameLen`)
+            .required(),
+        topicAreas: yup
+            .array(
+                yup.object().shape({
+                    id: yup.string().uuid(`admin.news.adminNews.create.validation.topicAreaMandatory`).required(),
+                })
+            )
+            .required(`admin.news.adminNews.create.validation.topicAreaMandatory`)
+            .min(1, `admin.news.adminNews.create.validation.topicAreaMandatory`)
+    });
     const [editorHtmlEng, setEditorHtmlEng] = useState<string>("");
     const [editorHtmlEst, setEditorHtmlEst] = useState<string>("");
     const [preview, setPreview] = useState<boolean>(false);
@@ -100,20 +98,20 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 
 
     const onEditorStateChangeEng = (html: string) => {
+        // console.log(html)
         setValue(`body.${0}.value`, html);
-
         setEditorHtmlEng(html);
+        console.log(errors?.image?.message?.toString())
     };
 
     const onEditorStateChangeEst = (html: string) => {
         setValue(`body.${1}.value`, html);
         setEditorHtmlEst(html);
     };
-
-    const onSubmit = (formValues: FieldValues) => {
-        props.onSubmit(formValues);
-        navigate("./")
-    }
+        const onSubmit = (formValues: FieldValues) => {
+            props.onSubmit(formValues);
+            navigate("./")
+        }
 
     return (
         <>
