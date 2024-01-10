@@ -6,5 +6,3 @@ export interface IContactDto{
     phone? : string,
     messageText: string
 }
-
-export {}

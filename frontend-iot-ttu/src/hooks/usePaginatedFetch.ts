@@ -14,28 +14,25 @@ const usePaginatedFetch =
         const [pending, setPending] = useState(true);
         const [data, setData] = useState<TEntity[]>([]);
         const [total, setTotal] = useState(0);
+        const [error, setError] = useState<string | null>(null);
 
         const pageCount = useMemo(() => {
             return Math.ceil(total / size);
         }, [size, total]);
 
         const fetchTotal = () => {
-            service.getCount().then(response => {
-                if (response !== undefined) {
-                    setTotal(response);
-                }
-            });
+            service.getCount()
+                .then(setTotal)
+                .catch(setError);
 
         }
 
         const getData = () => {
             if(i18n.language !== undefined){
-                service.getAll(i18n.language, page, size).then(response => {
-                    if (response !== undefined) {
-                        setData(response);
-                        setPending(false);
-                    }
-                })
+                service.getAll(i18n.language, page, size)
+                    .then(setData)
+                    .catch(setError)
+                    .finally(() => setPending(false));
             }
         }
 
@@ -49,7 +46,7 @@ const usePaginatedFetch =
             }
         }, [page, size, i18n.language]);
 
-        return {data, pending, total, pageCount}
+        return {data, pending, total, pageCount, error}
     }
 
 export default usePaginatedFetch;

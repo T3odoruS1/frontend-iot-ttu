@@ -7,20 +7,20 @@ const useNews = (id: string) => {
 
     const [newsPiece, setNewsPiece] = useState<INews | null>(null);
     const [pending, setPending] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const newsService = new NewsService();
     const fetch = () => {
-        newsService.getById(i18n.language, id).then((result) => {
-            if (result !== undefined) {
-                setNewsPiece(result);
-            }
-            setPending(false);
-        })
+        newsService.getById(i18n.language, id)
+            .then(setNewsPiece)
+            .catch(setError)
+            .finally(() => setPending(false))
     }
     useEffect(() => {
         fetch();
+        console.log(error)
     }, [id, i18n.language]);
 
-    return {newsPiece, pending}
+    return {newsPiece, pending, error}
 }
 
 export default useNews;

@@ -5,14 +5,14 @@ const useNewsCount = () => {
     const newsService = new NewsService();
     const [count, setCount] = useState(0);
     const [pending, setPending] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
 
     const fetch = () => {
-        newsService.getCount().then(result => {
-            if(result !== undefined){
-                setCount(result);
-                setPending(false);
-            }
-        })
+        newsService.getCount()
+            .then(setCount)
+            .catch(setError)
+            .finally(() => setPending(false))
     }
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const useNewsCount = () => {
         }
     }, []);
 
-    return {count, pending}
+    return {count, pending, error}
 }
 
 export default useNewsCount;

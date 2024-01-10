@@ -7,15 +7,13 @@ const useTopicAreas = () => {
     const service = new TopicAreaService();
     const [topicAreas, setTopicAreas] = useState<ITopicAreaWithChildren[]>([]);
     const [pending, setPending] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     const fetch = () => {
-        service.getAll(i18n.language).then((result) => {
-                if (result !== undefined) {
-                    setTopicAreas(result);
-
-                }
-                setPending(false);
-            })
+        service.getAll(i18n.language)
+            .then(setTopicAreas)
+            .catch(setError)
+            .finally(() => setPending(false))
     }
 
 
@@ -23,7 +21,7 @@ const useTopicAreas = () => {
         fetch();
     }, [i18n.language]);
 
-    return {topicAreas, pending}
+    return {topicAreas, pending, error}
 }
 
 export default useTopicAreas;

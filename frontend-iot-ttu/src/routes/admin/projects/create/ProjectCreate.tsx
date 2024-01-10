@@ -10,10 +10,11 @@ const ProjectCreate = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (data: FieldValues) => {
-      const response = await projectService.create(data as IProjectOutput);
-      if (response !== undefined) {
-          navigate(``); // TODO path
-      }
+      console.log(data)
+      // const response = await projectService.create(data as IProjectOutput);
+      // if (response !== undefined) {
+      //     navigate(`../`); // TODO path
+      // }
   }
 
 

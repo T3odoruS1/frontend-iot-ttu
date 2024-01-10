@@ -7,20 +7,19 @@ const useTranslatedTopicAreas = () => {
     const [topicAreas, setTopicAreas] =
         useState<ITopicAreaGetMultilang[]>([]);
     const [pending, setPending] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const service = new TopicAreaService();
     const fetch = () => {
-        service.getWithTranslations().then((result) => {
-            if(result !== undefined){
-                setTopicAreas(result);
-            }
-            setPending(false);
-        })
+        service.getWithTranslations()
+            .then(setTopicAreas)
+            .catch(setError)
+            .finally(() => setPending(false));
     }
 
     useEffect(() => {
         fetch();
     }, [i18n.language])
-    return {topicAreas, pending}
+    return {topicAreas, pending, error}
 }
 
 export default useTranslatedTopicAreas;

@@ -9,18 +9,22 @@ import {NewsService} from "../../../../services/NewsService";
 import {INews} from "../../../../dto/news/INews";
 import {useState} from "react";
 import Pagination from "react-js-pagination";
+import ErrorPage from "../../../ErrorPage";
 
 
 const NewsList = () => {
     const {t} = useTranslation();
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(6);
-    const {data: news, pending, total, pageCount} =
+    const {data: news, pending, total, error} =
         usePaginatedFetch<INews, NewsService>(new NewsService(), page - 1, size);
 
     const handlePageClick = (pageNumber: number) => {
-        console.log(pageNumber)
         setPage(pageNumber)
+    }
+
+    if(error){
+        return <ErrorPage/>
     }
 
 

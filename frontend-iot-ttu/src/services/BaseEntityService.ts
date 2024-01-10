@@ -1,9 +1,9 @@
 import { IBaseEntity } from "../dto/IBaseEntity";
-import { BaseService } from "./BaseService";
+import { BaseClient } from "./BaseClient";
 import {AxiosError} from "axios";
 import {IErrorResponse} from "../dto/IErrorResponse";
 
-export abstract class BaseEntityService extends BaseService {
+export abstract class BaseEntityService extends BaseClient {
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor(baseUrl: string){
         super(baseUrl);

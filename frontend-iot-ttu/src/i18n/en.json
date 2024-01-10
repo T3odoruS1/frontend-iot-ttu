@@ -41,6 +41,12 @@
           }
         }
       }
+    },
+    "projects": {
+      "validation": {
+        "year": "Must be a positive number",
+        "projectVolume": "Must be a positive number"
+      }
     }
   },
   "author": "author",
@@ -60,5 +66,8 @@
       "news-list": "News list",
       "contact": "Interested? Contact us!"
     }
+  },
+  "errorPage": {
+    "somethingWentWrong": "Looks like we're experiencing technical problems. Try again later..."
   }
 }

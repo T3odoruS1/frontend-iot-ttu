@@ -7,6 +7,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: string;
     register?: any;
     wrapperClass?: string;
+    as?: string;
+    markAsMandatory?: boolean;
 }
 
 const InputControl: FC<InputProps> =
@@ -16,6 +18,8 @@ const InputControl: FC<InputProps> =
          error,
          label,
          wrapperClass,
+         as,
+         markAsMandatory = false,
          ...rest
      }) => {
         return (
@@ -27,10 +31,13 @@ const InputControl: FC<InputProps> =
                     id={name}
                     name={name}
                     placeholder={name}
+                    as={as}
                     {...register(name)}
                     {...rest}
                 />
-                <FormLabel htmlFor={name}>{label} {error && <span className="text-danger"> {error}</span>}</FormLabel>
+                <FormLabel htmlFor={name}>{label}
+                    {error && <span className="text-danger"> {error}</span>}{markAsMandatory && <span className="text-danger"> *</span>}
+                </FormLabel>
 
             </FormFloating>
         );

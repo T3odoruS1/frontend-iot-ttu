@@ -1,13 +1,9 @@
 import { IContent } from "../IContent";
+import {IContainsTopicArea} from "../IContainsTopicArea";
 
-export interface INewsOutputDTO{
+export interface INewsOutputDTO extends IContainsTopicArea{
     id?: string | null | undefined;    title: IContent[];
     body: IContent[];
     author: string;
     image: string;
-    topicAreas: {
-        id: string,
-        title?: string,
-        culture?:string;
-    }[];
 }

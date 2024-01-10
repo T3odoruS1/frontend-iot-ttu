@@ -7,10 +7,11 @@ import useNewsList from "../../../../hooks/useNewsList";
 import PageTitle from "../../../../components/common/PageTitle";
 import useTopicAreas from "../../../../hooks/useTopicAreas";
 import {Loader} from "../../../../components/Loader";
+import ErrorPage from "../../../ErrorPage";
 
 const NewsListAdm = () => {
 
-    const {news, setNews, pending, remove} = useNewsList();
+    const {news, setNews, pending, remove, error} = useNewsList();
     const {topicAreas} = useTopicAreas();
 
     let topicAreaIndex = 0;
@@ -39,6 +40,10 @@ const NewsListAdm = () => {
         navigate(`./${id}`);
     }
 
+
+    if(error){
+        return <ErrorPage/>
+    }
 
     return (
         <div>

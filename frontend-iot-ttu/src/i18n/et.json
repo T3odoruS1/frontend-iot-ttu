@@ -41,6 +41,12 @@
           }
         }
       }
+    },
+    "projects": {
+      "validation": {
+        "year": "Peab olema positivne number",
+        "projectVolume": "Peab olema positivne number"
+      }
     }
   },
   "author": "autor",
@@ -60,5 +66,8 @@
       "news-list": "Teised uudised",
       "contact": "Huvitatud? Võta ühendust!"
     }
+  },
+  "errorPage": {
+    "somethingWentWrong": "Näib, et meil on tehnilisi probleeme. Proovige hiljem uuesti..."
   }
 }

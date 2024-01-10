@@ -4,40 +4,48 @@ import {INewsOutputDTO} from "../dto/news/INewsOutputDTO";
 import {IErrorResponse} from "../dto/IErrorResponse";
 import {INewsWTranslations} from "../dto/news/INewsWTranslations";
 import {IPaginatedService} from "./IPaginatedService";
+import {HttpClient} from "./HttpClient";
+import {processResponse} from "./BaseService";
 
-export class NewsService extends BaseEntityService implements IPaginatedService<INews>{
+export class NewsService extends HttpClient implements IPaginatedService<INews> {
     constructor() {
         super("");
     }
 
-    getAll = async (lang: string, page: number = 0, size: number = 500): Promise<INews[] | undefined> => {
-        return await this.get<INews[] | undefined>(`${lang}/news?page=${page}&size=${size}`);
+    getAll = async (lang: string, page: number = 0, size: number = 500): Promise<INews[]> => {
+        const response =
+            await this.get<INews[], IErrorResponse>(`${lang}/news?page=${page}&size=${size}`);
+        return processResponse<INews[]>(response);
     }
 
-    getCount = async (): Promise<number | undefined> =>  {
+    getCount = async (): Promise<number> => {
         // return await this.get<number | undefined>(`project/count`)
-        return Promise.resolve((await this.getAll("et"))?.length);
+        return Promise.resolve((await this.getAll("et"))?.length); // TODO convert to proper client usage
     }
 
-    getById = async (lang: string, id: string): Promise<INews | undefined> => {
-        return await this.get<INews>(`${lang}/news/${id}`);
+    getById = async (lang: string, id: string): Promise<INews> => {
+        const response = await this.get<INews, IErrorResponse>(`${lang}/news/${id}`);
+        return processResponse<INews>(response);
     }
 
-    create = async (data: INewsOutputDTO): Promise<{ id: string } | IErrorResponse | undefined> => {
-        return await this.post<{ id: string } | IErrorResponse | undefined>(`/news`, data);
+    create = async (data: INewsOutputDTO): Promise<{ id: string }> => {
+        const response = await this.post<{id: string}, IErrorResponse>(`/news`, data);
+        return processResponse<{id: string}>(response);
     }
 
-    remove = async (id: string): Promise<void | IErrorResponse> => {
-        return await this.delete<void>(`/news/${id}`);
+    remove = async (id: string): Promise<void> => {
+        const response = await this.delete<void, IErrorResponse>(`/news/${id}`);
+        return processResponse<void>(response);
     }
 
 
-
-    update = async(data: {}): Promise<void | IErrorResponse> => {
-        return await this.put<void>(`/news/`, data);
+    update = async (data: {}): Promise<void> => {
+        const response = await this.put<void, IErrorResponse>(`/news/`, data);
+        return processResponse<void>(response);
     }
 
-    getMultiLang = async (id: string): Promise<INewsWTranslations | IErrorResponse | undefined> =>{
-        return await this.get<INewsWTranslations | IErrorResponse | undefined>(`news/preview/${id}`);
+    getMultiLang = async (id: string): Promise<INewsWTranslations> => {
+        const response = await this.get<INewsWTranslations, IErrorResponse>(`news/preview/${id}`);
+        return processResponse<INewsWTranslations>(response);
     }
 }

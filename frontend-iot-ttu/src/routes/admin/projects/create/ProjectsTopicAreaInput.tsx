@@ -1,31 +1,25 @@
 import {
 	Control,
 	FieldErrors,
-	UseFormGetValues,
 	UseFormRegister,
 	UseFormSetValue,
 	useFieldArray,
 } from "react-hook-form";
 import { Col, FormFloating, FormLabel, FormSelect, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
 import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
-import { ITopicAreaWithChildren } from "../../../../dto/topicarea/ITopicAreaWithChildren";
-import { TopicAreaService } from "../../../../services/TopicAreaService";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
-import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
 import useTopicAreas from "../../../../hooks/useTopicAreas";
-import TopicAreaCreatePopup from "../topicareas/TopicAreaCreatePopup";
+import {IProjectOutput} from "../../../../dto/project/IProjectOutput";
 
 interface IProps {
-	control: Control<INewsOutputDTO, any>;
-	setValue: UseFormSetValue<INewsOutputDTO>;
-	register: UseFormRegister<INewsOutputDTO>;
-	errors: FieldErrors<INewsOutputDTO>;
+	control: Control<IProjectOutput, any>;
+	setValue: UseFormSetValue<IProjectOutput>;
+	register: UseFormRegister<IProjectOutput>;
+	errors: FieldErrors<IProjectOutput>;
 }
 
-const NewsTopicAreaInput: React.FC<IProps> = ({
+const ProjectsTopicAreaInput: React.FC<IProps> = ({
 	control,
 	setValue,
 	register,
@@ -91,7 +85,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 
 								</Col>
 								<Col md="1">
-									<ButtonSmaller onClick={()	=> {
+									<ButtonSmaller onClick={() => {
 										remove(index)
 									}} className="m-2" type="button">
 										-
@@ -118,4 +112,4 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 	);
 };
 
-export default NewsTopicAreaInput;
+export default ProjectsTopicAreaInput;

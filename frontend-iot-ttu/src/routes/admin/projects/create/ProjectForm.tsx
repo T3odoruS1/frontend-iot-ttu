@@ -1,11 +1,13 @@
 import {Control, UseFormGetValues, UseFormHandleSubmit, UseFormRegister, UseFormSetValue} from "react-hook-form";
-import {INewsOutputDTO} from "../../../../dto/news/INewsOutputDTO";
 import React, {useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
 import InputControl from "../../../../components/form/InputControl";
 import {IProjectOutput} from "../../../../dto/project/IProjectOutput";
-import NewsTopicAreaInput from "../../news/create/NewsTopicAreaInput";
+import ProjectsTopicAreaInput from "./ProjectsTopicAreaInput";
+import ReactQuill from "react-quill";
+import {formats, modules} from "../../../../configs/configurations";
+import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 
 interface IProps {
     register: UseFormRegister<IProjectOutput>;
@@ -53,13 +55,18 @@ export const ProjectForm: React.FC<IProps> =
                 })
             } id={"project-form"}>
 
+                <SubHeadingPurple className="mt-5">
+                    General fileds
+                </SubHeadingPurple>
+
+
                 <div className={"mt-2"}>
                     <InputControl
                         name={`title.${0}.value`}
                         register={register}
                         type="text"
-                        error={"Eng errors"}
-                        label={"Eng title lable"}
+                        error={t(errors.title?.[0]?.value?.message?.toString())}
+                        label={"English title"}
                     />
                 </div>
 
@@ -68,8 +75,8 @@ export const ProjectForm: React.FC<IProps> =
                         name={`title.${1}.value`}
                         register={register}
                         type="text"
-                        error={"Est errors"}
-                        label={"ESt title lable"}
+                        error={t(errors.title?.[1]?.value?.message?.toString())}
+                        label={"Estonian title"}
                     />
                 </div>
 
@@ -78,7 +85,8 @@ export const ProjectForm: React.FC<IProps> =
                         name={`year`}
                         register={register}
                         type="number"
-                        error={errors.year?.message?.toString()}
+                        defaultValue={new Date().getFullYear()}
+                        error={t(errors.year?.message?.toString())}
                         label={"Year"}
                     />
                 </div>
@@ -88,7 +96,7 @@ export const ProjectForm: React.FC<IProps> =
                         name={`projectManager`}
                         register={register}
                         type="text"
-                        error={errors.projectManager?.message?.toString()}
+                        error={t(errors.projectManager?.message?.toString())}
                         label={"Project manager"}
                     />
                 </div>
@@ -97,19 +105,49 @@ export const ProjectForm: React.FC<IProps> =
                     <InputControl
                         name={`projectVolume`}
                         register={register}
+                        defaultValue={0}
                         type="number"
-                        error={errors.projectVolume?.message?.toString()}
-                        label={"Year"}
+                        error={t(errors.projectVolume?.message?.toString())}
+                        label={"Project volume"}
                     />
                 </div>
 
-                {/*<NewsTopicAreaInput*/}
-                {/*    control={control}*/}
-                {/*    setValue={setValue}*/}
-                {/*    getValues={getValues}*/}
-                {/*    register={register}*/}
-                {/*    errors={errors}*/}
-                {/*/>*/}
+                <p>Skip image for now</p>
+
+                <SubHeadingPurple className="mt-5">
+                    Topic areas - translate
+                </SubHeadingPurple>
+                {errors?.topicAreas?.message &&
+                    <p><span className="text-danger"> {t(errors?.topicAreas?.message?.toString())}</span></p>
+                }
+                <ProjectsTopicAreaInput control={control} setValue={setValue} register={register} errors={errors}/>
+
+                <SubHeadingPurple className="mt-5">
+                    {t("admin.news.adminNews.create.contentEng")}
+                </SubHeadingPurple>
+                <ReactQuill
+                    theme="snow"
+                    value={editorHtmlEng}
+                    onChange={onEditorStateChangeEng}
+                    modules={modules}
+                    formats={formats}
+                />
+
+                <SubHeadingPurple className="mt-5">
+                    {t("admin.news.adminNews.create.contentEst")}
+                </SubHeadingPurple>
+                <ReactQuill
+                    theme="snow"
+                    value={editorHtmlEst}
+                    onChange={onEditorChangeEst}
+                    modules={modules}
+                    formats={formats}
+                />
+
+                <ButtonPrimary className="mt-5" type="submit">
+                    {t("admin.news.adminNews.create.create")}
+                </ButtonPrimary>
+
             </form>
         );
     };

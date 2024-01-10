@@ -5,21 +5,27 @@ import {BaseEntityService} from "./BaseEntityService";
 import {ITopicAreaWithChildren} from "../dto/topicarea/ITopicAreaWithChildren";
 import i18n from "i18next";
 import {IErrorResponse} from "../dto/IErrorResponse";
+import {HttpClient} from "./HttpClient";
+import {processResponse} from "./BaseService";
 
-export class TopicAreaService extends BaseEntityService {
+export class TopicAreaService extends HttpClient {
     constructor() {
         super("");
     }
 
-    create = async (topicArea: ITopicAreaPost): Promise<IBaseEntity | IErrorResponse | undefined> => {
-        return await this.post<IBaseEntity>(`topicAreas`, topicArea);
+    create = async (topicArea: ITopicAreaPost): Promise<IBaseEntity> => {
+        return processResponse<IBaseEntity>(await this.post<IBaseEntity, IErrorResponse>(`topicAreas`, topicArea));
     }
 
-    getAll = async (lang: string): Promise<ITopicAreaWithChildren[] | undefined> => {
-        return await this.get<ITopicAreaWithChildren[]>(`${lang}/topicAreas`);
+    getAll = async (lang: string): Promise<ITopicAreaWithChildren[]> => {
+        return processResponse<ITopicAreaWithChildren[]>(
+            await this.get<ITopicAreaWithChildren[],IErrorResponse>(`${lang}/topicAreas`)
+        );
     }
 
-    getWithTranslations = async (): Promise<ITopicAreaGetMultilang[] | undefined> => {
-        return await this.get<ITopicAreaGetMultilang[]>("topicAreas/getWithTranslation");
+    getWithTranslations = async (): Promise<ITopicAreaGetMultilang[]> => {
+        return processResponse<ITopicAreaGetMultilang[]>(
+            await this.get<ITopicAreaGetMultilang[], IErrorResponse>("topicAreas/getWithTranslation")
+        )
     }
 }

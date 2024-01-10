@@ -5,20 +5,21 @@ import useNews from "../../../../hooks/useNews";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
 import {Loader} from "../../../../components/Loader";
+import ErrorPage from "../../../ErrorPage";
 
 const NewsPiece = () => {
-	const { t } = useTranslation();
+	const {t} = useTranslation();
 	const {id} = useParams();
 	const navigate = useNavigate();
-	const {newsPiece: news, pending} = useNews(id ?? "");
+	const {newsPiece: news, pending, error} = useNews(id ?? "");
 
-	const onContactUsClick = ()=> {
+	const onContactUsClick = () => {
 		navigate("../../contact")
 	}
 
-	return (
+	if (error) return <ErrorPage></ErrorPage>;
+	if(! error) return (
 		<div>
-
 			<div className={"mb-4"}>
 				<NavigationButton to={"../"}>{t("public.news.news-list")}</NavigationButton>
 			</div>
@@ -38,6 +39,7 @@ const NewsPiece = () => {
 
 		</div>
 	);
+	return <></>
 };
 
 export default NewsPiece;
