@@ -69,6 +69,19 @@
       "filters": "Filters",
       "news-list": "News list",
       "contact": "Interested? Contact us!"
+    },
+    "contact": {
+      "validEmail": "Please provide a valid email",
+      "contact": "Contact us",
+      "yourInfo": "Your information",
+      "yourMessage": "Your message",
+      "form": {
+        "email": "Your email",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "phone": "Phone number",
+        "submit": "Submit"
+      }
     }
   },
   "errorPage": {

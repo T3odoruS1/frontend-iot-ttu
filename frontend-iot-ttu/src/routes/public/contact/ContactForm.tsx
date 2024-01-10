@@ -14,11 +14,11 @@ import {IErrorResponse} from "../../../dto/IErrorResponse";
 
 
 const schema = yup.object().shape({
-    email: yup.string().email().required(),
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
+    email: yup.string().email("public.contact.validEmail").required("admin.news.adminNews.create.validation.fieldIsRequired"),
+    firstName: yup.string().required("admin.news.adminNews.create.validation.fieldIsRequired"),
+    lastName: yup.string().required("admin.news.adminNews.create.validation.fieldIsRequired"),
     phone: yup.string().optional(),
-    messageText: yup.string().required()
+    messageText: yup.string().required("admin.news.adminNews.create.validation.fieldIsRequired")
 })
 
 const ContactForm = () => {
@@ -50,7 +50,7 @@ const ContactForm = () => {
             onSubmit(dto);
         })}>
             <p>{message}</p>
-            <SubHeadingPurple>Your info</SubHeadingPurple>
+            <SubHeadingPurple>{t("public.contact.yourInfo")}</SubHeadingPurple>
             <div className="mt-2">
                 <InputControl
                     name={"email"}
@@ -58,7 +58,7 @@ const ContactForm = () => {
                     type={"text"}
                     markAsMandatory={true}
                     error={t(errors.email?.message?.toString())}
-                    label={"Email"}
+                    label={t("public.contact.form.email")}
                 />
             </div>
 
@@ -69,7 +69,7 @@ const ContactForm = () => {
                     type={"text"}
                     markAsMandatory={true}
                     error={t(errors.firstName?.message?.toString())}
-                    label={"First name"}
+                    label={t("public.contact.form.firstName")}
                 />
             </div>
             <div className="mt-2">
@@ -79,7 +79,7 @@ const ContactForm = () => {
                     type={"text"}
                     markAsMandatory={true}
                     error={t(errors.lastName?.message?.toString())}
-                    label={"Last name"}
+                    label={t("public.contact.form.lastName")}
                 />
             </div>
 
@@ -89,15 +89,15 @@ const ContactForm = () => {
                     register={register}
                     type={"text"}
                     error={t(errors.phone?.message?.toString())}
-                    label={"Phone number"}
+                    label={t("public.contact.form.phone")}
                 />
             </div>
             <br/>
-            <SubHeadingPurple>Your message</SubHeadingPurple>
+            <SubHeadingPurple>{t("public.contact.yourMessage")}</SubHeadingPurple>
             <div className="mt-2">
                 {errors.messageText?.message && (
-                    <span className="text-danger">{errors.messageText?.message.toString()}</span>)}
-                <span className="text-danger">*</span>
+                    <span className="text-danger">{t(errors.messageText?.message.toString())}</span>)}
+                <span className="text-danger"> *</span>
                 <textarea
                     {...register("messageText")}
                     name={"messageText"}
@@ -107,8 +107,9 @@ const ContactForm = () => {
                 />
             </div>
 
+            <p>{message}</p>
             <ButtonPrimary className="mt-2" type="submit">
-                {t("submit")}
+                {t("public.contact.form.submit")}
             </ButtonPrimary>
         </form>
 
