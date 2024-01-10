@@ -11,6 +11,7 @@ import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import useTopicAreas from "../../../../hooks/useTopicAreas";
 import {IProjectOutput} from "../../../../dto/project/IProjectOutput";
+import React, {Fragment} from "react";
 
 interface IProps {
 	control: Control<IProjectOutput, any>;
@@ -50,11 +51,8 @@ const ProjectsTopicAreaInput: React.FC<IProps> = ({
 												<option value="">{t('admin.news.adminNews.create.chooseTopicArea')}</option>
 											{topicAreas.map((topicArea) => {
 												return (
-													<>
-														<option
-															id={topicArea.id}
-															value={topicArea.id}
-															key={topicArea.id}>
+													<Fragment key={topicArea.id}>
+														<option id={topicArea.id} value={topicArea.id}>
 															{topicArea.name}
 														</option>
 														{topicArea.childrenTopicAreas?.map((child) => {
@@ -68,7 +66,7 @@ const ProjectsTopicAreaInput: React.FC<IProps> = ({
 																</option>
 															);
 														})}
-													</>
+													</Fragment>
 												);
 											})}
 										</FormSelect>

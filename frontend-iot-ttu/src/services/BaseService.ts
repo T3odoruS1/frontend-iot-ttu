@@ -3,7 +3,6 @@ import {IErrorResponse} from "../dto/IErrorResponse";
 
 
 export function processResponse<TEntity>(response: IApiResponse<TEntity, IErrorResponse>): Promise<TEntity> {
-    console.log(response)
     if (response.errorData) {
         throw new Error(response.errorData.message)
     }if(

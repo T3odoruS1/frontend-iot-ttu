@@ -47,6 +47,10 @@
         "year": "Peab olema positivne number",
         "projectVolume": "Peab olema positivne number"
       }
+    },
+    "topicAreas": {
+      "createTopicArea": "Loo uus kategooria",
+      "NAME_ALREADY_EXISTS": "Kategooria selle nimega on juba olemas"
     }
   },
   "author": "autor",

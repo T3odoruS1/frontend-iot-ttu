@@ -24,7 +24,7 @@ export const MobileHeaderBody: React.FC<IProps> = (props) => {
         <nav className="top-gradient navbar navbar-expand-lg navbar-light bg-light pb-0">
             <div className={"d-flex flex-column w-100"}>
                 <div className={"responsive-header"}>
-                    <Link className="navbar-brand mr-auto pb-0 m-2" to={`/${i18n.language}`}>
+                    <Link key={Math.random()} className="navbar-brand mr-auto pb-0 m-2" to={`/${i18n.language}`}>
                         {props.logoElement}
                     </Link>
                     <div className={"my-auto mx-4"}>
@@ -37,11 +37,9 @@ export const MobileHeaderBody: React.FC<IProps> = (props) => {
 
                 {expanded &&
                     <ul className={`navbar-nav menu`}>
-                        {props.routes.map((route, index) => (
-                            <li className="nav-item m-2" key={index}>
-                                {route}
-                            </li>
-                        ))}
+                        {props.routes.map((route, index) => {
+                            return <div key={Math.random()} className={"nav-item m-2"}>{route}</div>
+                        })}
                         <LanguageSwitcher/>
                     </ul>
                 }

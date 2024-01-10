@@ -17,19 +17,19 @@ export const DesktopHeaderBody: React.FC<IProps> = (props) => {
     return (
         <nav className=" sticky-top top-gradient navbar navbar-expand-lg navbar-light bg-light pb-0">
             <div className={"container-fluid"}>
-                <Link className="navbar-brand mr-auto pb-0" to={`/${i18n.language}`}>
+                <Link key={Math.random()} className="navbar-brand mr-auto pb-0" to={`/${i18n.language}`}>
                     {props.logoElement}
                 </Link>
 
                 <div
                     className="navbar-placement">
-                    <ul className="navbar-nav header-container mb-2 mb-lg-0">
+                    <ul key={Math.random()} className="navbar-nav header-container mb-2 mb-lg-0">
                         {props.routes.map(el => {
-                            return el;
+                            return <div key={Math.random()} className={"nav-item header-item"}>{el}</div>;
                         })}
-                        <li key={100}>
+                        <li key={Math.random()}>
                             <LanguageSwitcher toLeft={true}/>
-                            <Link className="nav-link top-text under-language" to={`/${i18n.language}/contact`}>
+                            <Link key={Math.random()} className="nav-link top-text under-language" to={`/${i18n.language}/contact`}>
                                 {t('public.header.contactUs')}
                             </Link>
                         </li>

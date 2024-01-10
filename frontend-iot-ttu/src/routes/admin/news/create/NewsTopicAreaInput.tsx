@@ -7,7 +7,7 @@ import {
 	useFieldArray,
 } from "react-hook-form";
 import { Col, FormFloating, FormLabel, FormSelect, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
@@ -16,7 +16,6 @@ import { TopicAreaService } from "../../../../services/TopicAreaService";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
 import useTopicAreas from "../../../../hooks/useTopicAreas";
-import TopicAreaCreatePopup from "../topicareas/TopicAreaCreatePopup";
 
 interface IProps {
 	control: Control<INewsOutputDTO, any>;
@@ -53,14 +52,11 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 											{...register(`topicAreas.${index}.id`)}
 											id={`topicAreas.${index}.id`}
 											name={`topicAreas.${index}.id`}>
-												<option value="">{t('admin.news.adminNews.create.chooseTopicArea')}</option>
+												<option key={-1} value="">{t('admin.news.adminNews.create.chooseTopicArea')}</option>
 											{topicAreas.map((topicArea) => {
 												return (
-													<>
-														<option
-															id={topicArea.id}
-															value={topicArea.id}
-															key={topicArea.id}>
+													<Fragment key={topicArea.id}>
+														<option id={topicArea.id} value={topicArea.id}>
 															{topicArea.name}
 														</option>
 														{topicArea.childrenTopicAreas?.map((child) => {
@@ -74,7 +70,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 																</option>
 															);
 														})}
-													</>
+													</Fragment>
 												);
 											})}
 										</FormSelect>

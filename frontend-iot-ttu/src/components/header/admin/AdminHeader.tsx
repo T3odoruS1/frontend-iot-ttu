@@ -12,7 +12,10 @@ import React from "react";
 const AdminHeader = () => {
 	const { t } = useTranslation();
 	const routes = [
-		<HeaderNavLink to={`/${i18n.language}`} title={t("admin.header.public")} />,
+		<HeaderNavLink
+			to={`/${i18n.language}`}
+			title={t("admin.header.public")}
+		/>,
 		<HeaderNavLink
 			to={`/${i18n.language}/admin/news`}
 			title={t("admin.header.news")}

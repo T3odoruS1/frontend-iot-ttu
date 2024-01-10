@@ -47,6 +47,10 @@
         "year": "Must be a positive number",
         "projectVolume": "Must be a positive number"
       }
+    },
+    "topicAreas": {
+      "createTopicArea": "Create new topic area",
+      "NAME_ALREADY_EXISTS": "Topic area with this name already exists"
     }
   },
   "author": "author",

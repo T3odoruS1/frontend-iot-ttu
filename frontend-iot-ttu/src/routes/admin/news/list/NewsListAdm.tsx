@@ -8,11 +8,13 @@ import PageTitle from "../../../../components/common/PageTitle";
 import useTopicAreas from "../../../../hooks/useTopicAreas";
 import {Loader} from "../../../../components/Loader";
 import ErrorPage from "../../../ErrorPage";
+import {LineLoader} from "../../../../components/LineLoader";
+import {Fragment} from "react";
 
 const NewsListAdm = () => {
 
     const {news, setNews, pending, remove, error} = useNewsList();
-    const {topicAreas} = useTopicAreas();
+    const {topicAreas, pending: pendingTopicAreas, error: topicAreasError} = useTopicAreas();
 
     let topicAreaIndex = 0;
     const navigate = useNavigate();
@@ -41,7 +43,7 @@ const NewsListAdm = () => {
     }
 
 
-    if(error){
+    if (error) {
         return <ErrorPage/>
     }
 
@@ -50,18 +52,20 @@ const NewsListAdm = () => {
             <PageTitle>News</PageTitle>
             <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>Create</ButtonSmaller></div>
             {pending && <Loader/>}
+
             <Table variant="striped">
                 <caption>News list</caption>
+                {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Created by</th>
-                        <th scope="col">Views</th>
-                        <th scope="col">Created at</th>
-                        <th scope="col">Actions</th>
-                    </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Created by</th>
+                    <th scope="col">Views</th>
+                    <th scope="col">Created at</th>
+                    <th scope="col">Actions</th>
+                </tr>
                 </thead>
                 <tbody>
                 {news.map((newsPiece, index) => {
@@ -111,10 +115,12 @@ const NewsListAdm = () => {
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
+                {/*{pendingTopicAreas && <div className={"w-100 m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
 
                 <tbody>
-                    {topicAreas.map((topicArea, index) => {
-                        return (<><tr key={topicArea.id}>
+                {topicAreas.map((topicArea, index) => {
+                    return (<Fragment key={topicArea.id}>
+                        <tr>
                             <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
                             <td>{topicArea.name}</td>
                             <td></td>
@@ -124,18 +130,19 @@ const NewsListAdm = () => {
                         </tr>
 
                         {topicArea.childrenTopicAreas?.map((child, index) => {
-                                return (<tr key={child.id}>
-                                    <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
-                                    <td></td>
-                                    <td>{child.name}</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td><ButtonSmaller>Delete</ButtonSmaller></td>
+                            return (<tr key={child.id}>
+                                <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
+                                <td></td>
+                                <td>{child.name}</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td><ButtonSmaller>Delete</ButtonSmaller></td>
 
-                                </tr>)
-                            })
+                            </tr>)
+                        })
                         }
-                        </>)})}
+                    </Fragment>)
+                })}
                 </tbody>
             </Table>
         </div>
