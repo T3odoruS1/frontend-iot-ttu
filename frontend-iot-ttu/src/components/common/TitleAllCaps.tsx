@@ -1,14 +1,24 @@
 import IBaseProps from "../IBaseProps";
 
-export const TitlePink: React.FC<IBaseProps> = ({ children, className }) => {
+export enum TitleColors{
+    pink = "#e4067e",
+    purple = "#342b60"
+}
+
+interface IProps extends IBaseProps{
+    color?: TitleColors
+}
+
+export const TitleAllCaps: React.FC<IProps> = ({ children, className, color }) => {
     return (
         <>
                 <h1
                     className={className || ""}
                     style={{
-                        color: "#e4067e",
-                        fontWeight: 900,
+                        color: color ?? TitleColors.pink,
+                        fontWeight: 500,
                         fontSize: "2.5rem",
+                        fontFamily: "ThickTTU sans-serif",
                         textTransform: "uppercase",
                         lineHeight: "2.5rem",
                     }}>

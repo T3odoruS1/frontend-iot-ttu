@@ -97,7 +97,7 @@ export const ProjectForm: React.FC<IProps> =
                         register={register}
                         type="text"
                         error={t(errors.projectManager?.message?.toString())}
-                        label={"Project manager"}
+                        label={"ProjectDetails manager"}
                     />
                 </div>
 
@@ -108,7 +108,7 @@ export const ProjectForm: React.FC<IProps> =
                         defaultValue={0}
                         type="number"
                         error={t(errors.projectVolume?.message?.toString())}
-                        label={"Project volume"}
+                        label={"ProjectDetails volume"}
                     />
                 </div>
 

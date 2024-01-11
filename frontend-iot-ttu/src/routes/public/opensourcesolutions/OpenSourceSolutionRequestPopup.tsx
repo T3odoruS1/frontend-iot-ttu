@@ -1,4 +1,4 @@
-import {TitlePink} from "../../../components/common/TitlePink";
+import {TitleAllCaps} from "../../../components/common/TitleAllCaps";
 import InputControl from "../../../components/form/InputControl";
 import ButtonSmaller from "../../../components/common/ButtonSmaller";
 import React, {useState} from "react";
@@ -48,7 +48,7 @@ export const OpenSourceSolutionRequestPopup: React.FC<ICloseProps> = ({close}) =
     }
     return (
         <><div className="git-popup p-5">
-            <TitlePink>Ligipaas repole</TitlePink>
+            <TitleAllCaps>Ligipaas repole</TitleAllCaps>
             {message && <p>✅ { message}</p>}
             <p>Palun sisesta oma email. Saadame sulle repo lingi. Failid on saadaval seal</p>
             <form onSubmit={handleSubmit(onSubmit)}>

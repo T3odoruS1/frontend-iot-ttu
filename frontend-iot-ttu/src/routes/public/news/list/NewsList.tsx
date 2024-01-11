@@ -41,7 +41,7 @@ const NewsList = () => {
 
 
                     </Col>
-                    <Col className="filter-box col-md-3 order-md-1 order-0">
+                    <Col className=" col-md-3 order-md-1 order-0">
                         <TopicAreaFilters/>
                     </Col>
 

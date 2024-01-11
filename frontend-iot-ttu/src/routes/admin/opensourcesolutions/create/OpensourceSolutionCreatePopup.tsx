@@ -1,4 +1,4 @@
-import {TitlePink} from "../../../../components/common/TitlePink";
+import {TitleAllCaps} from "../../../../components/common/TitleAllCaps";
 import InputControl from "../../../../components/form/InputControl";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import React, {useState} from "react";
@@ -59,7 +59,7 @@ const OpensourceSolutionCreatePopup : React.FC<ICloseProps> = ({close}) => {
   if(showResult){
     return<>
       <div className="git-popup p-5">
-        <TitlePink>Repo lisatud</TitlePink>
+        <TitleAllCaps>Repo lisatud</TitleAllCaps>
 
         <p>Järgi neid käske, et lisada repositoorium.</p>
         <div className={"code-block"}>
@@ -90,7 +90,7 @@ const OpensourceSolutionCreatePopup : React.FC<ICloseProps> = ({close}) => {
 
   return <>
     <div className="git-popup p-5">
-      <TitlePink>Loo repo</TitlePink>
+      <TitleAllCaps>Loo repo</TitleAllCaps>
       {message && <p className={"text-danger"}>{ message}</p>}
       <p>Palun sisesta repo nimi</p>
       <form onSubmit={handleSubmit(onSubmit)}>

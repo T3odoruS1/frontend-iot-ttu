@@ -55,8 +55,8 @@ const Popup: React.FC<PopupProps> = ({
 
 
     return (
-        <div className={"p-0"}>
-            <div onClick={openPopup} className={`p-0 ${cname}`}>
+        <>
+            <div onClick={openPopup} className={`${cname}`}>
                 {trigger}
             </div>
             {isOpen && (
@@ -66,7 +66,7 @@ const Popup: React.FC<PopupProps> = ({
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 };
 

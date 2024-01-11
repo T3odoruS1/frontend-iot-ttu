@@ -4,6 +4,9 @@ import {ITopicAreaGet} from "../dto/topicarea/ITopicAreaGet";
 import SubHeadingPurple from "./common/SubheadingPurple";
 import {Col, Row} from "react-bootstrap";
 import DatePink from "./common/DatePink";
+import {TitleAllCaps, TitleColors} from "./common/TitleAllCaps";
+import React from "react";
+import {getTopicAreasAsStr} from "../utils/utils";
 
 interface IProps {
     title: string;
@@ -22,7 +25,7 @@ const NewsContent = (props: IProps) => {
     }
     return (
         <div className="w-100">
-            <SubHeadingPurple className="mt-5">{props.title}</SubHeadingPurple>
+            <TitleAllCaps color={TitleColors.purple} className="">{props.title}</TitleAllCaps>
             <Row className="w-100 mb-5">
 
                 <Col md="9">
@@ -32,19 +35,13 @@ const NewsContent = (props: IProps) => {
                         className="content_image max-w"
                     />
                 </Col>
-                <Col md="3">
-                    <p className="header-date">
-                        <DatePink date={props.createdAt}/>
-                    </p>
-                    <p>
-                        <b>
-                            <span className="text-purple-main">{capitalize(t("author"))}: {props.author}</span>
-                        </b>
-                    </p>
-                    <p className="text-purple-main">
-                        <b>{joinTopicAreas()}</b>
-                    </p>
-
+                <Col md="3" className={"mt-md-0 mt-2"}>
+                    <p className={"text-small-gray"}>Date</p>
+                    <h5 className={"header-pink mt-1"}>{props.createdAt}</h5>
+                    <p className={"text-small-gray"}>Author</p>
+                    <h5 className={"header-pink mt-1"}>{props.author}</h5>
+                    <p className={"text-small-gray"}>Topic areas</p>
+                    <h5 className={"header-pink mt-1"}>{getTopicAreasAsStr(props.topicAreas)}</h5>
                 </Col>
 
             </Row>
