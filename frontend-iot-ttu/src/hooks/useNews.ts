@@ -12,7 +12,7 @@ const useNews = (id: string) => {
     const fetch = () => {
         newsService.getById(i18n.language, id)
             .then(setNewsPiece)
-            .catch(setError)
+            .catch(e => setError(e.message))
             .finally(() => setPending(false))
     }
     useEffect(() => {

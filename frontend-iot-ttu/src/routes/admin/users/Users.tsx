@@ -1,5 +1,7 @@
+import {Outlet} from "react-router-dom";
+
 const Users = () => {
-  return <>Users</>
+  return <><Outlet/></>
 }
 
 export default Users;

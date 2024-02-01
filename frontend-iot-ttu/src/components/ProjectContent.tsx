@@ -3,12 +3,21 @@ import React, {FC} from "react";
 import {Col, Row} from "react-bootstrap";
 import {getTopicAreasAsStr} from "../utils/utils";
 import {TitleAllCaps, TitleColors} from "./common/TitleAllCaps";
+import {useTranslation} from "react-i18next";
+import {ITopicAreaGet} from "../dto/topicarea/ITopicAreaGet";
 
 interface IProps {
-    project: IProject
+    title: string;
+    body: string;
+    year: number;
+    topicAreas: ITopicAreaGet[];
+    projectVolume: number;
+    projectManager: string;
+    // project: IProject
 }
 
-export const ProjectContent: FC<IProps> = ({project}) => {
+export const ProjectContent: FC<IProps> = (project: IProps) => {
+    const {t} = useTranslation();
 
     return (
         <div className={"w-100"}>
@@ -20,13 +29,13 @@ export const ProjectContent: FC<IProps> = ({project}) => {
                 </Col>
                 <Col md={4}>
                     <div className={"p-2"}>
-                        <p className={"text-small-gray"}>Topic areas</p>
+                        <p className={"text-small-gray"}>{t("common.topicAreas")}</p>
                         <h5 className={"header-pink mt-1"}>{getTopicAreasAsStr(project.topicAreas)}</h5>
-                        <p className={"text-small-gray mt-4"}>Year</p>
+                        <p className={"text-small-gray mt-4"}>{t("common.year")}</p>
                         <h5 className={"header-pink mt-1"}>{project.year}</h5>
-                        <p className={"text-small-gray mt-4"}>Project manager</p>
+                        <p className={"text-small-gray mt-4"}>{t("common.projectManager")}</p>
                         <h5 className={"header-pink mt-1"}>{project.projectManager}</h5>
-                        <p className={"text-small-gray mt-4"}>Volume</p>
+                        <p className={"text-small-gray mt-4"}>{t("common.volume")}</p>
                         <h5 className={"header-pink mt-1"}>{project.projectVolume}</h5>
                     </div>
                 </Col>

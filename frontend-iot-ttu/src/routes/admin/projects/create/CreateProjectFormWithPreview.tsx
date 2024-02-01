@@ -1,6 +1,6 @@
 import {FieldValues, useForm} from "react-hook-form";
 import * as yup from "yup";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {IProjectOutput} from "../../../../dto/project/IProjectOutput";
@@ -8,6 +8,10 @@ import PageTitle from "../../../../components/common/PageTitle";
 import {FormCheck, FormFloating} from "react-bootstrap";
 import {useTranslation} from "react-i18next";
 import {ProjectForm} from "./ProjectForm";
+import ContentPreview from "../../../../components/ContentPreview";
+import {useParams} from "react-router-dom";
+import {ProjectService} from "../../../../services/ProjectService";
+import {ProjectPreview} from "./ProjectPreview";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
@@ -59,6 +63,9 @@ const CreateProjectFormWithPreview = (props: IProps) => {
     const [editorHtmlEst, setEditorHtmlEst] = useState<string>("");
     const [preview, setPreview] = useState<boolean>(false);
     const {topicAreas, pending} = useTranslatedTopicAreas();
+    const projectService = new ProjectService();
+    const {id} = useParams();
+
 
     const onEditorStateChangeEng = (html: string) => {
         setValue(`body.${0}.value`, html);
@@ -115,7 +122,9 @@ const CreateProjectFormWithPreview = (props: IProps) => {
                     getValues={getValues}
                 />
             </div>
-
+            <div style={{display: preview ? "block" : "none"}}>
+                <ProjectPreview formValues={getValues()} topicAreas={topicAreas}/>
+            </div>
         </>
     );
 };

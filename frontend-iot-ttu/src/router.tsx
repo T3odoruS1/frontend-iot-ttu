@@ -12,7 +12,7 @@ import ProjectCreate from "./routes/admin/projects/create/ProjectCreate";
 import Statistics from "./routes/admin/statistics/Statistics";
 import TechnologiesAdm from "./routes/admin/technology/TechnologiesAdm";
 import TechnologyCreate from "./routes/admin/technology/create/TechnologyCreate";
-import Login from "./routes/admin/users/Login";
+import Login from "./routes/admin/users/login/Login";
 import Users from "./routes/admin/users/Users";
 import UserCreate from "./routes/admin/users/create/UserCreate";
 import Public from "./routes/public/Public";
@@ -29,6 +29,8 @@ import NewsList from "./routes/public/news/list/NewsList";
 import NewsListAdm from "./routes/admin/news/list/NewsListAdm";
 import {TopicAreaForm} from "./routes/admin/news/topicareas/TopicAreaForm";
 import {ProjectList} from "./routes/public/projects/list/ProjectList";
+import {ProjectListAdm} from "./routes/admin/projects/list/ProjectListAdm";
+import {UserList} from "./routes/admin/users/UserList";
 
 export const router = createBrowserRouter([
     {
@@ -80,9 +82,17 @@ export const router = createBrowserRouter([
                         element: <ProjectsAdm/>,
                         children: [
                             {
-                                path: "create",
+                                path: "",
+                                element: <ProjectListAdm/>,
+                            },
+                            {
+                                path: "create/:id?",
                                 element: <ProjectCreate/>,
                             },
+                            {
+                                path: ":id",
+                                element: <ProjectDetails/>
+                            }
                         ],
                     },
                     {
@@ -104,15 +114,19 @@ export const router = createBrowserRouter([
                         element: <Users/>,
                         children: [
                             {
+                                path: "",
+                                element: <UserList/>,
+                            },
+                            {
                                 path: "create",
                                 element: <UserCreate/>,
                             },
+                            {
+                                path: "login",
+                                element: <Login/>,
+                            },
                         ],
-                    },
-                    {
-                        path: "login",
-                        element: <Login/>,
-                    },
+                    }
                 ],
             },
             {

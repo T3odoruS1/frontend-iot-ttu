@@ -20,37 +20,37 @@ export class HttpClient extends BaseClient {
         return await request.send();
     }
 
-    public async post<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
+    protected async post<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
         return this.invoke<TEntity, TErrorData>(HttpMethod.POST, url, data);
     }
 
-    public async postAuthenticated<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
+    protected async postAuthenticated<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
         return this.invoke<TEntity, TErrorData>(HttpMethod.POST, url, data, true);
     }
 
-    public async get<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
+    protected async get<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
         return this.invoke<TEntity, TErrorData>(HttpMethod.GET, url);
     }
 
-    public async getAuthenticated<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
+    protected async getAuthenticated<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
         return this.invoke<TEntity, TErrorData>(HttpMethod.GET, url, undefined, true);
     }
 
-    public async delete<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
+    protected async delete<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
         return this.invoke<TEntity, TErrorData>(HttpMethod.DELETE, url);
     }
 
-    public async deleteAuthenticated<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
+    protected async deleteAuthenticated<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
         return this.invoke<TEntity, TErrorData>(HttpMethod.DELETE, url, undefined, true);
     }
 
 
-    public async put<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
+    protected async put<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
         return this.invoke<TEntity, TErrorData>(HttpMethod.PUT, url, data);
     }
 
 
-    public async putAuthenticated<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
+    protected async putAuthenticated<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
         return this.invoke<TEntity, TErrorData>(HttpMethod.PUT, url, data, true);
     }
 

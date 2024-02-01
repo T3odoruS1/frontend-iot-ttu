@@ -13,7 +13,7 @@ const useProject = (id: string) => {
     const fetch = () => {
         projectService.getById(i18n.language, id)
             .then(setProject)
-            .catch(setError).finally(() => setPending(false));
+            .catch(e => setError(e.message)).finally(() => setPending(false));
     }
 
     useEffect(() => {

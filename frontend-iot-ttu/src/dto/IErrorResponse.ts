@@ -1,5 +1,4 @@
 export interface IErrorResponse {
-    "message": string,
-    "statusCode": number,
-    "timeStamp": string
+    message: string,
+    status: number
 }

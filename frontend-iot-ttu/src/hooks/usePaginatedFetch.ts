@@ -23,7 +23,7 @@ const usePaginatedFetch =
         const fetchTotal = () => {
             service.getCount()
                 .then(setTotal)
-                .catch(setError);
+                .catch(e => setError(e.message));
 
         }
 

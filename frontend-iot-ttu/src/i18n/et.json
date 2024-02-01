@@ -86,5 +86,14 @@
   },
   "errorPage": {
     "somethingWentWrong": "Näib, et meil on tehnilisi probleeme. Proovige hiljem uuesti..."
+  },
+  "common": {
+    "date": "Kuupäev",
+    "author": "Autor",
+    "topicAreas": "Kategooriad",
+    "year": "Aasta",
+    "projectManager": "Projektijuht",
+    "volume": "Maht",
+      "title": "Pealkiri"
   }
 }

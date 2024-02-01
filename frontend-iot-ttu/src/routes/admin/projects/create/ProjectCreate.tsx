@@ -11,10 +11,10 @@ const ProjectCreate = () => {
 
   const handleSubmit = async (data: FieldValues) => {
       console.log(data)
-      // const response = await projectService.create(data as IProjectOutput);
-      // if (response !== undefined) {
-      //     navigate(`../`); // TODO path
-      // }
+      const response = await projectService.create(data as IProjectOutput);
+      if (response !== undefined) {
+          navigate(`../`);
+      }
   }
 
 

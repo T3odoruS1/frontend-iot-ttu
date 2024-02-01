@@ -12,7 +12,7 @@ const useTranslatedTopicAreas = () => {
     const fetch = () => {
         service.getWithTranslations()
             .then(setTopicAreas)
-            .catch(setError)
+            .catch(e => setError(e.message))
             .finally(() => setPending(false));
     }
 

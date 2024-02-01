@@ -86,5 +86,14 @@
   },
   "errorPage": {
     "somethingWentWrong": "Looks like we're experiencing technical problems. Try again later..."
+  },
+  "common": {
+    "date": "Date",
+    "author": "Author",
+    "topicAreas": "Topic areas",
+    "year": "Year",
+    "projectManager": "Project manager",
+    "volume": "Volume",
+    "title": "Title"
   }
 }

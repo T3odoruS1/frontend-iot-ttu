@@ -36,11 +36,11 @@ const NewsContent = (props: IProps) => {
                     />
                 </Col>
                 <Col md="3" className={"mt-md-0 mt-2"}>
-                    <p className={"text-small-gray"}>Date</p>
+                    <p className={"text-small-gray"}>{t("common.date")}</p>
                     <h5 className={"header-pink mt-1"}>{props.createdAt}</h5>
-                    <p className={"text-small-gray"}>Author</p>
+                    <p className={"text-small-gray"}>{t("common.author")}</p>
                     <h5 className={"header-pink mt-1"}>{props.author}</h5>
-                    <p className={"text-small-gray"}>Topic areas</p>
+                    <p className={"text-small-gray"}>{t("common.topicAreas")}</p>
                     <h5 className={"header-pink mt-1"}>{getTopicAreasAsStr(props.topicAreas)}</h5>
                 </Col>
 

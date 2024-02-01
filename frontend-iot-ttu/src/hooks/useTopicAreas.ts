@@ -12,7 +12,7 @@ const useTopicAreas = () => {
     const fetch = () => {
         service.getAll(i18n.language)
             .then(setTopicAreas)
-            .catch(setError)
+            .catch(e => setError(e.message))
             .finally(() => setPending(false))
     }
 

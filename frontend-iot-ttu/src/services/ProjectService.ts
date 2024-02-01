@@ -15,9 +15,9 @@ export class ProjectService extends HttpClient implements IPaginatedService<IPro
 
 
     create = async (data: IProjectOutput): Promise<IBaseEntity> => {
-        // const result = await this.post<IBaseEntity, IErrorResponse>(`/project`, data);
-        // return processResponse<IBaseEntity>(result);
-        return processResponse<IBaseEntity>({data: createDummy, status: HttpStatusCode.Ok});
+        const result = await this.post<IBaseEntity, IErrorResponse>(`/project`, data);
+        return processResponse<IBaseEntity>(result);
+        // return processResponse<IBaseEntity>({data: createDummy, status: HttpStatusCode.Ok});
 
     }
 
@@ -25,7 +25,6 @@ export class ProjectService extends HttpClient implements IPaginatedService<IPro
         // const result = await this.get<IProject[], IErrorResponse>(`/${lang}/project`);
         // return processResponse<IProject[]>(result);
         return processResponse<IProject[]>({data: dummyProjects, status: HttpStatusCode.Ok});
-
     }
 
     getById = async (lang: string, id: string): Promise<IProject> => {
@@ -36,9 +35,9 @@ export class ProjectService extends HttpClient implements IPaginatedService<IPro
     }
 
     getCount = async (): Promise<number> => {
-        // const result = await this.get<number, IErrorResponse>(`project/count`);
-        // return processResponse<number>(result);
-        return processResponse<number>({data: 10, status: HttpStatusCode.Ok});
+        const result = await this.get<number, IErrorResponse>(`project/count`);
+        return processResponse<number>(result);
+        // return processResponse<number>({data: 10, status: HttpStatusCode.Ok});
     }
 
     remove = async (id: string): Promise<void> => {

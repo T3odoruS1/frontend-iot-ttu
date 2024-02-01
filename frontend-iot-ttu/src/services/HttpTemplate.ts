@@ -1,6 +1,7 @@
 import {OutgoingHttpHeader} from "node:http";
 import {AxiosError, AxiosInstance, AxiosResponse, HttpStatusCode} from "axios";
 import {IApiResponse} from "./IApiResponse";
+import {IJwtResponse} from "../dto/identity/IJwtResponse";
 
 export class HttpTemplate<TOnSuccess, TOnFailure> {
     private axios: AxiosInstance;
@@ -19,11 +20,13 @@ export class HttpTemplate<TOnSuccess, TOnFailure> {
 
 
     withAuthentication() {
-        // Assuming the token is stored somewhere securely
-        const token = 'your-auth-token';
-        this.headers = {
-            ...this.headers,
-            Authorization: "Bearer " + token,
+        const json = window.localStorage.getItem("jwt");
+        if(json){
+            const token: IJwtResponse = JSON.parse(json);
+            this.headers = {
+                ...this.headers,
+                Authorization: "Bearer " + token.jwt,
+            }
         }
         return this;
     }

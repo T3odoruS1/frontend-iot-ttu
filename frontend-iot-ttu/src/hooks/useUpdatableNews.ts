@@ -13,7 +13,7 @@ const useUpdatableNews = () => {
     const fetch = async (id: string) => {
         newsService.getMultiLang(id)
             .then((res) => setNews(res))
-            .catch(error => setError(error))
+            .catch(e => setError(e.message))
             .finally(() => setPending(false));
     }
     return {news, pending, update, fetch, error}

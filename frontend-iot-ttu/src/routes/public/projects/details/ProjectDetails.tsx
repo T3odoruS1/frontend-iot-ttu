@@ -29,7 +29,13 @@ const ProjectDetails = () => {
                 <NavigationButton to={"../"}>Go back</NavigationButton>
             </div>
 
-            {pending ? <Loader/> : (<ProjectContent project={project!}/>)}
+            {pending ? <Loader/> : (<ProjectContent
+                body={project?.body!}
+                projectManager={project?.projectManager!}
+                projectVolume={project?.projectVolume!}
+                title={project?.title!}
+                topicAreas={project?.topicAreas!}
+                year={project?.year!}/>)}
 
             <div className={"mt-5"}>
                 <ButtonPrimary onClick={onContactUsClick}>{t("public.news.contact")}</ButtonPrimary>

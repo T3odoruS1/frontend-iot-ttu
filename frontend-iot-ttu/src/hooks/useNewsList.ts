@@ -14,7 +14,7 @@ const useNewsList = (page?: number, size?: number) => {
     const fetch = async () => {
         await newsService.getAll(i18n.language, page, size)
             .then(setNews)
-            .catch(setError)
+            .catch(e => setError(e.message))
             .finally(() => setPending(false));
     }
 

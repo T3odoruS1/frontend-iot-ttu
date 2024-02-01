@@ -11,7 +11,7 @@ const useNewsCount = () => {
     const fetch = () => {
         newsService.getCount()
             .then(setCount)
-            .catch(setError)
+            .catch(e => setError(e.message))
             .finally(() => setPending(false))
     }
 

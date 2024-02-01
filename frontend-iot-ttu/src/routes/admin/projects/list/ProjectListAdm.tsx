@@ -1,30 +1,39 @@
-import i18n from "i18next";
-import {Table} from "react-bootstrap";
-import ButtonSmaller from "../../../../components/common/ButtonSmaller";
-import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
-import {useNavigate} from "react-router-dom";
-import useNewsList from "../../../../hooks/useNewsList";
-import PageTitle from "../../../../components/common/PageTitle";
+import usePaginatedFetch from "../../../../hooks/usePaginatedFetch";
+import {ProjectService} from "../../../../services/ProjectService";
+import {IProject} from "../../../../dto/project/IProject";
+import ProjectsAdm from "../ProjectsAdm";
 import useTopicAreas from "../../../../hooks/useTopicAreas";
-import {Loader} from "../../../../components/Loader";
+import PageTitle from "../../../../components/common/PageTitle";
 import ErrorPage from "../../../ErrorPage";
-import {LineLoader} from "../../../../components/LineLoader";
+import {useNavigate} from "react-router-dom";
+import ButtonSmaller from "../../../../components/common/ButtonSmaller";
+import {Loader} from "../../../../components/Loader";
+import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
+import {Table} from "react-bootstrap";
+import useProjectList from "../../../../hooks/useProjectList";
 import {Fragment} from "react";
-import {NotAuthenticated} from "../../NotAuthenticated";
 
-const NewsListAdm = () => {
+export const ProjectListAdm = () => {
 
-    const {news, setNews, pending, remove, error} = useNewsList();
+    const {projects, setProjects,  pending, error, remove} = useProjectList();
     const {topicAreas, pending: pendingTopicAreas, error: topicAreasError} = useTopicAreas();
 
-    let topicAreaIndex = 0;
     const navigate = useNavigate();
+
+    let topicAreaIndex = 0;
+
+
     const onDelete = async (id: string) => {
         await remove(id);
-        let filtered = news.filter(function (obj) {
+        let filtered = projects.filter(function (obj) {
             return obj.id !== id;
         });
-        setNews(filtered);
+        setProjects(filtered);
+    }
+
+
+    if (error) {
+        return <ErrorPage/>
     }
 
     const toCreate = () => {
@@ -43,31 +52,21 @@ const NewsListAdm = () => {
         navigate(`./${id}`);
     }
 
-    if(error && error === "AUTH"){
-        console.log("redirecting")
-        return <NotAuthenticated/>
-    }
-
-
-    if (error ) {
-        return <ErrorPage/>
-    }
-
 
     return (
         <div>
-            <PageTitle>News</PageTitle>
+            <PageTitle>Projects</PageTitle>
             <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>Create</ButtonSmaller></div>
             {pending && <Loader/>}
 
+
             <Table variant="striped">
-                <caption>News list</caption>
+                <caption>Projects</caption>
                 {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
                 <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Author</th>
                     <th scope="col">Created by</th>
                     <th scope="col">Views</th>
                     <th scope="col">Created at</th>
@@ -75,24 +74,23 @@ const NewsListAdm = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {news?.map((newsPiece, index) => {
+                {projects.map((project, index) => {
                         return (
-                            <tr key={newsPiece.id}>
+                            <tr key={project.id}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{newsPiece.title}</td>
-                                <td>{newsPiece.author}</td>
+                                <td>{project.title}</td>
                                 <td>-</td>
                                 <td>-</td>
-                                <td>{(new Date(newsPiece.createdAt)).toLocaleDateString()}</td>
+                                <td>{(new Date(project.createdAt)).toLocaleDateString()}</td>
                                 <td>
                                     <ButtonSmaller onClick={() => {
-                                        toUpdate(newsPiece.id)
+                                        toUpdate(project.id)
                                     }} className="mb-2">Update</ButtonSmaller><br/>
                                     <ButtonSmaller onClick={() => {
-                                        toDetails(newsPiece.id);
+                                        toDetails(project.id);
                                     }} className="mb-2">View</ButtonSmaller><br/>
                                     <ActionConfirmationAlert action={() => {
-                                        onDelete(newsPiece.id)
+                                        onDelete(project.id)
                                     }} displayText={"Are you sure you want to delete this news piece?"}
                                                              buttonText={"Delete"}/>
                                 </td>
@@ -152,8 +150,7 @@ const NewsListAdm = () => {
                 })}
                 </tbody>
             </Table>
+
         </div>
     );
 };
-
-export default NewsListAdm;
