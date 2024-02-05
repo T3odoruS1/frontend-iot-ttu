@@ -77,12 +77,9 @@ export const EditablePageEditor = (props: IProps) => {
 
             setValue(`title.${0}.value`, pageContent.title.find(b => b.culture === "en")?.value ?? "")
             setValue(`title.${1}.value`, pageContent.title.find(b => b.culture === "et")?.value ?? "")
-            console.log(getValues())
-            trigger('body.0.value');
-            trigger('body.1.value');
+
         } else if (error) {
             setValue("pageIdentifier", props.pageIdentifier)
-            console.log("does not exist")
             setExists(false)
         }
         setCultures();
