@@ -26,7 +26,7 @@ export const EditablePageContent = (props: IProps) => {
         return (
             <>
                 {pending && <Loader/>}
-                {props.showTitle && <div className={"mb-5"}>
+                {props.showTitle && <div className={"mb-2"}>
                     <PageTitle>{pageContent?.title}</PageTitle>
                 </div>}
 

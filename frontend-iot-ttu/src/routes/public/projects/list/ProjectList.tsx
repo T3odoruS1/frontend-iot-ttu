@@ -10,6 +10,7 @@ import TopicAreaFilters from "../../../../components/common/FilterBox";
 import {ProjectCardElement} from "./ProjectCardElement";
 import Popup from "../../../../components/Popup";
 import ProjectDetails from "../details/ProjectDetails";
+import EditablePage from "../../editablePage/EditablePage";
 
 export const ProjectList = () => {
 
@@ -21,11 +22,7 @@ export const ProjectList = () => {
 
     return (
         <>
-            <PageTitle>Projects</PageTitle>
-            <p>Embedded AI Research Lab has started cooperation with private sector companies in 2016. Since that we
-                have successfully finished many projects that cover wide range of competences. For detailed information
-                about the projects click on the title of the project.</p>
-            <p>* Year inside the parentheses means an ongoing project.</p>
+            <EditablePage pageIdentifier={"projects"} showTitle={true}/>
             <hr/>
             {pending ? <Loader/> :
                 (<Row>

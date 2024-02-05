@@ -3,33 +3,52 @@ import {useNavigate} from "react-router-dom";
 import CreateProjectFormWithPreview from "./CreateProjectFormWithPreview";
 import {FieldValues} from "react-hook-form";
 import {IProjectOutput} from "../../../../dto/project/IProjectOutput";
+import Lottie from "lottie-react";
+import animationData from "../../../../assets/lottieAnimations/done_check.json"
+import {useState} from "react";
+import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
 
 const ProjectCreate = () => {
 
-  const projectService = new ProjectService() ;
-  const navigate = useNavigate();
+    const projectService = new ProjectService();
+    const navigate = useNavigate();
 
-  const handleSubmit = async (data: FieldValues) => {
-      const result = data as IProjectOutput;
-      if(!result.id){
-          const response = await projectService.create(data as IProjectOutput);
-          if (response !== undefined) {
-              navigate(`../`);
-          }
-      }else{
-          projectService.update(result).then(r => {
-              navigate(`../`);
-          }).catch(e => {
-              alert("Error" + e.message)
-          })
+    const [success, setSuccess] = useState(false)
+    const handleSubmit = async (data: FieldValues) => {
+        const result = data as IProjectOutput;
+        if (!result.id) {
+            console.log(result)
+            const response = await projectService.create(data as IProjectOutput);
+            if (response !== undefined) {
+                setSuccess(true)
+                setTimeout(() => {
+                    setSuccess(false);
+                    navigate(`../`);
+                }, 1000)
 
-      }
+            }
+        } else {
+            projectService.update(result).then(r => {
+                setSuccess(true)
+                setTimeout(() => {
+                    setSuccess(false);
+                    navigate(`../`);
+                }, 1000)
+            }).catch(e => {
+                alert("Error" + e.message)
+            })
 
-  }
+        }
+
+    }
 
 
-
-  return <><CreateProjectFormWithPreview onSubmit={handleSubmit}/></>
+    return <>
+        {success &&
+            <SuccessAlert/>
+        }
+        {!success && <CreateProjectFormWithPreview onSubmit={handleSubmit}/>}
+    </>
 }
 
 export default ProjectCreate;

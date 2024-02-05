@@ -23,7 +23,7 @@ const schema = yup.object().shape({
     id: yup.string().uuid().optional(),
     year: yup.number().typeError(`admin.projects.validation.year`).min(0).max(3000).required(),
     projectManager: yup.string().required("admin.news.adminNews.create.validation.fieldIsRequired"),
-    projectVolume: yup.number().typeError(`admin.projects.validation.projectVolume`).min(0).required(),
+    projectVolume: yup.number().typeError(`admin.projects.validation.projectVolume`).min(0).max(2000000000).required(),
     image: yup.string().nullable(),
     title: yup
         .array()

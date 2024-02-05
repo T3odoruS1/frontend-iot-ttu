@@ -100,56 +100,6 @@ export const ProjectListAdm = () => {
                 )}
                 </tbody>
             </Table>
-            <br/>
-            <br/>
-            <hr/>
-            <PageTitle>Topic areas</PageTitle>
-            {/*TODO optimize requests*/}
-            <div className={"m-2"}>
-                <ButtonSmaller type={"button"} onClick={toCreateTopic}>Create</ButtonSmaller>
-            </div>
-            <Table>
-                <caption>Topic area list</caption>
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nimi</th>
-                    <th scope="col">Laps</th>
-                    <th scope="col">Created at</th>
-                    <th scope="col">Postituse arv</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                {/*{pendingTopicAreas && <div className={"w-100 m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
-
-                <tbody>
-                {topicAreas.map((topicArea, index) => {
-                    return (<Fragment key={topicArea.id}>
-                        <tr>
-                            <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
-                            <td>{topicArea.name}</td>
-                            <td></td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td><ButtonSmaller>Delete</ButtonSmaller></td>
-                        </tr>
-
-                        {topicArea.childrenTopicAreas?.map((child, index) => {
-                            return (<tr key={child.id}>
-                                <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
-                                <td></td>
-                                <td>{child.name}</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td><ButtonSmaller>Delete</ButtonSmaller></td>
-
-                            </tr>)
-                        })
-                        }
-                    </Fragment>)
-                })}
-                </tbody>
-            </Table>
 
         </div>
     );

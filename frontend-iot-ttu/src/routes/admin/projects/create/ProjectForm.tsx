@@ -96,7 +96,7 @@ export const ProjectForm: React.FC<IProps> =
                         register={register}
                         type="text"
                         error={t(errors.projectManager?.message?.toString())}
-                        label={"ProjectDetails manager"}
+                        label={"Project manager"}
                     />
                 </div>
 

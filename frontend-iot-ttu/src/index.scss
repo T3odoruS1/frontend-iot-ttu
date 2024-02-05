@@ -1087,7 +1087,7 @@ body.safari .banner-container {
   isolation: isolate;
   position: relative;
   width: 18rem;
-  min-height: 8rem;
+  min-height: 20rem;
   background: rgba(255, 255, 255, 0);
   border-radius: 1rem;
   overflow: hidden;
@@ -1137,7 +1137,9 @@ body.safari .banner-container {
 
 .notibody {
   color: #99999d;
+  margin-top: auto;
   padding: 0 1.25rem;
+  align-items: end;
   transition: transform 300ms ease;
   z-index: 5;
 }

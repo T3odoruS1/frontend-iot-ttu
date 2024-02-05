@@ -8,11 +8,12 @@ import {IPageContentMultilang} from "../../../dto/pageContent/IPageContentMultil
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import useTranslatedPageContent from "../../../hooks/useTranslatedPageContent";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ButtonPrimary from "../../../components/common/ButtonPrimary";
 import {formats, modules} from "../../../configs/configurations";
 import {useTranslation} from "react-i18next";
 import {log} from "node:util";
+import {SuccessAlert} from "../../../components/lottie/SuccessAlert";
 
 interface IProps {
     pageIdentifier: string;
@@ -65,7 +66,7 @@ export const EditablePageEditor = (props: IProps) => {
     } = useForm<IPageContentMultilang>({resolver: yupResolver(schema)})
 
     const [message, setMessage] = useState("")
-
+    const [success, setSuccess] = useState(false);
     useEffect(() => {
         if (pageContent) {
             setExists(true);
@@ -96,7 +97,12 @@ export const EditablePageEditor = (props: IProps) => {
         if (!exists) {
             service.create(fieldValues as IPageContentMultilang).then(response => {
                 if (response.pageIdentifier !== undefined) {
-                    setMessage("Successfully uploaded");
+                    setSuccess(true);
+                    let element = document.getElementById("success");
+                    element?.scrollIntoView();
+                    setTimeout(() => {
+                        setSuccess(false);
+                    }, 1000)
                 } else {
                     setMessage("Shit has hit the fan");
                 }
@@ -104,7 +110,12 @@ export const EditablePageEditor = (props: IProps) => {
         } else {
             console.log(fieldValues)
             service.update(fieldValues as IPageContentMultilang).then(response => {
-                setMessage("Successfully uploaded");
+                setSuccess(true);
+                let element = document.getElementById("success");
+                element?.scrollIntoView();
+                setTimeout(() => {
+                    setSuccess(false);
+                }, 1000)
             })
                 .catch(e => setMessage("Something went wrong"))
         }
@@ -123,61 +134,64 @@ export const EditablePageEditor = (props: IProps) => {
     const {t} = useTranslation();
 
     return (
-        <><PageTitle>For page: {props.pageIdentifier}</PageTitle>
-            <p>{message}</p>
-            <form onSubmit={
-                handleSubmit((dto) => {
-                    upload(dto);
-                }, (errors) => console.log(errors))
-            }>
-                <SubHeadingPurple>Titles</SubHeadingPurple>
-                <div className={"mt-2"}>
-                    <InputControl
-                        error={t(errors.title?.[0]?.value?.message?.toString())}
-                        register={register}
-                        name={`title.${0}.value`}
-                        type={"text"}
-                        label={"Title english"}
-                    />
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={t(errors.title?.[1]?.value?.message?.toString())}
-                        name={`title.${1}.value`}
-                        label={"Title estonian"}
-                    />
-                </div>
+        <>
+            {success && <SuccessAlert /> || <><PageTitle>For page: {props.pageIdentifier}</PageTitle>
+                <p>{message}</p>
+                <form onSubmit={
+                    handleSubmit((dto) => {
+                        upload(dto);
+                    }, (errors) => console.log(errors))
+                }>
+                    <SubHeadingPurple>Titles</SubHeadingPurple>
+                    <div className={"mt-2"}>
+                        <InputControl
+                            error={t(errors.title?.[0]?.value?.message?.toString())}
+                            register={register}
+                            name={`title.${0}.value`}
+                            type={"text"}
+                            label={"Title english"}
+                        />
+                    </div>
+                    <div className={"mt-2"}>
+                        <InputControl
+                            register={register}
+                            error={t(errors.title?.[1]?.value?.message?.toString())}
+                            name={`title.${1}.value`}
+                            label={"Title estonian"}
+                        />
+                    </div>
 
-                <SubHeadingPurple className="mt-5">
-                    {t("admin.news.adminNews.create.contentEng")}
-                </SubHeadingPurple>
-                <p>{errors.body?.[0]?.value?.message?.toString()}</p>
-                <ReactQuill
-                    theme="snow"
-                    value={editorHtmlEng}
-                    onChange={onEditorStateChangeEng}
-                    modules={modules}
-                    formats={formats}
-                />
+                    <SubHeadingPurple className="mt-5">
+                        {t("admin.news.adminNews.create.contentEng")}
+                    </SubHeadingPurple>
+                    <p>{errors.body?.[0]?.value?.message?.toString()}</p>
+                    <ReactQuill
+                        theme="snow"
+                        value={editorHtmlEng}
+                        onChange={onEditorStateChangeEng}
+                        modules={modules}
+                        formats={formats}
+                    />
 
-                <SubHeadingPurple className="mt-5">
-                    {t("admin.news.adminNews.create.contentEst")}
-                </SubHeadingPurple>
-                <p>{errors.body?.[1]?.value?.message?.toString()}</p>
-                <ReactQuill
-                    theme="snow"
-                    value={editorHtmlEst}
-                    onChange={onEditorStateChangeEst}
-                    modules={modules}
-                    formats={formats}
-                />
-                <div className={"my-2"}>
-                    <ButtonPrimary type={"submit"}>
-                        Submit
-                    </ButtonPrimary>
-                </div>
-            </form>
+                    <SubHeadingPurple className="mt-5">
+                        {t("admin.news.adminNews.create.contentEst")}
+                    </SubHeadingPurple>
+                    <p>{errors.body?.[1]?.value?.message?.toString()}</p>
+                    <ReactQuill
+                        theme="snow"
+                        value={editorHtmlEst}
+                        onChange={onEditorStateChangeEst}
+                        modules={modules}
+                        formats={formats}
+                    />
+                    <div className={"my-2"}>
+                        <ButtonPrimary type={"submit"}>
+                            Submit
+                        </ButtonPrimary>
+                    </div>
+                </form>
+            </>}
+
         </>
     );
 };
