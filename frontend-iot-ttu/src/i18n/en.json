@@ -85,7 +85,8 @@
     }
   },
   "errorPage": {
-    "somethingWentWrong": "Looks like we're experiencing technical problems. Try again later..."
+    "somethingWentWrong": "Looks like we're experiencing technical problems. Try again later...",
+    "notFound": "Page not found"
   },
   "common": {
     "date": "Date",

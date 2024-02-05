@@ -31,7 +31,7 @@ const NewsElement: React.FC<IProps> = ({news}) => {
 
         <Col md="6" className="clickable-pointer mb-5" onClick={navigateToDetails}>
             <div className="w-100">
-                <img className="thumbnail" src={news.image ?? placeholder} alt=""/>
+                <img className="thumbnail" src={news.image !== undefined && news.image !== "" ? news.image : placeholder} alt=""/>
                 <DatePink date={getDate(news.createdAt)}/>
                 <br/>
                 <TopicAreasGray>{getTopicAreasAsStr()}</TopicAreasGray>

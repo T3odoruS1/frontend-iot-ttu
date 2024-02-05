@@ -80,19 +80,22 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     });
 
     useEffect(() => {
-        if(error){
-            navigate("/error")
-        }
+
         if (id !== undefined) {
             newsService.getMultiLang(id).then(res => {
+                console.log("res")
                 if (res !== undefined && "body" in res) {
                     console.log(res);
                     setFormValues(res);
                 }
-            }).catch(() => {
+            }).catch((e) => {
+                    console.log("e")
                 setUnavailable(true)
             }
             )
+        }
+        if(error || unavailable){
+            navigate("/error")
         }
     }, []);
 

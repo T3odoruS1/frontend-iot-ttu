@@ -31,6 +31,8 @@ import {TopicAreaForm} from "./routes/admin/news/topicareas/TopicAreaForm";
 import {ProjectList} from "./routes/public/projects/list/ProjectList";
 import {ProjectListAdm} from "./routes/admin/projects/list/ProjectListAdm";
 import {UserList} from "./routes/admin/users/UserList";
+import {NOTFOUND} from "node:dns";
+import {NotFoundPage} from "./routes/NotFoundPage";
 
 export const router = createBrowserRouter([
     {
@@ -42,6 +44,10 @@ export const router = createBrowserRouter([
         element: <Root/>,
         errorElement: <ErrorPage/>,
         children: [
+            {
+                path: "*",
+                element: <NotFoundPage/>
+            },
             {
                 path: "admin",
                 element: <Admin/>,

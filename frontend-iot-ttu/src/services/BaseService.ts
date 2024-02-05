@@ -5,18 +5,19 @@ import {throws} from "node:assert";
 
 export function processResponse<TEntity>(response: IApiResponse<TEntity, IErrorResponse>): Promise<TEntity> {
     console.log(response)
-    if(response.status?.toString() === "Unauthorized"){
-        throw new Error("AUTH")
-    }
-    if((response.status === undefined &&
-        response.errorData === undefined)) {
-        throw new Error("SERVICE_UNAVAILABLE")
-    }
-    if (response.errorData?.message) {
-        throw new Error(response.errorData.message.toString())
-    }if (response === undefined){
-        throw new Error("something went wrong")
+
+    if(response.data !== undefined){
+        return Promise.resolve(response.data!);
     }
 
+    if(response.errorData?.status === 401){
+        throw new Error("AUTH")
+    }
+    if (response.errorData?.status !== undefined && response.errorData !== undefined) {
+        throw new Error(response.errorData.status.toString())
+    }
+    if((response.errorData === undefined)) {
+        throw new Error(Number(500).toString())
+    }
     return Promise.resolve(response.data!);
 }

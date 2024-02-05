@@ -11,6 +11,7 @@ import {ProjectCardElement} from "./ProjectCardElement";
 import Popup from "../../../../components/Popup";
 import ProjectDetails from "../details/ProjectDetails";
 import EditablePage from "../../editablePage/EditablePage";
+import ErrorPage from "../../../ErrorPage";
 
 export const ProjectList = () => {
 
@@ -19,6 +20,8 @@ export const ProjectList = () => {
 
     const {data: projects, pending, error, total} =
         usePaginatedFetch<IProject, ProjectService>(new ProjectService())
+
+    if(error == "500") return <ErrorPage/>
 
     return (
         <>

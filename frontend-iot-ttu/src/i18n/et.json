@@ -85,7 +85,9 @@
     }
   },
   "errorPage": {
-    "somethingWentWrong": "Näib, et meil on tehnilisi probleeme. Proovige hiljem uuesti..."
+    "somethingWentWrong": "Näib, et meil on tehnilisi probleeme. Proovige hiljem uuesti...",
+    "notFound": "Lehekülg ei ole leitud"
+
   },
   "common": {
     "date": "Kuupäev",

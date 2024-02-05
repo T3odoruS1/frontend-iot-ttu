@@ -8,12 +8,16 @@ import {Table} from "react-bootstrap";
 import {UserRolePopup} from "./UserRolePopup";
 import useRoles from "../../../hooks/useRoles";
 import {useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {JwtContext} from "../../Root";
 
 export const UserList = () => {
     const {users, pending, error, fetch} = useUsers()
     const {roles} = useRoles();
     const identityService = new IdentityService();
     const navigate = useNavigate();
+    const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
+
     const deactivateUser = (id: string) => {
         identityService.deactivateUser({userId: id}).then(r => {
             if(r === undefined){
@@ -23,6 +27,13 @@ export const UserList = () => {
             }
         })
     }
+
+
+
+    if(!jwtResponseCtx?.jwt || jwtResponseCtx.roleIds.length === 0){
+        navigate("/login");
+    }
+
     return (
         <>
         <PageTitle>User management</PageTitle>
@@ -56,6 +67,7 @@ export const UserList = () => {
                                 <td>{user.roles.at(0)?.name}</td>
                                 <td>{user.lockoutEnabled.toString()}</td>
                                 <td>
+                                    {}
                                     <UserRolePopup user={user} roles={roles ?? []} email={user.email} fetch={fetch}/>
                                     <ActionConfirmationAlert action={() => {
                                             deactivateUser(user.id);

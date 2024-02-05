@@ -23,8 +23,7 @@ const NewsList = () => {
         setPage(pageNumber)
     }
 
-    if(error){
-        console.log(error)
+    if(error == "500"){
         return <ErrorPage/>
     }else{
         return <>

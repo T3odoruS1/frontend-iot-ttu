@@ -9,6 +9,7 @@ import NewsContent from "../../../../components/NewsContent";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {ProjectContent} from "../../../../components/ProjectContent";
 import {useTranslation} from "react-i18next";
+import {NotFoundPage} from "../../../NotFoundPage";
 
 
 
@@ -21,7 +22,9 @@ const ProjectDetails = () => {
         navigate("../../contact")
     }
 
-    if (error) return <ErrorPage></ErrorPage>;
+
+    if(error == "400" || error == "404") return <NotFoundPage/>
+    if(error == "500") return <ErrorPage/>;
 
     if(! error) return (
         <div>

@@ -11,12 +11,16 @@ import {Loader} from "../../../../components/Loader";
 import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
 import {Table} from "react-bootstrap";
 import useProjectList from "../../../../hooks/useProjectList";
-import {Fragment} from "react";
+import {Fragment, useContext} from "react";
+import {LineLoader} from "../../../../components/LineLoader";
+import {JwtContext} from "../../../Root";
 
 export const ProjectListAdm = () => {
 
     const {projects, setProjects,  pending, error, remove} = useProjectList();
     const {topicAreas, pending: pendingTopicAreas, error: topicAreasError} = useTopicAreas();
+    const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
+
 
     const navigate = useNavigate();
 
@@ -51,6 +55,7 @@ export const ProjectListAdm = () => {
     const toDetails = (id: string) => {
         navigate(`./${id}`);
     }
+
 
 
     return (
