@@ -1,5 +1,5 @@
 export interface IPageContent{
-    pageTitle: string;
+    title: string;
     pageIdentifier: string;
     body: string;
 }

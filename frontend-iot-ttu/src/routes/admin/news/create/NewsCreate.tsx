@@ -11,16 +11,18 @@ const NewsCreate = () => {
 
     const onSubmit = async (formValues: FieldValues) => {
         let output = formValues as INewsOutputDTO;
-        if(output.id){
-            const result = await newsService.update(output);
-            if(result === undefined){
-                alert(result)
+        console.log(output)
+        try{
+            if(output.id){
+                const result = await newsService.update(output);
+            }else{
+                const result = await newsService.create(formValues as INewsOutputDTO);
             }
-        }else{
-            const result = await newsService.create(formValues as INewsOutputDTO);
-            alert(result)
+            navigate("../")
+        }catch (e){
+            alert("Something went wrong. Try again later")
         }
-        navigate("../")
+
     }
 
     return <>

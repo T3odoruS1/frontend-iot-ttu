@@ -7,10 +7,12 @@ import {useMediaQuery} from "react-responsive";
 import {MobileHeaderBody} from "../MobileHeaderBody";
 import TalTechSVG from "../TalTechSVG";
 import {DesktopHeaderBody} from "../DesktopHeaderBody";
-import React from "react";
+import React, {useContext} from "react";
+import {JwtContext} from "../../../routes/Root";
 
 const AdminHeader = () => {
 	const { t } = useTranslation();
+
 	const routes = [
 		<HeaderNavLink
 			to={`/${i18n.language}`}

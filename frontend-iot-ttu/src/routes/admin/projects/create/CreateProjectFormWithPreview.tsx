@@ -12,12 +12,15 @@ import ContentPreview from "../../../../components/ContentPreview";
 import {useParams} from "react-router-dom";
 import {ProjectService} from "../../../../services/ProjectService";
 import {ProjectPreview} from "./ProjectPreview";
+import useUpdatableProject from "../../../../hooks/useUpdatableProject";
+import {IProjectMultilang} from "../../../../dto/project/IProjectMultilang";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
 }
 
 const schema = yup.object().shape({
+    id: yup.string().uuid().optional(),
     year: yup.number().typeError(`admin.projects.validation.year`).min(0).max(3000).required(),
     projectManager: yup.string().required("admin.news.adminNews.create.validation.fieldIsRequired"),
     projectVolume: yup.number().typeError(`admin.projects.validation.projectVolume`).min(0).required(),
@@ -41,15 +44,7 @@ const schema = yup.object().shape({
                 culture: yup.string().min(1, "").required(),
             })
         )
-        .required(),
-    topicAreas: yup
-        .array(
-            yup.object().shape({
-                id: yup.string().uuid(`admin.news.adminNews.create.validation.topicAreaMandatory`).required(),
-            })
-        )
-        .required(`admin.news.adminNews.create.validation.topicAreaMandatory`)
-        .min(1, `admin.news.adminNews.create.validation.topicAreaMandatory`)
+        .required()
 })
 
 interface IProps {
@@ -62,9 +57,44 @@ const CreateProjectFormWithPreview = (props: IProps) => {
     const [editorHtmlEng, setEditorHtmlEng] = useState<string>("");
     const [editorHtmlEst, setEditorHtmlEst] = useState<string>("");
     const [preview, setPreview] = useState<boolean>(false);
-    const {topicAreas, pending} = useTranslatedTopicAreas();
     const projectService = new ProjectService();
     const {id} = useParams();
+
+    const [updateCase, setUpdateCase] = useState(id !== undefined);
+
+    const {project, pending: projectPending, error, update} =
+        useUpdatableProject(id);
+
+
+    useEffect(() => {
+        if(updateCase && project){
+            setFormValues();
+        }
+    }, [project]);
+
+    const setFormValues = () => {
+        onEditorStateChangeEng(project!.body.find(b => {
+            return b.culture === "en"
+        })?.value ?? "");
+        onEditorStateChangeEst(project!.body.find(b => {
+            return b.culture === "et"
+        })?.value ?? "");
+
+        setValue(`title.0.value`, project!.title!.find(t => {
+            return t.culture === "en"
+        })?.value ?? "");
+        setValue(`title.0.culture`, "en")
+
+        setValue(`title.1.value`, project!.title!.find(t => {
+            return t.culture === "et"
+        })?.value ?? "");
+        setValue(`title.1.culture`, "et");
+        setValue(`id`, project!.id);
+        setValue("year", project!.year);
+        setValue("projectManager", project!.projectManager);
+        setValue("projectVolume", project!.projectVolume);
+    }
+
 
 
     const onEditorStateChangeEng = (html: string) => {
@@ -123,7 +153,7 @@ const CreateProjectFormWithPreview = (props: IProps) => {
                 />
             </div>
             <div style={{display: preview ? "block" : "none"}}>
-                <ProjectPreview formValues={getValues()} topicAreas={topicAreas}/>
+                <ProjectPreview formValues={getValues()}/>
             </div>
         </>
     );

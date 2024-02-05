@@ -4,7 +4,8 @@ import TalTechSVG from "./TalTechSVG";
 import HeaderNavLink from "./HeaderNavLink";
 import LanguageSwitcher from "../LanguageSwitcher";
 import {useTranslation} from "react-i18next";
-import React, {FC} from "react";
+import React, {FC, useContext} from "react";
+import {JwtContext} from "../../routes/Root";
 
 interface IProps {
     routes: JSX.Element[],
@@ -12,7 +13,8 @@ interface IProps {
 }
 
 export const DesktopHeaderBody: React.FC<IProps> = (props) => {
-    const { t } = useTranslation();
+
+    const {t} = useTranslation();
 
     return (
         <nav className=" sticky-top top-gradient navbar navbar-expand-lg navbar-light bg-light pb-0">
@@ -29,12 +31,16 @@ export const DesktopHeaderBody: React.FC<IProps> = (props) => {
                         })}
                         <li key={Math.random()}>
                             <LanguageSwitcher toLeft={true}/>
-                            <Link key={Math.random()} className="nav-link top-text under-language" to={`/${i18n.language}/contact`}>
+                            <Link key={Math.random()} className="nav-link top-text under-language"
+                                  to={`/${i18n.language}/contact`}>
                                 {t('public.header.contactUs')}
                             </Link>
                         </li>
+
                     </ul>
+
                 </div>
+
             </div>
         </nav>
     );

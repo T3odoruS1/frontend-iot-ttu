@@ -14,18 +14,19 @@ export class NewsService extends HttpClient implements IPaginatedService<INews> 
 
     getAll = async (lang: string, page: number = 0, size: number = 500): Promise<INews[]> => {
         const response =
-            await this.getAuthenticated<INews[], IErrorResponse>(`${lang}/news?page=${page}&size=${size}`);
+            await this.getAuthenticated<INews[], IErrorResponse>(`news/${lang}`);
+            // ?page=${page}&size=${size}
         console.log(response)
         return processResponse<INews[]>(response);
     }
 
     getCount = async (): Promise<number> => {
-        const response = await this.get<number, IErrorResponse>("news/news/count");
+        const response = await this.get<number, IErrorResponse>("news/count");
         return processResponse<number>(response);
     }
 
     getById = async (lang: string, id: string): Promise<INews> => {
-        const response = await this.get<INews, IErrorResponse>(`${lang}/news/${id}`);
+        const response = await this.get<INews, IErrorResponse>(`news/${lang}/${id}`);
         return processResponse<INews>(response);
     }
 

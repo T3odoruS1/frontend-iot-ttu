@@ -4,7 +4,6 @@ import {useTranslation} from "react-i18next";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
 import InputControl from "../../../../components/form/InputControl";
 import {IProjectOutput} from "../../../../dto/project/IProjectOutput";
-import ProjectsTopicAreaInput from "./ProjectsTopicAreaInput";
 import ReactQuill from "react-quill";
 import {formats, modules} from "../../../../configs/configurations";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
@@ -113,14 +112,6 @@ export const ProjectForm: React.FC<IProps> =
                 </div>
 
                 <p>Skip image for now</p>
-
-                <SubHeadingPurple className="mt-5">
-                    Topic areas - translate
-                </SubHeadingPurple>
-                {errors?.topicAreas?.message &&
-                    <p><span className="text-danger"> {t(errors?.topicAreas?.message?.toString())}</span></p>
-                }
-                <ProjectsTopicAreaInput control={control} setValue={setValue} register={register} errors={errors}/>
 
                 <SubHeadingPurple className="mt-5">
                     {t("admin.news.adminNews.create.contentEng")}

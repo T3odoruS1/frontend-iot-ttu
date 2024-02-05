@@ -10,11 +10,21 @@ const ProjectCreate = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (data: FieldValues) => {
-      console.log(data)
-      const response = await projectService.create(data as IProjectOutput);
-      if (response !== undefined) {
-          navigate(`../`);
+      const result = data as IProjectOutput;
+      if(!result.id){
+          const response = await projectService.create(data as IProjectOutput);
+          if (response !== undefined) {
+              navigate(`../`);
+          }
+      }else{
+          projectService.update(result).then(r => {
+              navigate(`../`);
+          }).catch(e => {
+              alert("Error" + e.message)
+          })
+
       }
+
   }
 
 

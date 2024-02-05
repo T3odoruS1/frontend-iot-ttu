@@ -31,7 +31,7 @@ const usePaginatedFetch =
             if(i18n.language !== undefined){
                 service.getAll(i18n.language, page, size)
                     .then(setData)
-                    .catch(setError)
+                    .catch(e => setError(e.message))
                     .finally(() => setPending(false));
             }
         }
@@ -40,10 +40,6 @@ const usePaginatedFetch =
         useEffect(() => {
             fetchTotal();
             getData();
-            return () => {
-                setData([]);
-                setPending(true);
-            }
         }, [page, size, i18n.language]);
 
         return {data, pending, total, pageCount, error}

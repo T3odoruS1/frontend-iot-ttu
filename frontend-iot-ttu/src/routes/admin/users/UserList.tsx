@@ -7,10 +7,22 @@ import ActionConfirmationAlert from "../../../components/common/ActionConfirmati
 import {Table} from "react-bootstrap";
 import {UserRolePopup} from "./UserRolePopup";
 import useRoles from "../../../hooks/useRoles";
+import {useNavigate} from "react-router-dom";
 
 export const UserList = () => {
     const {users, pending, error, fetch} = useUsers()
     const {roles} = useRoles();
+    const identityService = new IdentityService();
+    const navigate = useNavigate();
+    const deactivateUser = (id: string) => {
+        identityService.deactivateUser({userId: id}).then(r => {
+            if(r === undefined){
+                navigate("./login");
+            }else{
+                fetch();
+            }
+        })
+    }
     return (
         <>
         <PageTitle>User management</PageTitle>
@@ -27,6 +39,7 @@ export const UserList = () => {
                     <th scope="col">First name</th>
                     <th scope="col">Last name</th>
                     <th scope="col">Role</th>
+                    <th scope="col">Lock</th>
                     <th scope="col">Actions</th>
 
                 </tr>
@@ -41,11 +54,11 @@ export const UserList = () => {
                                 <td>{user.firstname}</td>
                                 <td>{user.lastname}</td>
                                 <td>{user.roles.at(0)?.name}</td>
-
+                                <td>{user.lockoutEnabled.toString()}</td>
                                 <td>
                                     <UserRolePopup user={user} roles={roles ?? []} email={user.email} fetch={fetch}/>
                                     <ActionConfirmationAlert action={() => {
-
+                                            deactivateUser(user.id);
                                     }} displayText={"Are you sure you want to delete this news piece?"}
                                                              buttonText={"Delete"}/>
                                 </td>

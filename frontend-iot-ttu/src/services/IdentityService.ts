@@ -10,6 +10,7 @@ import {IUser} from "../dto/identity/IUser";
 import {IRole} from "../dto/identity/IRole";
 import {IRoleUpdateResponse} from "../dto/identity/IRoleUpdateResponse";
 import {IRoleUpdate} from "../dto/identity/IRoleUdate";
+import {IUserDeactivate} from "../dto/identity/IUserDeactivate";
 
 export class IdentityService extends HttpClient{
     constructor() {
@@ -43,27 +44,32 @@ export class IdentityService extends HttpClient{
         if(data){
             dto = JSON.parse(data);
         }
-        const response = await this.post<void, IErrorResponse>("users/logout", dto);
-        return processResponse<void>(response);
+        const response = await this.postAuthenticated<void, IErrorResponse>("users/logout", dto);
+        console.log(response.status)
+        window.localStorage.removeItem("jwt")
+        return Promise.resolve(response.data);
     }
 
     async getUsers(): Promise<IUser[]>{
-        const response = await this.get<IUser[], IErrorResponse>("users");
+        const response = await this.getAuthenticated<IUser[], IErrorResponse>("users");
         return processResponse<IUser[]>(response);
     }
 
     async getAllRoles(): Promise<IRole[]>{
-        const response = await this.get<IRole[], IErrorResponse>("users/roles");
+        const response = await this.getAuthenticated<IRole[], IErrorResponse>("users/roles");
         return processResponse<IRole[]>(response);
     }
 
     async updateUserRole(data: IRoleUpdate): Promise<IRoleUpdateResponse>{
-        console.log("Updating user role");
-        const response = await
-            this.postAuthenticated<IRoleUpdateResponse, IErrorResponse>("users/role", data);
+        const response =
+            await this.postAuthenticated<IRoleUpdateResponse, IErrorResponse>("users/role", data);
         return processResponse<IRoleUpdateResponse>(response);
     }
 
+    async deactivateUser(data: IUserDeactivate): Promise<void>{
+        const response = await this.postAuthenticated<void, IErrorResponse>("users/lock", data)
+        return processResponse<void>(response);
+    }
 
     private saveToLocalStorage(jwtPromise: IJwtResponse) {
         window.localStorage.setItem("jwt", JSON.stringify(jwtPromise));

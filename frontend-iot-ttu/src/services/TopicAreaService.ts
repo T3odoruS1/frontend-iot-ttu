@@ -19,7 +19,7 @@ export class TopicAreaService extends HttpClient {
 
     getAll = async (lang: string): Promise<ITopicAreaWithChildren[]> => {
         return processResponse<ITopicAreaWithChildren[]>(
-            await this.get<ITopicAreaWithChildren[],IErrorResponse>(`${lang}/topicAreas`)
+            await this.get<ITopicAreaWithChildren[],IErrorResponse>(`/topicAreas/${lang}`)
         );
     }
 

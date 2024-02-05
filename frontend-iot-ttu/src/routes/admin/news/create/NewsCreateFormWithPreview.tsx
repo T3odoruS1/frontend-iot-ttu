@@ -99,8 +99,6 @@ const NewsCreateFormWithPreview = (props: IProps) => {
 
         setValue(`topicAreas`, news.topicAreas);
 
-        console.log("NEWS!")
-        console.log(news.title)
         setValue(`title.0.value`, news!.title!.find(t => {
             return t.culture === "en"
         })?.value ?? "");

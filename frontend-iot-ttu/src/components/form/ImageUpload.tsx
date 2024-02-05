@@ -3,6 +3,7 @@ import {UseFormGetValues, UseFormRegister, UseFormSetValue} from "react-hook-for
 import {useTranslation} from "react-i18next";
 import {INewsOutputDTO} from "../../dto/news/INewsOutputDTO";
 import ButtonSmaller from "../common/ButtonSmaller";
+import {SUPPORTED_FILE_FORMATS} from "../../configs/configurations";
 
 interface Props {
     register: UseFormRegister<INewsOutputDTO>;
@@ -28,6 +29,12 @@ const ImageUploader: FC<Props> = ({
     const onImageChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event?.target?.files?.[0];
         if (file) {
+            if (!SUPPORTED_FILE_FORMATS.includes(file.type)) {
+                alert(t("unsupportedFileType", {types: SUPPORTED_FILE_FORMATS.join(', ')}));
+                event.target.value = ""; // Reset file input
+                return; // Exit function if file is not supported
+            }
+
             if (file.size > fileSize * 1024 * 1024) {
 
                 alert(t("fileIsTooBig", {size: fileSize}));

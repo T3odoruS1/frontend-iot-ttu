@@ -24,41 +24,41 @@ const NewsList = () => {
     }
 
     if(error){
+        console.log(error)
         return <ErrorPage/>
+    }else{
+        return <>
+            <PageTitle>{t("public.news.news")}</PageTitle>
+            {pending ? <Loader/> :
+                (<Row className="flex-column flex-md-row">
+                        <Col className="col-md-9 order-md-0 order-1 news-grid">
+                            <Row>
+                                {news.map((article) => {
+                                    return <NewsElement key={article.id} news={article}/>;
+                                })}
+                            </Row>
+
+
+                        </Col>
+                        <Col className=" col-md-3 order-md-1 order-0">
+                            <TopicAreaFilters/>
+                        </Col>
+
+                    </Row>
+                )}
+
+            <Pagination
+                activePage={page}
+                itemsCountPerPage={size}
+                totalItemsCount={total}
+                pageRangeDisplayed={5}
+                onChange={handlePageClick.bind(this)}
+                innerClass={"pagination-navigation"}
+                linkClass={"pagination-element"}
+                activeLinkClass={"active-page-li"}
+            />
+        </>;
     }
-
-
-    return <>
-        <PageTitle>{t("public.news.news")}</PageTitle>
-        {pending ? <Loader/> :
-            (<Row className="flex-column flex-md-row">
-                    <Col className="col-md-9 order-md-0 order-1 news-grid">
-                        <Row>
-                            {news.map((article) => {
-                                return <NewsElement key={article.id} news={article}/>;
-                            })}
-                        </Row>
-
-
-                    </Col>
-                    <Col className=" col-md-3 order-md-1 order-0">
-                        <TopicAreaFilters/>
-                    </Col>
-
-                </Row>
-            )}
-
-        <Pagination
-            activePage={page}
-            itemsCountPerPage={size}
-            totalItemsCount={total}
-            pageRangeDisplayed={5}
-            onChange={handlePageClick.bind(this)}
-            innerClass={"pagination-navigation"}
-            linkClass={"pagination-element"}
-            activeLinkClass={"active-page-li"}
-        />
-    </>;
 };
 
 export default NewsList;

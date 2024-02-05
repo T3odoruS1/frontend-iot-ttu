@@ -10,7 +10,7 @@ interface IProps {
     title: string;
     body: string;
     year: number;
-    topicAreas: ITopicAreaGet[];
+    // topicAreas: ITopicAreaGet[];
     projectVolume: number;
     projectManager: string;
     // project: IProject
@@ -29,8 +29,8 @@ export const ProjectContent: FC<IProps> = (project: IProps) => {
                 </Col>
                 <Col md={4}>
                     <div className={"p-2"}>
-                        <p className={"text-small-gray"}>{t("common.topicAreas")}</p>
-                        <h5 className={"header-pink mt-1"}>{getTopicAreasAsStr(project.topicAreas)}</h5>
+                        {/*<p className={"text-small-gray"}>{t("common.topicAreas")}</p>*/}
+                        {/*<h5 className={"header-pink mt-1"}>{getTopicAreasAsStr(project.topicAreas)}</h5>*/}
                         <p className={"text-small-gray mt-4"}>{t("common.year")}</p>
                         <h5 className={"header-pink mt-1"}>{project.year}</h5>
                         <p className={"text-small-gray mt-4"}>{t("common.projectManager")}</p>

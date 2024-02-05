@@ -27,10 +27,15 @@ const ContactForm = () => {
     const navigate = useNavigate();
     const {t} = useTranslation();
     const [message, setMessage] = useState("")
+    const [success, setSuccess] = useState(true);
 
     const onSubmit = (fieldValues: FieldValues) => {
         mailService.contact(fieldValues as IContactDto).then((response) => {
-            console.log(response)
+            setMessage("Message sent")
+            setSuccess(true)
+        }).catch(e => {
+            setMessage("Oops, something went wrong. Try again later")
+            setSuccess(false);
         })
     }
 
@@ -49,7 +54,7 @@ const ContactForm = () => {
         <form onSubmit={handleSubmit((dto) => {
             onSubmit(dto);
         })}>
-            <p>{message}</p>
+            <p className={success ? "text-success" : "text-danger"}>{message}</p>
             <SubHeadingPurple>{t("public.contact.yourInfo")}</SubHeadingPurple>
             <div className="mt-2">
                 <InputControl
@@ -106,8 +111,6 @@ const ContactForm = () => {
                     rows={5}
                 />
             </div>
-
-            <p>{message}</p>
             <ButtonPrimary className="mt-2" type="submit">
                 {t("public.contact.form.submit")}
             </ButtonPrimary>

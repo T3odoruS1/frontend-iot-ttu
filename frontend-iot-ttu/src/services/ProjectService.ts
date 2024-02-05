@@ -7,6 +7,7 @@ import {processResponse} from "./BaseService";
 import {IBaseEntity} from "../dto/IBaseEntity";
 import {HttpStatusCode} from "axios";
 import {dummyPage} from "../assets/loremIpsumDummy";
+import {IProjectMultilang} from "../dto/project/IProjectMultilang";
 
 export class ProjectService extends HttpClient implements IPaginatedService<IProject> {
     constructor() {
@@ -22,16 +23,16 @@ export class ProjectService extends HttpClient implements IPaginatedService<IPro
     }
 
     getAll = async (lang: string, page: number = 0, size: number = 500): Promise<IProject[]> => {
-        // const result = await this.get<IProject[], IErrorResponse>(`/${lang}/project`);
-        // return processResponse<IProject[]>(result);
-        return processResponse<IProject[]>({data: dummyProjects, status: HttpStatusCode.Ok});
+        const result = await this.get<IProject[], IErrorResponse>(`/project/${lang}`);
+        return processResponse<IProject[]>(result);
+        // return processResponse<IProject[]>({data: dummyProjects, status: HttpStatusCode.Ok});
     }
 
     getById = async (lang: string, id: string): Promise<IProject> => {
-        // const result = await this.get<IProject, IErrorResponse>(`${lang}/project/${id}`);
-        // return processResponse<IProject>(result);
-        const project = dummyProjects.find(p => p.id === id);
-        return processResponse<IProject>({data: project, status: HttpStatusCode.Ok});
+        const result = await this.get<IProject, IErrorResponse>(`/project/${lang}/${id}`);
+        return processResponse<IProject>(result);
+        // const project = dummyProjects.find(p => p.id === id);
+        // return processResponse<IProject>({data: project, status: HttpStatusCode.Ok});
     }
 
     getCount = async (): Promise<number> => {
@@ -44,6 +45,16 @@ export class ProjectService extends HttpClient implements IPaginatedService<IPro
         const result = await this.delete<void, IErrorResponse>(`/project/${id}`);
         return processResponse<void>(result);
 
+    }
+
+    update = async (data: IProjectOutput): Promise<void> => {
+        const result = await this.putAuthenticated<void, IErrorResponse>("project", data);
+        return processResponse<void>(result);
+    }
+
+    getPreview = async (id: string):Promise<IProjectMultilang> => {
+        const result = await this.get<IProjectMultilang, IErrorResponse>(`project/preview/${id}`);
+        return processResponse<IProjectMultilang>(result);
     }
 }
 

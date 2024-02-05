@@ -20,6 +20,14 @@ export abstract class BaseClient {
                 },
             },
         });
+        this.axios.interceptors.request.use(request => {
+            console.log('Starting Request', JSON.stringify(request, null, 2))
+            return request
+        })
+        this.axios.interceptors.response.use(function (response) {
+            console.warn("Getting response", JSON.stringify(response, null, 2));
+            return response;
+        });
 
 
         // On success => return request
@@ -30,7 +38,6 @@ export abstract class BaseClient {
             async error => {
                 const originalRequest = error.config;
                 if (error.response.status === 401 && !originalRequest._retry) {
-
                     originalRequest._retry = true;
                     try {
                         const jsonToken = window.localStorage.getItem("jwt");

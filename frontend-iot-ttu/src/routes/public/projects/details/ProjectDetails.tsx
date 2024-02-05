@@ -34,7 +34,6 @@ const ProjectDetails = () => {
                 projectManager={project?.projectManager!}
                 projectVolume={project?.projectVolume!}
                 title={project?.title!}
-                topicAreas={project?.topicAreas!}
                 year={project?.year!}/>)}
 
             <div className={"mt-5"}>

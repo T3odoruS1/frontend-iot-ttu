@@ -2,7 +2,7 @@ import {IContainsTopicArea} from "../IContainsTopicArea";
 import {IContent} from "../IContent";
 import {IBaseEntity} from "../IBaseEntity";
 
-export interface IProjectOutput extends IBaseEntity{
+export interface IProjectMultilang extends IBaseEntity{
     createdAt: string,
     year: number,
     projectManager: string,

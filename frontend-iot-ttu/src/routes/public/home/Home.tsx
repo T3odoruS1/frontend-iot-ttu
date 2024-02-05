@@ -9,6 +9,7 @@ import tallink from './../../../assets/partners/Tallink.png'
 import kinema from './../../../assets/partners/kinema_.png'
 import haridusmin from './../../../assets/partners/haridusmin.png'
 import dfsd from './../../../assets/partners/dfsd.png'
+import EditablePage from "../editablePage/EditablePage";
 
 const Home = () => {
     return <>
@@ -17,39 +18,7 @@ const Home = () => {
             <Row>
 
                 <Col lg={9} md={8}>
-                    <div>
-                        <SubHeadingPurple>About us</SubHeadingPurple>
-                        <p>
-                            The Embedded AI (Artificial Intelligence) Research Lab is an initiative started in 2016 to
-                            strength the cooperation between TalTech and private sector companies. Initial focus was to
-                            cover different aspects in Internet of Things field. As the industry needs are continuously
-                            changing and there have been increasing interest on machine learning competence, the
-                            research center was reorganized to provide better competence in embedded machine learning.
-                            Depending on your needs we are closely cooperating with different departments and competence
-                            areas all over the TalTech. Together we develop innovative technologies and apply them in
-                            the industry to give you a competitive edge.
-                        </p>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <SubHeadingPurple>Objectives</SubHeadingPurple>
-                        <ul>
-                            <li className="home-page-li">
-                                Create innovative applications and domain capability across verticals for industry needs
-                                (Smart city, smart health, smart Industry, smart agriculture, Smart transportation)
-                            </li>
-                            <li className="home-page-li">
-                                Energize Research mind-set and reduce costs in Research and Development by providing
-                                neutral and interoperable, multi-technology stack laboratory facilities
-                            </li>
-                            <li className="home-page-li">
-                                Reduce import dependency on IoT components and promote indigenization
-                            </li>
-                            <li className="home-page-li">
-                                Provide environment for product Creation, Testing and also Validation
-                            </li>
-                        </ul>
-                    </div>
+                    <EditablePage showTitle={false} pageIdentifier={"home_page"}/>
                 </Col>
                 <Col lg={3} md={4}>
                     <div className="m-3 home-page-link-container">

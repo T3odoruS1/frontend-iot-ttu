@@ -1,7 +1,8 @@
 import {IContent} from "../IContent";
 import {IContainsTopicArea} from "../IContainsTopicArea";
 
-export interface IProjectOutput extends IContainsTopicArea{
+export interface IProjectOutput{
+    id?: string,
     year: number,
     projectManager: string,
     projectVolume: number,
