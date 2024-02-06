@@ -7,10 +7,10 @@ import PageTitle from "../../../../components/common/PageTitle";
 import InputControl from "../../../../components/form/InputControl";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import React from "react";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
-import useRoles from "../../../../hooks/useRoles";
 import {FormFloating, FormSelect} from "react-bootstrap";
+import {IdentityService} from "../../../../services/IdentityService";
+import useFetch from "../../../../hooks/useFetch";
+import {IRole} from "../../../../dto/identity/IRole";
 
 
 interface IProps {
@@ -30,7 +30,8 @@ const schema = yup.object().shape({
 export const UserCreateForm = (props: IProps) => {
     const {t} = useTranslation();
 
-    const {roles, pending, error} = useRoles()
+    const identityService = new IdentityService();
+    const {data: roles, pending, error} = useFetch<IRole[]>(identityService.getAllRoles)
 
     const {register, handleSubmit, formState: {errors}} =
         useForm<IRegister>({resolver: yupResolver(schema)});

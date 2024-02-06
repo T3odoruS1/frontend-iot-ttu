@@ -8,12 +8,13 @@ import NewsForm from "./NewsForm";
 import {INewsOutputDTO} from "../../../../dto/news/INewsOutputDTO";
 import ContentPreview from "../../../../components/ContentPreview";
 import PageTitle from "../../../../components/common/PageTitle";
-import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
 import {useNavigate, useParams} from "react-router-dom";
 import {NewsService} from "../../../../services/NewsService";
 import {INewsWTranslations} from "../../../../dto/news/INewsWTranslations";
-import news from "../../../public/news/News";
 import ErrorPage from "../../../ErrorPage";
+import {TopicAreaService} from "../../../../services/TopicAreaService";
+import useFetch from "../../../../hooks/useFetch";
+import {ITopicAreaGetMultilang} from "../../../../dto/topicarea/ITopicAreaGetMultilang";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
@@ -58,26 +59,15 @@ const NewsCreateFormWithPreview = (props: IProps) => {
             .required(`admin.news.adminNews.create.validation.topicAreaMandatory`)
             .min(1, `admin.news.adminNews.create.validation.topicAreaMandatory`)
     });
-    const [editorHtmlEng, setEditorHtmlEng] = useState<string>("");
-    const [editorHtmlEst, setEditorHtmlEst] = useState<string>("");
+
     const [preview, setPreview] = useState<boolean>(false);
-    const {topicAreas, pending, error} = useTranslatedTopicAreas();
-    const newsService = new NewsService();
-    const {id} = useParams();
-    const navigate = useNavigate();
     const [unavailable, setUnavailable] = useState(false);
-
-
-    const {
-        register,
-        setValue,
-        getValues,
-        handleSubmit,
-        control,
-        formState: {errors},
-    } = useForm<INewsOutputDTO>({
-        resolver: yupResolver(schema),
-    });
+    const newsService = new NewsService();
+    const topicAreaService = new TopicAreaService();
+    const {data: topicAreas, pending, error} =
+        useFetch<ITopicAreaGetMultilang[]>(topicAreaService.getWithTranslations);
+    const navigate = useNavigate();
+    const {id} = useParams();
 
     useEffect(() => {
 
@@ -99,8 +89,22 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         }
     }, []);
 
-    if(error || unavailable){
-        return <ErrorPage/>
+
+
+    const {
+        register,
+        setValue,
+        getValues,
+        handleSubmit,
+        control,
+        formState: {errors},
+    } = useForm<INewsOutputDTO>({
+        resolver: yupResolver(schema),
+    });
+
+    const onSubmit = (formValues: FieldValues) => {
+        props.onSubmit(formValues);
+        navigate("./")
     }
 
     const setFormValues = (news: INewsWTranslations) => {
@@ -129,6 +133,9 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     }
 
 
+    const [editorHtmlEng, setEditorHtmlEng] = useState<string>("");
+    const [editorHtmlEst, setEditorHtmlEst] = useState<string>("");
+
     const onEditorStateChangeEng = (html: string) => {
         setValue(`body.${0}.value`, html);
         setEditorHtmlEng(html);
@@ -138,9 +145,10 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         setValue(`body.${1}.value`, html);
         setEditorHtmlEst(html);
     };
-    const onSubmit = (formValues: FieldValues) => {
-        props.onSubmit(formValues);
-        navigate("./")
+
+
+    if(error || unavailable){
+        return <ErrorPage/>
     }
 
     return (

@@ -1,15 +1,16 @@
-import {getTopicAreasAsStr} from "../../../../utils/utils";
-import useProject from "../../../../hooks/useProject";
-import {FC, useEffect} from "react";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+
+import {useNavigate, useParams} from "react-router-dom";
 import ErrorPage from "../../../ErrorPage";
 import NavigationButton from "../../../../components/common/NavigationButton";
 import {Loader} from "../../../../components/Loader";
-import NewsContent from "../../../../components/NewsContent";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {ProjectContent} from "../../../../components/ProjectContent";
 import {useTranslation} from "react-i18next";
 import {NotFoundPage} from "../../../NotFoundPage";
+import {ProjectService} from "../../../../services/ProjectService";
+import useFetch from "../../../../hooks/useFetch";
+import {IProject} from "../../../../dto/project/IProject";
+import i18n from "i18next";
 
 
 
@@ -17,7 +18,8 @@ const ProjectDetails = () => {
     const {id} = useParams()
     const navigate = useNavigate();
     const {t} = useTranslation();
-    const {project, pending, error} = useProject(id ?? "");
+    const projectService = new ProjectService();
+    const {data: project, pending, error} = useFetch<IProject>(projectService.getById, [i18n.language, id ?? ""]);
     const onContactUsClick = () => {
         navigate("../../contact")
     }

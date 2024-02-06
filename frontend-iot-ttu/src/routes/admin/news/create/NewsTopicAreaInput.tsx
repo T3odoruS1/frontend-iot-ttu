@@ -1,21 +1,20 @@
 import {
 	Control,
 	FieldErrors,
-	UseFormGetValues,
 	UseFormRegister,
 	UseFormSetValue,
 	useFieldArray,
 } from "react-hook-form";
 import { Col, FormFloating, FormLabel, FormSelect, Row } from "react-bootstrap";
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment} from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
 import { ITopicAreaWithChildren } from "../../../../dto/topicarea/ITopicAreaWithChildren";
 import { TopicAreaService } from "../../../../services/TopicAreaService";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
-import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
-import useTopicAreas from "../../../../hooks/useTopicAreas";
+import useFetch from "../../../../hooks/useFetch";
+import ErrorPage from "../../../ErrorPage";
 
 interface IProps {
 	control: Control<INewsOutputDTO, any>;
@@ -35,8 +34,12 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 		name: "topicAreas",
 	});
 	const { t } = useTranslation();
+
+	const service = new TopicAreaService();
 	
-	const {topicAreas} = useTopicAreas();
+	const {data: topicAreas, error} = useFetch<ITopicAreaWithChildren[]>(service.getAll, [i18n.language]);
+
+	if(error || !topicAreas) return <ErrorPage/>
 
 	return (
 		<>

@@ -1,19 +1,25 @@
 import {useNavigate, useParams} from "react-router-dom";
 import NewsContent from "../../../../components/NewsContent";
 import NavigationButton from "../../../../components/common/NavigationButton";
-import useNews from "../../../../hooks/useNews";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
 import {Loader} from "../../../../components/Loader";
 import ErrorPage from "../../../ErrorPage";
 import {NotFoundPage} from "../../../NotFoundPage";
+import useFetch from "../../../../hooks/useFetch";
+import {INews} from "../../../../dto/news/INews";
+import {NewsService} from "../../../../services/NewsService";
+import i18n from "i18next";
 
 const NewsPiece = () => {
     const {t} = useTranslation();
     const {id} = useParams();
     const navigate = useNavigate();
-    const {newsPiece: news, pending, error} = useNews(id ?? "");
+    // const {newsPiece: news, pending, error} = useNews(id ?? "");
+    const newsService = new NewsService();
 
+    const {data: news, pending, error} =
+        useFetch<INews>(newsService.getById, [i18n.language, id ?? ""])
     const onContactUsClick = () => {
         navigate("../../contact")
     }

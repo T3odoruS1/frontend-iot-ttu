@@ -9,9 +9,11 @@ import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
 import {Form, FormFloating, FormLabel, FormSelect} from "react-bootstrap";
 import i18n from "i18next";
 import InputControl from "../../../../components/form/InputControl";
-import useTopicAreas from "../../../../hooks/useTopicAreas";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useNavigate} from "react-router-dom";
+import useFetch from "../../../../hooks/useFetch";
+import {ITopicAreaWithChildren} from "../../../../dto/topicarea/ITopicAreaWithChildren";
+import ErrorPage from "../../../ErrorPage";
 
 const schema = yup.object().shape({
     parentTopicId: yup.string().optional(),
@@ -26,7 +28,8 @@ const schema = yup.object().shape({
 export const TopicAreaForm = () => {
     const topicAreaService = new TopicAreaService();
     const {t} = useTranslation();
-    const {topicAreas, pending} = useTopicAreas();
+    const {data: topicAreas, pending: pendingTopicAreas, error: topicAreasError} =
+        useFetch<ITopicAreaWithChildren[]>(topicAreaService.getAll, [i18n.language]);
     const [errorResponse, setErrorResponse] = useState("");
     const navigate = useNavigate();
     const {
@@ -53,6 +56,11 @@ export const TopicAreaForm = () => {
         setValue(`name.0.culture`, "en");
         setValue(`name.1.culture`, "et");
     }, []);
+
+    if(!pendingTopicAreas && !topicAreas){
+        return <ErrorPage/>
+    }
+
     return (
         <>
             <Form onSubmit={handleSubmit(onSubmit)}>
@@ -70,7 +78,7 @@ export const TopicAreaForm = () => {
                         id={`parentTopicId`}
                         name={`parentTopicId`}>
                         <option key={-1}></option>
-                        {topicAreas.map((topicArea, index) => {
+                        {topicAreas?.map((topicArea, index) => {
                             return (
                                     <option
                                         id={topicArea.id}

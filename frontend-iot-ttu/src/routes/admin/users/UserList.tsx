@@ -2,26 +2,30 @@ import {IdentityService} from "../../../services/IdentityService";
 import useUsers from "../../../hooks/useUsers";
 import PageTitle from "../../../components/common/PageTitle";
 import {Loader} from "../../../components/Loader";
-import ButtonSmaller from "../../../components/common/ButtonSmaller";
 import ActionConfirmationAlert from "../../../components/common/ActionConfirmationAlert";
 import {Table} from "react-bootstrap";
 import {UserRolePopup} from "./UserRolePopup";
-import useRoles from "../../../hooks/useRoles";
 import {useNavigate} from "react-router-dom";
 import {useContext} from "react";
 import {JwtContext} from "../../Root";
+import useFetch from "../../../hooks/useFetch";
+import {IRole} from "../../../dto/identity/IRole";
 
 export const UserList = () => {
-    const {users, pending, error, fetch} = useUsers()
-    const {roles} = useRoles();
     const identityService = new IdentityService();
+
+    // leave this as it is. components needs refresh callback
+    const {users, pending, error, fetch} = useUsers()
+    const {data: roles} = useFetch<IRole[]>(identityService.getAllRoles);
     const navigate = useNavigate();
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
 
     const deactivateUser = (id: string) => {
+
         identityService.deactivateUser({userId: id}).then(r => {
             if(r === undefined){
                 navigate("./login");
+                // return <NotAuthenticated/> will not work here.
             }else{
                 fetch();
             }
@@ -29,10 +33,10 @@ export const UserList = () => {
     }
 
 
-
-    if(!jwtResponseCtx?.jwt || jwtResponseCtx.roleIds.length === 0){
-        navigate("/login");
-    }
+    // // TODO enable for production
+    // if(!jwtResponseCtx?.jwt || jwtResponseCtx.roleIds.length === 0){
+    //     return <NotAuthenticated/>
+    // }
 
     return (
         <>

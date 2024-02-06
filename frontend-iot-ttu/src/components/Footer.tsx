@@ -1,14 +1,15 @@
 import {useContext} from "react";
 import {JwtContext} from "../routes/Root";
-import useRoles from "../hooks/useRoles";
 import ButtonSmaller from "./common/ButtonSmaller";
 import {IdentityService} from "../services/IdentityService";
+import useFetch from "../hooks/useFetch";
+import {IRole} from "../dto/identity/IRole";
 
 const Footer = () => {
 
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
     const identityService = new IdentityService();
-    const {roles} = useRoles();
+    const {data: roles} = useFetch<IRole[]>(identityService.getAllRoles);
     const logout = () => {
         identityService.logout().then(() => {
             setJwtResponseCtx!(null);

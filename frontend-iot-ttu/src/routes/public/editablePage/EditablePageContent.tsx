@@ -1,9 +1,9 @@
 import {IPageContent} from "../../../dto/pageContent/IPageContent";
-import {dummyPage} from "../../../assets/loremIpsumDummy";
 import PageTitle from "../../../components/common/PageTitle";
-import pageTitle from "../../../components/common/PageTitle";
-import usePageContent from "../../../hooks/usePageContent";
 import {Loader} from "../../../components/Loader";
+import {PageContentService} from "../../../services/PageContentService";
+import useFetch from "../../../hooks/useFetch";
+import i18n from "i18next";
 
 interface IProps {
     pageIdentifier: string
@@ -11,16 +11,11 @@ interface IProps {
 }
 
 export const EditablePageContent = (props: IProps) => {
+    const service = new PageContentService();
+    const {data: pageContent, pending, error} = useFetch<IPageContent>(service.getContent, [props.pageIdentifier, i18n.language]);
 
-    const {pageContent, pending, error} = usePageContent(props.pageIdentifier);
 
-    const content: IPageContent = {
-        pageIdentifier: props.pageIdentifier,
-        title: "Some title",
-        body: dummyPage
-    }
-
-    if (pageContent?.body === null || pageContent?.title === null) {
+    if (!pending && error) {
         return <><PageTitle>No content found</PageTitle></>
     } else {
         return (

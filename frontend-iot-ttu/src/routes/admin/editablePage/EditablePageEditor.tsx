@@ -2,18 +2,17 @@ import PageTitle from "../../../components/common/PageTitle";
 import SubHeadingPurple from "../../../components/common/SubheadingPurple";
 import InputControl from "../../../components/form/InputControl";
 import ReactQuill from "react-quill";
-import {FieldValues, useForm, useFormContext} from "react-hook-form";
-import {dummyPage} from "../../../assets/loremIpsumDummy";
+import {FieldValues, useForm} from "react-hook-form";
 import {IPageContentMultilang} from "../../../dto/pageContent/IPageContentMultilang";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import useTranslatedPageContent from "../../../hooks/useTranslatedPageContent";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ButtonPrimary from "../../../components/common/ButtonPrimary";
 import {formats, modules} from "../../../configs/configurations";
 import {useTranslation} from "react-i18next";
-import {log} from "node:util";
 import {SuccessAlert} from "../../../components/lottie/SuccessAlert";
+import {PageContentService} from "../../../services/PageContentService";
+import useFetch from "../../../hooks/useFetch";
 
 interface IProps {
     pageIdentifier: string;
@@ -47,14 +46,19 @@ const schema = yup.object().shape({
 
 export const EditablePageEditor = (props: IProps) => {
 
-    const {pageContent, pending, error, service} =
-        useTranslatedPageContent(props.pageIdentifier);
-    // useTranslatedPageContent("TEST");
+    const service = new PageContentService();
+
+    const {data: pageContent, pending, error} =
+        useFetch<IPageContentMultilang>(service.getMultilang, [props.pageIdentifier]);
+
 
     const [exists, setExists] = useState(true)
-
+    const [message, setMessage] = useState("")
+    const [success, setSuccess] = useState(false);
     const [editorHtmlEng, setEditorHtmlEng] = useState<string>("");
     const [editorHtmlEst, setEditorHtmlEst] = useState<string>("");
+    const {t} = useTranslation();
+
 
     const {
         register,
@@ -65,8 +69,7 @@ export const EditablePageEditor = (props: IProps) => {
         formState: {errors}
     } = useForm<IPageContentMultilang>({resolver: yupResolver(schema)})
 
-    const [message, setMessage] = useState("")
-    const [success, setSuccess] = useState(false);
+
     useEffect(() => {
         if (pageContent) {
             setExists(true);
@@ -131,7 +134,6 @@ export const EditablePageEditor = (props: IProps) => {
         setEditorHtmlEst(html);
     };
 
-    const {t} = useTranslation();
 
     return (
         <>

@@ -1,8 +1,5 @@
-import usePaginatedFetch from "../../../../hooks/usePaginatedFetch";
 import {ProjectService} from "../../../../services/ProjectService";
 import {IProject} from "../../../../dto/project/IProject";
-import ProjectsAdm from "../ProjectsAdm";
-import useTopicAreas from "../../../../hooks/useTopicAreas";
 import PageTitle from "../../../../components/common/PageTitle";
 import ErrorPage from "../../../ErrorPage";
 import {useNavigate} from "react-router-dom";
@@ -10,33 +7,30 @@ import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import {Loader} from "../../../../components/Loader";
 import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
 import {Table} from "react-bootstrap";
-import useProjectList from "../../../../hooks/useProjectList";
-import {Fragment, useContext} from "react";
-import {LineLoader} from "../../../../components/LineLoader";
-import {JwtContext} from "../../../Root";
+// import {Fragment, useContext} from "react";
+import useFetch from "../../../../hooks/useFetch";
+import i18n from "i18next";
 
 export const ProjectListAdm = () => {
 
-    const {projects, setProjects,  pending, error, remove} = useProjectList();
-    const {topicAreas, pending: pendingTopicAreas, error: topicAreasError} = useTopicAreas();
-    const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
+    // const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
 
+    const projectService = new ProjectService();
+    const {data: projects, setData: setProjects,  pending, error}
+        = useFetch<IProject[]>(projectService.getAll, [i18n.language]);
 
     const navigate = useNavigate();
 
-    let topicAreaIndex = 0;
-
-
     const onDelete = async (id: string) => {
-        await remove(id);
-        let filtered = projects.filter(function (obj) {
+        await projectService.remove(id);
+        let filtered = projects!.filter(function (obj) {
             return obj.id !== id;
         });
         setProjects(filtered);
     }
 
 
-    if (error) {
+    if (!pending && (error || !projects)) {
         return <ErrorPage/>
     }
 
@@ -79,7 +73,7 @@ export const ProjectListAdm = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {projects.map((project, index) => {
+                {projects?.map((project, index) => {
                         return (
                             <tr key={project.id}>
                                 <th scope="row">{index + 1}</th>

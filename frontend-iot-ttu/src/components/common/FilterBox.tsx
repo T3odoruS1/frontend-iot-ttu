@@ -1,14 +1,16 @@
 import TopicAreaElement from "../../routes/public/news/list/TopicAreaElement";
-import {Col} from "react-bootstrap";
 import {FC, useEffect, useState} from "react";
 import {ITopicAreaWithChildren} from "../../dto/topicarea/ITopicAreaWithChildren";
-import useTopicAreas from "../../hooks/useTopicAreas";
 import i18n from "i18next";
 import {useTranslation} from "react-i18next";
+import useFetch from "../../hooks/useFetch";
+import {TopicAreaService} from "../../services/TopicAreaService";
 
 const FilterBox: FC = ({...rest}) => {
     const { t } = useTranslation();
-    const {topicAreas, pending: tPending} = useTopicAreas();
+    const service = new TopicAreaService();
+    const {data: topicAreas, pending: tPending} =
+        useFetch<ITopicAreaWithChildren[]>(service.getAll, [i18n.language]);
 
     const isInitiallyMobile = window.innerWidth < 768;
 
@@ -47,7 +49,7 @@ const FilterBox: FC = ({...rest}) => {
             </div>
             {selected && <ul className={`p-0 ${selected ? "open" : ""}`}>
                 {topicAreas
-                    .sort((a, b) => {
+                    ?.sort((a, b) => {
                         let nameA = a.name.toLowerCase();
                         let nameB = b.name.toLowerCase();
 

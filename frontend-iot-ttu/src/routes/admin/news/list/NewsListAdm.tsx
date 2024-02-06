@@ -3,25 +3,32 @@ import {Table} from "react-bootstrap";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
 import {useNavigate} from "react-router-dom";
-import useNewsList from "../../../../hooks/useNewsList";
 import PageTitle from "../../../../components/common/PageTitle";
-import useTopicAreas from "../../../../hooks/useTopicAreas";
 import {Loader} from "../../../../components/Loader";
 import ErrorPage from "../../../ErrorPage";
-import {LineLoader} from "../../../../components/LineLoader";
 import {Fragment} from "react";
 import {NotAuthenticated} from "../../NotAuthenticated";
+import useFetch from "../../../../hooks/useFetch";
+import {INews} from "../../../../dto/news/INews";
+import {NewsService} from "../../../../services/NewsService";
+import {TopicAreaService} from "../../../../services/TopicAreaService";
+import {ITopicAreaWithChildren} from "../../../../dto/topicarea/ITopicAreaWithChildren";
 
 const NewsListAdm = () => {
 
-    const {news, setNews, pending, remove, error} = useNewsList();
-    const {topicAreas, pending: pendingTopicAreas, error: topicAreasError} = useTopicAreas();
+    const newsService = new NewsService();
+    const topicAreaService = new TopicAreaService();
+
+    const {data: news, setData: setNews, pending, error} =
+        useFetch<INews[]>(newsService.getAll, [i18n.language])
+    const {data: topicAreas, pending: pendingTopicAreas, error: topicAreasError} =
+        useFetch<ITopicAreaWithChildren[]>(topicAreaService.getAll, [i18n.language]);
 
     let topicAreaIndex = 0;
     const navigate = useNavigate();
     const onDelete = async (id: string) => {
-        await remove(id);
-        let filtered = news.filter(function (obj) {
+        await newsService.remove(id);
+        let filtered = news!.filter(function (obj) {
             return obj.id !== id;
         });
         setNews(filtered);
@@ -43,13 +50,12 @@ const NewsListAdm = () => {
         navigate(`./${id}`);
     }
 
-    if(error && error === "AUTH"){
-        console.log("redirecting")
+    if(error && error == "401"){
         return <NotAuthenticated/>
     }
 
 
-    if (error ) {
+    if (!pending && (!news || !topicAreas)) {
         return <ErrorPage/>
     }
 
@@ -106,7 +112,7 @@ const NewsListAdm = () => {
             <br/>
             <hr/>
             <PageTitle>Topic areas</PageTitle>
-            {/*TODO optimize requests*/}
+
             <div className={"m-2"}>
                 <ButtonSmaller type={"button"} onClick={toCreateTopic}>Create</ButtonSmaller>
             </div>
@@ -122,10 +128,9 @@ const NewsListAdm = () => {
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
-                {/*{pendingTopicAreas && <div className={"w-100 m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
 
                 <tbody>
-                {topicAreas.map((topicArea, index) => {
+                {topicAreas?.map((topicArea, index) => {
                     return (<Fragment key={topicArea.id}>
                         <tr>
                             <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>

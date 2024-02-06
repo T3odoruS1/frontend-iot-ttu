@@ -10,8 +10,9 @@ export function processResponse<TEntity>(response: IApiResponse<TEntity, IErrorR
         return Promise.resolve(response.data!);
     }
 
+    // TODO merge this into the next if and test if it works
     if(response.errorData?.status === 401){
-        throw new Error("AUTH")
+        throw new Error(Number(500).toString())
     }
     if (response.errorData?.status !== undefined && response.errorData !== undefined) {
         throw new Error(response.errorData.status.toString())

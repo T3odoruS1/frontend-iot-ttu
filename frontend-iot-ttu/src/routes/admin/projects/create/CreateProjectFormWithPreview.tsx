@@ -1,19 +1,17 @@
 import {FieldValues, useForm} from "react-hook-form";
 import * as yup from "yup";
 import {useEffect, useState} from "react";
-import useTranslatedTopicAreas from "../../../../hooks/useTranslatedTopicAreas";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {IProjectOutput} from "../../../../dto/project/IProjectOutput";
 import PageTitle from "../../../../components/common/PageTitle";
 import {FormCheck, FormFloating} from "react-bootstrap";
 import {useTranslation} from "react-i18next";
 import {ProjectForm} from "./ProjectForm";
-import ContentPreview from "../../../../components/ContentPreview";
 import {useParams} from "react-router-dom";
 import {ProjectService} from "../../../../services/ProjectService";
 import {ProjectPreview} from "./ProjectPreview";
-import useUpdatableProject from "../../../../hooks/useUpdatableProject";
 import {IProjectMultilang} from "../../../../dto/project/IProjectMultilang";
+import useFetch from "../../../../hooks/useFetch";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
@@ -62,8 +60,8 @@ const CreateProjectFormWithPreview = (props: IProps) => {
 
     const [updateCase, setUpdateCase] = useState(id !== undefined);
 
-    const {project, pending: projectPending, error, update} =
-        useUpdatableProject(id);
+    const {data: project, pending, error} =
+        useFetch<IProjectMultilang>(projectService.getPreview, [id ?? ""]);
 
 
     useEffect(() => {

@@ -1,6 +1,5 @@
 import PageTitle from "../../../components/common/PageTitle";
 import {Col, Row} from "react-bootstrap";
-import NewsElement from "../news/list/NewsElement";
 import TopicAreaFilters from "../../../components/common/FilterBox";
 import {IOpenSourceSolution} from "../../../dto/IOpenSourceSolution";
 import Popup from "../../../components/Popup";
