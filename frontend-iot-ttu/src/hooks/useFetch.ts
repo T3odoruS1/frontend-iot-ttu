@@ -19,13 +19,16 @@ const useFetch = <TEntity>(callback: serviceFunction<TEntity>, args: any[] = [])
 
     useEffect(() => {
         const fetchData = () => {
-
-            // Args are provided into the callback in the order they were passed. Be attentive when calling.
+            console.log(callback)
             callback(...args)
                 .then(response => {
+                    // console.log(response)
                     setData(response);
                 })
-                .catch(e => setError(e.message))
+                .catch(e => {
+                    console.log(e)
+                    setError(e.message)
+                })
                 .finally(() => {setPending(false)});
         };
 

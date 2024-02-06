@@ -31,7 +31,7 @@ export const UserCreateForm = (props: IProps) => {
     const {t} = useTranslation();
 
     const identityService = new IdentityService();
-    const {data: roles, pending, error} = useFetch<IRole[]>(identityService.getAllRoles)
+    const {data: roles, pending, error} = useFetch<IRole[]>(identityService.getRoles)
 
     const {register, handleSubmit, formState: {errors}} =
         useForm<IRegister>({resolver: yupResolver(schema)});

@@ -1,39 +1,62 @@
 import Axios from "axios";
 import {AxiosInstance} from "axios";
 import {IJwtResponse} from "../dto/identity/IJwtResponse";
+import {HttpMethod, HttpTemplate} from "./HttpTemplate";
+import {IApiResponse} from "./IApiResponse";
 
-export abstract class BaseClient {
+export class BaseClient {
     private static baseUrl = "http://localhost:5180/api/v1";
-    protected axios: AxiosInstance;
+    protected axios!: AxiosInstance;
+
+    private static instance: BaseClient | null = null;
 
     private cachedJwt: IJwtResponse | null = null;
     private lastUpdated: number | null = null;
     private refreshOperations = new Map<string, Promise<IJwtResponse>>();
 
-    constructor(url: string) {
+    public instanceId: number  = 0;
 
+    protected constructor(url?: string) {
         this.axios = Axios.create({
-            baseURL: BaseClient.baseUrl + url,
+            baseURL: BaseClient.baseUrl + (url || ''),
             headers: {
                 common: {
-                    "Content-type": "application/json",
+                    "Content-Type": "application/json",
                 },
             },
         });
-        this.axios.interceptors.request.use(request => {
-            console.log('Starting Request', JSON.stringify(request, null, 2))
-            return request
-        })
-        this.axios.interceptors.response.use(function (response) {
-            console.warn("Getting response", JSON.stringify(response, null, 2));
-            return response;
-        });
+        this.setupInterceptors();
+        BaseClient.instance = this;
+        BaseClient.instance.instanceId = Math.random();
+
+        // Setup interceptors and other configurations
+    }
+
+    public static getInstance(url?: string): BaseClient {
+        if (!BaseClient.instance) {
+            BaseClient.instance = new BaseClient(url);
+        }
+        return BaseClient.instance;
+    }
+
+
+
+
+    private setupInterceptors(){
+        // this.axios.interceptors.request.use(request => {
+        //     console.log('Starting Request', JSON.stringify(request, null, 2))
+        //     return request
+        // })
+        // this.axios.interceptors.response.use(function (response) {
+        //     console.warn("Getting response", JSON.stringify(response, null, 2));
+        //     return response;
+        // });
 
 
         // On success => return request
         // On 401 refresh token and retry
         // On other fails => return request
-        this.axios.interceptors.response.use(
+        this.axios?.interceptors.response.use(
             response => response,
             async error => {
                 const originalRequest = error.config;
@@ -58,7 +81,6 @@ export abstract class BaseClient {
                 return Promise.reject(error);
             }
         );
-
     }
 
     async refreshToken(jwt: IJwtResponse): Promise<IJwtResponse | undefined> {
@@ -89,6 +111,54 @@ export abstract class BaseClient {
         this.refreshOperations.set(jwt.refreshToken, refreshPromise);
 
         return refreshPromise;
+    }
+
+
+    private async invoke<TEntity, TErrorData>(
+        method: HttpMethod,
+        url: string,
+        data?: {},
+        authenticate: boolean = false
+    ): Promise<IApiResponse<TEntity, TErrorData>> {
+        let request = new HttpTemplate<TEntity, TErrorData>(this.axios, method, url, data);
+        if (authenticate) {
+            request = request.withAuthentication();
+        }
+        return await request.send();
+    }
+
+    public async post<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
+        return this.invoke<TEntity, TErrorData>(HttpMethod.POST, url, data);
+    }
+
+    public async postAuthenticated<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
+        return this.invoke<TEntity, TErrorData>(HttpMethod.POST, url, data, true);
+    }
+
+    public async get<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
+        return this.invoke<TEntity, TErrorData>(HttpMethod.GET, url);
+    }
+
+    public async getAuthenticated<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
+        return this.invoke<TEntity, TErrorData>(HttpMethod.GET, url, undefined, true);
+    }
+
+    public async delete<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
+        return this.invoke<TEntity, TErrorData>(HttpMethod.DELETE, url);
+    }
+
+    public async deleteAuthenticated<TEntity, TErrorData>(url: string): Promise<IApiResponse<TEntity, TErrorData>> {
+        return this.invoke<TEntity, TErrorData>(HttpMethod.DELETE, url, undefined, true);
+    }
+
+
+    public async put<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
+        return this.invoke<TEntity, TErrorData>(HttpMethod.PUT, url, data);
+    }
+
+
+    public async putAuthenticated<TEntity, TErrorData>(url: string, data: {}): Promise<IApiResponse<TEntity, TErrorData>> {
+        return this.invoke<TEntity, TErrorData>(HttpMethod.PUT, url, data, true);
     }
 
 }

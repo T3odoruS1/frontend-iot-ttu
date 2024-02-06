@@ -3,8 +3,9 @@ import {IPageContentMultilang} from "../dto/pageContent/IPageContentMultilang";
 import {IErrorResponse} from "../dto/IErrorResponse";
 import {processResponse} from "./BaseService";
 import {IPageContent} from "../dto/pageContent/IPageContent";
+import {BaseClient} from "./BaseClient";
 
-export class PageContentService extends HttpClient {
+export class PageContentService extends BaseClient {
     constructor() {
         super("");
     }

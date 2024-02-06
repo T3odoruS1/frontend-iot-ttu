@@ -4,8 +4,6 @@ import {throws} from "node:assert";
 
 
 export function processResponse<TEntity>(response: IApiResponse<TEntity, IErrorResponse>): Promise<TEntity> {
-    console.log(response)
-
     if(response.data !== undefined){
         return Promise.resolve(response.data!);
     }

@@ -10,15 +10,26 @@ import {useContext} from "react";
 import {JwtContext} from "../../Root";
 import useFetch from "../../../hooks/useFetch";
 import {IRole} from "../../../dto/identity/IRole";
+import {NewsService} from "../../../services/NewsService";
+import {ProjectService} from "../../../services/ProjectService";
+import {INews} from "../../../dto/news/INews";
+import i18n from "i18next";
+import {IProject} from "../../../dto/project/IProject";
 
 export const UserList = () => {
-    const identityService = new IdentityService();
-
-    // leave this as it is. components needs refresh callback
-    const {users, pending, error, fetch} = useUsers()
-    const {data: roles} = useFetch<IRole[]>(identityService.getAllRoles);
     const navigate = useNavigate();
+    const identityService = new IdentityService();
+    const newsService = new NewsService();
+    const projectService = new ProjectService();
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
+
+    // leave this as it is. components needs fetch callback
+    const {users, pending, error, fetch} = useUsers(identityService)
+
+    // WTF it's not calling this endpoint
+    const {data: roles} = useFetch<IRole[]>(identityService.getRoles);
+    // const {data: news} = useFetch<INews[]>(newsService.getAll, [i18n.language])
+    const {data: project} = useFetch<IProject[]>(projectService.getAll, [i18n.language])
 
     const deactivateUser = (id: string) => {
 
@@ -42,7 +53,6 @@ export const UserList = () => {
         <>
         <PageTitle>User management</PageTitle>
             {pending && <Loader/>}
-
             <Table variant="striped">
                 <caption>Users</caption>
                 {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
@@ -54,7 +64,6 @@ export const UserList = () => {
                     <th scope="col">First name</th>
                     <th scope="col">Last name</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Lock</th>
                     <th scope="col">Actions</th>
 
                 </tr>
@@ -69,13 +78,12 @@ export const UserList = () => {
                                 <td>{user.firstname}</td>
                                 <td>{user.lastname}</td>
                                 <td>{user.roles.at(0)?.name}</td>
-                                <td>{user.lockoutEnabled.toString()}</td>
                                 <td>
                                     {}
                                     <UserRolePopup user={user} roles={roles ?? []} email={user.email} fetch={fetch}/>
                                     <ActionConfirmationAlert action={() => {
                                             deactivateUser(user.id);
-                                    }} displayText={"Are you sure you want to delete this news piece?"}
+                                    }} displayText={"TRANSLATE!!!! Are you sure you want to delete this user?"}
                                                              buttonText={"Delete"}/>
                                 </td>
                             </tr>

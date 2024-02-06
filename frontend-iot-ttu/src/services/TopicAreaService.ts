@@ -1,14 +1,13 @@
 import {IBaseEntity} from "../dto/IBaseEntity";
-import {ITopicAreaGet, ITopicAreaGetMultilang} from "../dto/topicarea/ITopicAreaGet";
+import {ITopicAreaGetMultilang} from "../dto/topicarea/ITopicAreaGet";
 import {ITopicAreaPost} from "../dto/topicarea/ITopicAreaPost";
-import {BaseEntityService} from "./BaseEntityService";
 import {ITopicAreaWithChildren} from "../dto/topicarea/ITopicAreaWithChildren";
-import i18n from "i18next";
 import {IErrorResponse} from "../dto/IErrorResponse";
 import {HttpClient} from "./HttpClient";
 import {processResponse} from "./BaseService";
+import {BaseClient} from "./BaseClient";
 
-export class TopicAreaService extends HttpClient {
+export class TopicAreaService extends BaseClient {
     constructor() {
         super("");
     }

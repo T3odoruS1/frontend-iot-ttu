@@ -1,11 +1,11 @@
-import {BaseEntityService} from "./BaseEntityService";
 import {IContactDto} from "../dto/contact/IContactDto";
 import {IErrorResponse} from "../dto/IErrorResponse";
 import {HttpClient} from "./HttpClient";
 import {IContactResponse} from "../dto/contact/IContactResponse";
 import {processResponse} from "./BaseService";
+import {BaseClient} from "./BaseClient";
 
-export class MailService extends HttpClient {
+export class MailService extends BaseClient {
     constructor() {
         super("");
     }

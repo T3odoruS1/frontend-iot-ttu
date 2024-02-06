@@ -8,52 +8,54 @@ import {IBaseEntity} from "../dto/IBaseEntity";
 import {HttpStatusCode} from "axios";
 import {dummyPage} from "../assets/loremIpsumDummy";
 import {IProjectMultilang} from "../dto/project/IProjectMultilang";
+import {BaseClient} from "./BaseClient";
 
-export class ProjectService extends HttpClient implements IPaginatedService<IProject> {
-    constructor() {
-        super("");
-    }
-
+export class ProjectService implements IPaginatedService<IProject> {
+    private client: BaseClient = BaseClient.getInstance();
+    // constructor() {
+    //     super("");
+    // }
 
     create = async (data: IProjectOutput): Promise<IBaseEntity> => {
-        const result = await this.post<IBaseEntity, IErrorResponse>(`/project`, data);
+        const result = await this.client.post<IBaseEntity, IErrorResponse>(`/project`, data);
         return processResponse<IBaseEntity>(result);
         // return processResponse<IBaseEntity>({data: createDummy, status: HttpStatusCode.Ok});
 
     }
 
     getAll = async (lang: string, page: number = 0, size: number = 500): Promise<IProject[]> => {
-        const result = await this.get<IProject[], IErrorResponse>(`/project/${lang}`);
+        console.log("Projects have been fetched")
+        const result = await this.client.getAuthenticated<IProject[], IErrorResponse>(`/project/${lang}`);
         return processResponse<IProject[]>(result);
         // return processResponse<IProject[]>({data: dummyProjects, status: HttpStatusCode.Ok});
     }
 
     getById = async (lang: string, id: string): Promise<IProject> => {
-        const result = await this.get<IProject, IErrorResponse>(`/project/${lang}/${id}`);
+        const result = await this.client.get<IProject, IErrorResponse>(`/project/${lang}/${id}`);
         return processResponse<IProject>(result);
         // const project = dummyProjects.find(p => p.id === id);
         // return processResponse<IProject>({data: project, status: HttpStatusCode.Ok});
     }
 
     getCount = async (): Promise<number> => {
-        const result = await this.get<number, IErrorResponse>(`project/count`);
+        const result = await this.client.get<number, IErrorResponse>(`project/count`);
         return processResponse<number>(result);
         // return processResponse<number>({data: 10, status: HttpStatusCode.Ok});
     }
 
     remove = async (id: string): Promise<void> => {
-        const result = await this.delete<void, IErrorResponse>(`/project/${id}`);
+        const result = await this.client.delete<void, IErrorResponse>(`/project/${id}`);
         return processResponse<void>(result);
 
     }
 
     update = async (data: IProjectOutput): Promise<void> => {
-        const result = await this.putAuthenticated<void, IErrorResponse>("project", data);
+        const result = await this.client.putAuthenticated<void, IErrorResponse>("project", data);
         return processResponse<void>(result);
     }
 
     getPreview = async (id: string):Promise<IProjectMultilang> => {
-        const result = await this.get<IProjectMultilang, IErrorResponse>(`project/preview/${id}`);
+        const result = await this.client.get<IProjectMultilang, IErrorResponse>(`project/preview/${id}`);
         return processResponse<IProjectMultilang>(result);
     }
 }

@@ -9,14 +9,14 @@ const Footer = () => {
 
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
     const identityService = new IdentityService();
-    const {data: roles} = useFetch<IRole[]>(identityService.getAllRoles);
+    const {data: roles, error} = useFetch<IRole[]>(identityService.getRoles);
+
     const logout = () => {
         identityService.logout().then(() => {
             setJwtResponseCtx!(null);
         });
     }
 
-    console.log(jwtResponseCtx)
     return (
         <>
 
