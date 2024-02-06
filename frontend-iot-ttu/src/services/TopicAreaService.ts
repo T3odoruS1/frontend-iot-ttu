@@ -7,24 +7,23 @@ import {HttpClient} from "./HttpClient";
 import {processResponse} from "./BaseService";
 import {BaseClient} from "./BaseClient";
 
-export class TopicAreaService extends BaseClient {
-    constructor() {
-        super("");
-    }
+export class TopicAreaService {
+    private client: BaseClient = BaseClient.getInstance();
+
 
     create = async (topicArea: ITopicAreaPost): Promise<IBaseEntity> => {
-        return processResponse<IBaseEntity>(await this.post<IBaseEntity, IErrorResponse>(`topicAreas`, topicArea));
+        return processResponse<IBaseEntity>(await this.client.post<IBaseEntity, IErrorResponse>(`topicAreas`, topicArea));
     }
 
     getAll = async (lang: string): Promise<ITopicAreaWithChildren[]> => {
         return processResponse<ITopicAreaWithChildren[]>(
-            await this.get<ITopicAreaWithChildren[],IErrorResponse>(`/topicAreas/${lang}`)
+            await this.client.get<ITopicAreaWithChildren[],IErrorResponse>(`/topicAreas/${lang}`)
         );
     }
 
     getWithTranslations = async (): Promise<ITopicAreaGetMultilang[]> => {
         return processResponse<ITopicAreaGetMultilang[]>(
-            await this.get<ITopicAreaGetMultilang[], IErrorResponse>("topicAreas/getWithTranslation")
+            await this.client.get<ITopicAreaGetMultilang[], IErrorResponse>("topicAreas/getWithTranslation")
         )
     }
 }

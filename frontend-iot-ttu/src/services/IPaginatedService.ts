@@ -1,5 +1,4 @@
 import {IBaseEntity} from "../dto/IBaseEntity";
-import {IErrorResponse} from "../dto/IErrorResponse";
 
 
 // TEntity type should be the one that is used in getAll function.

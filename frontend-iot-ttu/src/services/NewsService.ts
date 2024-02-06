@@ -10,9 +10,6 @@ import {BaseClient} from "./BaseClient";
 export class NewsService implements IPaginatedService<INews> {
 
     private client: BaseClient = BaseClient.getInstance();
-    // constructor() {
-    //     super("");
-    // }
 
     getAll = async (lang: string, page: number = 0, size: number = 500): Promise<INews[]> => {
         console.log(this.client.instanceId)

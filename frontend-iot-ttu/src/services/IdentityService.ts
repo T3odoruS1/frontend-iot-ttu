@@ -1,4 +1,3 @@
-import {HttpClient} from "./HttpClient";
 import {IJwtResponse} from "../dto/identity/IJwtResponse";
 import {IRegister} from "../dto/identity/IRegister";
 import {IErrorResponse} from "../dto/IErrorResponse";
@@ -13,13 +12,8 @@ import {BaseClient} from "./BaseClient";
 
 export class IdentityService{
     private client: BaseClient = BaseClient.getInstance();
-    // constructor() {
-    //     super("");
-    // }
 
-
-
-    async register(data: IRegister): Promise<IJwtResponse>{
+    register = async (data: IRegister): Promise<IJwtResponse> => {
         const response = await this.client.post<IJwtResponse, IErrorResponse>("/users/register", data);
         if(response.data?.jwt){
             this.saveToLocalStorage(response.data)
@@ -27,7 +21,7 @@ export class IdentityService{
         return processResponse<IJwtResponse>(response);
     }
 
-    async login(data: ILogin): Promise<IJwtResponse> {
+    login = async (data: ILogin): Promise<IJwtResponse> => {
         const response = await this.client.post<IJwtResponse, IErrorResponse>("/users/login", data);
         if (response.data?.jwt) {
             this.saveToLocalStorage(response.data)
@@ -35,7 +29,7 @@ export class IdentityService{
         return processResponse<IJwtResponse>(response);
     }
 
-    async logout(): Promise<void>{
+    logout = async (): Promise<void> => {
         const data =window.localStorage.getItem("jwt")
         if(!data){
             return
@@ -50,30 +44,30 @@ export class IdentityService{
         return Promise.resolve(response.data);
     }
 
-    async getUsers(): Promise<IUser[]>{
+     getUsers = async (): Promise<IUser[]> => {
         const response = await this.client.getAuthenticated<IUser[], IErrorResponse>("/users");
         console.log("Users have been fetched")
         return processResponse<IUser[]>(response);
     }
 
-    async getRoles(): Promise<IRole[]>{
+    getRoles = async (): Promise<IRole[]> => {
         const response = await this.client.getAuthenticated<IRole[], IErrorResponse>("/users/roles");
         console.log("Roles have been fetched")
         return processResponse<IRole[]>(response);
     }
 
-    async updateUserRole(data: IRoleUpdate): Promise<IRoleUpdateResponse>{
+    updateUserRole = async (data: IRoleUpdate): Promise<IRoleUpdateResponse> => {
         const response =
             await this.client.postAuthenticated<IRoleUpdateResponse, IErrorResponse>("/role", data);
         return processResponse<IRoleUpdateResponse>(response);
     }
 
-    async deactivateUser(data: IUserDeactivate): Promise<void>{
+    deactivateUser = async (data: IUserDeactivate): Promise<void> => {
         const response = await this.client.postAuthenticated<void, IErrorResponse>("/users/lock", data)
         return processResponse<void>(response);
     }
 
-    private saveToLocalStorage(jwtPromise: IJwtResponse) {
+    saveToLocalStorage = async (jwtPromise: IJwtResponse)=>{
         window.localStorage.setItem("jwt", JSON.stringify(jwtPromise));
     }
 }

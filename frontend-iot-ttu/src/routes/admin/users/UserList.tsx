@@ -19,17 +19,13 @@ import {IProject} from "../../../dto/project/IProject";
 export const UserList = () => {
     const navigate = useNavigate();
     const identityService = new IdentityService();
-    const newsService = new NewsService();
-    const projectService = new ProjectService();
+
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
 
     // leave this as it is. components needs fetch callback
     const {users, pending, error, fetch} = useUsers(identityService)
 
-    // WTF it's not calling this endpoint
     const {data: roles} = useFetch<IRole[]>(identityService.getRoles);
-    // const {data: news} = useFetch<INews[]>(newsService.getAll, [i18n.language])
-    const {data: project} = useFetch<IProject[]>(projectService.getAll, [i18n.language])
 
     const deactivateUser = (id: string) => {
 
