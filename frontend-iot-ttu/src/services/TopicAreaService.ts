@@ -3,12 +3,11 @@ import {ITopicAreaGetMultilang} from "../dto/topicarea/ITopicAreaGet";
 import {ITopicAreaPost} from "../dto/topicarea/ITopicAreaPost";
 import {ITopicAreaWithChildren} from "../dto/topicarea/ITopicAreaWithChildren";
 import {IErrorResponse} from "../dto/IErrorResponse";
+import {processResponse} from "./responseProcessor";
 import {HttpClient} from "./HttpClient";
-import {processResponse} from "./BaseService";
-import {BaseClient} from "./BaseClient";
 
 export class TopicAreaService {
-    private client: BaseClient = BaseClient.getInstance();
+    private client: HttpClient = HttpClient.getInstance();
 
 
     create = async (topicArea: ITopicAreaPost): Promise<IBaseEntity> => {

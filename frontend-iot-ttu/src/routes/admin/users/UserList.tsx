@@ -19,7 +19,6 @@ import {IProject} from "../../../dto/project/IProject";
 export const UserList = () => {
     const navigate = useNavigate();
     const identityService = new IdentityService();
-
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
 
     // leave this as it is. components needs fetch callback

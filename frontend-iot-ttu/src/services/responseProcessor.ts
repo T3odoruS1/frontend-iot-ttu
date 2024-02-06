@@ -1,6 +1,5 @@
 import {IApiResponse} from "./IApiResponse";
 import {IErrorResponse} from "../dto/IErrorResponse";
-import {throws} from "node:assert";
 
 
 export function processResponse<TEntity>(response: IApiResponse<TEntity, IErrorResponse>): Promise<TEntity> {

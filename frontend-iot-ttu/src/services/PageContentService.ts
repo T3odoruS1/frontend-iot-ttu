@@ -1,12 +1,11 @@
-import {HttpClient} from "./HttpClient";
 import {IPageContentMultilang} from "../dto/pageContent/IPageContentMultilang";
 import {IErrorResponse} from "../dto/IErrorResponse";
-import {processResponse} from "./BaseService";
+import {processResponse} from "./responseProcessor";
 import {IPageContent} from "../dto/pageContent/IPageContent";
-import {BaseClient} from "./BaseClient";
+import {HttpClient} from "./HttpClient";
 
 export class PageContentService {
-    private client: BaseClient = BaseClient.getInstance();
+    private client: HttpClient = HttpClient.getInstance();
 
 
     create = async (data: IPageContentMultilang): Promise<IPageContentMultilang> => {

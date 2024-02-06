@@ -1,17 +1,17 @@
 import {IJwtResponse} from "../dto/identity/IJwtResponse";
 import {IRegister} from "../dto/identity/IRegister";
 import {IErrorResponse} from "../dto/IErrorResponse";
-import {processResponse} from "./BaseService";
+import {processResponse} from "./responseProcessor";
 import {ILogin} from "../dto/identity/ILogin";
 import {IUser} from "../dto/identity/IUser";
 import {IRole} from "../dto/identity/IRole";
 import {IRoleUpdateResponse} from "../dto/identity/IRoleUpdateResponse";
 import {IRoleUpdate} from "../dto/identity/IRoleUdate";
 import {IUserDeactivate} from "../dto/identity/IUserDeactivate";
-import {BaseClient} from "./BaseClient";
+import {HttpClient} from "./HttpClient";
 
 export class IdentityService{
-    private client: BaseClient = BaseClient.getInstance();
+    private client: HttpClient = HttpClient.getInstance();
 
     register = async (data: IRegister): Promise<IJwtResponse> => {
         const response = await this.client.post<IJwtResponse, IErrorResponse>("/users/register", data);

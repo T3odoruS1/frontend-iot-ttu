@@ -3,17 +3,14 @@ import {INewsOutputDTO} from "../dto/news/INewsOutputDTO";
 import {IErrorResponse} from "../dto/IErrorResponse";
 import {INewsWTranslations} from "../dto/news/INewsWTranslations";
 import {IPaginatedService} from "./IPaginatedService";
+import {processResponse} from "./responseProcessor";
 import {HttpClient} from "./HttpClient";
-import {processResponse} from "./BaseService";
-import {BaseClient} from "./BaseClient";
 
 export class NewsService implements IPaginatedService<INews> {
 
-    private client: BaseClient = BaseClient.getInstance();
+    private client: HttpClient = HttpClient.getInstance();
 
     getAll = async (lang: string, page: number = 0, size: number = 500): Promise<INews[]> => {
-        console.log(this.client.instanceId)
-
         const response =
             await this.client.getAuthenticated<INews[], IErrorResponse>(`news/${lang}`);
             // ?page=${page}&size=${size}
