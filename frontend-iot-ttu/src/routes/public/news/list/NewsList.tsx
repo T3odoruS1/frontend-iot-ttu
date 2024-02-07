@@ -6,13 +6,14 @@ import {Loader} from "../../../../components/Loader";
 import usePaginatedFetch from "../../../../hooks/usePaginatedFetch";
 import {NewsService} from "../../../../services/NewsService";
 import {INews} from "../../../../dto/news/INews";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Pagination from "react-js-pagination";
 import ErrorPage from "../../../ErrorPage";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import placeholder from "../../../../assets/placeholder.webp";
 import DatePink from "../../../../components/common/DatePink";
 import TopicAreasGray from "../../../../components/common/TopicAreasGray";
+import i18n from "i18next";
 
 interface IProps {
     news: INews;
@@ -53,55 +54,88 @@ const NewsElement: React.FC<IProps> = ({news}) => {
 };
 
 
-
 const NewsList = () => {
-    const {t} = useTranslation();
-    const [page, setPage] = useState<number>(1);
-    const [size, setSize] = useState<number>(6);
-    const {data: news, pending, total, error} =
-        usePaginatedFetch<INews, NewsService>(new NewsService(), page - 1, size);
+    const { t } = useTranslation();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const hasPage = searchParams.has('page');
+        const hasSize = searchParams.has('size');
+
+        if (!hasPage || !hasSize) {
+            searchParams.set('page', '1');
+            searchParams.set('size', '6');
+            navigate(`/${i18n.language}/news?${searchParams.toString()}`, { replace: true });
+        }
+    }, [i18n.language, navigate, location.search]);
+
+    const [page, setPage] = useState<number>(parseInt(new URLSearchParams(location.search).get('page') || '1', 10));
+    const [size, setSize] = useState<number>(6); // Assuming 'size' won't change for now
+    const [topicArea, setTopicArea] = useState<string | null>(new URLSearchParams(location.search).get('topicArea'));
+
+    const { data: news, pending, total, error } =
+        usePaginatedFetch<INews, NewsService>(new NewsService(), page - 1, size, topicArea ? [topicArea] : []);
 
     const handlePageClick = (pageNumber: number) => {
-        setPage(pageNumber)
-    }
+        setPage(pageNumber);
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('page', pageNumber.toString());
+        navigate(`/${i18n.language}/news?${searchParams.toString()}`);
+    };
 
-    if(error == "500"){
-        return <ErrorPage/>
-    }else{
-        return <>
-            <PageTitle>{t("public.news.news")}</PageTitle>
-            {pending ? <Loader/> :
-                (<Row className="flex-column flex-md-row">
+    const handleTopicAreaChange = (newTopicArea: string | null) => {
+        const searchParams = new URLSearchParams(location.search);
+        if(topicArea === newTopicArea){
+            setTopicArea(null);
+            searchParams.delete("topicArea");
+        }
+        else if (newTopicArea) {
+            searchParams.set('topicArea', newTopicArea);
+            setTopicArea(newTopicArea);
+        } else {
+            searchParams.delete('topicArea');
+            setTopicArea(null);
+        }
+        navigate(`/${i18n.language}/news?${searchParams.toString()}`);
+    };
+
+    if (error === "500") {
+        return <ErrorPage />;
+    } else {
+        return (
+            <>
+                <PageTitle>{t("public.news.news")}</PageTitle>
+                {pending ? <Loader /> : (
+                    <Row className="flex-column flex-md-row">
                         <Col className="col-md-9 order-md-0 order-1 news-grid">
                             <Row>
-                                {news.map((article) => {
-                                    return <NewsElement key={article.id} news={article}/>;
-                                })}
+                                {news?.map((article) => (
+                                    <NewsElement key={article.id} news={article} />
+                                ))}
                             </Row>
-
-
                         </Col>
-                        <Col className=" col-md-3 order-md-1 order-0">
-                            <TopicAreaFilters/>
+                        <Col className="col-md-3 order-md-1 order-0">
+                            <TopicAreaFilters onTopicAreaChange={handleTopicAreaChange} />
                         </Col>
-
                     </Row>
                 )}
 
-            <Pagination
-                activePage={page}
-                itemsCountPerPage={size}
-                totalItemsCount={total}
-                pageRangeDisplayed={5}
-                onChange={handlePageClick.bind(this)}
-                innerClass={"pagination-navigation"}
-                linkClass={"pagination-element"}
-                activeLinkClass={"active-page-li"}
-            />
-        </>;
+                <Pagination
+                    activePage={page}
+                    itemsCountPerPage={size}
+                    totalItemsCount={total}
+                    pageRangeDisplayed={5}
+                    onChange={handlePageClick}
+                    innerClass="pagination-navigation"
+                    linkClass="pagination-element"
+                    activeLinkClass="active-page-li"
+                />
+            </>
+        );
     }
 };
 
-
-
 export default NewsList;
+

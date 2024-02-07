@@ -11,7 +11,7 @@ export class TopicAreaService {
 
 
     create = async (topicArea: ITopicAreaPost): Promise<IBaseEntity> => {
-        return processResponse<IBaseEntity>(await this.client.post<IBaseEntity, IErrorResponse>(`topicAreas`, topicArea));
+        return processResponse<IBaseEntity>(await this.client.postAuthenticated<IBaseEntity, IErrorResponse>(`topicAreas`, topicArea));
     }
 
     getAll = async (lang: string): Promise<ITopicAreaWithChildren[]> => {

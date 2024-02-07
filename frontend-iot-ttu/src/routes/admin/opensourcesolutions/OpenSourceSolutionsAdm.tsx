@@ -49,7 +49,7 @@ const OpenSourceSolutionAdm = () => {
             </Row>
           </Col>
           <Col className="filter-box px-md-4 col-md-2 order-md-1 order-0">
-            <TopicAreaFilters/>
+            {/*<TopicAreaFilters/>*/}
           </Col>
         </Row>)}
   </>

@@ -18,7 +18,7 @@ export class ProjectService implements IPaginatedService<IProject> {
     }
 
     getAll = async (lang: string, page: number = 0, size: number = 500): Promise<IProject[]> => {
-        const result = await this.client.getAuthenticated<IProject[], IErrorResponse>(`/project/${lang}`);
+        const result = await this.client.get<IProject[], IErrorResponse>(`/project/${lang}`);
         return processResponse<IProject[]>(result);
     }
 
@@ -33,7 +33,7 @@ export class ProjectService implements IPaginatedService<IProject> {
     }
 
     remove = async (id: string): Promise<void> => {
-        const result = await this.client.delete<void, IErrorResponse>(`/project/${id}`);
+        const result = await this.client.deleteAuthenticated<void, IErrorResponse>(`/project/${id}`);
         return processResponse<void>(result);
 
     }

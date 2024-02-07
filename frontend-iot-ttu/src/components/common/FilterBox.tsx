@@ -6,8 +6,12 @@ import {useTranslation} from "react-i18next";
 import useFetch from "../../hooks/useFetch";
 import {TopicAreaService} from "../../services/TopicAreaService";
 
-const FilterBox: FC = ({...rest}) => {
-    const { t } = useTranslation();
+interface IProps {
+    onTopicAreaChange: (newTopicArea: string | null) => void
+}
+
+const FilterBox: FC<IProps> = ({onTopicAreaChange, ...rest}) => {
+    const {t} = useTranslation();
     const service = new TopicAreaService();
     const {data: topicAreas, pending: tPending} =
         useFetch<ITopicAreaWithChildren[]>(service.getAll, [i18n.language]);
@@ -63,13 +67,11 @@ const FilterBox: FC = ({...rest}) => {
                         return 0;
                     })
                     .map((topicArea) => {
-                        return (
-                            <TopicAreaElement
-                                key={topicArea.id}
-                                name={topicArea.name}
-                                childrenTopicAreas={topicArea.childrenTopicAreas}
-                                id={topicArea.id}
+                        return (<TopicAreaElement
+                                topicArea={topicArea}
+                                onTopicAreaChange={onTopicAreaChange}
                             />
+
                         );
                     })}
             </ul>}

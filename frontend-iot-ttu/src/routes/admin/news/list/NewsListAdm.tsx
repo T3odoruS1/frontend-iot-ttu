@@ -50,9 +50,10 @@ const NewsListAdm = () => {
         navigate(`./${id}`);
     }
 
-    if(error && error == "401"){
-        return <NotAuthenticated/>
-    }
+    // For testing the client.
+    // if(error && error == "401"){
+    //     return <NotAuthenticated/>
+    // }
 
 
     if (!pending && (!news || !topicAreas)) {

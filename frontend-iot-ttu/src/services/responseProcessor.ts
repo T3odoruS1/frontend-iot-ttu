@@ -9,7 +9,7 @@ export function processResponse<TEntity>(response: IApiResponse<TEntity, IErrorR
     if (response.status) {
         throw new Error(response.status?.toString())
     }
-    if((response.errorData === undefined && response.status === undefined)) {
+    if((response.status === undefined)) {
         throw new Error(Number(500).toString())
     }
     return Promise.resolve(response.data!);

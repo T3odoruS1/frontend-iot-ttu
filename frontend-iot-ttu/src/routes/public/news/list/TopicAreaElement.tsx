@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import { ITopicAreaWithChildren } from "../../../../dto/topicarea/ITopicAreaWithChildren";
 
-const TopicAreaElement = (topicArea: ITopicAreaWithChildren) => {
+interface IProps{
+	topicArea: ITopicAreaWithChildren,
+	onTopicAreaChange: (newTopicArea: string | null) => void
+}
 
+const TopicAreaElement = (props: IProps) => {
+	const location = useLocation();
+	const searchParams = new URLSearchParams(location.search)
 	const truncate = (str: string, len: number) => {
 		return str.length > len ? str.substring(0, len-3) + "..." : str;
 	}
@@ -11,16 +17,20 @@ const TopicAreaElement = (topicArea: ITopicAreaWithChildren) => {
 		<div>
 
 				<li className="">
-					<Link to="." className="link-no-underline">
-						{truncate(topicArea.name, 20)}
-					</Link>
+					<div onClick={() => props.onTopicAreaChange(props.topicArea.id)} className={
+						(searchParams.has("topicArea") && searchParams.get("topicArea") === props.topicArea.id) ? "link-no-underline-selected" : "link-no-underline"
+					}>
+						{truncate(props.topicArea.name, 20)}
+					</div>
 				</li>
-				{topicArea.childrenTopicAreas?.map((child) => {
+				{props.topicArea.childrenTopicAreas?.map((child) => {
 					return (
 							<li className="" key={child.id}>
-								<Link to="." className="link-no-underline">
+								<div onClick={() => props.onTopicAreaChange(child.id)} className={
+									(searchParams.has("topicArea") && searchParams.get("topicArea") === child.id) ? "link-no-underline-selected" : "link-no-underline"
+								}>
 									<span className={"child_list_element"}>{truncate(child.name, 18)}</span>
-								</Link>
+								</div>
 							</li>
 					);
 				})}

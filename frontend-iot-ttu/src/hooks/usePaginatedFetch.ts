@@ -9,6 +9,7 @@ const usePaginatedFetch =
         service: TService,
         page: number = 0,
         size: number = 100,
+        args: any[] = []
     ) => {
 
         const [pending, setPending] = useState(true);
@@ -21,7 +22,7 @@ const usePaginatedFetch =
         }, [size, total]);
 
         const fetchTotal = () => {
-            service.getCount()
+            service.getCount(...args)
                 .then(setTotal)
                 .catch(e => setError(e.message));
 
@@ -29,7 +30,7 @@ const usePaginatedFetch =
 
         const getData = () => {
             if(i18n.language !== undefined){
-                service.getAll(i18n.language, page, size)
+                service.getAll(i18n.language, page, size, ...args)
                     .then(setData)
                     .catch(e => setError(e.message))
                     .finally(() => setPending(false));
@@ -40,7 +41,7 @@ const usePaginatedFetch =
         useEffect(() => {
             fetchTotal();
             getData();
-        }, [page, size, i18n.language]);
+        }, [page, size, i18n.language, JSON.stringify(args)]);
 
         return {data, pending, total, pageCount, error}
     }
