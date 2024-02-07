@@ -19,6 +19,8 @@ const useFetch = <TEntity>(callback: serviceFunction<TEntity>, args: any[] = [])
 
     useEffect(() => {
         const fetchData = () => {
+            setPending(true);
+            setError(null);
             callback(...args)
                 .then(response => {
                     setData(response);

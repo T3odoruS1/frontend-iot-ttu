@@ -39,6 +39,8 @@ const usePaginatedFetch =
 
 
         useEffect(() => {
+            setPending(true);
+            setError(null);
             fetchTotal();
             getData();
         }, [page, size, i18n.language, JSON.stringify(args)]);
