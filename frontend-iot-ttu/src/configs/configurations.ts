@@ -36,6 +36,13 @@ export const modules = {
 	]
 };
 
+export const reducedModules = {
+	toolbar: [
+		["link"],
+		["bold", "italic", "underline", "strike"],
+	]
+}
+
 export const formats = [
 	"style",
 	"header",
@@ -65,6 +72,20 @@ export const formats = [
 	"float",
 	"cursor"
 ];
+
+
+export const reducedFormats = [
+	"style",
+	"header",
+	"font",
+	"size",
+	"link",
+	"bold",
+	"italic",
+	"underline",
+	"strike",
+	"blockquote"
+]
 
 
 

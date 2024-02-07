@@ -58,7 +58,7 @@ export class HttpTemplate<TOnSuccess, TOnFailure> {
             const result = error as AxiosError;
             return {
                 errorData: result?.response?.data as TOnFailure,
-                status: result.status
+                status: result.response?.status || result.status
             }as IApiResponse<TOnSuccess, TOnFailure>;
         }
     }

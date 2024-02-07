@@ -9,6 +9,7 @@ import React from "react";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 
 interface IProps {
+    error: string | null;
     onSubmit: (event: FieldValues) => void;
 }
 
@@ -25,6 +26,7 @@ export const LoginForm = (props: IProps) => {
     return (
         <>
         <PageTitle>Login</PageTitle>
+            {props.error && <p className={"text-danger"}>{props.error}</p>}
             <form onSubmit={
                 handleSubmit((dto) => {
                     props.onSubmit(dto)

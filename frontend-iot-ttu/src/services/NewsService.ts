@@ -3,8 +3,8 @@ import {INewsOutputDTO} from "../dto/news/INewsOutputDTO";
 import {IErrorResponse} from "../dto/IErrorResponse";
 import {INewsWTranslations} from "../dto/news/INewsWTranslations";
 import {IPaginatedService} from "./IPaginatedService";
-import {processResponse} from "./responseProcessor";
-import {HttpClient} from "./HttpClient";
+import {processResponse} from "../httpclient/responseProcessor";
+import {HttpClient} from "../httpclient/HttpClient";
 
 export class NewsService implements IPaginatedService<INews> {
 

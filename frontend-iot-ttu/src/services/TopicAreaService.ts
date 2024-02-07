@@ -3,8 +3,8 @@ import {ITopicAreaGetMultilang} from "../dto/topicarea/ITopicAreaGet";
 import {ITopicAreaPost} from "../dto/topicarea/ITopicAreaPost";
 import {ITopicAreaWithChildren} from "../dto/topicarea/ITopicAreaWithChildren";
 import {IErrorResponse} from "../dto/IErrorResponse";
-import {processResponse} from "./responseProcessor";
-import {HttpClient} from "./HttpClient";
+import {processResponse} from "../httpclient/responseProcessor";
+import {HttpClient} from "../httpclient/HttpClient";
 
 export class TopicAreaService {
     private client: HttpClient = HttpClient.getInstance();

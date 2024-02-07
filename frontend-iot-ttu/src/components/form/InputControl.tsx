@@ -1,5 +1,6 @@
 import React, {FC, InputHTMLAttributes} from "react";
 import {FormControl, FormFloating, FormLabel} from "react-bootstrap";
+import root from "../../routes/Root";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
@@ -8,6 +9,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     register?: any;
     wrapperClass?: string;
     as?: string;
+    rows?: number;
     markAsMandatory?: boolean;
 }
 
@@ -19,6 +21,7 @@ const InputControl: FC<InputProps> =
          label,
          wrapperClass,
          as,
+         rows,
          markAsMandatory = false,
          ...rest
      }) => {
@@ -32,6 +35,7 @@ const InputControl: FC<InputProps> =
                     name={name}
                     placeholder={name}
                     as={as}
+                    rows={rows}
                     {...register(name)}
                     {...rest}
                 />

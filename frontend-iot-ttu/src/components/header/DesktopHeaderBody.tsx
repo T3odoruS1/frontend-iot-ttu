@@ -32,7 +32,7 @@ export const DesktopHeaderBody: React.FC<IProps> = (props) => {
                         <li key={Math.random()}>
                             <LanguageSwitcher toLeft={true}/>
                             <Link key={Math.random()} className="nav-link top-text under-language"
-                                  to={`/${i18n.language}/contact`}>
+                                  to={`./contact`}>
                                 {t('public.header.contactUs')}
                             </Link>
                         </li>

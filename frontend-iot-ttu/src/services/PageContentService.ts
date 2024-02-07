@@ -1,8 +1,8 @@
 import {IPageContentMultilang} from "../dto/pageContent/IPageContentMultilang";
 import {IErrorResponse} from "../dto/IErrorResponse";
-import {processResponse} from "./responseProcessor";
+import {processResponse} from "../httpclient/responseProcessor";
 import {IPageContent} from "../dto/pageContent/IPageContent";
-import {HttpClient} from "./HttpClient";
+import {HttpClient} from "../httpclient/HttpClient";
 
 export class PageContentService {
     private client: HttpClient = HttpClient.getInstance();

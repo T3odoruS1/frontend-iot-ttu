@@ -33,6 +33,9 @@ import {ProjectListAdm} from "./routes/admin/projects/list/ProjectListAdm";
 import {UserList} from "./routes/admin/users/UserList";
 import {NOTFOUND} from "node:dns";
 import {NotFoundPage} from "./routes/NotFoundPage";
+import {ContactPerson} from "./routes/admin/contact/ContactPerson";
+import {ContactPersonList} from "./routes/admin/contact/ContactPersonList";
+import {ContactPersonCreate} from "./routes/admin/contact/create/ContactPersonCreate";
 
 export const router = createBrowserRouter([
     {
@@ -132,6 +135,19 @@ export const router = createBrowserRouter([
                                 element: <Login/>,
                             },
                         ],
+                    }, {
+                        path: "contact",
+                        element: <ContactPerson/>,
+                        children: [
+                            {
+                                path: "",
+                                element: <ContactPersonList/>
+                            },
+                            {
+                                path: "create/:id?",
+                                element: <ContactPersonCreate/>
+                            }
+                        ]
                     }
                 ],
             },

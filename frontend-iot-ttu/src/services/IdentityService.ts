@@ -1,14 +1,14 @@
 import {IJwtResponse} from "../dto/identity/IJwtResponse";
 import {IRegister} from "../dto/identity/IRegister";
 import {IErrorResponse} from "../dto/IErrorResponse";
-import {processResponse} from "./responseProcessor";
+import {processResponse} from "../httpclient/responseProcessor";
 import {ILogin} from "../dto/identity/ILogin";
 import {IUser} from "../dto/identity/IUser";
 import {IRole} from "../dto/identity/IRole";
 import {IRoleUpdateResponse} from "../dto/identity/IRoleUpdateResponse";
 import {IRoleUpdate} from "../dto/identity/IRoleUdate";
 import {IUserDeactivate} from "../dto/identity/IUserDeactivate";
-import {HttpClient} from "./HttpClient";
+import {HttpClient} from "../httpclient/HttpClient";
 
 export class IdentityService{
     private client: HttpClient = HttpClient.getInstance();

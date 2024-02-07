@@ -2,11 +2,11 @@ import {IProjectOutput} from "../dto/project/IProjectOutput";
 import {IProject} from "../dto/project/IProject";
 import {IErrorResponse} from "../dto/IErrorResponse";
 import {IPaginatedService} from "./IPaginatedService";
-import {processResponse} from "./responseProcessor";
+import {processResponse} from "../httpclient/responseProcessor";
 import {IBaseEntity} from "../dto/IBaseEntity";
 import {dummyPage} from "../assets/loremIpsumDummy";
 import {IProjectMultilang} from "../dto/project/IProjectMultilang";
-import {HttpClient} from "./HttpClient";
+import {HttpClient} from "../httpclient/HttpClient";
 
 export class ProjectService implements IPaginatedService<IProject> {
     private client: HttpClient = HttpClient.getInstance();

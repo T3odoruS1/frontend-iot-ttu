@@ -1,8 +1,8 @@
 import {IContactDto} from "../dto/contact/IContactDto";
 import {IErrorResponse} from "../dto/IErrorResponse";
 import {IContactResponse} from "../dto/contact/IContactResponse";
-import {processResponse} from "./responseProcessor";
-import {HttpClient} from "./HttpClient";
+import {processResponse} from "../httpclient/responseProcessor";
+import {HttpClient} from "../httpclient/HttpClient";
 
 export class MailService {
     private client: HttpClient = HttpClient.getInstance();

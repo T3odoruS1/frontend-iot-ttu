@@ -10,7 +10,7 @@ const Login = () => {
   const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
   const navigate = useNavigate();
   const identityService = new IdentityService();
-  const [error, setError] = useState<string>()
+  const [error, setError] = useState<string | null>(null)
   const handleSubmit = async (data: FieldValues) => {
     console.log(data)
     identityService.login(data as ILogin).then(response =>{
@@ -20,10 +20,15 @@ const Login = () => {
       }
       console.log("Success")
     }).catch(e => {
-      setError(e.message)
+      if(e.message.startsWith("4")){
+        setError("Incorrect username or password")
+      }else{
+        setError("Service is currently unavailable")
+      }
+
     })
   }
-  return <LoginForm onSubmit={handleSubmit}/>
+  return <LoginForm error={error} onSubmit={handleSubmit}/>
 }
 
 export default Login;

@@ -210,10 +210,10 @@ body {
   font-weight: 700;
   text-decoration: none;
 }
-
-a:hover {
-  color: #e4067e;
-}
+//
+//a:hover {
+//  color: #e4067e;
+//}
 
 .language-switcher.selected {
   color: #e4067e;
@@ -339,18 +339,24 @@ ul li {
   font-weight: 400;
 }
 
+.link-no-underline:hover {
+  color: #e4067e;
+}
+
 
 .dropdown-icon {
   color: #e4067e;
   font-size: 1rem; /* Adjust as needed */
 }
 
-.link-no-underline:hover {
-  color: #e4067e;
-}
+
 
 .align-right {
   text-align: right;
+}
+
+.text-area{
+  min-height: 200px;
 }
 
 .filter_header {
@@ -366,6 +372,28 @@ ul li {
   writing-mode: vertical-rl;
   text-orientation: mixed;
 
+}
+
+.contact-person{
+  max-width: 450px;
+}
+
+.contact-hr{
+  height: 5px;
+  width: 100%;
+  background-color: #e4067e;
+}
+.contact-person-data{
+  white-space: pre-line;
+  line-height: 1.25rem;
+  color: slategray;
+  min-height: 200px;
+  max-width: 450px;
+}
+
+
+.contact-person-editor{
+  max-width: 450px;
 }
 
 .child_list_element {
@@ -457,13 +485,15 @@ b {
   padding: 10px 0;
 } */
 
-a {
+.ql-snow .ql-editor a {
+  text-decoration: none;
   color: #e4067e;
 }
 
-a:hover {
+.ql-snow .ql-editor a:hover {
   color: #a8045c;
 }
+
 
 .footer {
   font-family: RegularTTU sans-serif;
