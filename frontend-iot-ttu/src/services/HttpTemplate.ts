@@ -53,24 +53,15 @@ export class HttpTemplate<TOnSuccess, TOnFailure> {
             return {
                 data: result.data,
                 status: result.status
-            };
+            } as IApiResponse<TOnSuccess, TOnFailure>;
         } catch (error) {
             const result = error as AxiosError;
             return {
                 errorData: result?.response?.data as TOnFailure,
-                status: this.getHttpStatusCode(result!.status!)
-            };
+                status: result.status
+            }as IApiResponse<TOnSuccess, TOnFailure>;
         }
     }
-
-    private getHttpStatusCode(code: number): HttpStatusCode | undefined {
-        if (HttpStatusCode[code] !== undefined) {
-            return HttpStatusCode[code] as unknown as HttpStatusCode;
-        }
-        return undefined;
-    }
-
-
 }
 
 export enum HttpMethod {

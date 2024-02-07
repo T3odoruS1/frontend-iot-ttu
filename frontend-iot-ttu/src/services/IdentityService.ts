@@ -39,7 +39,6 @@ export class IdentityService{
             dto = JSON.parse(data);
         }
         const response = await this.client.postAuthenticated<void, IErrorResponse>("/users/logout", dto);
-        console.log(response.status)
         window.localStorage.removeItem("jwt")
         return Promise.resolve(response.data);
     }
