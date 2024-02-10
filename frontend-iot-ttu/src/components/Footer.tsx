@@ -4,6 +4,7 @@ import ButtonSmaller from "./common/ButtonSmaller";
 import {IdentityService} from "../services/IdentityService";
 import useFetch from "../hooks/useFetch";
 import {IRole} from "../dto/identity/IRole";
+import {useTranslation} from "react-i18next";
 
 const Footer = () => {
 
@@ -32,7 +33,7 @@ const UserData = () => {
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
     const identityService = new IdentityService();
     const {data: roles, error} = useFetch<IRole[]>(identityService.getRoles);
-
+    const {t} = useTranslation();
     const logout = () => {
         identityService.logout().then(() => {
             setJwtResponseCtx!(null);
@@ -40,9 +41,9 @@ const UserData = () => {
     }
 
     return <div className={"m-5"}>
-        <h5 className={"text-white"}>Logged in as: {jwtResponseCtx!.username}</h5>
-        <h5 className={"text-white"}>With role: {roles?.find(r => r.id === jwtResponseCtx?.roleIds?.at(0))?.name}</h5>
-        <ButtonSmaller onClick={logout}>Logout</ButtonSmaller>
+        <h5 className={"text-white"}>{t('common.loggedInAs')} {jwtResponseCtx!.username}</h5>
+        <h5 className={"text-white"}>{t('common.withRole')} {roles?.find(r => r.id === jwtResponseCtx?.roleIds?.at(0))?.name}</h5>
+        <ButtonSmaller onClick={logout}>{t('user.logout')}</ButtonSmaller>
     </div>
 
 }

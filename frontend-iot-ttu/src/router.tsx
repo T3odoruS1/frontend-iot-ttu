@@ -41,6 +41,7 @@ const AdminBanners = React.lazy(() => import("./routes/admin/home/banner/AdminBa
 const AdminBannerList = React.lazy(() => import("./routes/admin/home/banner/AdminBannerList"));
 const BannerCreate = React.lazy(() => import("./routes/admin/home/banner/create/BannerCreate"));
 const AdminLandingPage = React.lazy(() => import("./routes/admin/admin/AdminLandingPage"));
+const ChangePassword = React.lazy(() => import("./routes/admin/users/changepassword/ChangePassword"));
 
 
 export const router = createBrowserRouter([
@@ -158,6 +159,10 @@ export const router = createBrowserRouter([
                                 path: "login",
                                 element: <Login/>,
                             },
+                            {
+                                path: "changePassword",
+                                element: <ChangePassword/>
+                            }
                         ],
                     }, {
                         path: "contact",

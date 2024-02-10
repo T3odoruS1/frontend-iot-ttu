@@ -1,5 +1,6 @@
 {
   "admin": {
+    "admin": "Administraator",
     "header": {
       "news": "Uudised",
       "openSourceSolutions": "Vabavaralised lahendused",
@@ -88,7 +89,6 @@
   "errorPage": {
     "somethingWentWrong": "Näib, et meil on tehnilisi probleeme. Proovige hiljem uuesti...",
     "notFound": "Lehekülg ei ole leitud"
-
   },
   "common": {
     "date": "Kuupäev",
@@ -97,6 +97,85 @@
     "year": "Aasta",
     "projectManager": "Projektijuht",
     "volume": "Maht",
-      "title": "Pealkiri"
+    "title": "Pealkiri",
+    "requiredField": "See väli on kohustuslik",
+    "submit": "Saata",
+    "passwordsMustMatch": "Salasõnad peavad olema samasugused",
+    "changePassword": "Muuda salasõna",
+    "new": "Uus",
+    "delete": "Kustuta",
+    "remove": "Eemalda",
+    "update": "Uuenda",
+    "confirm": "Kinnita",
+    "toggleEdit": "Muutmise reziim",
+    "togglePreview": "Eelvaade reziim",
+    "loggedInAs": "Sisse logitud:",
+    "withRole": "Rolliga:",
+    "adminPanel": "Administraatori paneel",
+    "actions": "Tegevused",
+    "createdAt": "Loodud kuupäeval",
+    "createdBy": "Loodud",
+    "views": "Vaated",
+    "name": "Nimi",
+    "child": "Laps",
+    "deleteUSure": "Oled kindel, et tahad seda kustutada?",
+    "toolong": "Pikkus peab olema vähem kui {{len}}",
+    "serviceUnavailable": "Teenus pole saadaval",
+    "yes": "Jah",
+    "no": "Ei",
+    "forPage": "Leheküljele:",
+    "titles": "Pealkirjad",
+    "added": "Lisatud",
+    "error": "Viga juhtus",
+    "view": "Vaata"
+  },
+  "banners": {
+    "adminTitle": "Halda bannerid",
+    "createTitle": "Loo/muuda banner",
+    "titleEng": "Pealkiri inglise keeles",
+    "titleEst": "Pealkiri eesti keeles",
+    "subtitleEng": "Alpealkiri inglise keeles",
+    "subtitleEst": "Alpealkiri eesti keeles",
+    "instructions": "Bännerid kuvatakse kasutajale kuvamise järjekorras. Nende ümberjärjestamiseks lihtsalt lohistage."
+  },
+  "user": {
+    "listTitle": "Kasutajate haldamine",
+    "changeRole": "Muuda rolli",
+    "username": "Kasutaja nimi",
+    "email": "Email",
+    "firstname": "Eesnimi",
+    "lastname": "Perekonnanimi",
+    "role": "Roll",
+    "noRights": "Ei ole õigusi",
+    "users": "Kasutajad",
+    "changeRoleFor": "Muuda rolli kasutajale {{user}}",
+    "roleChanged": "Roll oli muudetud",
+    "permissionAlert": "Teie õigused ei lase teil rolli muuta",
+    "logout": "Logi välja"
+  },
+  "pageContent": {
+    "titleEng": "Pealkiri inglise keeles",
+    "titleEst": "Pealkiri eesti keeles"
+  },
+  "partners": {
+    "partners": "Meie partnerid"
+  },
+  "contact": {
+    "success": "Teie sõnum oli saadetud!",
+    "fail": "Midagi läks valesti, prooviga hiljem uuesti!"
+  },
+  "news": {
+    "news": "Uudised",
+    "title": "Pealkiri",
+    "author": "Autor",
+    "numberOfPosts": "Postituse arv"
+  },
+  "projects": {
+    "projects": "Projektid",
+    "titleEng": "Pealkiri inglise keeles",
+    "titleEst": "Pealkiri eesti keeles",
+    "year": "Aasta",
+    "projectManager": "Projekti juht",
+    "projectVolume": "Projekti maht(euros)"
   }
 }

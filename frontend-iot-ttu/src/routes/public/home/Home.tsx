@@ -11,8 +11,10 @@ import haridusmin from './../../../assets/partners/haridusmin.png'
 import dfsd from './../../../assets/partners/dfsd.png'
 import EditablePage from "../editablePage/EditablePage";
 import {PartnerImages} from "../../admin/home/partnerImage/PartnerImages";
+import {useTranslation} from "react-i18next";
 
 const Home = () => {
+    const {t} = useTranslation();
     return <>
         <CarouselComponent/>
         <div className="home-page-content-container">
@@ -23,10 +25,10 @@ const Home = () => {
                 </Col>
                 <Col lg={3} md={4}>
                     <div className="m-3 home-page-link-container">
-                        <ImageLinkContainer image={territory} to={`./news`} label={"Uudised!"}/>
+                        <ImageLinkContainer image={territory} to={`./news`} label={t("public.header.news")}/>
                     </div>
                     <div className="m-3 home-page-link-container">
-                        <ImageLinkContainer image={hall} to={`./contact`} label={"Kontakt!"}/>
+                        <ImageLinkContainer image={hall} to={`./contact`} label={t("public.header.contactUs")}/>
                     </div>
                 </Col>
             </Row>
@@ -34,7 +36,7 @@ const Home = () => {
             <br/>
             <br/>
             <br/>
-            <SubHeadingPurple>Partners</SubHeadingPurple>
+            <SubHeadingPurple>{t("partners.partners")}</SubHeadingPurple>
 
 
             {/*<img className={"partner-image"} src={telia} alt={"Telia"}/>*/}

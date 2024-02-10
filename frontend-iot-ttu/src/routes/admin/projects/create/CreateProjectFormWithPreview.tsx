@@ -119,12 +119,12 @@ const CreateProjectFormWithPreview = (props: IProps) => {
     return (
         <>
             <div className="">
-                <PageTitle>Projects translate</PageTitle>
+                <PageTitle>{t('projects.projects')}</PageTitle>
                 <FormFloating>
                     <FormCheck
                         type="checkbox"
                         id="custom-switch"
-                        label="Preview"
+                        label={t("common.togglePreview")}
                         checked={preview}
                         onChange={() => {
                             setPreview(!preview);

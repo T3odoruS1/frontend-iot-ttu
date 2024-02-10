@@ -210,6 +210,7 @@ body {
   font-weight: 700;
   text-decoration: none;
 }
+
 //
 //a:hover {
 //  color: #e4067e;
@@ -332,6 +333,7 @@ ul li {
   font-family: ThickTTU sans-serif;
   font-weight: 400;
 }
+
 .link-no-underline-selected {
   text-decoration: none;
   color: #e4067e;
@@ -350,12 +352,11 @@ ul li {
 }
 
 
-
 .align-right {
   text-align: right;
 }
 
-.text-area{
+.text-area {
   min-height: 200px;
 }
 
@@ -374,16 +375,17 @@ ul li {
 
 }
 
-.contact-person{
+.contact-person {
   max-width: 450px;
 }
 
-.contact-hr{
+.contact-hr {
   height: 5px;
   width: 100%;
   background-color: #e4067e;
 }
-.contact-person-data{
+
+.contact-person-data {
   white-space: pre-line;
   line-height: 1.25rem;
   color: slategray;
@@ -392,7 +394,7 @@ ul li {
 }
 
 
-.contact-person-editor{
+.contact-person-editor {
   max-width: 450px;
 }
 
@@ -707,7 +709,7 @@ Quill
   margin-right: -100px;
 }
 
-.create-partner-image{
+.create-partner-image {
   padding: 3rem;
   min-width: 600px;
   height: 300px;
@@ -718,7 +720,7 @@ body.safari .banner-container {
   background-attachment: scroll; /* example */
 }
 
-.banner-preview{
+.banner-preview {
   background-color: rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
   background-blend-mode: overlay;
@@ -728,7 +730,7 @@ body.safari .banner-container {
 
 }
 
-.banner-card{
+.banner-card {
   background-color: #dad9d9;
   max-width: 700px;
   max-height: 450px;
@@ -995,6 +997,13 @@ body.safari .banner-container {
   backdrop-filter: blur(5px);
 }
 
+a {
+  color: #e4067e
+}
+
+a:hover {
+  color: #342b60 !important
+}
 
 .dot1, .dot2, .dot3 {
   width: 15px;

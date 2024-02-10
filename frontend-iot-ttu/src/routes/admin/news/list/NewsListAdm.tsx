@@ -13,6 +13,7 @@ import {INews} from "../../../../dto/news/INews";
 import {NewsService} from "../../../../services/NewsService";
 import {TopicAreaService} from "../../../../services/TopicAreaService";
 import {ITopicAreaWithChildren} from "../../../../dto/topicarea/ITopicAreaWithChildren";
+import {useTranslation} from "react-i18next";
 
 const NewsListAdm = () => {
 
@@ -26,6 +27,8 @@ const NewsListAdm = () => {
 
     let topicAreaIndex = 0;
     const navigate = useNavigate();
+    const {t} = useTranslation();
+
     const onDelete = async (id: string) => {
         await newsService.remove(id);
         let filtered = news!.filter(function (obj) {
@@ -63,22 +66,22 @@ const NewsListAdm = () => {
 
     return (
         <div>
-            <PageTitle>News</PageTitle>
-            <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>Create</ButtonSmaller></div>
+            <PageTitle>{t("news.news")}</PageTitle>
+            <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>{t("common.new")}</ButtonSmaller></div>
             {pending && <Loader/>}
 
             <Table variant="striped">
-                <caption>News list</caption>
+                <caption>{t("news.news")}</caption>
                 {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">Created by</th>
-                    <th scope="col">Views</th>
-                    <th scope="col">Created at</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">{t("news.title")}</th>
+                    <th scope="col">{t("news.author")}</th>
+                    <th scope="col">{t("common.createdBy")}</th>
+                    <th scope="col">{t("common.views")}</th>
+                    <th scope="col">{t("common.createdAt")}</th>
+                    <th scope="col">{t("common.actions")}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -94,14 +97,14 @@ const NewsListAdm = () => {
                                 <td>
                                     <ButtonSmaller onClick={() => {
                                         toUpdate(newsPiece.id)
-                                    }} className="mb-2">Update</ButtonSmaller><br/>
+                                    }} className="mb-2">{t("common.update")}</ButtonSmaller><br/>
                                     <ButtonSmaller onClick={() => {
                                         toDetails(newsPiece.id);
-                                    }} className="mb-2">View</ButtonSmaller><br/>
+                                    }} className="mb-2">{t("common.view")}</ButtonSmaller><br/>
                                     <ActionConfirmationAlert action={() => {
                                         onDelete(newsPiece.id)
-                                    }} displayText={"Are you sure you want to delete this news piece?"}
-                                                             buttonText={"Delete"}/>
+                                    }} displayText={t("common.deleteUSure")}
+                                                             buttonText={t("common.delete")}/>
                                 </td>
                             </tr>
                         )
@@ -115,18 +118,18 @@ const NewsListAdm = () => {
             <PageTitle>Topic areas</PageTitle>
 
             <div className={"m-2"}>
-                <ButtonSmaller type={"button"} onClick={toCreateTopic}>Create</ButtonSmaller>
+                <ButtonSmaller type={"button"} onClick={toCreateTopic}>{t("common.new")}</ButtonSmaller>
             </div>
             <Table>
                 <caption>Topic area list</caption>
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nimi</th>
-                    <th scope="col">Laps</th>
-                    <th scope="col">Created at</th>
-                    <th scope="col">Postituse arv</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">{t("common.name")}</th>
+                    <th scope="col">{t("common.child")}</th>
+                    <th scope="col">{t("common.createdAt")}</th>
+                    <th scope="col">{t("news.numberOfPosts")}</th>
+                    <th scope="col">{t("common.actions")}</th>
                 </tr>
                 </thead>
 
@@ -139,7 +142,7 @@ const NewsListAdm = () => {
                             <td></td>
                             <td>-</td>
                             <td>-</td>
-                            <td><ButtonSmaller>Delete</ButtonSmaller></td>
+                            <td><ButtonSmaller>{t('common.delete')}</ButtonSmaller></td>
                         </tr>
 
                         {topicArea.childrenTopicAreas?.map((child, index) => {
@@ -149,7 +152,7 @@ const NewsListAdm = () => {
                                 <td>{child.name}</td>
                                 <td>-</td>
                                 <td>-</td>
-                                <td><ButtonSmaller>Delete</ButtonSmaller></td>
+                                <td><ButtonSmaller>{t('common.delete')}</ButtonSmaller></td>
 
                             </tr>)
                         })

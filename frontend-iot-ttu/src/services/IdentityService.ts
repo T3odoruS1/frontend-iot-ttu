@@ -9,6 +9,7 @@ import {IRoleUpdateResponse} from "../dto/identity/IRoleUpdateResponse";
 import {IRoleUpdate} from "../dto/identity/IRoleUdate";
 import {IUserDeactivate} from "../dto/identity/IUserDeactivate";
 import {HttpClient} from "../httpclient/HttpClient";
+import {IChangePassword} from "../dto/identity/IChangePassword";
 
 export class IdentityService{
     private client: HttpClient = HttpClient.getInstance();
@@ -64,6 +65,14 @@ export class IdentityService{
     deactivateUser = async (data: IUserDeactivate): Promise<void> => {
         const response = await this.client.postAuthenticated<void, IErrorResponse>("/users/lock", data)
         return processResponse<void>(response);
+    }
+
+    changePassword = async (data: IChangePassword): Promise<IJwtResponse> => {
+        const response = await this.client.postAuthenticated<IJwtResponse, IErrorResponse>("/users/changePassword", data);
+        if (response.data?.jwt) {
+            this.saveToLocalStorage(response.data)
+        }
+        return processResponse<IJwtResponse>(response);
     }
 
     saveToLocalStorage = async (jwtPromise: IJwtResponse)=>{

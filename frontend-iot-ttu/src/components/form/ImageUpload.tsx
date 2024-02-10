@@ -93,7 +93,7 @@ const ImageUploader: FC<Props> = ({
                     </label>
 
                 </div>
-                <ButtonSmaller className="mt-4" onClick={onImageRemove} type="button">Remove</ButtonSmaller>
+                <ButtonSmaller className="mt-4" onClick={onImageRemove} type="button">{t("common.remove")}</ButtonSmaller>
             </div>
             <div className="col-md-4">
                 {preview && (

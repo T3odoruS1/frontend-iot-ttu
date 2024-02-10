@@ -4,6 +4,7 @@ import {useContext, useState} from "react";
 import {EditablePageEditor} from "../../admin/editablePage/EditablePageEditor";
 import {EditablePageContent} from "./EditablePageContent";
 import {JwtContext} from "../../Root";
+import {useTranslation} from "react-i18next";
 
 interface IProps {
     pageIdentifier: string,
@@ -12,7 +13,7 @@ interface IProps {
 
 const EditablePage = (props: IProps) => {
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
-
+    const {t} = useTranslation();
 
     const [editModeEnabled, setEditModeEnabled] = useState(false)
 
@@ -20,7 +21,7 @@ const EditablePage = (props: IProps) => {
         return <div>
             <EditablePageEditor pageIdentifier={props.pageIdentifier}/>
             <ButtonPrimary onClick={() =>
-                setEditModeEnabled(!editModeEnabled)}>Toggle edit
+                setEditModeEnabled(!editModeEnabled)}>{t('common.toggleEdit')}
             </ButtonPrimary>
         </div>
     }
@@ -30,7 +31,7 @@ const EditablePage = (props: IProps) => {
 
         {jwtResponseCtx?.jwt &&
             <ButtonPrimary onClick={() =>
-                setEditModeEnabled(!editModeEnabled)}>Toggle edit
+                setEditModeEnabled(!editModeEnabled)}>{t('common.toggleEdit')}
             </ButtonPrimary>}
 
     </>

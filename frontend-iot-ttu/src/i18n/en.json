@@ -1,5 +1,6 @@
 {
   "admin": {
+    "admin": "Admin",
     "header": {
       "news": "News",
       "openSourceSolutions": "Open source solutions",
@@ -96,6 +97,85 @@
     "year": "Year",
     "projectManager": "Project manager",
     "volume": "Volume",
-    "title": "Title"
+    "title": "Title",
+    "requiredField": "Required field",
+    "submit": "Submit",
+    "passwordsMustMatch": "Passwords must match",
+    "changePassword": "Change password",
+    "new": "New",
+    "delete": "Delete",
+    "remove": "Remove",
+    "update": "Update",
+    "confirm": "Confirm",
+    "toggleEdit": "Toggle edit",
+    "togglePreview": "Toggle preview",
+    "loggedInAs": "Logged in as:",
+    "withRole": "With role:",
+    "adminPanel": "Admin panel",
+    "actions": "Actions",
+    "createdAt": "Created at",
+    "createdBy": "Created by",
+    "name": "Name",
+    "views": "Views",
+    "child": "Child",
+    "deleteUSure": "Are you sure you want to delete this?",
+    "toolong": "Maximum field length is {{len}}",
+    "serviceUnavailable": "Service unavailable",
+    "yes": "Yes",
+    "no": "No",
+    "forPage": "For page:",
+    "titles": "Titles",
+    "added": "Added",
+    "error": "Error occurred",
+    "view": "View"
+  },
+  "banners": {
+    "adminTitle": "Manage banners",
+    "createTitle": "Create/update banner",
+    "titleEng": "Title in english",
+    "titleEst": "Title in estonian",
+    "subtitleEng": "Subtitle in english",
+    "subtitleEst": "Subtitle in estonian",
+    "instructions": "Banners are displayed in order in which they will be displayed to the user. To reorder them simply drag and drop."
+  },
+  "user": {
+    "listTitle": "User management",
+    "changeRole": "Change role",
+    "username": "Username",
+    "email": "Email",
+    "firstname": "First name",
+    "lastname": "Last name",
+    "role": "Role",
+    "noRights": "No permissions",
+    "users": "Users",
+    "changeRoleFor": "Change role for user {{user}}",
+    "roleChanged": "Role changed successfully",
+    "permissionAlert": "Your role does not permit other users role changes",
+    "logout": "Logout"
+  },
+  "pageContent": {
+    "titleEng": "Title in english",
+    "titleEst": "Title in estonian"
+  },
+  "partners": {
+    "partners": "Our partners"
+  },
+  "contact": {
+    "success": "Your message has been sent!",
+    "fail": "Something went wrong. Try again later!"
+  },
+  "news": {
+    "news": "News",
+    "title": "Title",
+    "author": "Author",
+    "numberOfPosts": "Number of posts"
+  },
+  "projects": {
+    "projects": "Projects",
+    "titleEng": "Title in english",
+    "titleEst": "Title in estonian",
+    "year": "Year",
+    "projectManager": "Project manager",
+    "projectVolume": "Project volume(in euro)"
   }
 }

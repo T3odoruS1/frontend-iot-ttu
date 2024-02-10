@@ -12,9 +12,11 @@ const ProjectCreate = () => {
 
     const projectService = new ProjectService();
     const navigate = useNavigate();
+    const [pending, setPending] = useState(false);
 
     const [success, setSuccess] = useState(false)
     const handleSubmit = async (data: FieldValues) => {
+        setPending(true)
         const result = data as IProjectOutput;
         if (!result.id) {
             console.log(result)
@@ -23,6 +25,7 @@ const ProjectCreate = () => {
                 setSuccess(true)
                 setTimeout(() => {
                     setSuccess(false);
+                    setPending(false)
                     navigate(`../`);
                 }, 1000)
 
@@ -32,6 +35,7 @@ const ProjectCreate = () => {
                 setSuccess(true)
                 setTimeout(() => {
                     setSuccess(false);
+                    setPending(false)
                     navigate(`../`);
                 }, 1000)
             }).catch(e => {

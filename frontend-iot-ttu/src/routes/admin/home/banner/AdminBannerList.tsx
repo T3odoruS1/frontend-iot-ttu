@@ -9,6 +9,8 @@ import i18n from "i18next";
 import {BannerComponentAdmin} from "./BannerComponentAdmin";
 import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
+import {useTranslation} from "react-i18next";
+import {Loader} from "../../../../components/Loader";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
@@ -17,7 +19,8 @@ import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
     const navigate = useNavigate();
     const service = new BannerService();
     const {data: banners, error, pending, setData} =
-        useFetch<IBanner[]>(service.getAll, [i18n.language])
+        useFetch<IBanner[]>(service.getAll, [i18n.language]);
+    const {t} = useTranslation();
 
     const remove = (id: string) => {
         service.delete(id).then(() => {
@@ -45,11 +48,10 @@ import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
 
     return (
         <>
-            <PageTitle>Admin banner list</PageTitle>
-            <p>Banners are displayed in order in which they will be displayed to the user. To reorder them simply
-            drag and drop</p>
-            <ButtonSmaller onClick={toCreate}>Create</ButtonSmaller>
-
+            <PageTitle>{t("banners.adminTitle")}</PageTitle>
+            <p>{t("banners.instructions")}</p>
+            <ButtonSmaller onClick={toCreate}>{t("common.new")}</ButtonSmaller>
+            {pending && <Loader/>}
             <DragDropContext onDragEnd={onDnD}>
                 <Droppable droppableId={"banners"}>
                     {(provided) => (
@@ -61,9 +63,9 @@ import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
                                             <BannerComponentAdmin banner={banner}/>
                                             <ActionConfirmationAlert action={() => {
                                                 remove(banner.id)
-                                            }} displayText={"You sure you want to remove this contact?"}
-                                                                     buttonText={"Delete"}/>
-                                            <ButtonSmaller className={"h-25 m-2 mb-5"}>Update</ButtonSmaller>
+                                            }} displayText={t("common.deleteUSure")}
+                                                                     buttonText={t('common.delete')}/>
+                                            <ButtonSmaller className={"h-25 m-2 mb-5"}>{t('common.update')}</ButtonSmaller>
                                         </li>
                                     )}
                                 </Draggable>)

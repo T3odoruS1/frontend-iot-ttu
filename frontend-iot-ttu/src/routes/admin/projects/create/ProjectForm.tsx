@@ -55,7 +55,7 @@ export const ProjectForm: React.FC<IProps> =
             } id={"project-form"}>
 
                 <SubHeadingPurple className="mt-5">
-                    General fileds
+                    {t("common.titles")}
                 </SubHeadingPurple>
 
 
@@ -65,7 +65,7 @@ export const ProjectForm: React.FC<IProps> =
                         register={register}
                         type="text"
                         error={t(errors.title?.[0]?.value?.message?.toString())}
-                        label={"English title"}
+                        label={t("projects.titleEng")}
                     />
                 </div>
 
@@ -75,7 +75,7 @@ export const ProjectForm: React.FC<IProps> =
                         register={register}
                         type="text"
                         error={t(errors.title?.[1]?.value?.message?.toString())}
-                        label={"Estonian title"}
+                        label={t("projects.titleEst")}
                     />
                 </div>
 
@@ -86,7 +86,7 @@ export const ProjectForm: React.FC<IProps> =
                         type="number"
                         defaultValue={new Date().getFullYear()}
                         error={t(errors.year?.message?.toString())}
-                        label={"Year"}
+                        label={t("projects.year")}
                     />
                 </div>
 
@@ -96,7 +96,7 @@ export const ProjectForm: React.FC<IProps> =
                         register={register}
                         type="text"
                         error={t(errors.projectManager?.message?.toString())}
-                        label={"Project manager"}
+                        label={t("projects.projectManager")}
                     />
                 </div>
 
@@ -107,11 +107,9 @@ export const ProjectForm: React.FC<IProps> =
                         defaultValue={0}
                         type="number"
                         error={t(errors.projectVolume?.message?.toString())}
-                        label={"ProjectDetails volume"}
+                        label={t("projects.projectVolume")}
                     />
                 </div>
-
-                <p>Skip image for now</p>
 
                 <SubHeadingPurple className="mt-5">
                     {t("admin.news.adminNews.create.contentEng")}

@@ -59,7 +59,7 @@ export const UserRolePopup = (props: IProps) => {
         <Popup content={
             <div className={"p-5"}>
                 <SubHeadingPurple>
-                    Choose role for user {props.email}
+                    {t("user.changeRoleFor", {user: props.email})}
                 </SubHeadingPurple>
                 <form onSubmit={handleSubmit((dto) => {
                     onSubmit(dto);
@@ -79,7 +79,7 @@ export const UserRolePopup = (props: IProps) => {
                 </form>
             </div>
         } trigger={
-            <ButtonSmaller className="mb-2">Change role</ButtonSmaller>
+            <ButtonSmaller className="mb-2">{t("user.changeRole")}</ButtonSmaller>
         }></Popup>
     );
 };

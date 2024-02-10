@@ -9,6 +9,7 @@ import {Form} from "react-bootstrap";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import ImageUploader from "../../../../components/form/ImageUpload";
 import {IPartnerImageOutput} from "../../../../dto/partnerImage/IPartnerImageOutput";
+import {useTranslation} from "react-i18next";
 
 export const PartnerImageEditMode = () => {
     const service = new PartnerImageService();
@@ -32,10 +33,10 @@ export const PartnerImageEditMode = () => {
 
     const onSubmit = (fieldValues: FieldValues) => {
         service.create(fieldValues as IPartnerImageOutput).then(r => {
-            setMessage("Added")
+            setMessage("common.added")
             fetchData();
         }).catch(e => {
-            setMessage("Error occurred")
+            setMessage("common.error")
         }).finally(() => {
             setTimeout(() => {
                 setMessage("")
@@ -43,14 +44,15 @@ export const PartnerImageEditMode = () => {
         })
     }
 
+    const {t} = useTranslation();
     return (
         <>
-            <p>{message}</p>
-            <Popup trigger={<ButtonSmaller>Add new</ButtonSmaller>} content={<AddPartnerImage onSubmit={onSubmit}/>}/>
+            <p>{t(message)}</p>
+            <Popup trigger={<ButtonSmaller>{t("common.new")}</ButtonSmaller>} content={<AddPartnerImage onSubmit={onSubmit}/>}/>
             {images?.map(i => {
                 return <div className={"w-100"}>
                     <img className={"partner-image"} src={i.image} alt={"Partner image"}/>
-                    <ButtonSmaller onClick={() => remove(i.id)}>Delete</ButtonSmaller>
+                    <ButtonSmaller onClick={() => remove(i.id)}>{t("common.delete")}</ButtonSmaller>
                 </div>
             })}
         </>
@@ -70,7 +72,7 @@ export const AddPartnerImage = (props: PIProps) => {
         getValues
     } = useForm<{ image: string }>();
 
-
+    const {t} = useTranslation();
     return <div className={"create-partner-image"}>
         <Form onSubmit={handleSubmit(props.onSubmit)}>
 
@@ -83,7 +85,7 @@ export const AddPartnerImage = (props: PIProps) => {
 
             <div className={"my-2"}>
                 <ButtonPrimary type={"submit"}>
-                    Submit
+                    {t("common.submit")}
                 </ButtonPrimary>
             </div>
         </Form>

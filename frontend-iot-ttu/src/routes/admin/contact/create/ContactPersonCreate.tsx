@@ -78,9 +78,8 @@ const ContactPersonCreate = () => {
                 {errorResponse && <p className={"text-danger"}>{errorResponse}</p>}
                 <div className={"mt-2"}>
                     <InputControl type={"text"} error={errors.name?.message} register={register}
-                                  name={'name'} label={"Name"}/></div>
-
-
+                                  name={'name'} label={"Name"}/>
+                </div>
 
 
                 <Row>

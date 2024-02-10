@@ -15,6 +15,7 @@ import {ProjectService} from "../../../services/ProjectService";
 import {INews} from "../../../dto/news/INews";
 import i18n from "i18next";
 import {IProject} from "../../../dto/project/IProject";
+import {useTranslation} from "react-i18next";
 
 const UserList = () => {
     const navigate = useNavigate();
@@ -48,6 +49,7 @@ const UserList = () => {
         })
     }
 
+    const {t} = useTranslation();
 
     // // TODO enable for production
     // if(!jwtResponseCtx?.jwt || jwtResponseCtx.roleIds.length === 0){
@@ -56,20 +58,20 @@ const UserList = () => {
 
     return (
         <>
-            <PageTitle>User management</PageTitle>
+            <PageTitle>{t("user.listTitle")}</PageTitle>
             {pending && <Loader/>}
             <Table variant="striped">
-                <caption>Users</caption>
+                <caption>{t("user.users")}</caption>
                 {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">User name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">First name</th>
-                    <th scope="col">Last name</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">{t("user.username")}</th>
+                    <th scope="col">{t("user.email")}</th>
+                    <th scope="col">{t("user.firstname")}</th>
+                    <th scope="col">{t("user.lastname")}</th>
+                    <th scope="col">{t("user.role")}</th>
+                    <th scope="col">{t("common.actions")}</th>
 
                 </tr>
                 </thead>
@@ -88,9 +90,9 @@ const UserList = () => {
                                         <UserRolePopup user={user} roles={roles ?? []} email={user.email} fetch={fetch}/>
                                         <ActionConfirmationAlert action={() => {
                                             deactivateUser(user.id);
-                                        }} displayText={"TRANSLATE!!!! Are you sure you want to delete this user?"}
-                                                                 buttonText={"Delete"}/>
-                                    </> || <p>No permission</p>}
+                                        }} displayText={t("common.deleteUSure")}
+                                                                 buttonText={t("common.delete")}/>
+                                    </> || <p>{t("user.noRights")}</p>}
 
                                 </td>
                             </tr>

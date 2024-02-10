@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from "react";
 import ButtonSmaller from "./ButtonSmaller";
+import {useTranslation} from "react-i18next";
 
 interface IProps {
     action: () => void;
@@ -16,6 +17,7 @@ const ActionConfirmationAlert: FC<IProps> = ({action, displayText, buttonText}) 
         }
     }, [confirmDelete]);
 
+    const {t} = useTranslation();
 
     if (confirmDelete) {
         return (
@@ -43,13 +45,13 @@ const ActionConfirmationAlert: FC<IProps> = ({action, displayText, buttonText}) 
                             action();
                             setConfirmDelete(false);
                         }}>
-                        Yes
+                        {t("common.yes")}
                     </ButtonSmaller>
                     <ButtonSmaller
                         type="button"
                         className="btn_custom_out m-2 w-25 align-self-center"
                         onClick={() => setConfirmDelete(false)}>
-                        No
+                        {t("common.no")}
                     </ButtonSmaller>
                 </div>
             </div>

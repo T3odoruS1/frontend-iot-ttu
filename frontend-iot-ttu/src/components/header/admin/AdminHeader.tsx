@@ -44,8 +44,8 @@ const AdminHeader = () => {
 	const Header = (): JSX.Element => {
 		const isMobile = useMediaQuery({ maxWidth: 991 });
 		return isMobile ?
-			<MobileHeaderBody routes={routes} logoElement={<h3 className={"admin-header-title text-white"}>Admin</h3>} /> :
-			<DesktopHeaderBody routes={routes} logoElement={<h3 className={"admin-header-title text-white"}>Admin</h3>}/>;
+			<MobileHeaderBody routes={routes} logoElement={<h3 className={"admin-header-title text-white"}>{t("admin.admin")}</h3>} /> :
+			<DesktopHeaderBody routes={routes} logoElement={<h3 className={"admin-header-title text-white"}>{t("admin.admin")}</h3>}/>;
 	}
 
 	return (

@@ -101,13 +101,11 @@ export const EditablePageEditor = (props: IProps) => {
             service.create(fieldValues as IPageContentMultilang).then(response => {
                 if (response.pageIdentifier !== undefined) {
                     setSuccess(true);
-                    let element = document.getElementById("success");
-                    element?.scrollIntoView();
                     setTimeout(() => {
                         setSuccess(false);
                     }, 1000)
                 } else {
-                    setMessage("Shit has hit the fan");
+                    setMessage("Something went wrong");
                 }
             })
         } else {
@@ -137,21 +135,21 @@ export const EditablePageEditor = (props: IProps) => {
 
     return (
         <>
-            {success && <SuccessAlert /> || <><PageTitle>For page: {props.pageIdentifier}</PageTitle>
+            {success && <SuccessAlert /> || <><PageTitle>{t("common.forPage")} {props.pageIdentifier}</PageTitle>
                 <p>{message}</p>
                 <form onSubmit={
                     handleSubmit((dto) => {
                         upload(dto);
                     }, (errors) => console.log(errors))
                 }>
-                    <SubHeadingPurple>Titles</SubHeadingPurple>
+                    <SubHeadingPurple>{t("common.titles")}</SubHeadingPurple>
                     <div className={"mt-2"}>
                         <InputControl
                             error={t(errors.title?.[0]?.value?.message?.toString())}
                             register={register}
                             name={`title.${0}.value`}
                             type={"text"}
-                            label={"Title english"}
+                            label={t("pageContent.titleEng")}
                         />
                     </div>
                     <div className={"mt-2"}>
@@ -159,7 +157,7 @@ export const EditablePageEditor = (props: IProps) => {
                             register={register}
                             error={t(errors.title?.[1]?.value?.message?.toString())}
                             name={`title.${1}.value`}
-                            label={"Title estonian"}
+                            label={t("pageContent.titleEng")}
                         />
                     </div>
 
@@ -188,7 +186,7 @@ export const EditablePageEditor = (props: IProps) => {
                     />
                     <div className={"my-2"}>
                         <ButtonPrimary type={"submit"}>
-                            Submit
+                            {t("common.submit")}
                         </ButtonPrimary>
                     </div>
                 </form>

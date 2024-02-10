@@ -10,6 +10,7 @@ import {Table} from "react-bootstrap";
 // import {Fragment, useContext} from "react";
 import useFetch from "../../../../hooks/useFetch";
 import i18n from "i18next";
+import {useTranslation} from "react-i18next";
 
 const ProjectListAdm = () => {
 
@@ -20,6 +21,7 @@ const ProjectListAdm = () => {
         = useFetch<IProject[]>(projectService.getAll, [i18n.language]);
 
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     const onDelete = async (id: string) => {
         await projectService.remove(id);
@@ -54,22 +56,22 @@ const ProjectListAdm = () => {
 
     return (
         <div>
-            <PageTitle>Projects</PageTitle>
-            <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>Create</ButtonSmaller></div>
+            <PageTitle>{t("projects.projects")}</PageTitle>
+            <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>{t('common.new')}</ButtonSmaller></div>
             {pending && <Loader/>}
 
 
             <Table variant="striped">
-                <caption>Projects</caption>
+                <caption>{t("projects.projects")}</caption>
                 {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Created by</th>
-                    <th scope="col">Views</th>
-                    <th scope="col">Created at</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">{t("common.title")}</th>
+                    <th scope="col">{t("common.createdBy")}</th>
+                    <th scope="col">{t("common.views")}</th>
+                    <th scope="col">{t("common.createdAt")}</th>
+                    <th scope="col">{t("common.actions")}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -84,14 +86,14 @@ const ProjectListAdm = () => {
                                 <td>
                                     <ButtonSmaller onClick={() => {
                                         toUpdate(project.id)
-                                    }} className="mb-2">Update</ButtonSmaller><br/>
+                                    }} className="mb-2">{t("common.update")}</ButtonSmaller><br/>
                                     <ButtonSmaller onClick={() => {
                                         toDetails(project.id);
-                                    }} className="mb-2">View</ButtonSmaller><br/>
+                                    }} className="mb-2">{t("common.view")}</ButtonSmaller><br/>
                                     <ActionConfirmationAlert action={() => {
                                         onDelete(project.id)
-                                    }} displayText={"Are you sure you want to delete this news piece?"}
-                                                             buttonText={"Delete"}/>
+                                    }} displayText={t("common.deleteUSure")}
+                                                             buttonText={t("common.delete")}/>
                                 </td>
                             </tr>
                         )
