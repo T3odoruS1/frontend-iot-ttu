@@ -712,6 +712,26 @@ body.safari .banner-container {
   background-attachment: scroll; /* example */
 }
 
+.banner-preview{
+  background-color: rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+  background-blend-mode: overlay;
+
+  background-repeat: no-repeat;
+  min-height: 30vh;
+
+}
+
+.banner-card{
+  background-color: #dad9d9;
+  max-width: 700px;
+  max-height: 450px;
+  padding: 3rem;
+  padding-bottom: 0rem;
+  border-radius: 2rem;
+  margin-top: 2rem;
+}
+
 .banner-container {
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.6);

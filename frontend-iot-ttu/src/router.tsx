@@ -36,6 +36,9 @@ import {NotFoundPage} from "./routes/NotFoundPage";
 import {ContactPerson} from "./routes/admin/contact/ContactPerson";
 import {ContactPersonList} from "./routes/admin/contact/ContactPersonList";
 import {ContactPersonCreate} from "./routes/admin/contact/create/ContactPersonCreate";
+import {AdminBanners} from "./routes/admin/home/banner/AdminBanners";
+import {AdminBannerList} from "./routes/admin/home/banner/AdminBannerList";
+import {BannerCreate} from "./routes/admin/home/banner/create/BannerCreate";
 
 export const router = createBrowserRouter([
     {
@@ -75,6 +78,20 @@ export const router = createBrowserRouter([
                                 element: <TopicAreaForm/>
                             },
                         ],
+                    },
+                    {
+                        path: "banners",
+                        element: <AdminBanners/>,
+                        children: [
+                            {
+                                path: "",
+                                element: <AdminBannerList/>
+                            },
+                            {
+                                path: "create",
+                                element: <BannerCreate/>
+                            }
+                        ]
                     },
                     {
                         path: "opensourcesolutions",

@@ -1,15 +1,16 @@
 import React, {ChangeEvent, FC, useEffect, useState} from "react";
-import {UseFormGetValues, UseFormRegister, UseFormSetValue} from "react-hook-form";
+import {FieldValues, UseFormGetValues, UseFormRegister, UseFormSetValue} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {INewsOutputDTO} from "../../dto/news/INewsOutputDTO";
 import ButtonSmaller from "../common/ButtonSmaller";
 import {SUPPORTED_FILE_FORMATS} from "../../configs/configurations";
+import {IBannerOutput} from "../../dto/banner/IBannerOutput";
 
 interface Props {
-    register: UseFormRegister<INewsOutputDTO>;
-    setValue: UseFormSetValue<INewsOutputDTO>;
-    getValue: UseFormGetValues<INewsOutputDTO>;
-    name: keyof INewsOutputDTO;
+    register: any;
+    setValue: any;
+    getValue: any;
+    name: any;
     label: string;
     fileSize: number;
 }

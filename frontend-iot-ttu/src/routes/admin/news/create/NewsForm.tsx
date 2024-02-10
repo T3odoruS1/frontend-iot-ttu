@@ -1,5 +1,5 @@
 import {
-    Control,
+    Control, FieldValues,
     UseFormGetValues,
     UseFormHandleSubmit,
     UseFormRegister,

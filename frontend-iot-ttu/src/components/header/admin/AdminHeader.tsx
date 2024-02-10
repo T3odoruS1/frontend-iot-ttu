@@ -32,6 +32,10 @@ const AdminHeader = () => {
 			title={t("admin.header.projects")}
 		/>,
 		<HeaderNavLink
+			to={`/${i18n.language}/admin/banners`}
+			title={t("admin.header.banners")}
+		/>,
+		<HeaderNavLink
 			to={`/${i18n.language}/admin/users`}
 			title={t("admin.header.users")}
 		/>

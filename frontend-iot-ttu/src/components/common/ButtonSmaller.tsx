@@ -7,6 +7,7 @@ const ButtonSmaller = ({...rest}) => {
 			style={{
 				fontSize: "0.8rem",
 				fontWeight: 900,
+				maxHeight: "2rem",
 				textTransform: "uppercase",
 				color: "#fff",
 				border: "4px solid #e4067e",
