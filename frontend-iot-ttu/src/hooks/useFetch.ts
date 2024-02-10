@@ -17,26 +17,28 @@ const useFetch = <TEntity>(callback: serviceFunction<TEntity>, args: any[] = [])
     const [data, setData] = useState<TEntity | null>(null);
     const [error, setError] = useState<string | null>(null);
 
+    const fetchData = () => {
+        setPending(true);
+        setError(null);
+        callback(...args)
+            .then(response => {
+                setData(response);
+            })
+            .catch(e => {
+                setError(e.message)
+            })
+            .finally(() => {setPending(false)});
+    };
+
     useEffect(() => {
-        const fetchData = () => {
-            setPending(true);
-            setError(null);
-            callback(...args)
-                .then(response => {
-                    setData(response);
-                })
-                .catch(e => {
-                    setError(e.message)
-                })
-                .finally(() => {setPending(false)});
-        };
+
 
         fetchData();
 
     }, [...args]);
 
     // Return your state variables and potentially other controls as needed
-    return { data, setData, error, pending };
+    return { data, setData, error, pending, fetchData };
 }
 
 

@@ -12,14 +12,15 @@ import {IPartnerImageOutput} from "../../../../dto/partnerImage/IPartnerImageOut
 
 export const PartnerImageEditMode = () => {
     const service = new PartnerImageService();
-    const {data: images, pending, error, setData} =
+    const {data: images, pending, error, setData, fetchData} =
         useFetch<IPartnerImage[]>(service.getAll);
     const [message, setMessage] = useState("")
     const [success, setSuccess] = useState(false);
 
     const remove = (id: string) => {
         service.delete(id).then(r => {
-            setMessage("Removed")
+            setMessage("Removed");
+            fetchData();
         }).catch(e => {
             setMessage("Error occurred")
         }).finally(() => {
@@ -32,6 +33,7 @@ export const PartnerImageEditMode = () => {
     const onSubmit = (fieldValues: FieldValues) => {
         service.create(fieldValues as IPartnerImageOutput).then(r => {
             setMessage("Added")
+            fetchData();
         }).catch(e => {
             setMessage("Error occurred")
         }).finally(() => {
