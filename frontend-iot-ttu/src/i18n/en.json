@@ -127,7 +127,8 @@
     "titles": "Titles",
     "added": "Added",
     "error": "Error occurred",
-    "view": "View"
+    "view": "View",
+    "save": "Save"
   },
   "banners": {
     "adminTitle": "Manage banners",

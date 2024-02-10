@@ -13,10 +13,11 @@ const ButtonSmaller = ({...rest}) => {
 				border: "4px solid #e4067e",
 				lineHeight: "1.25rem",
 				backgroundColor: "#e4067e",
-				transition: "all .3s ease",
 				display: "inline-block",
 				textDecoration: "none",
-				padding: "calc(0.1rem - 4px) calc(1.3125rem - 4px) calc(0.4rem - 4px)",
+				textAlign: "center",
+				padding: "0.1rem",
+				minWidth:"6rem",
 				borderRadius: "60px",
 			}}
 			{...rest}>

@@ -49,7 +49,7 @@ const ActionConfirmationAlert: FC<IProps> = ({action, displayText, buttonText}) 
                     </ButtonSmaller>
                     <ButtonSmaller
                         type="button"
-                        className="btn_custom_out m-2 w-25 align-self-center"
+                        className="btn_custom_out w-25 align-self-center"
                         onClick={() => setConfirmDelete(false)}>
                         {t("common.no")}
                     </ButtonSmaller>

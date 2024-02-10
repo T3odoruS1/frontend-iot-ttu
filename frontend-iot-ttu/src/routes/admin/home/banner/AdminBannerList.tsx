@@ -14,7 +14,7 @@ import {Loader} from "../../../../components/Loader";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
- const AdminBannerList = () => {
+const AdminBannerList = () => {
 
     const navigate = useNavigate();
     const service = new BannerService();
@@ -35,11 +35,17 @@ import {Loader} from "../../../../components/Loader";
         if (!result.destination) return;
         console.log(result)
         const items = Array.from(banners!)
-        const [reorderedItem]= items.splice(result.source.index, 1);
+        const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
         setData(items);
 
         // Send update to backend
+    }
+
+    const saveSequence = () => {
+        banners?.map((b, index) => {
+
+        })
     }
 
     const toCreate = () => {
@@ -55,17 +61,25 @@ import {Loader} from "../../../../components/Loader";
             <DragDropContext onDragEnd={onDnD}>
                 <Droppable droppableId={"banners"}>
                     {(provided) => (
-                        <ul className={"banners"} {...provided.droppableProps} ref={provided.innerRef}>
+                        <ul className={"banners p-0"} {...provided.droppableProps} ref={provided.innerRef}>
                             {banners?.map((banner, index) => {
                                 return (<Draggable key={banner.id} draggableId={banner.id} index={index}>
                                     {(provided) => (
-                                        <li className={"banner-card"} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                        <li className={"banner-card"}
+                                            ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                             <BannerComponentAdmin banner={banner}/>
-                                            <ActionConfirmationAlert action={() => {
-                                                remove(banner.id)
-                                            }} displayText={t("common.deleteUSure")}
-                                                                     buttonText={t('common.delete')}/>
-                                            <ButtonSmaller className={"h-25 m-2 mb-5"}>{t('common.update')}</ButtonSmaller>
+                                            <div className={"d-flex justify-content-center"}>
+                                                <div className={"m-2"}>
+                                                    <ActionConfirmationAlert action={() => {
+                                                        remove(banner.id)
+                                                    }} displayText={t("common.deleteUSure")}
+                                                                             buttonText={t('common.delete')}/>
+                                                </div>
+                                                <div className={"m-2"}>
+                                                    <ButtonSmaller
+                                                        className={"align-self-center"}>{t('common.update')}</ButtonSmaller>
+                                                </div>
+                                            </div>
                                         </li>
                                     )}
                                 </Draggable>)

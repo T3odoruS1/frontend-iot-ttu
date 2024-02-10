@@ -127,7 +127,8 @@
     "titles": "Pealkirjad",
     "added": "Lisatud",
     "error": "Viga juhtus",
-    "view": "Vaata"
+    "view": "Vaata",
+    "save": "Save"
   },
   "banners": {
     "adminTitle": "Halda bannerid",

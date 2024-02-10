@@ -724,7 +724,7 @@ body.safari .banner-container {
   background-color: rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
   background-blend-mode: overlay;
-
+  border-radius: 1.3rem;
   background-repeat: no-repeat;
   min-height: 30vh;
 
@@ -734,8 +734,8 @@ body.safari .banner-container {
   background-color: #dad9d9;
   max-width: 700px;
   max-height: 450px;
-  padding: 3rem;
-  padding-bottom: 0rem;
+  padding-top: 0.45rem;
+  padding-inline: 1rem;
   border-radius: 2rem;
   margin-top: 2rem;
 }
