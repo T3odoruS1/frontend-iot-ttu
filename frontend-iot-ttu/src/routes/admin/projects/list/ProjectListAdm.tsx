@@ -11,7 +11,7 @@ import {Table} from "react-bootstrap";
 import useFetch from "../../../../hooks/useFetch";
 import i18n from "i18next";
 
-export const ProjectListAdm = () => {
+const ProjectListAdm = () => {
 
     // const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
 
@@ -103,3 +103,5 @@ export const ProjectListAdm = () => {
         </div>
     );
 };
+
+export default ProjectListAdm;

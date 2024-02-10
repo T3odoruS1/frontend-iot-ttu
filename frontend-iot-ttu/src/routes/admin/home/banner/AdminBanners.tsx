@@ -1,7 +1,9 @@
 import {Outlet} from "react-router-dom";
 
-export const AdminBanners = () => {
+const AdminBanners = () => {
     return (
         <><Outlet/></>
     );
 };
+
+export default AdminBanners;

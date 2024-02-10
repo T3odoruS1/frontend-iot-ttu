@@ -5,7 +5,7 @@ import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
 import {Loader} from "../../../../components/Loader";
 import ErrorPage from "../../../ErrorPage";
-import {NotFoundPage} from "../../../NotFoundPage";
+import NotFoundPage from "../../../NotFoundPage";
 import useFetch from "../../../../hooks/useFetch";
 import {INews} from "../../../../dto/news/INews";
 import {NewsService} from "../../../../services/NewsService";

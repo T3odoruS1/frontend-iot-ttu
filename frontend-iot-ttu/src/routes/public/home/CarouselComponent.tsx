@@ -11,37 +11,24 @@ import {Loader} from "../../../components/Loader";
 const CarouselComponent = () => {
 
     const service = new BannerService();
-    const {data: banners, error, pending} =
+    const {data: banners, error, pending, setData} =
         useFetch<IBanner[]>(service.getAll, [i18n.language])
     const [index, setIndex] = useState(0);
     const [offsetY, setOffsetY] = useState(0);
 
     const backgrounds = banners?.map(b => b.image);
 
-    // const contents = [
-    //     <BannerContent
-    //         key={0}
-    //         heading={"Embedded AI Research Lab"}
-    //         content={"Tallinn University of Technology"}/>,
-    //     <BannerContent
-    //         key={1}
-    //         heading={"You have an idea to develop?"}
-    //         content={"Check out our references and services"}/>,
-    //     <BannerContent
-    //         key={2}
-    //         heading={"Looking for cooperation possibilities?"}
-    //         content={"Optimize your machine learning algorithm for speed, memory or power consumption"}/>
-    // ]
-
-    const contents = banners?.map((b, index) => {
-        return <BannerContent
-            key={index}
-            heading={b.title}
-            content={b.body}/>
-    })
+    const [contents, setContents] = useState<JSX.Element[]>([]);
 
 
     useEffect(() => {
+        const cont = banners?.map((b, index) => {
+            return <BannerContent
+                key={index}
+                heading={b.title}
+                content={b.body}/>
+        })
+        setContents(cont ?? [])
 
         if(backgrounds !== undefined){
             const handleScroll = () => {
@@ -65,7 +52,7 @@ const CarouselComponent = () => {
         }
 
         }
-    }, [backgrounds?.length]);
+    }, [backgrounds?.length, banners, i18n.language]);
 
 
     const parallaxSpeed =-0.25;
@@ -86,7 +73,13 @@ const CarouselComponent = () => {
             style={backgroundStyle}
         >
             {pending && <Loader/>}
-            {contents !== undefined && contents[index]}
+            {banners && banners.length > 0 && (
+                <BannerContent
+                    key={banners[index].id} // Assuming each banner has a unique 'id' field
+                    heading={banners[index].title}
+                    content={banners[index].body}
+                />
+            )}
         </div>
 
     );

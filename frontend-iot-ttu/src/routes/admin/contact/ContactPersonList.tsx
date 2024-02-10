@@ -11,7 +11,7 @@ import ButtonSmaller from "../../../components/common/ButtonSmaller";
 import {useState} from "react";
 import ActionConfirmationAlert from "../../../components/common/ActionConfirmationAlert";
 
-export const ContactPersonList = () => {
+const ContactPersonList = () => {
     const navigate = useNavigate();
     const service = new ContactPersonService();
     const {data: people, pending, setData, error} =
@@ -54,3 +54,5 @@ export const ContactPersonList = () => {
         </>
     );
 };
+
+export default ContactPersonList;

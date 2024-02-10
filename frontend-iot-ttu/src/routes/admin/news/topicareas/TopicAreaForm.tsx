@@ -25,7 +25,7 @@ const schema = yup.object().shape({
         .min(2)
 })
 
-export const TopicAreaForm = () => {
+const TopicAreaForm = () => {
     const topicAreaService = new TopicAreaService();
     const {t} = useTranslation();
     const {data: topicAreas, pending: pendingTopicAreas, error: topicAreasError} =
@@ -111,3 +111,5 @@ export const TopicAreaForm = () => {
         </>
     );
 };
+
+export default TopicAreaForm;

@@ -25,7 +25,7 @@ const schema = yup.object().shape({
     })).required()
 })
 
-export const ContactPersonCreate = () => {
+const ContactPersonCreate = () => {
     const service = new ContactPersonService();
     const {t} = useTranslation();
     const [errorResponse, setErrorResponse] = useState("");
@@ -127,3 +127,5 @@ export const ContactPersonCreate = () => {
     )
         ;
 };
+
+export default ContactPersonCreate;

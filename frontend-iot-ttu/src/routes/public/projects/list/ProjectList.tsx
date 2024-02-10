@@ -43,7 +43,7 @@ export const ProjectCardElement: FC<IProps> = ({project}) => {
     );
 };
 
-export const ProjectList = () => {
+const ProjectList = () => {
 
     const [page, setPage] = useState(0)
     const {t} = useTranslation();
@@ -66,3 +66,5 @@ export const ProjectList = () => {
         </>
     );
 };
+
+export default ProjectList;

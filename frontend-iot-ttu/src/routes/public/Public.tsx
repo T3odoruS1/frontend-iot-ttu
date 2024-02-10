@@ -1,35 +1,40 @@
 import {Outlet, useLocation} from "react-router-dom";
 import Header from "../../components/header/public/Header";
 import Footer from "../../components/Footer";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
+import {Loader} from "../../components/Loader";
 
 const Public = () => {
-	const location = useLocation();
-	useEffect(() => {
-		console.log(location.pathname);
-	}, [location]);
+    const location = useLocation();
+    useEffect(() => {
+        console.log(location.pathname);
+    }, [location]);
 
-	const isHomePage = () => {
-		return location.pathname === "/et" || location.pathname === "/en";
-	}
-	return (
-		<>
-			<Header />
-			{isHomePage() ? (
-				<main className={"home-page-main"}>
-				<div className="root-div">
-					<Outlet />
-				</div>
-			</main>) :
-				<main>
-				<div className="root-div">
-					<Outlet />
-				</div>
-			</main>}
+    const isHomePage = () => {
+        return location.pathname === "/et" || location.pathname === "/en";
+    }
+    return (
+        <>
+            <Header/>
+            {isHomePage() ? (
+                    <main className={"home-page-main"}>
+                        <div className="root-div">
+                            <React.Suspense fallback={<Loader/>}>
+                                <Outlet/>
+                            </React.Suspense>
+                        </div>
+                    </main>) :
+                <main>
+                    <div className="root-div">
+                        <React.Suspense fallback={<Loader/>}>
+                        <Outlet/>
+                        </React.Suspense>
+                    </div>
+                </main>}
 
-			<Footer />
-		</>
-	);
+            <Footer/>
+        </>
+    );
 };
 
 export default Public;

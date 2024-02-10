@@ -16,7 +16,7 @@ import {INews} from "../../../dto/news/INews";
 import i18n from "i18next";
 import {IProject} from "../../../dto/project/IProject";
 
-export const UserList = () => {
+const UserList = () => {
     const navigate = useNavigate();
     const identityService = new IdentityService();
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
@@ -90,3 +90,6 @@ export const UserList = () => {
         </>
     );
 };
+
+
+export default UserList;

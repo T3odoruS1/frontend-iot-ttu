@@ -12,11 +12,12 @@ import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
-export const AdminBannerList = () => {
+ const AdminBannerList = () => {
 
     const navigate = useNavigate();
     const service = new BannerService();
-    const {data: banners, error, pending, setData} = useFetch<IBanner[]>(service.getAll, [i18n.language])
+    const {data: banners, error, pending, setData} =
+        useFetch<IBanner[]>(service.getAll, [i18n.language])
 
     const remove = (id: string) => {
         service.delete(id).then(() => {
@@ -75,3 +76,5 @@ export const AdminBannerList = () => {
         </>
     );
 };
+
+export default AdminBannerList;

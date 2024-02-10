@@ -28,7 +28,7 @@ const schema = yup.object().shape({
 })
 
 
-export const BannerCreate = () => {
+const BannerCreate = () => {
     const navigate = useNavigate();
     const service = new BannerService();
     const [success, setSuccess] = useState(false);
@@ -94,3 +94,5 @@ export const BannerCreate = () => {
         </>
     );
 };
+
+export default BannerCreate;

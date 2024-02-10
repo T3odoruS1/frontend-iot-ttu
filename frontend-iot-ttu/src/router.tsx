@@ -1,44 +1,47 @@
 import Root from "./routes/Root";
+import React from "react";
 import {createBrowserRouter} from "react-router-dom";
 import LanguageRedirect from "./components/LanguageRedirect";
 import ErrorPage from "./routes/ErrorPage";
 import Admin from "./routes/admin/Admin";
-import AdminNews from "./routes/admin/news/AdminNews";
-import NewsCreate from "./routes/admin/news/create/NewsCreate";
-import OpenSourceSolutionAdm from "./routes/admin/opensourcesolutions/OpenSourceSolutionsAdm";
-import OpensourceSolutionCreatePopup from "./routes/admin/opensourcesolutions/create/OpensourceSolutionCreatePopup";
-import ProjectsAdm from "./routes/admin/projects/ProjectsAdm";
-import ProjectCreate from "./routes/admin/projects/create/ProjectCreate";
-import Statistics from "./routes/admin/statistics/Statistics";
-import TechnologiesAdm from "./routes/admin/technology/TechnologiesAdm";
-import TechnologyCreate from "./routes/admin/technology/create/TechnologyCreate";
-import Login from "./routes/admin/users/login/Login";
-import Users from "./routes/admin/users/Users";
-import UserCreate from "./routes/admin/users/create/UserCreate";
 import Public from "./routes/public/Public";
-import Contact from "./routes/public/contact/Contact";
-import Home from "./routes/public/home/Home";
-import News from "./routes/public/news/News";
-import NewsPiece from "./routes/public/news/details/NewsPiece";
-import OpenSourceSolutions from "./routes/public/opensourcesolutions/OpenSourceSolutions";
-import OpenSourceSolution from "./routes/public/opensourcesolutions/details/OpenSourceSolution";
-import Projects from "./routes/public/projects/Projects";
-import ProjectDetails from "./routes/public/projects/details/ProjectDetails";
-import Technology from "./routes/public/technology/details/Technology";
-import NewsList from "./routes/public/news/list/NewsList";
-import NewsListAdm from "./routes/admin/news/list/NewsListAdm";
-import {TopicAreaForm} from "./routes/admin/news/topicareas/TopicAreaForm";
-import {ProjectList} from "./routes/public/projects/list/ProjectList";
-import {ProjectListAdm} from "./routes/admin/projects/list/ProjectListAdm";
-import {UserList} from "./routes/admin/users/UserList";
-import {NOTFOUND} from "node:dns";
-import {NotFoundPage} from "./routes/NotFoundPage";
-import {ContactPerson} from "./routes/admin/contact/ContactPerson";
-import {ContactPersonList} from "./routes/admin/contact/ContactPersonList";
-import {ContactPersonCreate} from "./routes/admin/contact/create/ContactPersonCreate";
-import {AdminBanners} from "./routes/admin/home/banner/AdminBanners";
-import {AdminBannerList} from "./routes/admin/home/banner/AdminBannerList";
-import {BannerCreate} from "./routes/admin/home/banner/create/BannerCreate";
+
+const AdminNews = React.lazy(() => import("./routes/admin/news/AdminNews"));
+const NewsCreate = React.lazy(() => import("./routes/admin/news/create/NewsCreate"));
+const OpenSourceSolutionAdm = React.lazy(() => import("./routes/admin/opensourcesolutions/OpenSourceSolutionsAdm"));
+const OpensourceSolutionCreatePopup = React.lazy(() => import("./routes/admin/opensourcesolutions/create/OpensourceSolutionCreatePopup"));
+const ProjectsAdm = React.lazy(() => import("./routes/admin/projects/ProjectsAdm"));
+const ProjectCreate = React.lazy(() => import("./routes/admin/projects/create/ProjectCreate"));
+const Statistics = React.lazy(() => import("./routes/admin/statistics/Statistics"));
+const TechnologiesAdm = React.lazy(() => import("./routes/admin/technology/TechnologiesAdm"));
+const TechnologyCreate = React.lazy(() => import("./routes/admin/technology/create/TechnologyCreate"));
+const Login = React.lazy(() => import("./routes/admin/users/login/Login"));
+const Users = React.lazy(() => import("./routes/admin/users/Users"));
+const UserCreate = React.lazy(() => import("./routes/admin/users/create/UserCreate"));
+const Contact = React.lazy(() => import("./routes/public/contact/Contact"));
+const Home = React.lazy(() => import("./routes/public/home/Home"));
+const News = React.lazy(() => import("./routes/public/news/News"));
+const NewsPiece = React.lazy(() => import("./routes/public/news/details/NewsPiece"));
+const OpenSourceSolutions = React.lazy(() => import("./routes/public/opensourcesolutions/OpenSourceSolutions"));
+const OpenSourceSolution = React.lazy(() => import("./routes/public/opensourcesolutions/details/OpenSourceSolution"));
+const Projects = React.lazy(() => import("./routes/public/projects/Projects"));
+const ProjectDetails = React.lazy(() => import("./routes/public/projects/details/ProjectDetails"));
+const Technology = React.lazy(() => import("./routes/public/technology/details/Technology"));
+const NewsList = React.lazy(() => import("./routes/public/news/list/NewsList"));
+const NewsListAdm = React.lazy(() => import("./routes/admin/news/list/NewsListAdm"));
+const TopicAreaForm = React.lazy(() => import("./routes/admin/news/topicareas/TopicAreaForm"));
+const ProjectList = React.lazy(() => import("./routes/public/projects/list/ProjectList"));
+const ProjectListAdm = React.lazy(() => import("./routes/admin/projects/list/ProjectListAdm"));
+const UserList = React.lazy(() => import("./routes/admin/users/UserList"));
+const NotFoundPage = React.lazy(() => import("./routes/NotFoundPage"));
+const ContactPerson = React.lazy(() => import("./routes/admin/contact/ContactPerson"));
+const ContactPersonList = React.lazy(() => import("./routes/admin/contact/ContactPersonList"));
+const ContactPersonCreate = React.lazy(() => import("./routes/admin/contact/create/ContactPersonCreate"));
+const AdminBanners = React.lazy(() => import("./routes/admin/home/banner/AdminBanners"));
+const AdminBannerList = React.lazy(() => import("./routes/admin/home/banner/AdminBannerList"));
+const BannerCreate = React.lazy(() => import("./routes/admin/home/banner/create/BannerCreate"));
+const AdminLandingPage = React.lazy(() => import("./routes/admin/admin/AdminLandingPage"));
+
 
 export const router = createBrowserRouter([
     {
@@ -58,6 +61,10 @@ export const router = createBrowserRouter([
                 path: "admin",
                 element: <Admin/>,
                 children: [
+                    {
+                        path: "",
+                        element: <AdminLandingPage/>
+                    },
                     {
                         path: "news",
                         element: <AdminNews/>,

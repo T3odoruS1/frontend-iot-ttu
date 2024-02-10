@@ -6,7 +6,7 @@ import {Loader} from "../../../../components/Loader";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {ProjectContent} from "../../../../components/ProjectContent";
 import {useTranslation} from "react-i18next";
-import {NotFoundPage} from "../../../NotFoundPage";
+import NotFoundPage from "../../../NotFoundPage";
 import {ProjectService} from "../../../../services/ProjectService";
 import useFetch from "../../../../hooks/useFetch";
 import {IProject} from "../../../../dto/project/IProject";

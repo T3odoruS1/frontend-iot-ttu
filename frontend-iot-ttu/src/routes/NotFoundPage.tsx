@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import Header from "../components/header/public/Header";
 import Footer from "../components/Footer";
 
-export const NotFoundPage = () => {
+const NotFoundPage = () => {
     const {t} = useTranslation();
 
     return (<div>
@@ -19,3 +19,5 @@ export const NotFoundPage = () => {
         </div>
     );
 };
+
+export default NotFoundPage;

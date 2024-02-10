@@ -1,7 +1,9 @@
 import {Outlet} from "react-router-dom";
 
-export const ContactPerson = () => {
+const ContactPerson = () => {
     return (
         <><Outlet/></>
     );
 };
+
+export default ContactPerson;

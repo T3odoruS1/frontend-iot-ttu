@@ -9,6 +9,7 @@ import i18n from "i18next";
 import et from "./i18n/et.json";
 import en from "./i18n/en.json";
 import {router} from "./router";
+import {Loader} from "./components/Loader";
 
 i18n.use(initReactI18next).init({
     resources: {
