@@ -10,6 +10,7 @@ import kinema from './../../../assets/partners/kinema_.png'
 import haridusmin from './../../../assets/partners/haridusmin.png'
 import dfsd from './../../../assets/partners/dfsd.png'
 import EditablePage from "../editablePage/EditablePage";
+import {PartnerImages} from "../../admin/home/partnerImage/PartnerImages";
 
 const Home = () => {
     return <>
@@ -36,11 +37,13 @@ const Home = () => {
             <SubHeadingPurple>Partners</SubHeadingPurple>
 
 
-            <img className={"partner-image"} src={telia} alt={"Telia"}/>
-            <img className={"partner-image"} src={haridusmin} alt={"Haridus ministeerium"}/>
-            <img className={"partner-image"} src={dfsd} alt={"DFSD"}/>
-            <img className={"partner-image"} src={tallink} alt={"Tallink"}/>
-            <img className={"partner-image"} src={kinema} alt={"Kinema"}/>
+            {/*<img className={"partner-image"} src={telia} alt={"Telia"}/>*/}
+            {/*<img className={"partner-image"} src={haridusmin} alt={"Haridus ministeerium"}/>*/}
+            {/*<img className={"partner-image"} src={dfsd} alt={"DFSD"}/>*/}
+            {/*<img className={"partner-image"} src={tallink} alt={"Tallink"}/>*/}
+            {/*<img className={"partner-image"} src={kinema} alt={"Kinema"}/>*/}
+
+            <PartnerImages/>
 
 
 
