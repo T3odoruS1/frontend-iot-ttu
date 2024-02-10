@@ -26,13 +26,23 @@ const UserList = () => {
 
     const {data: roles} = useFetch<IRole[]>(identityService.getRoles);
 
+    const canUseActions = (): boolean => {
+        if(jwtResponseCtx?.roleIds.length === 0){
+            return false;
+        }
+        if(jwtResponseCtx?.roleIds.at(0) === roles?.find(r => r.name === "USER")?.id){
+            return false;
+        }
+        return true;
+    }
+
     const deactivateUser = (id: string) => {
 
         identityService.deactivateUser({userId: id}).then(r => {
-            if(r === undefined){
+            if (r === undefined) {
                 navigate("./login");
                 // return <NotAuthenticated/> will not work here.
-            }else{
+            } else {
                 fetch();
             }
         })
@@ -46,7 +56,7 @@ const UserList = () => {
 
     return (
         <>
-        <PageTitle>User management</PageTitle>
+            <PageTitle>User management</PageTitle>
             {pending && <Loader/>}
             <Table variant="striped">
                 <caption>Users</caption>
@@ -74,12 +84,14 @@ const UserList = () => {
                                 <td>{user.lastname}</td>
                                 <td>{user.roles.at(0)?.name}</td>
                                 <td>
-                                    {}
-                                    <UserRolePopup user={user} roles={roles ?? []} email={user.email} fetch={fetch}/>
-                                    <ActionConfirmationAlert action={() => {
+                                    {canUseActions() && <>
+                                        <UserRolePopup user={user} roles={roles ?? []} email={user.email} fetch={fetch}/>
+                                        <ActionConfirmationAlert action={() => {
                                             deactivateUser(user.id);
-                                    }} displayText={"TRANSLATE!!!! Are you sure you want to delete this user?"}
-                                                             buttonText={"Delete"}/>
+                                        }} displayText={"TRANSLATE!!!! Are you sure you want to delete this user?"}
+                                                                 buttonText={"Delete"}/>
+                                    </> || <p>No permission</p>}
+
                                 </td>
                             </tr>
                         )
