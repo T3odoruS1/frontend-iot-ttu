@@ -11,6 +11,9 @@ import ActionConfirmationAlert from "../../../../components/common/ActionConfirm
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
 import {useTranslation} from "react-i18next";
 import {Loader} from "../../../../components/Loader";
+import {IBannerSequenceUpdate} from "../../../../dto/banner/IBannerSequenceUpdate";
+import {useState} from "react";
+import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
@@ -18,9 +21,13 @@ const AdminBannerList = () => {
 
     const navigate = useNavigate();
     const service = new BannerService();
-    const {data: banners, error, pending, setData} =
+    const {data: banners, pending, setData, fetchData} =
         useFetch<IBanner[]>(service.getAll, [i18n.language]);
     const {t} = useTranslation();
+
+    const [updatePending, setUpdatePending] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [dndUsed, setDndUsed] = useState(false);
 
     const remove = (id: string) => {
         service.delete(id).then(() => {
@@ -38,14 +45,26 @@ const AdminBannerList = () => {
         const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
         setData(items);
+        setDndUsed(true);
 
-        // Send update to backend
     }
 
     const saveSequence = () => {
-        banners?.map((b, index) => {
-
+        const data = banners?.map((b, index) => {
+            const res: IBannerSequenceUpdate = {sequenceNumber: index, homePageBannerId: b.id}
+            return res;
         })
+        setUpdatePending(true)
+        service.bulkUpdate(data!).then(r => {
+            setSuccess(true);
+            setDndUsed(false);
+            fetchData();
+            setTimeout(() => {
+                setSuccess(false);
+            },1000)
+        }).catch(e => {
+
+        }).finally(() => setUpdatePending(false))
     }
 
     const toCreate = () => {
@@ -57,7 +76,9 @@ const AdminBannerList = () => {
             <PageTitle>{t("banners.adminTitle")}</PageTitle>
             <p>{t("banners.instructions")}</p>
             <ButtonSmaller onClick={toCreate}>{t("common.new")}</ButtonSmaller>
-            {pending && <Loader/>}
+            {(pending || updatePending) && <Loader/>}
+            {success && <SuccessAlert scroll={false}/>}
+            {dndUsed && <ButtonSmaller className={"mx-2"} onClick={saveSequence} >{t("common.save")}</ButtonSmaller>}
             <DragDropContext onDragEnd={onDnD}>
                 <Droppable droppableId={"banners"}>
                     {(provided) => (

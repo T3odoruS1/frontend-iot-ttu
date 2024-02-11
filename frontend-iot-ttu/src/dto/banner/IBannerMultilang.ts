@@ -5,4 +5,5 @@ export interface IBannerMultilang extends IBaseEntity{
     title: IContent[];
     body: IContent[];
     image: string;
+    sequenceNumber: number;
 }

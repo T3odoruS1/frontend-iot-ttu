@@ -1,4 +1,3 @@
-import {IContainsTopicArea} from "../IContainsTopicArea";
 import {IContent} from "../IContent";
 import {IBaseEntity} from "../IBaseEntity";
 

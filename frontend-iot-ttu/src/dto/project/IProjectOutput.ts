@@ -1,5 +1,4 @@
 import {IContent} from "../IContent";
-import {IContainsTopicArea} from "../IContainsTopicArea";
 
 export interface IProjectOutput{
     id?: string,

@@ -1,15 +1,22 @@
 import Lottie from "lottie-react";
 import animationData from "../../assets/lottieAnimations/done_check.json";
-import {useEffect} from "react";
+import {FC, useEffect} from "react";
 
-export const SuccessAlert = () => {
+interface IProps{
+    scroll: boolean;
+}
+
+export const SuccessAlert = ({scroll = true}) => {
 
     useEffect(() => {
-        document.getElementById('success')!.scrollIntoView({
-            behavior: 'auto',
-            block: 'center',
-            inline: 'center'
-        });
+        if(scroll){
+            document.getElementById('success')!.scrollIntoView({
+                behavior: 'auto',
+                block: 'center',
+                inline: 'center'
+            });
+        }
+
     }, []);
 
     return (

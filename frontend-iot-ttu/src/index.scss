@@ -95,6 +95,7 @@ html {
   font-size: 16px;
   line-height: 2.25rem;
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -367,13 +368,14 @@ ul li {
   align-items: center;
 }
 
-.rotate {
+// .rotate {
 
 
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+//   writing-mode: vertical-rl;
+//   text-orientation: mixed;
+//   -webkit-text-o
 
-}
+// }
 
 .contact-person {
   max-width: 450px;
@@ -649,6 +651,7 @@ Quill
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 9999;
 }
 
@@ -995,6 +998,7 @@ body.safari .banner-container {
 
   /* Apply a blur effect to the background behind the spinner */
   backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 a {

@@ -1,5 +1,4 @@
 import ButtonPrimary from "../../../components/common/ButtonPrimary";
-import {IPageContent} from "../../../dto/pageContent/IPageContent";
 import {useContext, useState} from "react";
 import {EditablePageEditor} from "../../admin/editablePage/EditablePageEditor";
 import {EditablePageContent} from "./EditablePageContent";
@@ -12,7 +11,7 @@ interface IProps {
 }
 
 const EditablePage = (props: IProps) => {
-    const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
+    const {jwtResponseCtx} = useContext(JwtContext);
     const {t} = useTranslation();
 
     const [editModeEnabled, setEditModeEnabled] = useState(false)
