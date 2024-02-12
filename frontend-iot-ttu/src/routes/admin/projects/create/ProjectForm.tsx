@@ -33,7 +33,6 @@ export const ProjectForm: React.FC<IProps> =
          editorHtmlEst,
          onSubmit,
          setValue,
-         getValues,
          handleSubmit,
      }) => {
         const {t} = useTranslation();

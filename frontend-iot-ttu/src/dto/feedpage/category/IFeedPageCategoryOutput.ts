@@ -2,6 +2,6 @@ import { IContent } from "../../IContent";
 
 export interface IFeedPageCategoryOutput{
     id?: string | null | undefined,
-    feedPageId: string;
+    feedPageIdentifier: string;
     title: IContent[];
 }

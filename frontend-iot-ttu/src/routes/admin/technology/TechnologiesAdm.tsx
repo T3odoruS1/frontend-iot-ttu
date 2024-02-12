@@ -1,5 +1,7 @@
+import { Outlet } from "react-router-dom";
+
 const TechnologiesAdm = () => {
-  return <>Technologies admin</>
+  return <><Outlet/></>
 }
 
 export default TechnologiesAdm;

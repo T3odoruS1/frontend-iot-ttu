@@ -9,10 +9,6 @@ interface IProps {
     topicAreas: ITopicAreaGetMultilang[];
 }
 
-type TopicAreaPreview = {
-    name: string;
-    id: string;
-}
 
 const ContentPreview = (props: IProps) => {
     const getContent = (value: string | undefined, def: string) => {

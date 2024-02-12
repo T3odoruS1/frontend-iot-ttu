@@ -4,5 +4,5 @@ import { IFeedPagePost } from "../post/IFeedPagePost";
 export interface IFeedPageCategory extends IBaseEntity{
     feedPageId: string;
     title: string;
-    feedPageCategoriesPosts: IFeedPagePost[];
+    feedPageCategoryPost: IFeedPagePost[];
 }

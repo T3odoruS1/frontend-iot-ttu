@@ -13,9 +13,9 @@ export class FeedService {
 
     // Pages
 
-    getPages = async (lang: string, identifier: string): Promise<IFeedPage[]> => {
-        return processResponse<IFeedPage[]>(
-            await this.client.get<IFeedPage[], IErrorResponse>(`/FeedPage/${lang}/${identifier}`)
+    getPage = async (lang: string, identifier: string): Promise<IFeedPage> => {
+        return processResponse<IFeedPage>(
+            await this.client.get<IFeedPage, IErrorResponse>(`/FeedPage/${lang}/${identifier}`)
         );
     }
 
@@ -26,6 +26,12 @@ export class FeedService {
         return processResponse<IFeedPageCategory>(
             await this.client.get<IFeedPageCategory, IErrorResponse>(`/FeedPageCategory/${lang}/${id}`)
         );
+    }
+
+    getCategories = async (lang: string, pageIdentifier: string): Promise<IFeedPageCategory[]> => {
+        return processResponse<IFeedPageCategory[]>(
+            await this.client.get<IFeedPageCategory[], IErrorResponse>(`/FeedPageCategory/${lang}/${pageIdentifier}`)
+        )
     }
 
     deleteCategory = async (id: string): Promise<void> => {

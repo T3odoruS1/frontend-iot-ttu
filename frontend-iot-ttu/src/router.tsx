@@ -5,7 +5,6 @@ import LanguageRedirect from "./components/LanguageRedirect";
 import ErrorPage from "./routes/ErrorPage";
 import Admin from "./routes/admin/Admin";
 import Public from "./routes/public/Public";
-
 const AdminNews = React.lazy(() => import("./routes/admin/news/AdminNews"));
 const NewsCreate = React.lazy(() => import("./routes/admin/news/create/NewsCreate"));
 const OpenSourceSolutionAdm = React.lazy(() => import("./routes/admin/opensourcesolutions/OpenSourceSolutionsAdm"));
@@ -42,6 +41,9 @@ const AdminBannerList = React.lazy(() => import("./routes/admin/home/banner/Admi
 const BannerCreate = React.lazy(() => import("./routes/admin/home/banner/create/BannerCreate"));
 const AdminLandingPage = React.lazy(() => import("./routes/admin/admin/AdminLandingPage"));
 const ChangePassword = React.lazy(() => import("./routes/admin/users/changepassword/ChangePassword"));
+const FeedPageList = React.lazy(() => import("./routes/admin/feedpage/FeedPageList"));
+const FeedPageCategoryCreate = React.lazy(() => import("./routes/admin/feedpage/category/FeedPageCategoryCreate"));
+const FeedPagePostCreate = React.lazy(() => import("./routes/admin/feedpage/post/FeedPagePostCreate"))
 
 
 export const router = createBrowserRouter([
@@ -138,9 +140,17 @@ export const router = createBrowserRouter([
                         element: <TechnologiesAdm/>,
                         children: [
                             {
-                                path: "create",
-                                element: <TechnologyCreate/>,
+                                path: "",
+                                element: <FeedPageList/>
                             },
+                            {
+                                path: "createCategory",
+                                element: <FeedPageCategoryCreate/>,
+                            },
+                            {
+                                path: "createPost/:id?",
+                                element: <FeedPagePostCreate/>
+                            }
                         ],
                     },
                     {

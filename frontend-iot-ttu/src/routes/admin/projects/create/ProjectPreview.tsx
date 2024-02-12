@@ -6,13 +6,8 @@ import i18n from "i18next";
 
 interface IProps {
     formValues: IProjectOutput;
-    // topicAreas: ITopicAreaGetMultilang[];
 }
 
-type TopicAreaPreview = {
-    name: string;
-    id: string;
-}
 
 export const ProjectPreview = (props: IProps) => {
 

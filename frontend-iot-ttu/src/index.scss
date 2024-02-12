@@ -405,9 +405,13 @@ ul li {
 }
 
 .header-pink {
-  color: #e4067e;
+  color: #e4067e !important;
   font-family: ThickTTU sans-serif;
   font-weight: 500;
+}
+
+.all-caps{
+  text-transform: uppercase;
 }
 
 .card_custom_form {
@@ -1260,4 +1264,15 @@ a:hover {
   text-align: center;
   font-size: 0.9rem;
   width: 75%;
+}
+
+.no-br{
+  border-radius: 0px;
+}
+
+.post-card{
+  padding: 1rem;
+  border-left: #342b60 solid 3px;
+  border-radius: 1rem;
+  background-color: #f9f9f9;
 }

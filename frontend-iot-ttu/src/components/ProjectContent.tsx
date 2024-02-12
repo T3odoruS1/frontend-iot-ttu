@@ -1,19 +1,14 @@
-import {IProject} from "../dto/project/IProject";
-import React, {FC} from "react";
+import {FC} from "react";
 import {Col, Row} from "react-bootstrap";
-import {getTopicAreasAsStr} from "../utils/utils";
 import {TitleAllCaps, TitleColors} from "./common/TitleAllCaps";
 import {useTranslation} from "react-i18next";
-import {ITopicAreaGet} from "../dto/topicarea/ITopicAreaGet";
 
 interface IProps {
     title: string;
     body: string;
     year: number;
-    // topicAreas: ITopicAreaGet[];
     projectVolume: number;
     projectManager: string;
-    // project: IProject
 }
 
 export const ProjectContent: FC<IProps> = (project: IProps) => {
