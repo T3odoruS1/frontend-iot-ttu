@@ -26,7 +26,6 @@ const OpenSourceSolutions = React.lazy(() => import("./routes/public/opensources
 const OpenSourceSolution = React.lazy(() => import("./routes/public/opensourcesolutions/details/OpenSourceSolution"));
 const Projects = React.lazy(() => import("./routes/public/projects/Projects"));
 const ProjectDetails = React.lazy(() => import("./routes/public/projects/details/ProjectDetails"));
-const Technology = React.lazy(() => import("./routes/public/technology/details/Technology"));
 const NewsList = React.lazy(() => import("./routes/public/news/list/NewsList"));
 const NewsListAdm = React.lazy(() => import("./routes/admin/news/list/NewsListAdm"));
 const TopicAreaForm = React.lazy(() => import("./routes/admin/news/topicareas/TopicAreaForm"));
@@ -45,6 +44,8 @@ const ChangePassword = React.lazy(() => import("./routes/admin/users/changepassw
 const FeedPageList = React.lazy(() => import("./routes/admin/feedpage/FeedPageList"));
 const FeedPageCategoryCreate = React.lazy(() => import("./routes/admin/feedpage/category/FeedPageCategoryCreate"));
 const FeedPagePostCreate = React.lazy(() => import("./routes/admin/feedpage/post/FeedPagePostCreate"))
+const Technology = React.lazy(() => import("./routes/public/technology/Technology"));
+const TechnologyPublic = React.lazy(() => import("./routes/public/technology/TechnologyPublic"));
 const Hardware = React.lazy(() => import("./routes/public/technology/Hardwate"));
 const Research = React.lazy(() => import("./routes/public/technology/Research"));
 export const router = createBrowserRouter([
@@ -244,8 +245,12 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: "technology",
-                        element: <Technology/>,
+                        element: <TechnologyPublic/>,
                         children: [
+                            {
+                                path: "",
+                                element: <Technology/>
+                            },
                             {
                                 path: "hardware",
                                 element: <Hardware/>

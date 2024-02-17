@@ -851,6 +851,16 @@ body.safari .banner-container {
   justify-content: center;
 }
 
+.expanded-collapse-arrow{
+  writing-mode: vertical-lr;
+  pointer-events: none;
+}
+
+.collape-arrow{
+ margin-inline: 0.58rem;
+  pointer-events: none;
+}
+
 .image-link {
   font-family: ThickTTU sans-serif;
   font-weight: 900;
