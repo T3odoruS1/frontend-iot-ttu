@@ -5,6 +5,8 @@ import LanguageRedirect from "./components/LanguageRedirect";
 import ErrorPage from "./routes/ErrorPage";
 import Admin from "./routes/admin/Admin";
 import Public from "./routes/public/Public";
+
+
 const AdminNews = React.lazy(() => import("./routes/admin/news/AdminNews"));
 const NewsCreate = React.lazy(() => import("./routes/admin/news/create/NewsCreate"));
 const OpenSourceSolutionAdm = React.lazy(() => import("./routes/admin/opensourcesolutions/OpenSourceSolutionsAdm"));
@@ -13,7 +15,6 @@ const ProjectsAdm = React.lazy(() => import("./routes/admin/projects/ProjectsAdm
 const ProjectCreate = React.lazy(() => import("./routes/admin/projects/create/ProjectCreate"));
 const Statistics = React.lazy(() => import("./routes/admin/statistics/Statistics"));
 const TechnologiesAdm = React.lazy(() => import("./routes/admin/technology/TechnologiesAdm"));
-const TechnologyCreate = React.lazy(() => import("./routes/admin/technology/create/TechnologyCreate"));
 const Login = React.lazy(() => import("./routes/admin/users/login/Login"));
 const Users = React.lazy(() => import("./routes/admin/users/Users"));
 const UserCreate = React.lazy(() => import("./routes/admin/users/create/UserCreate"));
@@ -44,8 +45,8 @@ const ChangePassword = React.lazy(() => import("./routes/admin/users/changepassw
 const FeedPageList = React.lazy(() => import("./routes/admin/feedpage/FeedPageList"));
 const FeedPageCategoryCreate = React.lazy(() => import("./routes/admin/feedpage/category/FeedPageCategoryCreate"));
 const FeedPagePostCreate = React.lazy(() => import("./routes/admin/feedpage/post/FeedPagePostCreate"))
-
-
+const Hardware = React.lazy(() => import("./routes/public/technology/Hardwate"));
+const Research = React.lazy(() => import("./routes/public/technology/Research"));
 export const router = createBrowserRouter([
     {
         path: "",
@@ -243,7 +244,17 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: "technology",
-                        element: <Technology/>
+                        element: <Technology/>,
+                        children: [
+                            {
+                                path: "hardware",
+                                element: <Hardware/>
+                            },
+                            {
+                                path: "research",
+                                element: <Research/>
+                            },
+                        ]
 
                     },
                 ],

@@ -9,6 +9,8 @@ import { IFeedPagePostOutput } from "../../../../dto/feedpage/post/IFeedPagePost
 import { FieldValues, useForm } from "react-hook-form";
 import { FeedService } from "../../../../services/FeedService";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "../../../../components/Loader";
+import { SuccessAlert } from "../../../../components/lottie/SuccessAlert";
 
 const schema = yup.object().shape({
   id: yup.string().uuid().nullable(),
@@ -37,36 +39,46 @@ const schema = yup.object().shape({
 
 const FeedPagePostCreate = () => {
   const [preview, setPreview] = useState<boolean>(false);
+  const [submitPending, setSubmitPending] = useState(false);
 
+
+  const displaySuccess = () => {
+    setSuccess(true);
+    setTimeout(() => {
+      setSuccess(false);
+      navigate("../")
+
+    }, 1000)
+  }
   const service = new FeedService();
   const navigate = useNavigate();
 
   const { register, setValue, getValues, handleSubmit, formState: { errors } } =
     useForm<IFeedPagePostOutput>({ resolver: yupResolver(schema) });
 
-    useEffect(() => {
-      setValue(`title.${0}.culture`, "en");
-      setValue(`title.${1}.culture`, "et");
-      setValue(`body.${0}.culture`, "en");
-      setValue(`body.${1}.culture`, "et");
+  useEffect(() => {
+    setValue(`title.${0}.culture`, "en");
+    setValue(`title.${1}.culture`, "et");
+    setValue(`body.${0}.culture`, "en");
+    setValue(`body.${1}.culture`, "et");
   }, []);
 
   const [success, setSuccess] = useState(false);
 
 
   const onSubmit = (fieldValues: FieldValues) => {
+    setSubmitPending(true);
     service.createPost(fieldValues as IFeedPagePostOutput).then(res => {
-      setSuccess(true);
-      setTimeout(() => {
-        setSuccess(false);
-        navigate("../")
-      }, 1000)
-    })
+      displaySuccess();
+      setSubmitPending(false);
+    });
   }
 
 
   return <>
     <PageTitle>Create feed page post</PageTitle>
+    {submitPending && <Loader/>}
+    {success && <SuccessAlert scroll={true}/>}
     <FormFloating>
       <FormCheck
         type="checkbox"

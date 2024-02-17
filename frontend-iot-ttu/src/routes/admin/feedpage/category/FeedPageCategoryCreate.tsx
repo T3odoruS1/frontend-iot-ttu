@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import { useNavigate } from "react-router-dom";
 import { SuccessAlert } from "../../../../components/lottie/SuccessAlert";
+import { Loader } from "../../../../components/Loader";
 
 const schema = yup.object().shape({
     id: yup.string().uuid().nullable(),
@@ -25,7 +26,7 @@ const schema = yup.object().shape({
             })
         )
         .required(),
-        feedPageIdentifier: yup.string().required(`admin.news.adminNews.create.validation.fieldIsRequired`)
+    feedPageIdentifier: yup.string().required(`admin.news.adminNews.create.validation.fieldIsRequired`)
 })
 
 const FeedPageCategoryCreate = () => {
@@ -34,6 +35,7 @@ const FeedPageCategoryCreate = () => {
     const service = new FeedService();
     const [page, setPage] = useState(EFeedPage.HARDWARE.toString());
     const [success, setSuccess] = useState(false);
+    const [pending, setPending] = useState(false);
     const navigate = useNavigate();
 
     const onPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -43,31 +45,36 @@ const FeedPageCategoryCreate = () => {
 
     const { register, setValue, handleSubmit, formState: { errors } } =
         useForm<IFeedPageCategoryOutput>({ resolver: yupResolver(schema) });
-    
+
     useEffect(() => {
         setValue(`title.${0}.culture`, "en");
         setValue(`title.${1}.culture`, "et");
-    }, [])    
+    }, [])
 
     useEffect(() => {
         setValue(`feedPageIdentifier`, page);
     }, [page]);
 
     const onSubmit = (fieldValues: FieldValues) => {
-        service.createCategory(fieldValues as IFeedPageCategoryOutput).then(res =>{
+        setPending(true);
+        service.createCategory(fieldValues as IFeedPageCategoryOutput).then(res => {
             setSuccess(true);
+            setPending(false);
             setTimeout(() => {
-              setSuccess(false);
-              navigate("../")
+                setSuccess(false);
+                navigate("../")
             }, 1000)
         }).catch(e => {
             alert(e);
-        })
+        }).finally(
+            () => setPending(false)
+        )
     }
 
     return <>
         <PageTitle>Feed page category create</PageTitle>
-        {success && <SuccessAlert/>}
+        {pending && <Loader />}
+        {success && <SuccessAlert />}
         <FormFloating>
             <FormSelect className="no-br" id="page-choice" value={page} onChange={onPageChange}>
                 <option value={EFeedPage.HARDWARE}>{EFeedPage.HARDWARE}</option>

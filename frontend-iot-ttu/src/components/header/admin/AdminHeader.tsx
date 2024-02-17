@@ -1,14 +1,10 @@
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import HeaderNavLink from "../HeaderNavLink";
-import LanguageSwitcher from "../../LanguageSwitcher";
 import {useMediaQuery} from "react-responsive";
 import {MobileHeaderBody} from "../MobileHeaderBody";
-import TalTechSVG from "../TalTechSVG";
 import {DesktopHeaderBody} from "../DesktopHeaderBody";
-import React, {useContext} from "react";
-import {JwtContext} from "../../../routes/Root";
+import React from "react";
 
 const AdminHeader = () => {
 	const { t } = useTranslation();

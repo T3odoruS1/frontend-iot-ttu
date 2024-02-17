@@ -1,11 +1,9 @@
 import {Link} from "react-router-dom";
 import i18n from "i18next";
-import TalTechSVG from "./TalTechSVG";
-import HeaderNavLink from "./HeaderNavLink";
-import LanguageSwitcher from "../LanguageSwitcher";
+import LanguageSwitcher from "./LanguageSwitcher";
 import {useTranslation} from "react-i18next";
-import React, {FC, useContext} from "react";
-import {JwtContext} from "../../routes/Root";
+import React from "react";
+import HeaderNavLink from "./HeaderNavLink";
 
 interface IProps {
     routes: JSX.Element[],
@@ -31,10 +29,11 @@ export const DesktopHeaderBody: React.FC<IProps> = (props) => {
                         })}
                         <li key={Math.random()}>
                             <LanguageSwitcher toLeft={true}/>
-                            <Link key={Math.random()} className="nav-link top-text under-language"
-                                  to={`./contact`}>
-                                {t('public.header.contactUs')}
-                            </Link>
+                            <div className={"under-language"}>
+                                <HeaderNavLink key={Math.random()}
+                                               to={`/${i18n.language}/contact`} title={t('public.header.contactUs')}/>
+                            </div>
+
                         </li>
 
                     </ul>

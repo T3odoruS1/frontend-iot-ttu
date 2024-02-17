@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import i18n from "i18next";
 import hamburgerIcon from '../../assets/hamburger.png';
-import LanguageSwitcher from "../LanguageSwitcher";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { CSSTransition } from "react-transition-group";
 
 

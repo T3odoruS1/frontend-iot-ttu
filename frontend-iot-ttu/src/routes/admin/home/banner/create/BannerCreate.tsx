@@ -34,8 +34,10 @@ const BannerCreate = () => {
     const service = new BannerService();
     const [success, setSuccess] = useState(false);
     const [errorResponse, setErrorResponse] = useState("");
+    const [pending, setPending] = useState(false);
 
     const onSubmit = (fieldValues: FieldValues) => {
+        setPending(true);
         service.create(fieldValues as IBannerOutput).then(res =>{
             setSuccess(true);
             setTimeout(() => {
@@ -45,7 +47,7 @@ const BannerCreate = () => {
         }).catch((err) => {
             console.log(err)
             setErrorResponse(err.message);
-        })
+        }).finally(() => setPending(false))
     }
 
     const {t} = useTranslation();

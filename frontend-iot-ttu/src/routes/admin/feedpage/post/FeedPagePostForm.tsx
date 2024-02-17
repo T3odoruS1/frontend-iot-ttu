@@ -72,11 +72,14 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
             <div className="mt-2">
                 <FormFloating>
                     <FormSelect className="no-br" id="category-choice" {...register("feedPageCategoryId")}>
+                        <option></option>
                         {categories?.map(category => {
                             return <option value={category.id}>{category.title}</option>
                         })}
                     </FormSelect>
-                    <FormLabel htmlFor="category-choice">Choose a page where you want to place this post</FormLabel>
+                    <FormLabel htmlFor="category-choice">
+                        Choose a page where you want to place this post {<span className="text-danger">{errors.feedPageCategoryId?.message}</span>}
+                    </FormLabel>
                 </FormFloating>
             </div>
 
