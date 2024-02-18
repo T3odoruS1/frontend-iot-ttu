@@ -71,6 +71,10 @@ const AdminBannerList = () => {
         navigate("./create");
     }
 
+    const toUpdate = (id: string) => {
+        navigate(`./create/${id}`);
+    }
+
     return (
         <>
             <PageTitle>{t("banners.adminTitle")}</PageTitle>
@@ -98,7 +102,10 @@ const AdminBannerList = () => {
                                                 </div>
                                                 <div className={"m-2"}>
                                                     <ButtonSmaller
-                                                        className={"align-self-center"}>{t('common.update')}</ButtonSmaller>
+                                                        onClick={() => toUpdate(banner.id)}
+                                                        className={"align-self-center"}>
+                                                        {t('common.update')}
+                                                    </ButtonSmaller>
                                                 </div>
                                             </div>
                                         </li>

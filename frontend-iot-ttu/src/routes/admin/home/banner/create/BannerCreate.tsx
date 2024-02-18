@@ -11,7 +11,7 @@ import {BannerService} from "../../../../../services/BannerService";
 import ButtonPrimary from "../../../../../components/common/ButtonPrimary";
 import React, {useEffect, useState} from "react";
 import i18n from "i18next";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {SuccessAlert} from "../../../../../components/lottie/SuccessAlert";
 import {useTranslation} from "react-i18next";
 
@@ -36,9 +36,12 @@ const BannerCreate = () => {
     const [errorResponse, setErrorResponse] = useState("");
     const [pending, setPending] = useState(false);
 
+    const {id} = useParams();
+
+
     const onSubmit = (fieldValues: FieldValues) => {
         setPending(true);
-        service.create(fieldValues as IBannerOutput).then(res =>{
+        service.create(fieldValues as IBannerOutput).then(res => {
             setSuccess(true);
             setTimeout(() => {
                 setSuccess(false);
@@ -55,10 +58,29 @@ const BannerCreate = () => {
         register,
         setValue,
         getValues,
+        reset,
         handleSubmit,
         formState: {errors},
     } =
-        useForm<IBannerOutput>({resolver: yupResolver(schema)});
+        useForm<IBannerOutput>({resolver: yupResolver(schema), shouldUnregister: false});
+
+
+    const fetch = () => {
+        service.getMultilangById(id ?? "").then(resp => {
+            reset();
+            setValue(`body.0.value`, resp.body.find(b => b.culture === "en")?.value!);
+            setValue(`body.1.value`, resp.body.find(b => b.culture === "et")?.value!);
+            setValue(`title.0.value`, resp.title.find(b => b.culture === "et")?.value!);
+            setValue(`title.1.value`, resp.title.find(b => b.culture === "et")?.value!);
+            setValue(`image`, resp.image)
+        });
+    }
+
+    useEffect(() => {
+        if (id !== undefined) {
+            fetch();
+        }
+    }, []);
 
     useEffect(() => {
         setValue(`body.0.culture`, "en");
@@ -74,21 +96,42 @@ const BannerCreate = () => {
             {success && <SuccessAlert/>}
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <div className={"mt-2"}>
-                    <InputControl register={register} error={t(errors.title?.[0]?.value?.message, {len: 45})} name={"title.0.value"} label={"Main title english"}/>
+                    <InputControl
+                        register={register}
+                        error={t(errors.title?.[0]?.value?.message, {len: 45})}
+                        name={"title.0.value"}
+                        label={"Main title english"}/>
                 </div>
                 <div className={"mt-2"}>
-                    <InputControl register={register} error={t(errors.title?.[1]?.value?.message, {len: 45})} name={"title.1.value"} label={"Main title estonian"}/>
+                    <InputControl
+                        register={register}
+                        error={t(errors.title?.[1]?.value?.message, {len: 45})}
+                        name={"title.1.value"}
+                        label={"Main title estonian"}/>
                 </div>
                 <div className={"mt-2"}>
-                    <InputControl register={register} error={t(errors.body?.[0]?.value?.message, {len: 90})} name={"body.0.value"} label={"Main title english"}/>
+                    <InputControl
+                        register={register}
+                        error={t(errors.body?.[0]?.value?.message, {len: 90})}
+                        name={"body.0.value"}
+                        label={"Main title english"}/>
                 </div>
                 <div className={"mt-2"}>
-                    <InputControl register={register} error={t(errors.body?.[1]?.value?.message, {len: 90})} name={"body.1.value"} label={"Main title estonian"}/>
+                    <InputControl
+                        register={register}
+                        error={t(errors.body?.[1]?.value?.message, {len: 90})}
+                        name={"body.1.value"}
+                        label={"Main title estonian"}/>
                 </div>
                 <div className={"mt-2"}>
                     {t(errors.image?.message)}
-                    <ImageUploader register={register} setValue={setValue} getValue={getValues} name={"image"}
-                                   label={"image"} fileSize={5}/>
+                    <ImageUploader
+                        register={register}
+                        setValue={setValue}
+                        getValue={getValues}
+                        name={"image"}
+                        label={"image"}
+                        fileSize={5}/>
                 </div>
                 <ButtonPrimary
                     className="btn_custom_out mt-5 w-25 align-self-center" type={"button"}

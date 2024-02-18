@@ -25,18 +25,18 @@ export class BannerService {
         )
     }
 
-    /*
-    List of all banners multilang
-     */
-    getPreview = async (): Promise<IBannerMultilang[]> => {
-        return processResponse<IBannerMultilang[]>(
-            await this.client.get<IBannerMultilang[], IErrorResponse>(`/HomePageBanner`)
-        )
-    }
+    // /*
+    // List of all banners multilang
+    //  */
+    // getPreview = async (): Promise<IBannerMultilang[]> => {
+    //     return processResponse<IBannerMultilang[]>(
+    //         await this.client.get<IBannerMultilang[], IErrorResponse>(`/HomePageBanner`)
+    //     )
+    // }
 
     getMultilangById = async (id: string): Promise<IBannerMultilang> => {
         return processResponse<IBannerMultilang>(
-            await this.client.get<IBannerMultilang, IErrorResponse>(`/HomePageBanner/${id}`)
+            await this.client.get<IBannerMultilang, IErrorResponse>(`/HomePageBanner/preview/${id}`)
         )
     }
 

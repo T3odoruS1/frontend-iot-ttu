@@ -205,11 +205,10 @@ export default class ImageResize {
                     window.Quill.find(this.img).deleteAt(0)
                 } catch (e) {
                     console.log("Error deleting image");
-                };
+                }
             }
             this.hide();
         }
-        ;
     }
 }
 

@@ -25,4 +25,6 @@ export class TopicAreaService {
             await this.client.get<ITopicAreaGetMultilang[], IErrorResponse>("topicAreas/getWithTranslation")
         )
     }
+
+    // TODO update
 }

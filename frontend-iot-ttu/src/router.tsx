@@ -100,7 +100,7 @@ export const router = createBrowserRouter([
                                 element: <AdminBannerList/>
                             },
                             {
-                                path: "create",
+                                path: "create/:id?",
                                 element: <BannerCreate/>
                             }
                         ]

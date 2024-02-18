@@ -1,10 +1,7 @@
 import React, {ChangeEvent, FC, useEffect, useState} from "react";
-import {FieldValues, UseFormGetValues, UseFormRegister, UseFormSetValue} from "react-hook-form";
 import {useTranslation} from "react-i18next";
-import {INewsOutputDTO} from "../../dto/news/INewsOutputDTO";
 import ButtonSmaller from "../common/ButtonSmaller";
 import {SUPPORTED_FILE_FORMATS} from "../../configs/configurations";
-import {IBannerOutput} from "../../dto/banner/IBannerOutput";
 
 interface Props {
     register: any;
@@ -23,9 +20,15 @@ const ImageUploader: FC<Props> = ({
                                       label,
                                       fileSize,
                                   }) => {
-    const [preview, setPreview] = useState<string | ArrayBuffer | null>(getValue().image);
+    const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
     const [fileName, setFileName] = useState<string | null>(" ");
     const {t} = useTranslation();
+
+    useEffect(() => {
+        console.log(getValue())
+        setPreview(getValue().image);
+
+    }, [getValue().image]);
 
     const onImageChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event?.target?.files?.[0];
