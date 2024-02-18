@@ -61,7 +61,7 @@ const AdminBannerList = () => {
             fetchData();
             setTimeout(() => {
                 setSuccess(false);
-            },1000)
+            }, 1000)
         }).catch(e => {
 
         }).finally(() => setUpdatePending(false))
@@ -82,7 +82,7 @@ const AdminBannerList = () => {
             <ButtonSmaller onClick={toCreate}>{t("common.new")}</ButtonSmaller>
             {(pending || updatePending) && <Loader/>}
             {success && <SuccessAlert scroll={false}/>}
-            {dndUsed && <ButtonSmaller className={"mx-2"} onClick={saveSequence} >{t("common.save")}</ButtonSmaller>}
+            {dndUsed && <ButtonSmaller className={"mx-2"} onClick={saveSequence}>{t("common.save")}</ButtonSmaller>}
             <DragDropContext onDragEnd={onDnD}>
                 <Droppable droppableId={"banners"}>
                     {(provided) => (
