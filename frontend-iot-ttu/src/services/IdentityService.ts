@@ -58,7 +58,7 @@ export class IdentityService{
 
     updateUserRole = async (data: IRoleUpdate): Promise<IRoleUpdateResponse> => {
         const response =
-            await this.client.postAuthenticated<IRoleUpdateResponse, IErrorResponse>("/role", data);
+            await this.client.postAuthenticated<IRoleUpdateResponse, IErrorResponse>("/users/role", data);
         return processResponse<IRoleUpdateResponse>(response);
     }
 

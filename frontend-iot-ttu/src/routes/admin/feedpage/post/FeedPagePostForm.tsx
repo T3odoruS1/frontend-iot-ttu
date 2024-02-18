@@ -1,9 +1,17 @@
-import { FC, useState } from "react";
+import {FC, useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import { EFeedPage } from "../../../../dto/feedpage/EFeedPage";
 import { FeedService } from "../../../../services/FeedService";
 import { Form, FormFloating, FormLabel, FormSelect } from "react-bootstrap";
-import { FieldErrors, FieldValues, UseFormGetValues, UseFormHandleSubmit, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import {
+    FieldErrors,
+    FieldValues,
+    set,
+    UseFormGetValues,
+    UseFormHandleSubmit,
+    UseFormRegister,
+    UseFormSetValue
+} from "react-hook-form";
 import { IFeedPagePostOutput } from "../../../../dto/feedpage/post/IFeedPagePostOutput";
 import InputControl from "../../../../components/form/InputControl";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
@@ -14,6 +22,7 @@ import useFetch from "../../../../hooks/useFetch";
 import { IFeedPageCategory } from "../../../../dto/feedpage/category/IFeedPageCategory";
 import i18n from "i18next";
 import { Loader } from "../../../../components/Loader";
+import {useParams} from "react-router-dom";
 
 interface IProps {
     handleSubmit: UseFormHandleSubmit<IFeedPagePostOutput, undefined>;
@@ -27,6 +36,7 @@ interface IProps {
 
 const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors, getValues, onSubmit }) => {
 
+    const {id} = useParams();
     const { t } = useTranslation();
     const [page, setPage] = useState(EFeedPage.HARDWARE.toString());
 
@@ -54,6 +64,32 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
 
     const { data: categories, pending, error } =
         useFetch<IFeedPageCategory[]>(service.getCategories, [i18n.language, page]);
+
+    useEffect(() => {
+        if(id !== undefined){
+            service.getPostMultilang(id).then(resp => {
+                setTimeout(() => {
+                    setValue(`feedPageCategoryId`, resp.feedPageCategoryId);
+                }, 1000);
+
+                setValue(`id`, resp.id);
+                onEditorStateChangeEng(resp!.body.find(b => {
+                    return b.culture === "en"
+                })?.value ?? "");
+                onEditorStateChangeEst(resp!.body.find(b => {
+                    return b.culture === "et"
+                })?.value ?? "");
+
+                setValue(`title.0.value`, resp!.title!.find(t => {
+                    return t.culture === "en"
+                })?.value ?? "");
+
+                setValue(`title.1.value`, resp!.title!.find(t => {
+                    return t.culture === "et"
+                })?.value ?? "");
+            })
+        }
+    }, [id]);
 
 
    

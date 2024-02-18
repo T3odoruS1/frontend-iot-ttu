@@ -24,17 +24,21 @@ export const DesktopHeaderBody: React.FC<IProps> = (props) => {
                 <div
                     className="navbar-placement">
                     <ul key={Math.random()} className="navbar-nav header-container mb-2 mb-lg-0">
-                        {props.routes.map(el => {
-                            return <div key={Math.random()} className={"nav-item header-item"}>{el}</div>;
-                        })}
-                        <li key={Math.random()}>
-                            <LanguageSwitcher toLeft={true}/>
-                            <div className={"under-language"}>
-                                <HeaderNavLink key={Math.random()}
-                                               to={`/${i18n.language}/contact`} title={t('public.header.contactUs')}/>
-                            </div>
+                        {props.routes.map((el, index) => {
+                            if(index !== props.routes.length - 1){
+                                return <div key={Math.random()} className={"nav-item header-item"}>{el}</div>;
+                            }else {
+                                return <li key={Math.random()}>
+                                    <LanguageSwitcher toLeft={true}/>
+                                    <div className={"under-language"}>
+                                        {el}
+                                    </div>
 
-                        </li>
+                                </li>
+                            }
+
+                        })}
+
 
                     </ul>
 

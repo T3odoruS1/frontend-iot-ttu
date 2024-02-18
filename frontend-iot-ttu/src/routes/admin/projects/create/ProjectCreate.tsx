@@ -18,6 +18,7 @@ const ProjectCreate = () => {
     const handleSubmit = async (data: FieldValues) => {
         setPending(true)
         const result = data as IProjectOutput;
+        console.log(result);
         if (!result.id) {
             console.log(result)
             const response = await projectService.create(data as IProjectOutput);

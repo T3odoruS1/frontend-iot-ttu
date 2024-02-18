@@ -66,7 +66,7 @@ export const UserRolePopup = (props: IProps) => {
                 })}>
                     <p>{message ?? errors.roleId?.message}</p>
                     <FormFloating>
-                        <FormSelect {...register("roleId")} id={`roleId`}
+                        <FormSelect className={"no-br"} {...register("roleId")} id={`roleId`}
                                     aria-label={"Chose user role"} name={"roleId"}>
                             {props.roles.map(r => {
                                 return <option value={r.id}>{r.name}</option>

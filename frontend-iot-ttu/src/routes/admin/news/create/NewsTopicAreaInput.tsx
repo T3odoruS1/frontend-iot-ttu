@@ -51,6 +51,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 								<Col md="9">
 									<FormFloating>
 										<FormSelect
+											className={"no-br"}
 											aria-label="Choose topic area"
 											{...register(`topicAreas.${index}.id`)}
 											id={`topicAreas.${index}.id`}

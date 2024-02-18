@@ -18,7 +18,6 @@ const AdminHeader = () => {
 			to={`/${i18n.language}/admin/news`}
 			title={t("admin.header.news")}
 		/>,
-
 		<HeaderNavLink
 			to={`/${i18n.language}/admin/technology`}
 			title={t("admin.header.technology")}
@@ -34,7 +33,10 @@ const AdminHeader = () => {
 		<HeaderNavLink
 			to={`/${i18n.language}/admin/users`}
 			title={t("admin.header.users")}
-		/>
+		/>,
+		<HeaderNavLink
+			to={`/${i18n.language}/admin/contact`}
+			title={t('public.header.contactUs')}/>
 	]
 
 	const Header = (): JSX.Element => {

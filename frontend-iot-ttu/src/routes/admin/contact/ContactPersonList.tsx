@@ -21,6 +21,10 @@ const ContactPersonList = () => {
         navigate("./create");
     }
 
+    const toUpdate = (id: string) => {
+        navigate(`./create/${id}`);
+    }
+
     const remove = (id: string) => {
         service.delete(id).then(res => {
             let filtered = people!.filter(function (obj) {
@@ -39,9 +43,13 @@ const ContactPersonList = () => {
             <div className={"my-5"}>{people?.map(person => {
                 return <div>
                     <div className={''}>
-                        <ActionConfirmationAlert action={() => {remove(person.id)}} displayText={"You sure you want to remove this contact?"}
+                        <ActionConfirmationAlert action={() => {
+                            remove(person.id)
+                        }} displayText={"You sure you want to remove this contact?"}
                                                  buttonText={"Delete"}/>
-                        <ButtonSmaller className={"h-25 m-2 mb-5"}>Update</ButtonSmaller>
+                        <ButtonSmaller onClick={() => {
+                            toUpdate(person.id)
+                        }} className={"h-25 m-2 mb-5"}>Update</ButtonSmaller>
                         <ContactPerson name={person.name} body={person.body}/>
 
 

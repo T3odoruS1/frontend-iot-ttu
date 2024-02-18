@@ -75,7 +75,7 @@ const ImageUploader: FC<Props> = ({
             <div className="col-md-8">
                 <div className="input-group">
                     <button
-                        className="btn btn-ttu-pink"
+                        className="btn b-radius-0 btn-ttu-pink"
                         type="button"
                         id="button-addon2">
                         <label htmlFor="file-input" style={{

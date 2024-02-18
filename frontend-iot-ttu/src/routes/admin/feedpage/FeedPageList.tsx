@@ -87,7 +87,7 @@ const FeedPageList = () => {
         <ButtonSmaller onClick={toCreateCategory} className="m-2">Create category</ButtonSmaller>
         <ButtonSmaller onClick={toCreatePost} className="m-2">Create post</ButtonSmaller>
         <FormFloating>
-            <FormSelect value={page} onChange={onPageChange}>
+            <FormSelect className={"no-br"} value={page} onChange={onPageChange}>
                 <option value={EFeedPage.HARDWARE}>{EFeedPage.HARDWARE}</option>
                 <option value={EFeedPage.RESEARCH}>{EFeedPage.RESEARCH}</option>
             </FormSelect>

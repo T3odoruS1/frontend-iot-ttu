@@ -6,7 +6,7 @@ import {IContactPersonOutput} from "../../../../dto/contact/people/IContactPerso
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useTranslation} from "react-i18next";
 import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Col, Form, FormControl, FormFloating, FormLabel, Row} from "react-bootstrap";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
 import InputControl from "../../../../components/form/InputControl";
@@ -31,19 +31,28 @@ const ContactPersonCreate = () => {
     const [errorResponse, setErrorResponse] = useState("");
     const navigate = useNavigate();
     const [success, setSuccess] = useState(false);
+    const {id} = useParams();
+
 
     const onSubmit = (fieldValues: FieldValues) => {
         setErrorResponse("")
-        service.create(fieldValues as IContactPersonOutput).then(() => {
-            setSuccess(true);
-            setTimeout(() => {
-                setSuccess(false);
-                navigate(`/${i18n.language}/admin/contact`);
-            }, 1000)
-        }).catch((err) => {
-            setErrorResponse(err.message);
-        })
+        if(fieldValues.id === undefined){
+            service.create(fieldValues as IContactPersonOutput).then(() => {
+                setSuccess(true);
+                setTimeout(() => {
+                    setSuccess(false);
+                    navigate(`/${i18n.language}/admin/contact`);
+                }, 1000)
+            }).catch((err) => {
+                setErrorResponse(err.message);
+            })
+        }else{
+            alert("Call back once endpoint added!");
+        }
+
     }
+
+
 
     const {
         register,
@@ -51,11 +60,28 @@ const ContactPersonCreate = () => {
         handleSubmit,
         formState: {errors},
     } =
-        useForm<IContactPersonOutput>({resolver: yupResolver(schema)})
-    useEffect(() => {
+        useForm<IContactPersonOutput>({resolver: yupResolver(schema)});
+
+    const setLangs = () => {
         setValue(`body.0.culture`, "en");
         setValue(`body.1.culture`, "et");
+    }
+
+    useEffect(() => {
+       setLangs();
     }, []);
+
+    useEffect(() => {
+        setLangs();
+        if(id !== undefined){
+            service.getPreview(id).then(res => {
+                setValue(`id`, res.id);
+                setValue(`name`, res.name);
+                onEditorStateChangeEng(res.body.find(b => b.culture === "en")?.value!);
+                onEditorStateChangeEst(res.body.find(b => b.culture === "et")?.value!);
+            })
+        }
+    }, [id]);
 
     const [editorHtmlEng, setEditorHtmlEng] = useState<string>("");
     const [editorHtmlEst, setEditorHtmlEst] = useState<string>("");

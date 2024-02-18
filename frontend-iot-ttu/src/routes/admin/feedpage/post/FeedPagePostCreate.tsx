@@ -53,10 +53,11 @@ const FeedPagePostCreate = () => {
   const service = new FeedService();
   const navigate = useNavigate();
 
-  const { register, setValue, getValues, handleSubmit, formState: { errors } } =
+  const { register, setValue,reset, getValues, handleSubmit, formState: { errors } } =
     useForm<IFeedPagePostOutput>({ resolver: yupResolver(schema) });
 
   useEffect(() => {
+    reset();
     setValue(`title.${0}.culture`, "en");
     setValue(`title.${1}.culture`, "et");
     setValue(`body.${0}.culture`, "en");
@@ -68,10 +69,19 @@ const FeedPagePostCreate = () => {
 
   const onSubmit = (fieldValues: FieldValues) => {
     setSubmitPending(true);
-    service.createPost(fieldValues as IFeedPagePostOutput).then(res => {
-      displaySuccess();
-      setSubmitPending(false);
-    });
+    if(fieldValues.id === undefined){
+      service.createPost(fieldValues as IFeedPagePostOutput).then(res => {
+        displaySuccess();
+        setSubmitPending(false);
+      });
+    }else{
+      service.updatePost(fieldValues as IFeedPagePostOutput).then(res => {
+        displaySuccess();
+        setSubmitPending(false);
+      })
+    }
+
+
   }
 
 
