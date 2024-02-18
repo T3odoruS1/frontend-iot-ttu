@@ -2,7 +2,7 @@ import PageTitle from "../../../../../components/common/PageTitle";
 import InputControl from "../../../../../components/form/InputControl";
 import {Form} from "react-bootstrap";
 import * as yup from "yup";
-import {FieldValues, useForm} from "react-hook-form";
+import {FieldValues, set, useForm} from "react-hook-form";
 import {IContactPersonOutput} from "../../../../../dto/contact/people/IContactPersonOutput";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {IBannerOutput} from "../../../../../dto/banner/IBannerOutput";
@@ -40,17 +40,31 @@ const BannerCreate = () => {
 
 
     const onSubmit = (fieldValues: FieldValues) => {
-        setPending(true);
-        service.create(fieldValues as IBannerOutput).then(res => {
-            setSuccess(true);
-            setTimeout(() => {
-                setSuccess(false);
-                navigate(`/${i18n.language}/admin/banners`);
-            }, 1000)
-        }).catch((err) => {
-            console.log(err)
-            setErrorResponse(err.message);
-        }).finally(() => setPending(false))
+        // setPending(true);
+        if (fieldValues.id === undefined) {
+            service.create(fieldValues as IBannerOutput).then(res => {
+                setSuccess(true);
+                setTimeout(() => {
+                    setSuccess(false);
+                    navigate(`/${i18n.language}/admin/banners`);
+                }, 1000)
+            }).catch((err) => {
+                console.log(err)
+                setErrorResponse(err.message);
+            }).finally(() => setPending(false))
+        } else {
+            service.update(fieldValues as IBannerOutput).then(res => {
+                setSuccess(true);
+                setTimeout(() => {
+                    setSuccess(false);
+                    navigate(`/${i18n.language}/admin/banners`);
+                }, 1000)
+            }).catch((err) => {
+                console.log(err)
+                setErrorResponse(err.message);
+            }).finally(() => setPending(false))
+        }
+
     }
 
     const {t} = useTranslation();
@@ -65,6 +79,14 @@ const BannerCreate = () => {
         useForm<IBannerOutput>({resolver: yupResolver(schema), shouldUnregister: false});
 
 
+    const setLangs = () => {
+        setValue(`body.0.culture`, "en");
+        setValue(`body.1.culture`, "et");
+        setValue(`title.0.culture`, "en");
+        setValue(`title.1.culture`, "et");
+    }
+
+
     const fetch = () => {
         service.getMultilangById(id ?? "").then(resp => {
             reset();
@@ -72,7 +94,11 @@ const BannerCreate = () => {
             setValue(`body.1.value`, resp.body.find(b => b.culture === "et")?.value!);
             setValue(`title.0.value`, resp.title.find(b => b.culture === "et")?.value!);
             setValue(`title.1.value`, resp.title.find(b => b.culture === "et")?.value!);
-            setValue(`image`, resp.image)
+            setValue(`image`, resp.image);
+            setValue(`id`, resp.id);
+            setLangs();
+            console.log(errors)
+
         });
     }
 
@@ -83,11 +109,9 @@ const BannerCreate = () => {
     }, []);
 
     useEffect(() => {
-        setValue(`body.0.culture`, "en");
-        setValue(`body.1.culture`, "et");
-        setValue(`title.0.culture`, "en");
-        setValue(`title.1.culture`, "et");
+        setLangs();
     }, []);
+
 
     return (
         <>
