@@ -30,21 +30,21 @@ const ChangePassword = () => {
         useForm({resolver: yupResolver(schema)});
 
     const onSubmit = (fieldValues: FieldValues) => {
-        // const data = {password: fieldValues.password, oldPassword: fieldValues.oldPassword};
-        // setPending(true)
-        // service.changePassword(data).then(r => {
-        //     setSuccess(true)
-        //     setTimeout(() => {
-        //         setSuccess(false)
-        //         navigate("../..");
-        //     }, 3000)
-        // }).catch(e => {
-        //     if(e.message == 500){
-        //         setMessage("Service is currently unavailable. Try again later.")
-        //     }else{
-        //         setMessage("Wrong old password")
-        //     }
-        // }).finally(() => setPending(false));
+        const data = {password: fieldValues.password, oldPassword: fieldValues.oldPassword};
+        setPending(true)
+        service.changePassword(data).then(r => {
+            setSuccess(true)
+            setTimeout(() => {
+                setSuccess(false)
+                navigate("../..");
+            }, 3000)
+        }).catch(e => {
+            if(e.message == 500){
+                setMessage("Service is currently unavailable. Try again later.")
+            }else{
+                setMessage("Wrong old password")
+            }
+        }).finally(() => setPending(false));
     }
 
     return (
