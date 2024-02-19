@@ -162,6 +162,12 @@
     "partners": "Meie partnerid"
   },
   "contact": {
+    "listTitle": "Kontakt isikute haldamine",
+    "createPerson": "Kontakt isiku lisamine",
+    "personName": "Nimi",
+    "contactInfo": "Kontakt andmed",
+    "contactInfoEng": "Kontakt andmed inglise keeles",
+    "contactInfoEst": "Kontakt andmed eesti keeles",
     "success": "Teie sõnum oli saadetud!",
     "fail": "Midagi läks valesti, prooviga hiljem uuesti!"
   },

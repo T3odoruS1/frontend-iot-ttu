@@ -10,9 +10,11 @@ import {ContactPerson} from "../../../components/ContactPerson";
 import ButtonSmaller from "../../../components/common/ButtonSmaller";
 import {useState} from "react";
 import ActionConfirmationAlert from "../../../components/common/ActionConfirmationAlert";
+import {useTranslation} from "react-i18next";
 
 const ContactPersonList = () => {
     const navigate = useNavigate();
+    const {t} = useTranslation();
     const service = new ContactPersonService();
     const {data: people, pending, setData, error} =
         useFetch<IContactPerson[]>(service.getAll, [i18n.language]);
@@ -38,18 +40,18 @@ const ContactPersonList = () => {
 
     return (
         <>
-            <PageTitle>Contact person management</PageTitle>
-            <ButtonSmaller onClick={toCreate}>Create</ButtonSmaller>
+            <PageTitle>{t('contact.listTitle')}</PageTitle>
+            <ButtonSmaller onClick={toCreate}>{t("common.new")}</ButtonSmaller>
             <div className={"my-5"}>{people?.map(person => {
                 return <div>
                     <div className={''}>
                         <ActionConfirmationAlert action={() => {
                             remove(person.id)
-                        }} displayText={"You sure you want to remove this contact?"}
-                                                 buttonText={"Delete"}/>
+                        }} displayText={t("common.deleteUSure")}
+                                                 buttonText={t("common.delete")}/>
                         <ButtonSmaller onClick={() => {
                             toUpdate(person.id)
-                        }} className={"h-25 m-2 mb-5"}>Update</ButtonSmaller>
+                        }} className={"h-25 m-2 mb-5"}>{t("common.update")}</ButtonSmaller>
                         <ContactPerson name={person.name} body={person.body}/>
 
 

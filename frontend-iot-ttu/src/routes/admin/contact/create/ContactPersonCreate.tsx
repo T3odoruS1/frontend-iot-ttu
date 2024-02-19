@@ -98,13 +98,13 @@ const ContactPersonCreate = () => {
 
     return (
         <>
-            <PageTitle>Create contact person</PageTitle>
+            <PageTitle>{t(`contact.createPerson`)}</PageTitle>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 {success && <SuccessAlert/>}
                 {errorResponse && <p className={"text-danger"}>{errorResponse}</p>}
                 <div className={"mt-2"}>
                     <InputControl type={"text"} error={errors.name?.message} register={register}
-                                  name={'name'} label={"Name"}/>
+                                  name={'name'} label={t(`contact.personName`)}/>
                 </div>
 
 
@@ -112,7 +112,7 @@ const ContactPersonCreate = () => {
                     <Col>
                         <div className={"contact-person-editor"}>
                             <p className="mt-5">
-                                {t("admin.news.adminNews.create.contentEng")}
+                                {t("contact.contactInfoEng")}
                             </p>
                             <ReactQuill
                                 theme="snow"
@@ -127,7 +127,7 @@ const ContactPersonCreate = () => {
                     <Col>
                         <div className={'contact-person-editor'}>
                             <p className="mt-5">
-                                {t("admin.news.adminNews.create.contentEst")}
+                                {t("contact.contactInfoEng")}
                             </p>
                             <ReactQuill
                                 theme="snow"
@@ -143,7 +143,7 @@ const ContactPersonCreate = () => {
                 <ButtonPrimary
                     className="btn_custom_out mt-5 w-25 align-self-center" type={"button"}
                     onClick={handleSubmit(onSubmit)}>
-                    Submit
+                    {t('common.submit')}
                 </ButtonPrimary>
 
 

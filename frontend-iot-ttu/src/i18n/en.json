@@ -162,6 +162,12 @@
     "partners": "Our partners"
   },
   "contact": {
+    "listTitle": "Contact person management",
+    "createPerson": "Add contact person",
+    "personName": "Person name",
+    "contactInfo": "Contact information",
+    "contactInfoEng": "Contact information in english",
+    "contactInfoEst": "Contact information in estonian",
     "success": "Your message has been sent!",
     "fail": "Something went wrong. Try again later!"
   },
