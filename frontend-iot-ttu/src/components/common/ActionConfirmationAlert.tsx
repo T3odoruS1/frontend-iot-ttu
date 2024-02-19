@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect, useRef, useState} from "react";
 import ButtonSmaller from "./ButtonSmaller";
 import {useTranslation} from "react-i18next";
 
@@ -9,12 +9,38 @@ interface IProps {
 }
 const ActionConfirmationAlert: FC<IProps> = ({action, displayText, buttonText}) => {
     const [confirmDelete, setConfirmDelete] = useState(false);
+    const popupRef = useRef<HTMLDivElement>(null);
+
+    const closePopup = () => {
+        setConfirmDelete(false);
+    }
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (popupRef.current && popupRef.current.isEqualNode(event.target as Node)) {
+            closePopup();
+        }
+    };
+
+    const handleEscapeKey = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+            closePopup();
+        }
+    };
+
     useEffect(() => {
         if (confirmDelete) {
+            document.addEventListener('mousedown', handleClickOutside);
+            document.addEventListener('keydown', handleEscapeKey);
             document.body.style.overflow = "hidden";
         } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleEscapeKey);
             document.body.style.overflow = "auto";
         }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleEscapeKey);
+        };
     }, [confirmDelete]);
 
     const {t} = useTranslation();
@@ -22,21 +48,10 @@ const ActionConfirmationAlert: FC<IProps> = ({action, displayText, buttonText}) 
     if (confirmDelete) {
         return (
             <div
-                style={{
-                    position: "fixed",
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "rgba(0,0,0,0.5)",
-                    backdropFilter: 'blur(25px)',
-
-                    zIndex: 9999,
-                }}>
-                <div className="card_custom_form p-5">
+                ref={popupRef}
+                className={"popup"}
+                >
+                <div className="card_custom_form p-5" >
                     <h2>{displayText}</h2>
                     <ButtonSmaller
                         type="button"
