@@ -11,17 +11,20 @@ interface IProps {
 
 const Collapse: FC<IProps> = ({isActive, title, children}) => {
 
+
+
     const [isExpanded, setExpanded] = useState(isActive);
     const {getToggleProps, getCollapseProps} = useCollapse({
         isExpanded,
     });
 
 
-    return <div>
-        <SubHeadingPurple className="toggle-category mt-4 all-caps" {...getToggleProps({
+    return <div className={"collapse-card"}>
+        <SubHeadingPurple className="toggle-category all-caps" {...getToggleProps({
             onClick: () => setExpanded((prevExpanded) => !prevExpanded)
-        })}><span className={isExpanded ? "expanded-collapse-arrow" : "collape-arrow"}>› </span>{title}</SubHeadingPurple>
-        <div {...getCollapseProps()}>{children}</div>
+        })}><span className={isExpanded ? "expanded-collapse-arrow" : "collape-arrow"}>› </span>{title}
+        </SubHeadingPurple>
+        <div {...getCollapseProps()}><div className={"m-2"}>{children}</div></div>
     </div>
 }
 

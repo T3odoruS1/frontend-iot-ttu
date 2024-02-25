@@ -423,6 +423,7 @@ ul li {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 1rem;
+  padding-bottom: 1rem;
   // border-top: 1px solid #e4067e;
 }
 
@@ -492,7 +493,12 @@ b {
   position: relative; /* Necessary for the absolute positioning of the pseudo-element to relate to this element */
   z-index: 0; /* Reset z-index to default stacking context */
   background-color: #F1EEEE; /* Change to your desired background color */
+}
 
+.collapse-card{
+  border-radius: 1rem;
+  background-color: #f9f9f9;
+  padding-bottom: 0.5rem;
 }
 
 /* .sticky-footer {

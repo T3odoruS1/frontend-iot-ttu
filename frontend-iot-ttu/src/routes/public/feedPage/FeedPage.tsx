@@ -23,7 +23,7 @@ const FeedPage: FC<IProps> = ({pageIdentifier}) => {
             if(category.feedPageCategoryPost.length === 0){
                 return <></>
             }
-            return <Collapse isActive={true} title={category.title} children={<div>
+            return <div className={"mt-4"}><Collapse isActive={true} title={category.title} children={<div>
 
                 {category.feedPageCategoryPost.map(post => {
                     return <div className={"mt-4"}><FeedPagePostElement
@@ -34,7 +34,7 @@ const FeedPage: FC<IProps> = ({pageIdentifier}) => {
                         id={""} /></div>
                 })}
 
-            </div>} />
+            </div>} /></div>
         })}</>
 }
 

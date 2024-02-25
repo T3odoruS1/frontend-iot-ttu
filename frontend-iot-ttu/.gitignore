@@ -14,9 +14,7 @@
 # misc
 .DS_Store
 
-.env.dev
-.env.test
-.env.prod
+.env
 
 npm-debug.log*
 yarn-debug.log*
