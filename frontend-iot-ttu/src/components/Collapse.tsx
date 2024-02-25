@@ -10,9 +10,6 @@ interface IProps {
 }
 
 const Collapse: FC<IProps> = ({isActive, title, children}) => {
-
-
-
     const [isExpanded, setExpanded] = useState(isActive);
     const {getToggleProps, getCollapseProps} = useCollapse({
         isExpanded,
