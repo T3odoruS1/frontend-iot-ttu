@@ -5,7 +5,7 @@ import {HttpMethod, HttpTemplate} from "./HttpTemplate";
 import {IApiResponse} from "./IApiResponse";
 
 export class HttpClient {
-    private static baseUrl = "http://localhost:5180/api/v1";
+    private static baseUrl = "http://185.170.213.135:5180/api/v1";
     protected axios!: AxiosInstance;
 
     private static instance: HttpClient | null = null;
