@@ -4,17 +4,13 @@ import SubHeadingPurple from "../../../components/common/SubheadingPurple";
 import {ImageLinkContainer} from "../../../components/ImageLinkContainer";
 import territory from './../../../assets/ttu-territory.jpeg'
 import hall from './../../../assets/ttu-hall.jpeg'
-import telia from './../../../assets/partners/Telia.png'
-import tallink from './../../../assets/partners/Tallink.png'
-import kinema from './../../../assets/partners/kinema_.png'
-import haridusmin from './../../../assets/partners/haridusmin.png'
-import dfsd from './../../../assets/partners/dfsd.png'
 import EditablePage from "../editablePage/EditablePage";
 import {PartnerImages} from "../../admin/home/partnerImage/PartnerImages";
 import {useTranslation} from "react-i18next";
 
 const Home = () => {
     const {t} = useTranslation();
+    <p>Added this text to be sure that deployment works correctely</p>
     return <>
         <CarouselComponent/>
         <div className="home-page-content-container">
