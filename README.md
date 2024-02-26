@@ -2,3 +2,4 @@
 Frontend for taltech iot project
 
 TODO add deployment instructions
+Don't forget!
