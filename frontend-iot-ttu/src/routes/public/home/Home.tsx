@@ -10,9 +10,10 @@ import {useTranslation} from "react-i18next";
 
 const Home = () => {
     const {t} = useTranslation();
-    <p>Added this text to be sure that deployment works correctely</p>
+
     return <>
         <CarouselComponent/>
+        <p>Added this text to be sure that deployment works correctly</p>
         <div className="home-page-content-container">
             <Row>
 
@@ -42,7 +43,6 @@ const Home = () => {
             {/*<img className={"partner-image"} src={kinema} alt={"Kinema"}/>*/}
 
             <PartnerImages/>
-
 
 
         </div>

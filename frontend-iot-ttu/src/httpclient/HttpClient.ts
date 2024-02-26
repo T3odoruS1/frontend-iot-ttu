@@ -55,7 +55,7 @@ export class HttpClient {
         //     return response;
         // });
 
-
+        this.axios.defaults.timeout = 15000;
         // On success => return request
         // On 401 refresh token and retry
         // On other fails => return request
