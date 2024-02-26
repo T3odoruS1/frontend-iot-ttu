@@ -5,7 +5,10 @@ import {HttpMethod, HttpTemplate} from "./HttpTemplate";
 import {IApiResponse} from "./IApiResponse";
 
 export class HttpClient {
+
     private static baseUrl = window.__ENV__?.BASE_URL;
+
+   
     protected axios!: AxiosInstance;
 
     private static instance: HttpClient | null = null;
