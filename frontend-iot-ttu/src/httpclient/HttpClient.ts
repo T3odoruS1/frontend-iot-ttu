@@ -46,14 +46,6 @@ export class HttpClient {
 
 
     private setupInterceptors(){
-        // this.axios.interceptors.request.use(request => {
-        //     console.log('Starting Request', JSON.stringify(request, null, 2))
-        //     return request
-        // })
-        // this.axios.interceptors.response.use(function (response) {
-        //     console.warn("Getting response", JSON.stringify(response, null, 2));
-        //     return response;
-        // });
 
         this.axios.defaults.timeout = 15000;
         // On success => return request
