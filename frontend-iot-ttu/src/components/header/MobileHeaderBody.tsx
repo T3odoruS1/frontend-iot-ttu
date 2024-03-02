@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 import i18n from "i18next";
 import hamburgerIcon from '../../assets/hamburger.png';
 import LanguageSwitcher from "./LanguageSwitcher";
-import { CSSTransition } from "react-transition-group";
-
+import {CSSTransition} from "react-transition-group";
+import {useCollapse} from "react-collapsed";
 
 
 interface IProps {
@@ -15,34 +15,35 @@ interface IProps {
 
 export const MobileHeaderBody: React.FC<IProps> = (props) => {
     const [expanded, setExpanded] = useState(false);
-    const toggleExpand = () => {
-        setExpanded(!expanded);
-    }
 
+    const {getToggleProps, getCollapseProps} =
+        useCollapse();
 
     return (
         <nav className="top-gradient navbar navbar-expand-lg navbar-light bg-light pb-0">
             <div className={"d-flex flex-column w-100"}>
                 <div className={"responsive-header"}>
-                    <Link key={Math.random()} className="navbar-brand mr-auto pb-0 m-2" to={`/${i18n.language}`}>
+                    <Link key={Math.random()} className="navbar-brand mr-auto pb-0 mx-2" to={`/${i18n.language}`}>
                         {props.logoElement}
                     </Link>
                     <div className={"my-auto mx-4"}>
-                        <button className={"hamburger-button mb-1 h-25"} onClick={toggleExpand} type={"button"}>
+                        <button className={"hamburger-button mb-1 h-25"} {...getToggleProps({
+                            onClick: () => setExpanded((prevExpanded) => !prevExpanded)
+                        })} type={"button"}>
                             <img src={hamburgerIcon} className={"hamburger"} alt={"toggle menu"}/>
                         </button>
                     </div>
                 </div>
 
 
-                {expanded &&
-                    <ul className={`navbar-nav menu`}>
+                <ul {...getCollapseProps()} className={`navbar-nav`}>
+                    <div className={"mx-2"}>
                         {props.routes.map((route, index) => {
-                            return <div key={Math.random()} className={"nav-item m-2"}>{route}</div>
+                            return <div key={Math.random()} className={"nav-item"}>{route}</div>
                         })}
-                        <LanguageSwitcher/>
-                    </ul>
-                }
+                    </div>
+                    <LanguageSwitcher/>
+                </ul>
             </div>
         </nav>
     );

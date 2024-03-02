@@ -1,5 +1,4 @@
 import {FC, ReactNode, useState} from "react";
-import {IFeedPageCategory} from "../dto/feedpage/category/IFeedPageCategory";
 import {useCollapse} from "react-collapsed";
 import SubHeadingPurple from "./common/SubheadingPurple";
 

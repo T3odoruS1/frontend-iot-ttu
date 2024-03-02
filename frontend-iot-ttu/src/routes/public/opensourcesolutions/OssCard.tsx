@@ -21,13 +21,40 @@ interface IProps {
     solution: IOpenSourceSolution
 }
 
+const schema = yup.object().shape({
+    email: yup.string().email().required()
+})
 const OSSCard: FC<IProps> = ({solution}) => {
     const navigate = useNavigate();
     const goToLink = () => {
         window.open(solution.link, '_blank');
     }
 
+    const [submitMode, setSubmitMode] = useState(false);
+
     const {t} = useTranslation();
+
+
+    const {register, handleSubmit, formState: {errors}} =
+        useForm({resolver: yupResolver(schema)})
+
+    const service = new OpenSourceSolutionService();
+    const [message, setMessage] = useState("");
+    const [successful, setSuccessful] = useState(true);
+
+
+    const onSubmit = (fieldValues: FieldValues) => {
+        let data: IRequestOSSAccess = {solutionId: solution.id, email: fieldValues.email};
+        service.getAccess(data).then(res => {
+            setMessage("Check your inbox!")
+            setSuccessful(true);
+        }).catch(e => {
+            setMessage("Oops, something went wrong :(")
+            setSuccessful(false);
+        })
+    }
+
+
     return <Col md={6}>
         <div className={"p-2"}>
             <div className={"oss-card notification d-flex w-100"}
@@ -43,7 +70,7 @@ const OSSCard: FC<IProps> = ({solution}) => {
                             <img className={"lock"} alt={"Public"} src={unlock}/>
                         </Show.Else>
                     </Show>
-                    }{solution.title}
+                }{solution.title}
                 </h3>
                 <div className="notibody d-flex flex-column mt-0 align-items-start"
                      style={{flexGrow: 1}}
@@ -53,14 +80,32 @@ const OSSCard: FC<IProps> = ({solution}) => {
                     <div className={"to-bottom mb-2 w-100"}>
 
                         <Show>
+
                             <Show.When isTrue={solution.private}>
-                                <Popup trigger={<ButtonPrimary> Click here </ButtonPrimary>}
-                                       content={
-                                           <RequestAccess solutionId={solution.id}/>
-                                       }></Popup>
+                                <ButtonPrimary onClick={() => {
+                                    setSubmitMode(true)
+                                }}>Get access</ButtonPrimary>
+                            </Show.When>
+                            <Show.When isTrue={submitMode}>
+                                <Form onSubmit={handleSubmit(onSubmit)}>
+                                    <InputControl type={"text"} error={errors.email?.message} register={register}
+                                                  name={'email'} label={t(`oss.emailToGet`)}/>
+                                    <div className={"d-flex"}>
+                                        <ButtonPrimary
+                                            className="btn_custom_out mt-2 align-self-center" type={"button"}
+                                            onClick={handleSubmit(onSubmit)}>
+                                            {t('common.submit')}
+                                        </ButtonPrimary>
+                                        <ButtonPrimary className="btn_custom_out mt-2 mx-2 align-self-center"
+                                                       onClick={() => {
+                                                           setSubmitMode(false)
+                                                       }}>Cancel</ButtonPrimary>
+                                    </div>
+                                </Form>
+
                             </Show.When>
                             <Show.Else>
-                                <ButtonPrimary onClick={goToLink}> Click here </ButtonPrimary>
+                                <ButtonPrimary onClick={goToLink}>Go to repository</ButtonPrimary>
                             </Show.Else>
                         </Show>
                     </div>

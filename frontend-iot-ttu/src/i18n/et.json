@@ -184,5 +184,8 @@
     "year": "Aasta",
     "projectManager": "Projekti juht",
     "projectVolume": "Projekti maht(euros)"
+  },
+  "oss": {
+    "emailToGet": "Sisestage oma emaili et ligi saada"
   }
 }
