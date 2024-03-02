@@ -780,8 +780,8 @@ body.safari .banner-container {
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-  min-height: 60vh;
-  height: 90vh;
+  //min-height: 60vh;
+  //height: 90vh;
   /*width: 100%;*/
   width: 100vw;
   /*min-width: 100vw;*/
@@ -792,6 +792,7 @@ body.safari .banner-container {
   margin-right: -50vw;
   overflow: hidden;
   display: flex;
+  aspect-ratio: 16/9 !important;
   justify-content: center;
   background-blend-mode: overlay;
   align-items: center;
@@ -1310,4 +1311,20 @@ a:hover {
   border-left: #342b60 solid 3px;
   border-radius: 1rem;
 background-color: #f9f9f9;
+}
+
+.oss-card{
+  min-height: 400px;
+}
+
+.to-bottom{
+  margin-top: auto !important;
+  justify-self: flex-end !important;
+  align-self: flex-end !important;
+}
+
+.lock{
+  margin-right: 10px;
+  height: 25px;
+  width: 25px;
 }

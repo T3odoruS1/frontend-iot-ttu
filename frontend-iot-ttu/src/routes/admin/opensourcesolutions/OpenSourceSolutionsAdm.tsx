@@ -1,58 +1,79 @@
-import {IOpenSourceSolution} from "../../../dto/IOpenSourceSolution";
 import PageTitle from "../../../components/common/PageTitle";
-import {Col, Row} from "react-bootstrap";
-import TopicAreaFilters from "../../../components/common/FilterBox";
+import {OpenSourceSolutionService} from "../../../services/OpenSourceSolutionService";
+import useFetch from "../../../hooks/useFetch";
+import {IOpenSourceSolution} from "../../../dto/opensourcesolutions/IOpenSourceSolution";
+import {useTranslation} from "react-i18next";
+import {Loader} from "../../../components/Loader";
+import React from "react";
+import {Table} from "react-bootstrap";
 import ButtonSmaller from "../../../components/common/ButtonSmaller";
-import Popup from "../../../components/Popup";
-import {OpenSourceElementCard} from "../../public/opensourcesolutions/OpenSourceElementCard";
-import {OpenSourceSolutionRequestPopup} from "../../public/opensourcesolutions/OpenSourceSolutionRequestPopup";
-import OpensourceSolutionCreatePopup from "./create/OpensourceSolutionCreatePopup";
+import ActionConfirmationAlert from "../../../components/common/ActionConfirmationAlert";
+import ErrorPage from "../../ErrorPage";
+import {useNavigate} from "react-router-dom";
 
 const OpenSourceSolutionAdm = () => {
-  const pending = false;
-  const solutions: IOpenSourceSolution[] = [
-    {
-      id: "1",
-      title: "Some repo 1",
-      description: "Here is some description of this repo. Some cool stuff in it.",
-      topicAreas: [
-        {id: "1", name: "Programming"},
-        {id: "1", name: "Java"},
-        {id: "1", name: "Apple"}]
-    },
-    {
-      id: "2",
-      title: "Some repo 2",
-      description: "Here is other description. Check this repo out. There is Shrek photos",
-      topicAreas: [
-        {id: "1", name: "5G"},
-        {id: "1", name: "Robotics"}]
+    const {i18n, t} = useTranslation();
+    const service = new OpenSourceSolutionService();
+    const navigate = useNavigate();
+    const {data, pending, error, fetchData} =
+        useFetch<IOpenSourceSolution[]>(service.getAll, [i18n.language]);
+    const onDelete = async (id: string) => {
+        await service.delete(id);
+        fetchData();
     }
-  ]
 
-  return <>
-    <PageTitle>Vabavaralised lahendused</PageTitle>
-    <Popup trigger={<ButtonSmaller>Create</ButtonSmaller>}
-           content={<OpensourceSolutionCreatePopup/>}/>
-    {pending ? <p>Loading...</p> :
-        (<Row className="flex-column flex-md-row">
-          <Col className="col-md-10 order-md-0 order-1">
-            <Row className="m-2 px-0">
-              {solutions.map((solution) => {
-                return <Popup
-                    trigger={<OpenSourceElementCard data={solution}/>}
-                    content={<OpenSourceSolutionRequestPopup />}
-                    cname={"my-2"}
-                    key={solution.id}
-                />
-              })}
-            </Row>
-          </Col>
-          <Col className="filter-box px-md-4 col-md-2 order-md-1 order-0">
-            {/*<TopicAreaFilters/>*/}
-          </Col>
-        </Row>)}
-  </>
+
+    if (!pending && (error || !data)) {
+        return <ErrorPage/>
+    }
+
+    const toCreate = () => {
+        navigate("./create");
+    }
+
+    const toUpdate = (id: string) => {
+        navigate(`./create/${id}`);
+    }
+
+
+    return <>
+        <PageTitle>Vabavaralised lahendused</PageTitle>
+        {pending && <Loader/>}
+        <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>{t('common.new')}</ButtonSmaller></div>
+
+        <Table variant="striped">
+            <caption>Open source solutions</caption>
+            {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">{t("common.title")}</th>
+                <th scope="col">{t("common.actions")}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {data?.map((solution, index) => {
+                    return (
+                        <tr key={solution.id}>
+                            <th scope="row">{index + 1}</th>
+                            <td>{solution.title}</td>
+                            <td>
+                                <ButtonSmaller onClick={() => {
+                                    toUpdate(solution.id)
+                                }} className="mb-2">{t("common.update")}</ButtonSmaller><br/>
+                                <ActionConfirmationAlert action={() => {
+                                    onDelete(solution.id)
+                                }} displayText={t("common.deleteUSure")}
+                                                         buttonText={t("common.delete")}/>
+                            </td>
+                        </tr>
+                    )
+                }
+            )}
+            </tbody>
+        </Table>
+
+    </>
 }
 
 export default OpenSourceSolutionAdm;
