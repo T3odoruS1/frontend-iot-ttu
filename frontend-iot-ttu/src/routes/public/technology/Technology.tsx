@@ -14,11 +14,13 @@ const Technology = () => {
                 <EditablePage showTitle={true} pageIdentifier={pageIdentifier}/>
             </Col>
             <Col lg={3} md={4}>
-                <div className="mt-2 home-page-link-container justify-content-end">
-                    <ImageLinkContainer image={territory} to={`./hardware`} label={"Available hardware"}/>
-                </div>
-                <div className="mt-2 home-page-link-container justify-content-end">
-                    <ImageLinkContainer image={hall} to={`./research`} label={"Research topics"}/>
+                <div className={"nav-images mr-2"}>
+                    <div className="w-100">
+                        <ImageLinkContainer image={territory} to={`./hardware`} label={"Available hardware"}/>
+                    </div>
+                    <div className="w-100">
+                        <ImageLinkContainer image={hall} to={`./research`} label={"Research topics"}/>
+                    </div>
                 </div>
             </Col>
         </Row>

@@ -7,14 +7,13 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {useTranslation} from "react-i18next";
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {Col, Form, FormControl, FormFloating, FormLabel, Row} from "react-bootstrap";
-import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
+import {Col, Form, Row} from "react-bootstrap";
 import InputControl from "../../../../components/form/InputControl";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import i18n from "i18next";
 import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
 import ReactQuill from "react-quill";
-import {formats, modules, reducedFormats, reducedModules} from "../../../../configs/configurations";
+import {reducedFormats, reducedModules} from "../../../../configs/configurations";
 
 const schema = yup.object().shape({
     id: yup.string().uuid().nullable(),

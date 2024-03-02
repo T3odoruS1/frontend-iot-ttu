@@ -14,7 +14,7 @@ export const ImageLinkContainer: FC<IProps> = ({image, to, label}) => {
         navigate(to);
     }
     return (
-        <div onClick={onImageClick} className="image-link" style={{backgroundImage: `url(${image})`, backgroundSize: "cover"}}>
+        <div onClick={onImageClick} className="image-link m-2" style={{backgroundImage: `url(${image})`, backgroundSize: "cover"}}>
             <div className="image-link-label">{label} <span className="link-arrow">→</span></div>
         </div>
     );

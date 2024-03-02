@@ -9,8 +9,6 @@ import Public from "./routes/public/Public";
 
 const AdminNews = React.lazy(() => import("./routes/admin/news/AdminNews"));
 const NewsCreate = React.lazy(() => import("./routes/admin/news/create/NewsCreate"));
-const OpenSourceSolutionAdm = React.lazy(() => import("./routes/admin/opensourcesolutions/OpenSourceSolutionsAdm"));
-const OpensourceSolutionCreatePopup = React.lazy(() => import("./routes/admin/opensourcesolutions/create/OpensourceSolutionCreatePopup"));
 const ProjectsAdm = React.lazy(() => import("./routes/admin/projects/ProjectsAdm"));
 const ProjectCreate = React.lazy(() => import("./routes/admin/projects/create/ProjectCreate"));
 const Statistics = React.lazy(() => import("./routes/admin/statistics/Statistics"));
@@ -23,7 +21,6 @@ const Home = React.lazy(() => import("./routes/public/home/Home"));
 const News = React.lazy(() => import("./routes/public/news/News"));
 const NewsPiece = React.lazy(() => import("./routes/public/news/details/NewsPiece"));
 const OpenSourceSolutions = React.lazy(() => import("./routes/public/opensourcesolutions/OpenSourceSolutions"));
-const OpenSourceSolution = React.lazy(() => import("./routes/public/opensourcesolutions/details/OpenSourceSolution"));
 const Projects = React.lazy(() => import("./routes/public/projects/Projects"));
 const ProjectDetails = React.lazy(() => import("./routes/public/projects/details/ProjectDetails"));
 const NewsList = React.lazy(() => import("./routes/public/news/list/NewsList"));
@@ -48,6 +45,9 @@ const Technology = React.lazy(() => import("./routes/public/technology/Technolog
 const TechnologyPublic = React.lazy(() => import("./routes/public/technology/TechnologyPublic"));
 const Hardware = React.lazy(() => import("./routes/public/technology/Hardwate"));
 const Research = React.lazy(() => import("./routes/public/technology/Research"));
+const OSSRoot = React.lazy(() => import("./routes/admin/opensourcesolutions/OSSRoot"));
+const OpenSourceSolutionsAdm = React.lazy(() => import("./routes/admin/opensourcesolutions/OpenSourceSolutionsAdm"));
+const OSSCreate = React.lazy(() => import("./assets/OSSCreate"));
 export const router = createBrowserRouter([
     {
         path: "",
@@ -107,11 +107,15 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: "opensourcesolutions",
-                        element: <OpenSourceSolutionAdm/>,
+                        element: <OSSRoot/>,
                         children: [
                             {
-                                path: "create",
-                                element: <OpensourceSolutionCreatePopup/>,
+                                path: "",
+                                element: <OpenSourceSolutionsAdm/>,
+                            },
+                            {
+                                path: "create/:id?",
+                                element: <OSSCreate/>,
                             },
                         ],
                     },
@@ -220,13 +224,7 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: "opensourcesolutions",
-                        element: <OpenSourceSolutions/>,
-                        children: [
-                            {
-                                path: ":id",
-                                element: <OpenSourceSolution/>,
-                            },
-                        ],
+                        element: <OpenSourceSolutions/>
                     },
                     {
                         path: "projects",
