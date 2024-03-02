@@ -121,9 +121,19 @@ body {
   justify-content: space-between;
 }
 
+@media(max-height: 992px){
+  .responsive-header{
+    height: 60px;
+  }
+}
+
 .hamburger {
   width: 25px;
   height: 25px;
+}
+
+.some-gray{
+  color: slategray;
 }
 
 .hamburger-button {
@@ -151,6 +161,8 @@ body {
   max-width: 100vw;
   overflow: hidden;
 }
+
+
 
 .top-text, .dropdown-menu-custom {
   color: white;
@@ -186,10 +198,16 @@ body {
 
 
 .branding {
-
   width: 125px;
   overflow: hidden;
   font-weight: 200;
+}
+
+@media(max-width: 992px){
+  .branding {
+    width: 70px;
+    overflow: hidden;
+  }
 }
 
 .result-div {
@@ -497,7 +515,7 @@ b {
 
 .collapse-card{
   border-radius: 1rem;
-  background-color: #f9f9f9;
+  background-color: #F1EEEE;
   padding-bottom: 0.5rem;
 }
 
@@ -780,11 +798,7 @@ body.safari .banner-container {
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-  //min-height: 60vh;
-  //height: 90vh;
-  /*width: 100%;*/
   width: 100vw;
-  /*min-width: 100vw;*/
   position: relative;
   left: 50%;
   right: 50%;
@@ -856,11 +870,29 @@ body.safari .banner-container {
   list-style-type: circle;
 }
 
-.home-page-link-container {
-  display: flex;
-  //align-items: center;
-  justify-content: center;
+//.home-page-link-container {
+//  display: flex;
+//  //align-items: center;
+//  justify-content: center;
+//}
+
+.nav-images{
+  display:flex;
+  flex-direction: column;
+  min-height: 200px;
+  margin-right: 5px;
 }
+
+@media(max-width: 767px){
+  .nav-images{
+    min-height: 200px;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+    margin-right: 0px;
+  }
+}
+
 
 .expanded-collapse-arrow{
   writing-mode: vertical-lr;
@@ -881,8 +913,9 @@ body.safari .banner-container {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  min-width: 200px;
-  min-height: 200px;
+  min-width: 150px;
+  min-height: 150px;
+
   aspect-ratio: 1/1;
   max-width: 300px;
   max-height: 300px;
@@ -890,11 +923,22 @@ body.safari .banner-container {
   overflow: hidden;
   transition: background-color 0.3s ease;
   cursor: pointer;
+  align-content: center;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .image-link{
+    min-width: 150px;
+    min-height: 150px;
+
+  }
 }
 
 .image-link:hover {
   background-color: rgba(0, 0, 0, 0.6);
   background-size: 110%;
+
 }
 
 
@@ -1103,9 +1147,6 @@ a:hover {
   margin-bottom: 0px;
   display: flex;
   width: 50%;
-  //align-items: center;
-  //justify-content: center;
-  //background-color: #F1EEEE;
   padding: 0.5rem;
   border-radius: 8px;
 }

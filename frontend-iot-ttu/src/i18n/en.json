@@ -184,5 +184,8 @@
     "year": "Year",
     "projectManager": "Project manager",
     "projectVolume": "Project volume(in euro)"
+  },
+  "oss": {
+    "emailToGet": "Enter your email to get access"
   }
 }
