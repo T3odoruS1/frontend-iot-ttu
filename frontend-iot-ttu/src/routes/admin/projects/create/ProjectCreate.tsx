@@ -3,8 +3,6 @@ import {useNavigate} from "react-router-dom";
 import CreateProjectFormWithPreview from "./CreateProjectFormWithPreview";
 import {FieldValues} from "react-hook-form";
 import {IProjectOutput} from "../../../../dto/project/IProjectOutput";
-import Lottie from "lottie-react";
-import animationData from "../../../../assets/lottieAnimations/done_check.json"
 import {useState} from "react";
 import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
 

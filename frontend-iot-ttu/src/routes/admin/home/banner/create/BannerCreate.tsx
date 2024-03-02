@@ -97,8 +97,6 @@ const BannerCreate = () => {
             setValue(`image`, resp.image);
             setValue(`id`, resp.id);
             setLangs();
-            console.log(errors)
-
         });
     }
 

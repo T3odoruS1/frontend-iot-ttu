@@ -28,7 +28,7 @@ const schema = yup.object().shape({
         .length(2)
         .of(
             yup.object().shape({
-                value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+                value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).max(90, "Too long insert transation ").required(),
                 culture: yup.string().min(1, "").required(),
             })
         )
