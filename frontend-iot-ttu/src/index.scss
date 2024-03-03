@@ -1,6 +1,7 @@
 @import "react-quill/dist/quill.snow.css";
 @import "react-quill/dist/quill.core.css";
 
+html,
 body {
   margin: 0;
   font-family: RegularTTU sans-serif;
@@ -8,6 +9,7 @@ body {
   font-weight: normal;
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 
@@ -965,6 +967,13 @@ body.safari .banner-container {
 .partner-image {
   margin: 1.5rem;
   max-width: 300px;
+}
+
+
+@media(max-width: 767px){
+  .partner-image{
+    width: 200px;
+  }
 }
 
 .swiper {
