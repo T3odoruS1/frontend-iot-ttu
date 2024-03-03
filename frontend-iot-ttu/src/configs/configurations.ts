@@ -89,4 +89,4 @@ export const reducedFormats = [
 
 
 
-export const SUPPORTED_FILE_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp', 'image/base64'];
+export const SUPPORTED_FILE_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp', 'image/base64', 'image/heic'];
