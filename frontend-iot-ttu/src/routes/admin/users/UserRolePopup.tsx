@@ -17,7 +17,7 @@ interface IProps {
     email: string;
     user: IUser
     roles: IRole[]
-    fetch: () => {}
+    fetch: () => void
 }
 
 const schema = yup.object().shape({
@@ -25,6 +25,8 @@ const schema = yup.object().shape({
 })
 
 export const UserRolePopup = (props: IProps) => {
+    const identityService = new IdentityService();
+
 
     const {t} = useTranslation();
 
@@ -45,8 +47,10 @@ export const UserRolePopup = (props: IProps) => {
             }).catch(e => setMessage("Service unavailable"))
     }
 
-    const identityService = new IdentityService();
-    const {register, handleSubmit, setValue, formState: {errors}} =
+    const {register,
+        handleSubmit,
+        setValue,
+        formState: {errors}} =
         useForm<{ roleId: string }>({resolver: yupResolver(schema)});
 
     useEffect(() => {

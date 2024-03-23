@@ -13,16 +13,17 @@ const UserCreate = () => {
     const [error, setError] = useState<string>("")
     const navigate = useNavigate();
 
-    const handleSubit = async (data: FieldValues) => {
+    const handleSubmit = async (data: FieldValues) => {
         console.log(data)
-        identityService.register(data as IRegister)
+        identityService.blindRegister(data as IRegister)
             .then(response => {
-                if (!response.jwt) {
-                    console.log("No jwt in response")
-                }else{
-                    setJwtResponseCtx!(response);
-                    navigate("../..")
-                }
+                // if (!response.jwt) {
+                //     console.log("No jwt in response")
+                // }else{
+                //     setJwtResponseCtx!(response);
+                //     navigate("../..")
+                // }
+                navigate("../..");
             })
             .catch((e) => {
                 console.log(e)
@@ -30,7 +31,7 @@ const UserCreate = () => {
             })
     }
 
-    return <UserCreateForm error={error} onSubmit={handleSubit}/>
+    return <UserCreateForm error={error} onSubmit={handleSubmit}/>
 }
 
 export default UserCreate;

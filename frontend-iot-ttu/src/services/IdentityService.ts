@@ -67,6 +67,12 @@ export class IdentityService{
         return processResponse<void>(response);
     }
 
+    blindRegister = async (data: IRegister) : Promise<void> => {
+        const response =
+            await this.client.post<void, IErrorResponse>("/users/registerUnknown", data);
+        return processResponse<void>(response);
+    }
+
     changePassword = async (data: IChangePassword): Promise<IJwtResponse> => {
         const response = await this.client.postAuthenticated<IJwtResponse, IErrorResponse>("/users/changePassword", data);
         if (response.data?.jwt) {

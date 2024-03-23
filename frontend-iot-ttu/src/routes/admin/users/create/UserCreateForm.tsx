@@ -20,7 +20,6 @@ interface IProps {
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
-    password: yup.string().required(),
     firstName: yup.string().required(),
     lastName: yup.string().required(),
     userName: yup.string().required(),
@@ -40,7 +39,7 @@ export const UserCreateForm = (props: IProps) => {
     return (
         <>
             <PageTitle>Create new moderator/admin</PageTitle>
-            <p>Input all user data. Email will be sent to specified address and new user will finish registration</p>
+            <p>Input all user data. Email will be sent to specified address. Password will be specified there</p>
             <p className={"text-danger"}>{props.error}</p>
             <form onSubmit={
                 handleSubmit((dto) => {
@@ -57,15 +56,15 @@ export const UserCreateForm = (props: IProps) => {
                     />
                 </div>
 
-                <div className={"mt-2"}>
-                    <InputControl
-                        name={`password`}
-                        register={register}
-                        type="password"
-                        error={errors.password?.message}
-                        label={"Password"}
-                    />
-                </div>
+                {/*<div className={"mt-2"}>*/}
+                {/*    <InputControl*/}
+                {/*        name={`password`}*/}
+                {/*        register={register}*/}
+                {/*        type="password"*/}
+                {/*        error={errors.password?.message}*/}
+                {/*        label={"Password"}*/}
+                {/*    />*/}
+                {/*</div>*/}
 
                 <div className={"mt-2"}>
                     <InputControl

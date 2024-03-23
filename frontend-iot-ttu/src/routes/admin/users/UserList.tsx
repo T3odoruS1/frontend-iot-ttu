@@ -1,5 +1,4 @@
 import {IdentityService} from "../../../services/IdentityService";
-import useUsers from "../../../hooks/useUsers";
 import PageTitle from "../../../components/common/PageTitle";
 import {Loader} from "../../../components/Loader";
 import ActionConfirmationAlert from "../../../components/common/ActionConfirmationAlert";
@@ -10,31 +9,27 @@ import {useContext} from "react";
 import {JwtContext} from "../../Root";
 import useFetch from "../../../hooks/useFetch";
 import {IRole} from "../../../dto/identity/IRole";
-import {NewsService} from "../../../services/NewsService";
-import {ProjectService} from "../../../services/ProjectService";
-import {INews} from "../../../dto/news/INews";
-import i18n from "i18next";
-import {IProject} from "../../../dto/project/IProject";
 import {useTranslation} from "react-i18next";
+import {IUser} from "../../../dto/identity/IUser";
+import Show from "../../../components/common/Show";
+import ButtonSmaller from "../../../components/common/ButtonSmaller";
 
 const UserList = () => {
     const navigate = useNavigate();
     const identityService = new IdentityService();
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
 
-    // leave this as it is. components needs fetch callback
-    const {users, pending, error, fetch} = useUsers(identityService)
+    const {data: users, pending, error, fetchData: fetch} =
+        useFetch<IUser[]>(identityService.getUsers, [])
 
     const {data: roles} = useFetch<IRole[]>(identityService.getRoles);
 
     const canUseActions = (): boolean => {
-        if(jwtResponseCtx?.roleIds.length === 0){
+        if (jwtResponseCtx?.roleIds.length === 0) {
             return false;
         }
-        if(jwtResponseCtx?.roleIds.at(0) === roles?.find(r => r.name === "USER")?.id){
-            return false;
-        }
-        return true;
+        return jwtResponseCtx?.roleIds.at(0) !== roles?.find(r => r.name === "USER")?.id;
+
     }
 
     const deactivateUser = (id: string) => {
@@ -42,14 +37,18 @@ const UserList = () => {
         identityService.deactivateUser({userId: id}).then(r => {
             if (r === undefined) {
                 navigate("./login");
-                // return <NotAuthenticated/> will not work here.
             } else {
                 fetch();
             }
         })
     }
 
+
     const {t} = useTranslation();
+
+    const toBlindRegister = () => {
+        navigate("./create")
+    }
 
     // // TODO enable for production
     // if(!jwtResponseCtx?.jwt || jwtResponseCtx.roleIds.length === 0){
@@ -59,10 +58,16 @@ const UserList = () => {
     return (
         <>
             <PageTitle>{t("user.listTitle")}</PageTitle>
-            {pending && <Loader/>}
+            <Show>
+                <Show.When isTrue={pending}><Loader/></Show.When>
+            </Show>
+            <Show>
+                <Show.When isTrue={canUseActions()}>
+                    <ButtonSmaller onClick={toBlindRegister}>Create user</ButtonSmaller>
+                </Show.When>
+            </Show>
             <Table variant="striped">
                 <caption>{t("user.users")}</caption>
-                {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
                 <thead>
                 <tr>
                     <th scope="col">#</th>

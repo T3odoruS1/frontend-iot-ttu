@@ -58,14 +58,15 @@ export const router = createBrowserRouter([
         element: <Root/>,
         errorElement: <ErrorPage/>,
         children: [
-            {
-                path: "*",
-                element: <NotFoundPage/>
-            },
+
             {
                 path: "admin",
                 element: <Admin/>,
                 children: [
+                    {
+                        path: "*",
+                        element: <NotFoundPage/>
+                    },
                     {
                         path: "",
                         element: <AdminLandingPage/>
@@ -200,6 +201,10 @@ export const router = createBrowserRouter([
                 path: "",
                 element: <Public/>,
                 children: [
+                    {
+                        path: "*",
+                        element: <NotFoundPage/>
+                    },
                     {
                         path: "contact",
                         element: <Contact/>,

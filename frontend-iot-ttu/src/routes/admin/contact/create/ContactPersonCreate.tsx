@@ -31,22 +31,32 @@ const ContactPersonCreate = () => {
     const navigate = useNavigate();
     const [success, setSuccess] = useState(false);
     const {id} = useParams();
+    const [pending, setPending] = useState(false);
 
+    const onSuccess = () => {
+        setSuccess(true);
+        setPending(false);
+        setTimeout(() => {
+            setSuccess(false);
+            navigate(`/${i18n.language}/admin/contact`);
+        }, 1000)
+    }
 
     const onSubmit = (fieldValues: FieldValues) => {
         setErrorResponse("")
+        setPending(true)
         if(fieldValues.id === undefined){
             service.create(fieldValues as IContactPersonOutput).then(() => {
-                setSuccess(true);
-                setTimeout(() => {
-                    setSuccess(false);
-                    navigate(`/${i18n.language}/admin/contact`);
-                }, 1000)
+                onSuccess();
             }).catch((err) => {
                 setErrorResponse(err.message);
             })
         }else{
-            alert("Call back once endpoint added!");
+            service.update(fieldValues as IContactPersonOutput).then(() => {
+               onSuccess();
+            }).catch((err) => {
+                setErrorResponse(err.message);
+            })
         }
 
     }
