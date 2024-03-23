@@ -12,6 +12,8 @@ import {ProjectService} from "../../../../services/ProjectService";
 import {ProjectPreview} from "./ProjectPreview";
 import {IProjectMultilang} from "../../../../dto/project/IProjectMultilang";
 import useFetch from "../../../../hooks/useFetch";
+import Show from "../../../../components/common/Show";
+import {Loader} from "../../../../components/Loader";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
@@ -118,6 +120,9 @@ const CreateProjectFormWithPreview = (props: IProps) => {
 
     return (
         <>
+            <Show>
+                <Show.When isTrue={pending}><Loader/></Show.When>
+            </Show>
             <div className="">
                 <PageTitle>{t('projects.projects')}</PageTitle>
                 <FormFloating>
