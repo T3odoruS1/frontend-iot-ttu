@@ -840,6 +840,15 @@ body.safari .banner-container {
   font-weight: 500;
 }
 
+@media (max-width: 767px) {
+  .home-page-title{
+    font-size: 2rem;
+  }
+  .home-page-subtitle{
+    font-size: 1.5rem;
+  }
+}
+
 .underline-last-line {
   position: relative;
   display: inline-block; /* Ensures the ::after is relative to the text */

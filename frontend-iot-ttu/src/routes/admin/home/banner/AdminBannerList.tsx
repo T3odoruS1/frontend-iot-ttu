@@ -86,7 +86,7 @@ const AdminBannerList = () => {
             <DragDropContext onDragEnd={onDnD}>
                 <Droppable droppableId={"banners"}>
                     {(provided) => (
-                        <ul className={"banners p-0"} {...provided.droppableProps} ref={provided.innerRef}>
+                        <ul className={"banners unselectable p-0"} {...provided.droppableProps} ref={provided.innerRef}>
                             {banners?.map((banner, index) => {
                                 return (<Draggable key={banner.id} draggableId={banner.id} index={index}>
                                     {(provided) => (
