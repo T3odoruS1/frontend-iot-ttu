@@ -32,7 +32,7 @@ const OSSCard: FC<IProps> = ({solution}) => {
 
     const [submitMode, setSubmitMode] = useState(false);
 
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
 
 
     const {register, handleSubmit, formState: {errors}} =
@@ -45,7 +45,7 @@ const OSSCard: FC<IProps> = ({solution}) => {
 
     const onSubmit = (fieldValues: FieldValues) => {
         let data: IRequestOSSAccess = {solutionId: solution.id, email: fieldValues.email};
-        service.getAccess(data).then(res => {
+        service.getAccess(data, i18n.language).then(res => {
             setMessage("Check your inbox!")
             setSuccessful(true);
         }).catch(e => {
@@ -84,7 +84,7 @@ const OSSCard: FC<IProps> = ({solution}) => {
                             <Show.When isTrue={solution.private}>
                                 <ButtonPrimary onClick={() => {
                                     setSubmitMode(true)
-                                }}>Get access</ButtonPrimary>
+                                }}>{t("oss.getAccess")}</ButtonPrimary>
                             </Show.When>
                             <Show.When isTrue={submitMode}>
                                 <Form onSubmit={handleSubmit(onSubmit)}>
@@ -99,13 +99,13 @@ const OSSCard: FC<IProps> = ({solution}) => {
                                         <ButtonPrimary className="btn_custom_out mt-2 mx-2 align-self-center"
                                                        onClick={() => {
                                                            setSubmitMode(false)
-                                                       }}>Cancel</ButtonPrimary>
+                                                       }}>{t("common.cancel")}</ButtonPrimary>
                                     </div>
                                 </Form>
 
                             </Show.When>
                             <Show.Else>
-                                <ButtonPrimary onClick={goToLink}>Go to repository</ButtonPrimary>
+                                <ButtonPrimary onClick={goToLink}>{t("oss.gotoRepo")}</ButtonPrimary>
                             </Show.Else>
                         </Show>
                     </div>
@@ -121,7 +121,7 @@ interface IRequestProps {
 
 const RequestAccess = (props: IRequestProps) => {
     const service = new OpenSourceSolutionService();
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
     const [message, setMessage] = useState("");
     const [successful, setSuccessful] = useState(true);
 
@@ -131,7 +131,7 @@ const RequestAccess = (props: IRequestProps) => {
 
     const onSubmit = (fieldValues: FieldValues) => {
         let data: IRequestOSSAccess = {solutionId: props.solutionId, email: fieldValues.email};
-        service.getAccess(data).then(res => {
+        service.getAccess(data, i18n.language).then(res => {
             setMessage("Check your inbox!")
             setSuccessful(true);
         }).catch(e => {

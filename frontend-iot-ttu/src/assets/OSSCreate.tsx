@@ -104,7 +104,7 @@ const OSSCreate = () => {
 
     return (
         <>
-            <PageTitle>Create open source solution</PageTitle>
+            <PageTitle>{t("oss.title")}</PageTitle>
             {errorResponse && <p>{errorResponse}</p>}
             {success && <SuccessAlert/>}
             <Form onSubmit={handleSubmit(onSubmit)}>
@@ -113,47 +113,47 @@ const OSSCreate = () => {
                         register={register}
                         error={errors.title?.[0]?.value?.message}
                         name={"title.0.value"}
-                        label={"Main title english"}/>
+                        label={t("projects.titleEng")}/>
                 </div>
                 <div className={"mt-2"}>
                     <InputControl
                         register={register}
                         error={errors.title?.[1]?.value?.message}
                         name={"title.1.value"}
-                        label={"Main title estonian"}/>
+                        label={t("projects.titleEst")}/>
                 </div>
                 <div className={"mt-2"}>
                     <InputControl
                         register={register}
                         error={errors.body?.[0]?.value?.message}
                         name={"body.0.value"}
-                        label={"Description"}/>
+                        label={t("oss.descriptionEng")}/>
                 </div>
                 <div className={"mt-2"}>
                     <InputControl
                         register={register}
                         error={errors.body?.[1]?.value?.message}
                         name={"body.1.value"}
-                        label={"Description"}/>
+                        label={t("oss.descriptionEst")}/>
                 </div>
                 <div className={"mt-2"}>
                     <InputControl
                         register={register}
                         error={errors.link?.message}
                         name={"link"}
-                        label={"Link to repo"}/>
+                        label={t("oss.link")}/>
                 </div>
                 <div className={"mt-2"}>
                     <FormCheck
                         {...register("private")}
-                        label={"Private repository"}
+                        label={t("oss.privateRepo")}
                         type={"switch"}
                     />
                 </div>
                 <ButtonPrimary
                     className="btn_custom_out mt-5 w-25 align-self-center" type={"button"}
                     onClick={handleSubmit(onSubmit)}>
-                    {t("Saata")}
+                    {t("common.submit")}
                 </ButtonPrimary>
             </Form>
         </>

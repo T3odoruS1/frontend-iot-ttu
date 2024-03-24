@@ -306,7 +306,11 @@
     },
     "submit": {
       "en": "Submit",
-      "et": "Saata"
+      "et": "Saada"
+    },
+    "cancel": {
+      "en": "Cancel",
+      "et": "Tühista"
     },
     "passwordsMustMatch": {
       "en": "Passwords must match",
@@ -362,11 +366,11 @@
     },
     "createdAt": {
       "en": "Created at",
-      "et": "Loodud kuupäeval"
+      "et": "Loodud"
     },
     "createdBy": {
       "en": "Created by",
-      "et": "Loodud"
+      "et": "Looja"
     },
     "name": {
       "en": "Name",
@@ -608,9 +612,37 @@
     }
   },
   "oss": {
+    "title": {
+      "en": "Open source solutions",
+      "et": "Vabavaralised lahendused"
+    },
     "emailToGet": {
-      "en": "Enter your email to get access",
-      "et": "Sisestage oma emaili et ligi saada"
+      "en": "Enter your email",
+      "et": "Sisestage oma emaili"
+    },
+    "descriptionEng": {
+      "en": "Description in English",
+      "et": "Kirjeldus inglise keeles"
+    },
+    "descriptionEst": {
+      "en": "Description in Estonian",
+      "et": "Kirjeldus eesti keeles"
+    },
+    "link": {
+      "en": "Link to resource",
+      "et": "Link resursile"
+    },
+    "privateRepo": {
+      "en": "Private repository",
+      "et": "Privaatne"
+    },
+    "getAccess": {
+      "en": "Get access",
+      "et": "Vaata"
+    },
+    "gotoRepo": {
+      "en": "Go to repository",
+      "et": "Vaata"
     }
   }
 }

@@ -53,9 +53,9 @@ export class OpenSourceSolutionService{
         );
     }
 
-    getAccess = async (data: IRequestOSSAccess): Promise<void> => {
+    getAccess = async (data: IRequestOSSAccess, lang: string): Promise<void> => {
         return processResponse<void>(
-            await this.client.post<void, IErrorResponse>(`${this.baseUrl}/requestAccess`, data)
+            await this.client.post<void, IErrorResponse>(`${this.baseUrl}/${lang}/requestAccess`, data)
         );
     }
 

@@ -1,17 +1,18 @@
 import { TitleAllCaps } from "../../../../components/common/TitleAllCaps";
 import { IFeedPagePost } from "../../../../dto/feedpage/post/IFeedPagePost";
+import {useTranslation} from "react-i18next";
 
 
 
 const FeedPagePostElement = (post: IFeedPagePost) => {
-
+    const {t} = useTranslation();
     return <div className="notification w-100">
         <div className="notiglow"></div>
         <div className="notiborderglow"></div>
         <h1 className="notititle header-pink all-caps">{post.title}</h1>
         <div className="notibody">
             <div>
-                <p>Created: {post.createdAt}</p>
+                <p>{t("common.createdAt")}: {post.createdAt}</p>
             </div>
             <div className="w-100 text-dark">
                 <div className="quill">
