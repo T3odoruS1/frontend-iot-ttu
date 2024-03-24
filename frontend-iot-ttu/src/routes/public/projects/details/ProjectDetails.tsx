@@ -11,6 +11,7 @@ import {ProjectService} from "../../../../services/ProjectService";
 import useFetch from "../../../../hooks/useFetch";
 import {IProject} from "../../../../dto/project/IProject";
 import i18n from "i18next";
+import {formatCurrency} from "../../../../utils/roundNumber";
 
 
 
@@ -37,7 +38,7 @@ const ProjectDetails = () => {
             {pending ? <Loader/> : (<ProjectContent
                 body={project?.body!}
                 projectManager={project?.projectManager!}
-                projectVolume={project?.projectVolume!}
+                projectVolume={formatCurrency(project?.projectVolume!)}
                 title={project?.title!}
                 year={project?.year!}/>)}
 

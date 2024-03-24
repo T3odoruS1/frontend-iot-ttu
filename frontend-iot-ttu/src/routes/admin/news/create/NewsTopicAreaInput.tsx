@@ -39,7 +39,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 	
 	const {data: topicAreas, error} = useFetch<ITopicAreaWithChildren[]>(service.getAll, [i18n.language]);
 
-	if(error || !topicAreas) return <ErrorPage/>
+	if(error) return <ErrorPage/>
 
 	return (
 		<>
@@ -57,7 +57,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 											id={`topicAreas.${index}.id`}
 											name={`topicAreas.${index}.id`}>
 												<option key={-1} value="">{t('admin.news.adminNews.create.chooseTopicArea')}</option>
-											{topicAreas.map((topicArea) => {
+											{topicAreas?.map((topicArea) => {
 												return (
 													<Fragment key={topicArea.id}>
 														<option id={topicArea.id} value={topicArea.id}>

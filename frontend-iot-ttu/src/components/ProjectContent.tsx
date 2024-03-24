@@ -7,7 +7,7 @@ interface IProps {
     title: string;
     body: string;
     year: number;
-    projectVolume: number;
+    projectVolume: string;
     projectManager: string;
 }
 

@@ -5,6 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import {TopicAreaService} from "../../services/TopicAreaService";
 import TopicAreaElement from "../../routes/public/news/list/TopicAreaElement";
 import {ITopicAreaWithChildren} from "../../dto/topicarea/ITopicAreaWithChildren";
+import Show from "./Show";
 
 interface IProps {
     onTopicAreaChange: (newTopicArea: string | null) => void;
@@ -18,8 +19,8 @@ const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
     const isInitiallyMobile = window.innerWidth < 768;
     const [isExpanded, setExpanded] = useState(!isInitiallyMobile);
     const [mobile, setMobile] = useState(isInitiallyMobile);
-
-    const {getToggleProps, getCollapseProps} = useCollapse({isExpanded});
+    const duration = 1000;
+    const {getToggleProps, getCollapseProps} = useCollapse({isExpanded, duration});
 
     useEffect(() => {
         console.log(isExpanded)
@@ -39,7 +40,7 @@ const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
     }, [mobile]);
 
     return (
-        <div className={`collapse-card p-2 ${!isExpanded ? "clickable-pointer" : ""} ${mobile ? "mb-2" : ""}`}>
+        <div className={`collapse-card gray-bg p-2 ${!isExpanded ? "clickable-pointer" : ""} ${mobile ? "mb-2" : ""}`}>
             {tPending && <p>Loading...</p>}
             <div {...getToggleProps({
                 onClick: () => setExpanded((prevExpanded) => !prevExpanded),
@@ -51,7 +52,7 @@ const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
                     {t("public.news.filters")}
                 </h3>
             </div>
-            <ul className={"p-2"} {...getCollapseProps()}>
+            <ul className={""} {...getCollapseProps()}>
                 {topicAreas?.map((topicArea) => (
                     <TopicAreaElement
                         key={topicArea.id} // Assuming each topicArea has a unique 'id'

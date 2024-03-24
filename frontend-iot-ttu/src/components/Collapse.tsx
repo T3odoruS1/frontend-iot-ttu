@@ -10,8 +10,10 @@ interface IProps {
 
 const Collapse: FC<IProps> = ({isActive, title, children}) => {
     const [isExpanded, setExpanded] = useState(isActive);
+    const duration = 750;
     const {getToggleProps, getCollapseProps} = useCollapse({
         isExpanded,
+        duration
     });
 
 
@@ -20,7 +22,7 @@ const Collapse: FC<IProps> = ({isActive, title, children}) => {
             onClick: () => setExpanded((prevExpanded) => !prevExpanded)
         })}><span className={isExpanded ? "expanded-collapse-arrow" : "collape-arrow"}>› </span>{title}
         </SubHeadingPurple>
-        <div {...getCollapseProps()}><div className={"m-2"}>{children}</div></div>
+        <div {...getCollapseProps()}><div className={"mt-2"}>{children}</div></div>
     </div>
 }
 

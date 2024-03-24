@@ -94,7 +94,7 @@ const NewsForm: React.FC<IProps> =
                     <span className="text-danger"> {t(errors.image?.message.toString())}</span>
                 }
                 </FormLabel>
-                    <ImageUploader
+                <ImageUploader
                     label={t("admin.news.adminNews.create.uploadPoster")}
                     register={register}
                     setValue={setValue}
@@ -129,6 +129,7 @@ const NewsForm: React.FC<IProps> =
                 <SubHeadingPurple className="mt-5">
                     {t("admin.news.adminNews.create.contentEng")}
                 </SubHeadingPurple>
+                <p className={"text-danger"}>{t(errors.body?.[1]?.value?.message?.toString())}</p>
                 <ReactQuill
                     theme="snow"
                     value={editorHtmlEng}
@@ -140,6 +141,7 @@ const NewsForm: React.FC<IProps> =
                 <SubHeadingPurple className="mt-5">
                     {t("admin.news.adminNews.create.contentEst")}
                 </SubHeadingPurple>
+                <p className={"text-danger"}>{t(errors.body?.[1]?.value?.message?.toString())}</p>
                 <ReactQuill
                     theme="snow"
                     value={editorHtmlEst}

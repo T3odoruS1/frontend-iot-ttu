@@ -8,6 +8,7 @@ import {Col, Row} from "react-bootstrap";
 import EditablePage from "../../editablePage/EditablePage";
 import ErrorPage from "../../../ErrorPage";
 import {useNavigate} from "react-router-dom";
+import {formatCurrency} from "../../../../utils/roundNumber";
 
 interface IProps {
     project: IProject
@@ -35,7 +36,7 @@ export const ProjectCardElement: FC<IProps> = ({project}) => {
                     <p className={"text-small-gray mt-4"}>{t("common.projectManager")}</p>
                     <h5 className={"header-pink mt-1"}>{project.projectManager}</h5>
                     <p className={"text-small-gray mt-4"}>{t("common.volume")}</p>
-                    <h5 className={"header-pink mt-1"}>{project.projectVolume}</h5>
+                    <h5 className={"header-pink mt-1"}>{formatCurrency(project.projectVolume)}</h5>
                 </div>
             </div>
         </Col>

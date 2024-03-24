@@ -3,6 +3,7 @@ import {ITopicAreaGet, ITopicAreaGetMultilang} from "../../../../dto/topicarea/I
 import {ProjectContent} from "../../../../components/ProjectContent";
 import {IProject} from "../../../../dto/project/IProject";
 import i18n from "i18next";
+import {formatCurrency} from "../../../../utils/roundNumber";
 
 interface IProps {
     formValues: IProjectOutput;
@@ -28,7 +29,7 @@ export const ProjectPreview = (props: IProps) => {
                                     : (getContent(props.formValues?.body?.at(1)?.value, "Pealkirja ei ole"))
                             }
                             projectManager={props.formValues.projectManager}
-                            projectVolume={props.formValues.projectVolume}
+                            projectVolume={formatCurrency(props.formValues.projectVolume)}
                             title={i18n.language === "et"
                                 ? (props.formValues?.title?.at(1)?.value ?? "No content")
                                 : (props.formValues?.title?.at(0)?.value ?? "Sisu ei ole")}

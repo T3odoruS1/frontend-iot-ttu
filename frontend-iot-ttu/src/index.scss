@@ -339,7 +339,7 @@ ul li {
   min-width: 200px;
   border-radius: 8px;
   border-left: 5px solid transparent; /* Set the width and color of the left border */
-  border-image: linear-gradient(360deg, #342b60, #60c3d5); /* Define the gradient */
+  border-image: linear-gradient(360deg, #342b60, #60c3d5);
   border-image-slice: 1;
   //background-color: #F1EEEE;
 }
@@ -368,6 +368,37 @@ ul li {
   color: #e4067e;
 }
 
+.zoom-image {
+  width: 100%; /* Make the image fit the container */
+  transition: transform 0.5s ease; /* Animate the transform property, change duration and timing function as needed */
+}
+
+//.zoom-img-container{
+//  width: 300px;
+//}
+
+.zoom-img-container {
+  width: 100%; /* Adjust based on your preference */
+  height: 100%; /* Adjust based on your preference */
+  overflow: hidden;
+  display: flex; /* Centers the image in the container */
+  justify-content: center;
+  align-items: center;
+}
+
+.zoom-img-container img {
+  transition: transform 0.5s ease; /* Smooth transition for zoom effect */
+  width: 100%; /* Maintain the width of the image */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.zoom-img-container:hover img {
+  transform: scale(1.1); /* Adjust scale value as needed for desired zoom */
+}
+
+.zoom-image:hover {
+  transform: scale(1.1); /* Scale the image to 110% of its original size on hover */
+}
 
 .dropdown-icon {
   color: #e4067e;
@@ -441,7 +472,9 @@ ul li {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 1rem;
-  padding-bottom: 1rem;
+  margin-bottom: 0;
+  margin-top: 1rem;
+  //padding-bottom: 1rem;
   // border-top: 1px solid #e4067e;
 }
 
@@ -473,7 +506,7 @@ ul li {
 }
 
 .text-purple-main {
-  color: #342b60;
+    color: #342b60;
   font-weight: 500;
   font-family: ThickTTU sans-serif;
   font-size: 1.2rem;
@@ -515,8 +548,16 @@ b {
 
 .collapse-card{
   border-radius: 1rem;
+
+  //padding-bottom: 0.5rem;
+}
+
+.gray-bg{
   background-color: #F1EEEE;
-  padding-bottom: 0.5rem;
+}
+
+ul{
+  margin-bottom: 0;
 }
 
 /* .sticky-footer {
@@ -845,7 +886,7 @@ body.safari .banner-container {
     font-size: 2rem;
   }
   .home-page-subtitle{
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 }
 
@@ -946,7 +987,6 @@ body.safari .banner-container {
 
 .image-link:hover {
   background-color: rgba(0, 0, 0, 0.6);
-  background-size: 110%;
 
 }
 

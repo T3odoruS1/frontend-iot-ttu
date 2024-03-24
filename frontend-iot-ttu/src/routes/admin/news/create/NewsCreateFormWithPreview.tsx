@@ -40,7 +40,8 @@ const NewsCreateFormWithPreview = (props: IProps) => {
             .length(2)
             .of(
                 yup.object().shape({
-                    value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+                    value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`)
+                        .required("admin.news.adminNews.create.validation.fieldIsRequired"),
                     culture: yup.string().min(1, "").required(),
                 })
             )
