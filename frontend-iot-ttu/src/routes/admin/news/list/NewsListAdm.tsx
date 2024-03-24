@@ -19,7 +19,7 @@ const NewsListAdm = () => {
     const newsService = new NewsService();
     const topicAreaService = new TopicAreaService();
 
-    const {data: news, setData: setNews, pending, error} =
+    const {data: news, setData: setNews, pending, error, fetchData} =
         useFetch<INews[]>(newsService.getAll, [i18n.language])
     const {data: topicAreas, pending: pendingTopicAreas, error: topicAreasError} =
         useFetch<ITopicAreaGet[]>(topicAreaService.getAll, [i18n.language]);
@@ -29,11 +29,7 @@ const NewsListAdm = () => {
     const {t} = useTranslation();
 
     const onDelete = async (id: string) => {
-        await newsService.remove(id);
-        let filtered = news!.filter(function (obj) {
-            return obj.id !== id;
-        });
-        setNews(filtered);
+        newsService.remove(id).then(fetchData).catch(e => {alert(e)})
     }
 
     const toCreate = () => {

@@ -72,7 +72,7 @@ const CarouselComponent = () => {
                 {contents[index]}
             </div>
         </Show.When>
-        <Show.Else><Loader/></Show.Else>
+        {/*<Show.Else><Loader/></Show.Else>*/}
     </Show>
 
 
