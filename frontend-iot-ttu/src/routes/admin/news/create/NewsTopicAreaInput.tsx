@@ -10,11 +10,11 @@ import React, {Fragment} from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
-import { ITopicAreaWithChildren } from "../../../../dto/topicarea/ITopicAreaWithChildren";
 import { TopicAreaService } from "../../../../services/TopicAreaService";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import useFetch from "../../../../hooks/useFetch";
 import ErrorPage from "../../../ErrorPage";
+import {ITopicAreaGet} from "../../../../dto/topicarea/ITopicAreaGet";
 
 interface IProps {
 	control: Control<INewsOutputDTO, any>;
@@ -37,7 +37,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 
 	const service = new TopicAreaService();
 	
-	const {data: topicAreas, error} = useFetch<ITopicAreaWithChildren[]>(service.getAll, [i18n.language]);
+	const {data: topicAreas, error} = useFetch<ITopicAreaGet[]>(service.getAll, [i18n.language]);
 
 	if(error) return <ErrorPage/>
 
@@ -63,17 +63,6 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 														<option id={topicArea.id} value={topicArea.id}>
 															{topicArea.name}
 														</option>
-														{topicArea.childrenTopicAreas?.map((child) => {
-															return (
-																<option
-																	id={child.id}
-																	value={child.id}
-																	className="pl-2"
-																	key={child.id}>
-																	&nbsp;&nbsp;&nbsp;{child.name}
-																</option>
-															);
-														})}
 													</Fragment>
 												);
 											})}

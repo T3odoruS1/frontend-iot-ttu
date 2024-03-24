@@ -1,0 +1,612 @@
+{
+  "admin": {
+    "admin": {
+      "en": "Admin",
+      "et": "Administraator"
+    },
+    "header": {
+      "news": {
+        "en": "News",
+        "et": "Uudised"
+      },
+      "openSourceSolutions": {
+        "en": "Open source solutions",
+        "et": "Vabavaralised lahendused"
+      },
+      "projects": {
+        "en": "Projects",
+        "et": "Projektid"
+      },
+      "public": {
+        "en": "Public website",
+        "et": "Avalik leht"
+      },
+      "statistics": {
+        "en": "Statistics",
+        "et": "Statistika"
+      },
+      "technology": {
+        "en": "Technology",
+        "et": "Tehnoloogia"
+      },
+      "users": {
+        "en": "Users",
+        "et": "Kasutajad"
+      },
+      "banners": {
+        "en": "Banners",
+        "et": "Bannerid"
+      },
+      "admin": {
+        "en": "Admin",
+        "et": "Admin"
+      }
+    },
+    "imageUploader": {
+      "chooseFile": {
+        "en": "Choose file",
+        "et": "Vali file"
+      },
+      "clickToUploadFile": {
+        "en": "Click to upload file",
+        "et": "Vajuta faili lisamiseks"
+      }
+    },
+    "news": {
+      "adminNews": {
+        "create": {
+          "addTopicArea": {
+            "en": "Add topic area",
+            "et": "Lisa kategoria"
+          },
+          "author": {
+            "en": "Author",
+            "et": "Autor"
+          },
+          "authorName": {
+            "en": "Author name",
+            "et": "Autori nimi"
+          },
+          "categories": {
+            "en": "Categories",
+            "et": "Kategooriad"
+          },
+          "chooseTopicArea": {
+            "en": "Choose topic area",
+            "et": "Vali kategooria"
+          },
+          "contentEng": {
+            "en": "Main content in English",
+            "et": "Postituse sisu inglise keeles"
+          },
+          "contentEst": {
+            "en": "Main content in Estonian",
+            "et": "Postituse sisu eesti keeles"
+          },
+          "create": {
+            "en": "Create",
+            "et": "Salvesta"
+          },
+          "createNewPost": {
+            "en": "Create new post",
+            "et": "Uus postitus"
+          },
+          "createTopicArea": {
+            "en": "Create topic area",
+            "et": "Loo kategoria"
+          },
+          "fileIsTooBig": {
+            "en": "File is too large. Maximum size is {{size}} MB.",
+            "et": "Faili suurus on liiga suur. Maksimum suurus on {{size}} MB."
+          },
+          "thumbnail": {
+            "en": "Thumbnail",
+            "et": "Postituse pilt"
+          },
+          "titleInEnglish": {
+            "en": "Title in English",
+            "et": "Pealkiri inglise keeles"
+          },
+          "titleInEstonian": {
+            "en": "Title in Estonian",
+            "et": "Pealkiri eesti keeles"
+          },
+          "titles": {
+            "en": "Titles",
+            "et": "Pealkirjad"
+          },
+          "uploadPoster": {
+            "en": "Upload a poster",
+            "et": "Pilt"
+          },
+          "NAME_ALREADY_EXISTS": {
+            "en": "Topic area with this name already exists",
+            "et": "Kategooria selle nimega on juba olemas"
+          },
+          "validation": {
+            "fieldIsRequired": {
+              "en": "This field is mandatory",
+              "et": "See väli on kohustuslik"
+            },
+            "AuthorNameLen": {
+              "en": "Author name should be at least 1 letter",
+              "et": "Autori nimi peab olema vähemalt 1 täht"
+            },
+            "topicAreaMandatory": {
+              "en": "Choose at least 1 topic area",
+              "et": "Vali vähemalt 1 kategooria"
+            },
+            "imageRequired": {
+              "en": "Add some image for this post",
+              "et": "Lisa pilt"
+            }
+          }
+        }
+      }
+    },
+    "projects": {
+      "validation": {
+        "year": {
+          "en": "Must be a positive number",
+          "et": "Peab olema positivne number"
+        },
+        "projectVolume": {
+          "en": "Must be a positive number",
+          "et": "Peab olema positivne number"
+        }
+      }
+    },
+    "topicAreas": {
+      "createTopicArea": {
+        "en": "Create new topic area",
+        "et": "Loo uus kategooria"
+      },
+      "NAME_ALREADY_EXISTS": {
+        "en": "Topic area with this name already exists",
+        "et": "Kategooria selle nimega on juba olemas"
+      }
+    }
+  },
+  "author": {
+    "en": "author",
+    "et": "autor"
+  },
+  "public": {
+    "header": {
+      "adminPanel": {
+        "en": "Admin panel",
+        "et": "Admiini panel"
+      },
+      "contactUs": {
+        "en": "Contact us",
+        "et": "Võta ühendust"
+      },
+      "home": {
+        "en": "Home",
+        "et": "Koduleht"
+      },
+      "news": {
+        "en": "News",
+        "et": "Uudised"
+      },
+      "openSourceSolutions": {
+        "en": "Open source solutions",
+        "et": "Vabavaralised lahendused"
+      },
+      "projects": {
+        "en": "Projects",
+        "et": "Projektid"
+      },
+      "technology": {
+        "en": "Technology",
+        "et": "Tehnoloogia"
+      }
+    },
+    "news": {
+      "news": {
+        "en": "News",
+        "et": "Uudised"
+      },
+      "filters": {
+        "en": "Filters",
+        "et": "Filtrid"
+      },
+      "news-list": {
+        "en": "News list",
+        "et": "Teised uudised"
+      },
+      "contact": {
+        "en": "Interested? Contact us!",
+        "et": "Huvitatud? Võta ühendust!"
+      }
+    },
+    "contact": {
+      "validEmail": {
+        "en": "Please provide a valid email",
+        "et": "Sisestage õige email"
+      },
+      "contact": {
+        "en": "Contact us",
+        "et": "Võta ühendust"
+      },
+      "yourInfo": {
+        "en": "Your information",
+        "et": "Teie info"
+      },
+      "yourMessage": {
+        "en": "Your message",
+        "et": "Teie sõnum"
+      },
+      "form": {
+        "email": {
+          "en": "Your email",
+          "et": "Teie email"
+        },
+        "firstName": {
+          "en": "First name",
+          "et": "Eesnimi"
+        },
+        "lastName": {
+          "en": "Last name",
+          "et": "Perekonnanimi"
+        },
+        "phone": {
+          "en": "Phone number",
+          "et": "Telefoninumber"
+        },
+        "submit": {
+          "en": "Submit",
+          "et": "Saada"
+        }
+      }
+    }
+  },
+  "errorPage": {
+    "somethingWentWrong": {
+      "en": "Looks like we're experiencing technical problems. Try again later...",
+      "et": "Näib, et meil on tehnilisi probleeme. Proovige hiljem uuesti..."
+    },
+    "notFound": {
+      "en": "Page not found",
+      "et": "Lehekülg ei ole leitud"
+    }
+  },
+  "common": {
+    "date": {
+      "en": "Date",
+      "et": "Kuupäev"
+    },
+    "author": {
+      "en": "Author",
+      "et": "Autor"
+    },
+    "topicAreas": {
+      "en": "Topic areas",
+      "et": "Kategooriad"
+    },
+    "year": {
+      "en": "Year",
+      "et": "Aasta"
+    },
+    "projectManager": {
+      "en": "Project manager",
+      "et": "Projektijuht"
+    },
+    "volume": {
+      "en": "Volume",
+      "et": "Maht"
+    },
+    "title": {
+      "en": "Title",
+      "et": "Pealkiri"
+    },
+    "requiredField": {
+      "en": "Required field",
+      "et": "See väli on kohustuslik"
+    },
+    "submit": {
+      "en": "Submit",
+      "et": "Saata"
+    },
+    "passwordsMustMatch": {
+      "en": "Passwords must match",
+      "et": "Salasõnad peavad olema samasugused"
+    },
+    "changePassword": {
+      "en": "Change password",
+      "et": "Muuda salasõna"
+    },
+    "new": {
+      "en": "New",
+      "et": "Uus"
+    },
+    "delete": {
+      "en": "Delete",
+      "et": "Kustuta"
+    },
+    "remove": {
+      "en": "Remove",
+      "et": "Eemalda"
+    },
+    "update": {
+      "en": "Update",
+      "et": "Uuenda"
+    },
+    "confirm": {
+      "en": "Confirm",
+      "et": "Kinnita"
+    },
+    "toggleEdit": {
+      "en": "Toggle edit",
+      "et": "Muutmise reziim"
+    },
+    "togglePreview": {
+      "en": "Toggle preview",
+      "et": "Eelvaade reziim"
+    },
+    "loggedInAs": {
+      "en": "Logged in as:",
+      "et": "Sisse logitud:"
+    },
+    "withRole": {
+      "en": "With role:",
+      "et": "Rolliga:"
+    },
+    "adminPanel": {
+      "en": "Admin panel",
+      "et": "Administraatori paneel"
+    },
+    "actions": {
+      "en": "Actions",
+      "et": "Tegevused"
+    },
+    "createdAt": {
+      "en": "Created at",
+      "et": "Loodud kuupäeval"
+    },
+    "createdBy": {
+      "en": "Created by",
+      "et": "Loodud"
+    },
+    "name": {
+      "en": "Name",
+      "et": "Nimi"
+    },
+    "views": {
+      "en": "Views",
+      "et": "Vaated"
+    },
+    "child": {
+      "en": "Child",
+      "et": "Laps"
+    },
+    "deleteUSure": {
+      "en": "Are you sure you want to delete this?",
+      "et": "Oled kindel, et tahad seda kustutada?"
+    },
+    "toolong": {
+      "en": "Maximum field length is {{len}}",
+      "et": "Pikkus peab olema vähem kui {{len}}"
+    },
+    "serviceUnavailable": {
+      "en": "Service unavailable",
+      "et": "Teenus pole saadaval"
+    },
+    "yes": {
+      "en": "Yes",
+      "et": "Jah"
+    },
+    "no": {
+      "en": "No",
+      "et": "Ei"
+    },
+    "forPage": {
+      "en": "For page:",
+      "et": "Leheküljele:"
+    },
+    "titles": {
+      "en": "Titles",
+      "et": "Pealkirjad"
+    },
+    "added": {
+      "en": "Added",
+      "et": "Lisatud"
+    },
+    "error": {
+      "en": "Error occurred",
+      "et": "Viga juhtus"
+    },
+    "view": {
+      "en": "View",
+      "et": "Vaata"
+    },
+    "save": {
+      "en": "Save",
+      "et": "Salvesta"
+    }
+  },
+  "banners": {
+    "adminTitle": {
+      "en": "Manage banners",
+      "et": "Halda bannerid"
+    },
+    "createTitle": {
+      "en": "Create/update banner",
+      "et": "Loo/muuda banner"
+    },
+    "titleEng": {
+      "en": "Title in english",
+      "et": "Pealkiri inglise keeles"
+    },
+    "titleEst": {
+      "en": "Title in estonian",
+      "et": "Pealkiri eesti keeles"
+    },
+    "subtitleEng": {
+      "en": "Subtitle in english",
+      "et": "Alpealkiri inglise keeles"
+    },
+    "subtitleEst": {
+      "en": "Subtitle in estonian",
+      "et": "Alpealkiri eesti keeles"
+    },
+    "instructions": {
+      "en": "Banners are displayed in order in which they will be displayed to the user. To reorder them simply drag and drop.",
+      "et": "Bännerid kuvatakse kasutajale kuvamise järjekorras. Nende ümberjärjestamiseks lihtsalt lohistage."
+    }
+  },
+  "user": {
+    "listTitle": {
+      "en": "User management",
+      "et": "Kasutajate haldamine"
+    },
+    "changeRole": {
+      "en": "Change role",
+      "et": "Muuda rolli"
+    },
+    "username": {
+      "en": "Username",
+      "et": "Kasutaja nimi"
+    },
+    "email": {
+      "en": "Email",
+      "et": "Email"
+    },
+    "firstname": {
+      "en": "First name",
+      "et": "Eesnimi"
+    },
+    "lastname": {
+      "en": "Last name",
+      "et": "Perekonnanimi"
+    },
+    "role": {
+      "en": "Role",
+      "et": "Roll"
+    },
+    "noRights": {
+      "en": "No permissions",
+      "et": "Ei ole õigusi"
+    },
+    "users": {
+      "en": "Users",
+      "et": "Kasutajad"
+    },
+    "changeRoleFor": {
+      "en": "Change role for user {{user}}",
+      "et": "Muuda rolli kasutajale {{user}}"
+    },
+    "roleChanged": {
+      "en": "Role changed successfully",
+      "et": "Roll oli muudetud"
+    },
+    "permissionAlert": {
+      "en": "Your role does not permit other users role changes",
+      "et": "Teie õigused ei lase teil rolli muuta"
+    },
+    "logout": {
+      "en": "Logout",
+      "et": "Logi välja"
+    }
+  },
+  "pageContent": {
+    "titleEng": {
+      "en": "Title in english",
+      "et": "Pealkiri inglise keeles"
+    },
+    "titleEst": {
+      "en": "Title in estonian",
+      "et": "Pealkiri eesti keeles"
+    }
+  },
+  "partners": {
+    "partners": {
+      "en": "Our partners",
+      "et": "Meie partnerid"
+    }
+  },
+  "contact": {
+    "listTitle": {
+      "en": "Contact person management",
+      "et": "Kontakt isikute haldamine"
+    },
+    "createPerson": {
+      "en": "Add contact person",
+      "et": "Kontakt isiku lisamine"
+    },
+    "personName": {
+      "en": "Person name",
+      "et": "Nimi"
+    },
+    "contactInfo": {
+      "en": "Contact information",
+      "et": "Kontakt andmed"
+    },
+    "contactInfoEng": {
+      "en": "Contact information in english",
+      "et": "Kontakt andmed inglise keeles"
+    },
+    "contactInfoEst": {
+      "en": "Contact information in estonian",
+      "et": "Kontakt andmed eesti keeles"
+    },
+    "success": {
+      "en": "Your message has been sent!",
+      "et": "Teie sõnum oli saadetud!"
+    },
+    "fail": {
+      "en": "Something went wrong. Try again later!",
+      "et": "Midagi läks valesti, prooviga hiljem uuesti!"
+    }
+  },
+  "news": {
+    "news": {
+      "en": "News",
+      "et": "Uudised"
+    },
+    "title": {
+      "en": "Title",
+      "et": "Pealkiri"
+    },
+    "author": {
+      "en": "Author",
+      "et": "Autor"
+    },
+    "numberOfPosts": {
+      "en": "Number of posts",
+      "et": "Postituse arv"
+    }
+  },
+  "projects": {
+    "projects": {
+      "en": "Projects",
+      "et": "Projektid"
+    },
+    "titleEng": {
+      "en": "Title in english",
+      "et": "Pealkiri inglise keeles"
+    },
+    "titleEst": {
+      "en": "Title in estonian",
+      "et": "Pealkiri eesti keeles"
+    },
+    "year": {
+      "en": "Year",
+      "et": "Aasta"
+    },
+    "projectManager": {
+      "en": "Project manager",
+      "et": "Projekti juht"
+    },
+    "projectVolume": {
+      "en": "Project volume(in euro)",
+      "et": "Projekti maht(euros)"
+    }
+  },
+  "oss": {
+    "emailToGet": {
+      "en": "Enter your email to get access",
+      "et": "Sisestage oma emaili et ligi saada"
+    }
+  }
+}

@@ -10,6 +10,9 @@ import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import ImageUploader from "../../../../components/form/ImageUpload";
 import {IPartnerImageOutput} from "../../../../dto/partnerImage/IPartnerImageOutput";
 import {useTranslation} from "react-i18next";
+import InputControl from "../../../../components/form/InputControl";
+import * as yup from "yup";
+
 
 export const PartnerImageEditMode = () => {
     const service = new PartnerImageService();
@@ -64,13 +67,18 @@ interface PIProps {
     onSubmit: (fieldValues: FieldValues) => void
 }
 
+const schema = yup.object().shape({
+    image: yup.string().required(),
+    link: yup.string().url().required()
+})
+
 export const AddPartnerImage = (props: PIProps) => {
     const {
         register,
         handleSubmit,
         setValue,
         getValues
-    } = useForm<{ image: string }>();
+    } = useForm<{ image: string, link: string }>();
 
     const {t} = useTranslation();
     return <div className={"create-partner-image"}>
@@ -82,6 +90,8 @@ export const AddPartnerImage = (props: PIProps) => {
                            name={"image"}
                            label={"Image"}
                            fileSize={1}/>
+
+            <InputControl name={"link"}/>
 
             <div className={"my-2"}>
                 <ButtonPrimary type={"submit"}>

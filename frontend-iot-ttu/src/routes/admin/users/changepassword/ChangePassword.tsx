@@ -55,15 +55,15 @@ const ChangePassword = () => {
                 {message && <p className={"text-danger"}>{message}</p>}
 
                 <div className={"mt-2"}>
-                    <InputControl type={"text"} error={t(errors.oldPassword?.message)} register={register}
+                    <InputControl type={"password"} error={t(errors.oldPassword?.message)} register={register}
                                   name={'oldPassword'} label={"Old password"}/>
                 </div>
                 <div className={"mt-2"}>
-                    <InputControl type={"text"} error={t(errors.password?.message)} register={register}
+                    <InputControl type={"password"} error={t(errors.password?.message)} register={register}
                                   name={'password'} label={"New password"}/>
                 </div>
                 <div className={"mt-2"}>
-                    <InputControl type={"text"} error={t(errors.confirmPassword?.message)} register={register}
+                    <InputControl type={"password"} error={t(errors.confirmPassword?.message)} register={register}
                                   name={'confirmPassword'} label={"Confirm new password"}/>
                 </div>
 

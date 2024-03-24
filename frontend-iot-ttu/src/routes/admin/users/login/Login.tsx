@@ -16,7 +16,7 @@ const Login = () => {
     identityService.login(data as ILogin).then(response =>{
       if(response !== undefined && response){
         setJwtResponseCtx!(response);
-        navigate("../..")
+        navigate("../../news")
       }
       console.log("Success")
     }).catch(e => {

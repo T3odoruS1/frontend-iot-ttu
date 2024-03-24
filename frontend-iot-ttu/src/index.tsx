@@ -6,16 +6,47 @@ import "./index.scss";
 import {RouterProvider} from "react-router-dom";
 import {initReactI18next} from "react-i18next";
 import i18n from "i18next";
-import et from "./i18n/et.json";
-import en from "./i18n/en.json";
+import translations from "./i18n/translations.json"
 import {router} from "./router";
-import {Loader} from "./components/Loader";
+
+
+interface LanguageTranslation {
+    [key: string]: string;
+}
+
+interface Translations {
+    [key: string]: {
+        en: string;
+        et: string;
+        // Add more languages if needed
+    } | Translations;
+}
+
+function transformTranslations(original: Translations): Record<string, LanguageTranslation> {
+    const result: Record<string, LanguageTranslation> = { en: {}, et: {} }; // Extend this with more languages if needed
+
+    function walk(obj: Translations | LanguageTranslation, path: string[] = []): void {
+        Object.entries(obj).forEach(([key, value]) => {
+            if (key === 'en' || key === 'et') { // Check for the language keys
+                result[key][path.join('.')] = value as string; // Use dot notation for nested keys, ensure value is a string
+            } else if (typeof value === 'object' && value !== null) {
+                walk(value as Translations, [...path, key]); // Recurse for nested objects
+            }
+        });
+    }
+
+    walk(original);
+    return result;
+}
+
+const transformedTranslations = transformTranslations(translations);
+const en = transformedTranslations.en;
+const et = transformedTranslations.et;
+
+console.log(transformedTranslations)
 
 i18n.use(initReactI18next).init({
-    resources: {
-        en: {translation: en},
-        et: {translation: et},
-    },
+    resources: {en: {translation: en}, et: {translation: et}},
     lng: "et",
     fallbackLng: "et",
     interpolation: {

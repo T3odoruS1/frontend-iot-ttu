@@ -8,7 +8,6 @@ export interface ITopicAreaGet extends IBaseEntity{
 
 export interface ITopicAreaGetMultilang extends IBaseEntity{
     // ID from IBaseEntity
-    childrenTopicAreas: ITopicAreaGetMultilang[];
     content: IContent[];
 }
 

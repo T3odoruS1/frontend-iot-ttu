@@ -4,8 +4,7 @@ import {useTranslation} from "react-i18next";
 import useFetch from "../../hooks/useFetch";
 import {TopicAreaService} from "../../services/TopicAreaService";
 import TopicAreaElement from "../../routes/public/news/list/TopicAreaElement";
-import {ITopicAreaWithChildren} from "../../dto/topicarea/ITopicAreaWithChildren";
-import Show from "./Show";
+import {ITopicAreaGet} from "../../dto/topicarea/ITopicAreaGet";
 
 interface IProps {
     onTopicAreaChange: (newTopicArea: string | null) => void;
@@ -14,7 +13,7 @@ interface IProps {
 const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
     const {t, i18n} = useTranslation();
     const service = new TopicAreaService();
-    const {data: topicAreas, pending: tPending} = useFetch<ITopicAreaWithChildren[]>(service.getAll, [i18n.language]);
+    const {data: topicAreas, pending: tPending} = useFetch<ITopicAreaGet[]>(service.getAll, [i18n.language]);
 
     const isInitiallyMobile = window.innerWidth < 768;
     const [isExpanded, setExpanded] = useState(!isInitiallyMobile);

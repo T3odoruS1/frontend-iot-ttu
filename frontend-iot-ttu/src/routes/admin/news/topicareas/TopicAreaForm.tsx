@@ -6,17 +6,16 @@ import {FieldValues, useForm} from "react-hook-form";
 import {ITopicAreaPost} from "../../../../dto/topicarea/ITopicAreaPost";
 import {yupResolver} from "@hookform/resolvers/yup";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
-import {Form, FormFloating, FormLabel, FormSelect} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 import i18n from "i18next";
 import InputControl from "../../../../components/form/InputControl";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useNavigate} from "react-router-dom";
 import useFetch from "../../../../hooks/useFetch";
-import {ITopicAreaWithChildren} from "../../../../dto/topicarea/ITopicAreaWithChildren";
 import ErrorPage from "../../../ErrorPage";
+import {ITopicAreaGet} from "../../../../dto/topicarea/ITopicAreaGet";
 
 const schema = yup.object().shape({
-    parentTopicId: yup.string().optional(),
     name: yup.array().of(yup.object().shape({
         value: yup.string().required(),
         culture: yup.string().required()
@@ -29,7 +28,7 @@ const TopicAreaForm = () => {
     const topicAreaService = new TopicAreaService();
     const {t} = useTranslation();
     const {data: topicAreas, pending: pendingTopicAreas, error: topicAreasError} =
-        useFetch<ITopicAreaWithChildren[]>(topicAreaService.getAll, [i18n.language]);
+        useFetch<ITopicAreaGet[]>(topicAreaService.getAll, [i18n.language]);
     const [errorResponse, setErrorResponse] = useState("");
     const navigate = useNavigate();
     const {
@@ -42,7 +41,6 @@ const TopicAreaForm = () => {
     } = useForm<ITopicAreaPost>({resolver: yupResolver(schema)});
     const onSubmit = async (formValues: FieldValues) => {
         const data = formValues as ITopicAreaPost;
-        data.parentTopicId = data.parentTopicId !== "" ? data.parentTopicId : undefined;
 
         topicAreaService.create(data)
             .then(() => navigate(`/${i18n.language}/admin/news`, {replace: true}))
@@ -68,30 +66,6 @@ const TopicAreaForm = () => {
                 {errorResponse && <div className={"text-danger"}>
                     {t(`admin.topicAreas.${errorResponse}`)}
                 </div>}
-                <FormFloating className={"mt-2"}>
-                    <FormSelect
-                        aria-label="Choose topic area"
-                        className={"weight-fix"}
-                        placeholder={"Choose topic area"}
-                        style={{borderRadius: "0px"}}
-                        {...register(`parentTopicId`)}
-                        id={`parentTopicId`}
-                        name={`parentTopicId`}>
-                        <option key={-1}></option>
-                        {topicAreas?.map((topicArea, index) => {
-                            return (
-                                    <option
-                                        id={topicArea.id}
-                                        value={topicArea.id}
-                                        key={topicArea.id}>
-                                        {topicArea.name}
-                                    </option>
-
-                            );
-                        })}
-                    </FormSelect>
-                    <FormLabel htmlFor={"parentTopicId"}>Parent topic area</FormLabel>
-                </FormFloating>
 
                 <div className={"mt-2"}>
                     <InputControl type={"text"} error={errors.name?.[0]?.value?.message}

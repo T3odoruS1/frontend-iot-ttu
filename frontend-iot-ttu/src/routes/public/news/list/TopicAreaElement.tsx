@@ -1,8 +1,8 @@
 import {Link, useLocation} from "react-router-dom";
-import { ITopicAreaWithChildren } from "../../../../dto/topicarea/ITopicAreaWithChildren";
+import {ITopicAreaGet} from "../../../../dto/topicarea/ITopicAreaGet";
 
 interface IProps{
-	topicArea: ITopicAreaWithChildren,
+	topicArea: ITopicAreaGet,
 	onTopicAreaChange: (newTopicArea: string | null) => void
 }
 
@@ -23,17 +23,6 @@ const TopicAreaElement = (props: IProps) => {
 						{truncate(props.topicArea.name, 20)}
 					</div>
 				</li>
-				{props.topicArea.childrenTopicAreas?.map((child) => {
-					return (
-							<li className="" key={child.id}>
-								<div onClick={() => props.onTopicAreaChange(child.id)} className={
-									(searchParams.has("topicArea") && searchParams.get("topicArea") === child.id) ? "link-no-underline-selected" : "link-no-underline"
-								}>
-									<span className={"child_list_element"}>{truncate(child.name, 18)}</span>
-								</div>
-							</li>
-					);
-				})}
 
 		</div>
 	);

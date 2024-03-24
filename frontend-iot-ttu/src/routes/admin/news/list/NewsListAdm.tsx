@@ -7,13 +7,12 @@ import PageTitle from "../../../../components/common/PageTitle";
 import {Loader} from "../../../../components/Loader";
 import ErrorPage from "../../../ErrorPage";
 import {Fragment} from "react";
-import {NotAuthenticated} from "../../NotAuthenticated";
 import useFetch from "../../../../hooks/useFetch";
 import {INews} from "../../../../dto/news/INews";
 import {NewsService} from "../../../../services/NewsService";
 import {TopicAreaService} from "../../../../services/TopicAreaService";
-import {ITopicAreaWithChildren} from "../../../../dto/topicarea/ITopicAreaWithChildren";
 import {useTranslation} from "react-i18next";
+import {ITopicAreaGet} from "../../../../dto/topicarea/ITopicAreaGet";
 
 const NewsListAdm = () => {
 
@@ -23,7 +22,7 @@ const NewsListAdm = () => {
     const {data: news, setData: setNews, pending, error} =
         useFetch<INews[]>(newsService.getAll, [i18n.language])
     const {data: topicAreas, pending: pendingTopicAreas, error: topicAreasError} =
-        useFetch<ITopicAreaWithChildren[]>(topicAreaService.getAll, [i18n.language]);
+        useFetch<ITopicAreaGet[]>(topicAreaService.getAll, [i18n.language]);
 
     let topicAreaIndex = 0;
     const navigate = useNavigate();
@@ -53,11 +52,9 @@ const NewsListAdm = () => {
         navigate(`./${id}`);
     }
 
-    // For testing the client.
-    // if(error && error == "401"){
-    //     return <NotAuthenticated/>
-    // }
+    const onTopicAreaDelete = (id: string) => {
 
+    }
 
     if (!pending && (!news || !topicAreas)) {
         return <ErrorPage/>
@@ -126,7 +123,6 @@ const NewsListAdm = () => {
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">{t("common.name")}</th>
-                    <th scope="col">{t("common.child")}</th>
                     <th scope="col">{t("common.createdAt")}</th>
                     <th scope="col">{t("news.numberOfPosts")}</th>
                     <th scope="col">{t("common.actions")}</th>
@@ -139,24 +135,10 @@ const NewsListAdm = () => {
                         <tr>
                             <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
                             <td>{topicArea.name}</td>
-                            <td></td>
                             <td>-</td>
                             <td>-</td>
                             <td><ButtonSmaller>{t('common.delete')}</ButtonSmaller></td>
                         </tr>
-
-                        {topicArea.childrenTopicAreas?.map((child, index) => {
-                            return (<tr key={child.id}>
-                                <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
-                                <td></td>
-                                <td>{child.name}</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td><ButtonSmaller>{t('common.delete')}</ButtonSmaller></td>
-
-                            </tr>)
-                        })
-                        }
                     </Fragment>)
                 })}
                 </tbody>
