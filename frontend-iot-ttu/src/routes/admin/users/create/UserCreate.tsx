@@ -5,6 +5,7 @@ import {IRegister} from "../../../../dto/identity/IRegister";
 import {useContext, useState} from "react";
 import {JwtContext} from "../../../Root";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const UserCreate = () => {
 
@@ -12,10 +13,11 @@ const UserCreate = () => {
     const identityService = new IdentityService();
     const [error, setError] = useState<string>("")
     const navigate = useNavigate();
+    const {i18n} = useTranslation()
 
     const handleSubmit = async (data: FieldValues) => {
         console.log(data)
-        identityService.blindRegister(data as IRegister)
+        identityService.blindRegister(data as IRegister, i18n.language)
             .then(response => {
                 // if (!response.jwt) {
                 //     console.log("No jwt in response")

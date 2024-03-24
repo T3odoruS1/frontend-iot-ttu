@@ -67,9 +67,9 @@ export class IdentityService{
         return processResponse<void>(response);
     }
 
-    blindRegister = async (data: IRegister) : Promise<void> => {
+    blindRegister = async (data: IRegister, lang: string) : Promise<void> => {
         const response =
-            await this.client.post<void, IErrorResponse>("/users/registerUnknown", data);
+            await this.client.post<void, IErrorResponse>(`/users/${lang}/registerUnknown`, data);
         return processResponse<void>(response);
     }
 
