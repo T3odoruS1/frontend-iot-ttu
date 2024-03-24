@@ -523,6 +523,10 @@
     "partners": {
       "en": "Our partners",
       "et": "Meie partnerid"
+    },
+    "link": {
+      "en": "Link",
+      "et": "Link"
     }
   },
   "contact": {

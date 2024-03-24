@@ -12,6 +12,7 @@ import {IPartnerImageOutput} from "../../../../dto/partnerImage/IPartnerImageOut
 import {useTranslation} from "react-i18next";
 import InputControl from "../../../../components/form/InputControl";
 import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 
 
 export const PartnerImageEditMode = () => {
@@ -77,8 +78,9 @@ export const AddPartnerImage = (props: PIProps) => {
         register,
         handleSubmit,
         setValue,
-        getValues
-    } = useForm<{ image: string, link: string }>();
+        getValues,
+        formState: {errors}
+    } = useForm<{ image: string, link: string }>({resolver: yupResolver(schema)});
 
     const {t} = useTranslation();
     return <div className={"create-partner-image"}>
@@ -91,7 +93,15 @@ export const AddPartnerImage = (props: PIProps) => {
                            label={"Image"}
                            fileSize={1}/>
 
-            <InputControl name={"link"}/>
+            <div className="mt-2">
+                <InputControl
+                    name={`link`}
+                    register={register}
+                    type="text"
+                    error={t(errors?.link?.message?.toString())}
+                    label={t("partners.link")}
+                />
+            </div>
 
             <div className={"my-2"}>
                 <ButtonPrimary type={"submit"}>
