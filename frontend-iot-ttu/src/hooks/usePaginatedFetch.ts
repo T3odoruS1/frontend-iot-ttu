@@ -37,15 +37,19 @@ const usePaginatedFetch =
             }
         }
 
-
-        useEffect(() => {
+        const fetch = () => {
             setPending(true);
             setError(null);
             fetchTotal();
             getData();
+        }
+
+
+        useEffect(() => {
+            fetch();
         }, [page, size, i18n.language, JSON.stringify(args)]);
 
-        return {data, pending, total, pageCount, error}
+        return {data, pending, total, pageCount, error, fetch}
     }
 
 export default usePaginatedFetch;

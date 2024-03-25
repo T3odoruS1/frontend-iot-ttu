@@ -50,11 +50,6 @@ const UserList = () => {
         navigate("./create")
     }
 
-    // // TODO enable for production
-    // if(!jwtResponseCtx?.jwt || jwtResponseCtx.roleIds.length === 0){
-    //     return <NotAuthenticated/>
-    // }
-
     return (
         <>
             <PageTitle>{t("user.listTitle")}</PageTitle>

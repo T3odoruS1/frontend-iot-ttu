@@ -12,7 +12,7 @@ const FeedPagePostElement = (post: IFeedPagePost) => {
         <h1 className="notititle header-pink all-caps">{post.title}</h1>
         <div className="notibody">
             <div>
-                <p>{t("common.createdAt")}: {post.createdAt}</p>
+                <p>{t("common.createdAt")}: {new Date(post.createdAt ?? "").toLocaleDateString()}</p>
             </div>
             <div className="w-100 text-dark">
                 <div className="quill">

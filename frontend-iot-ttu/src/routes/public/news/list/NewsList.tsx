@@ -13,7 +13,8 @@ import {useLocation, useNavigate} from "react-router-dom";
 import placeholder from "../../../../assets/placeholder.webp";
 import DatePink from "../../../../components/common/DatePink";
 import TopicAreasGray from "../../../../components/common/TopicAreasGray";
-import i18n from "i18next";
+import i18n, {use} from "i18next";
+import feedPage from "../../feedPage/FeedPage";
 
 interface IProps {
     news: INews;
@@ -61,24 +62,38 @@ const NewsList = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const [page, setPage] = useState<number>(parseInt(new URLSearchParams(location.search).get('page') || '1', 10));
+    const [size, setSize] = useState<number>(6); // Assuming 'size' won't change for now
+    const [topicArea, setTopicArea] = useState<string | null>(new URLSearchParams(location.search).get('topicArea'));
+    const { data: news, pending, total, error, fetch } =
+        usePaginatedFetch<INews, NewsService>(new NewsService(), page - 1, size, topicArea ? [topicArea] : []);
+
+
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
         const hasPage = searchParams.has('page');
         const hasSize = searchParams.has('size');
+        let locationHasChanged = false;
 
-        if (!hasPage || !hasSize) {
+        if (!hasPage) {
             searchParams.set('page', '1');
+            setPage(1);
+            locationHasChanged = true;
+        }
+        if(!hasSize){
+            locationHasChanged = true;
+            setPage(1);
             searchParams.set('size', '6');
+        }
+        if(locationHasChanged){
             navigate(`/${i18n.language}/news?${searchParams.toString()}`, { replace: true });
         }
-    }, [i18n.language, navigate, location.search]);
+    }, [i18n.language, navigate, location.search, topicArea]);
 
-    const [page, setPage] = useState<number>(parseInt(new URLSearchParams(location.search).get('page') || '1', 10));
-    const [size, setSize] = useState<number>(6); // Assuming 'size' won't change for now
-    const [topicArea, setTopicArea] = useState<string | null>(new URLSearchParams(location.search).get('topicArea'));
 
-    const { data: news, pending, total, error } =
-        usePaginatedFetch<INews, NewsService>(new NewsService(), page - 1, size, topicArea ? [topicArea] : []);
+
+
+
 
     const handlePageClick = (pageNumber: number) => {
         setPage(pageNumber);
@@ -91,13 +106,17 @@ const NewsList = () => {
         const searchParams = new URLSearchParams(location.search);
         if(topicArea === newTopicArea){
             setTopicArea(null);
+            setPage(1);
             searchParams.delete("topicArea");
         }
         else if (newTopicArea) {
             searchParams.set('topicArea', newTopicArea);
+            searchParams.set('page', "1");
+            setPage(1);
             setTopicArea(newTopicArea);
         } else {
             searchParams.delete('topicArea');
+            setPage(1);
             setTopicArea(null);
         }
         navigate(`/${i18n.language}/news?${searchParams.toString()}`);

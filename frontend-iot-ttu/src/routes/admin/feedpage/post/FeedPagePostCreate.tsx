@@ -11,6 +11,7 @@ import { FeedService } from "../../../../services/FeedService";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../../../../components/Loader";
 import { SuccessAlert } from "../../../../components/lottie/SuccessAlert";
+import Show from "../../../../components/common/Show";
 
 const schema = yup.object().shape({
   id: yup.string().uuid().nullable(),
@@ -34,7 +35,8 @@ const schema = yup.object().shape({
       })
     )
     .required(),
-  feedPageCategoryId: yup.string().uuid().required(`admin.news.adminNews.create.validation.fieldIsRequired`)
+  feedPageCategoryId: yup.string().uuid().required(`admin.news.adminNews.create.validation.fieldIsRequired`),
+  page: yup.string()
 });
 
 const FeedPagePostCreate = () => {
@@ -53,8 +55,13 @@ const FeedPagePostCreate = () => {
   const service = new FeedService();
   const navigate = useNavigate();
 
-  const { register, setValue,reset, getValues, handleSubmit, formState: { errors } } =
-    useForm<IFeedPagePostOutput>({ resolver: yupResolver(schema) });
+  const { register,
+    setValue,
+    reset,
+    getValues,
+    handleSubmit,
+    formState: { errors },
+    watch} = useForm<IFeedPagePostOutput>({ resolver: yupResolver(schema) });
 
   useEffect(() => {
     reset();
@@ -87,8 +94,15 @@ const FeedPagePostCreate = () => {
 
   return <>
     <PageTitle>Create feed page post</PageTitle>
-    {submitPending && <Loader/>}
-    {success && <SuccessAlert scroll={true}/>}
+
+    <Show>
+      <Show.When isTrue={submitPending}><Loader/></Show.When>
+    </Show>
+
+    <Show>
+      <Show.When isTrue={success}><SuccessAlert scroll={true}/></Show.When>
+    </Show>
+
     <FormFloating>
       <FormCheck
         type="checkbox"
@@ -102,14 +116,22 @@ const FeedPagePostCreate = () => {
 
     </FormFloating>
 
-    {preview ? <FeedPagePostPreview fieldValues={getValues()} /> : <FeedPagePostForm
-      handleSubmit={handleSubmit}
-      register={register}
-      onSubmit={onSubmit}
-      setValue={setValue}
-      getValues={getValues}
-      errors={errors}
-    />}
+
+    {/*In this way views will not rerender and state will be persisted correctly, DO NOT REFACTOR!*/}
+    <div className={!preview ? "d-none" : ""}>
+      <FeedPagePostPreview fieldValues={getValues()} />
+    </div>
+    <div className={preview ? "d-none" : ""}>
+      <FeedPagePostForm
+          watch={watch}
+          handleSubmit={handleSubmit}
+          register={register}
+          onSubmit={onSubmit}
+          setValue={setValue}
+          getValues={getValues}
+          errors={errors}/>
+    </div>
+
   </>
 }
 

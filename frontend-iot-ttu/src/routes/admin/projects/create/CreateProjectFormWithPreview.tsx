@@ -19,6 +19,8 @@ interface IProps {
     onSubmit: (event: FieldValues) => void;
 }
 
+const titleLen = 150;
+
 const schema = yup.object().shape({
     id: yup.string().uuid().optional(),
     year: yup.number().typeError(`admin.projects.validation.year`).min(0).max(3000).required(),
@@ -30,7 +32,7 @@ const schema = yup.object().shape({
         .length(2)
         .of(
             yup.object().shape({
-                value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).max(90, "Too long insert transation ").required(),
+                value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).max(titleLen, "common.toolong").required(),
                 culture: yup.string().min(1, "").required(),
             })
         )

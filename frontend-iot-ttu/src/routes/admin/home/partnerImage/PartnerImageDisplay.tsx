@@ -10,7 +10,7 @@ export const PartnerImageDisplay = () => {
     return (
         <>
             {images?.map(i => {
-                return <img className={"partner-image"} src={i.image} alt={"Partner image"}/>
+                return <a href={i.link}><img className={"partner-image"} src={i.image} alt={"Partner image"}/></a>
             })}
         </>
     );

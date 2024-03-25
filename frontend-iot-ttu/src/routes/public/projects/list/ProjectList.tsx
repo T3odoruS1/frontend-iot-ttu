@@ -45,10 +45,6 @@ export const ProjectCardElement: FC<IProps> = ({project}) => {
 };
 
 const ProjectList = () => {
-
-    const [page, setPage] = useState(0)
-    const {t} = useTranslation();
-
     const {data: projects, pending, error, total} =
         usePaginatedFetch<IProject, ProjectService>(new ProjectService())
 

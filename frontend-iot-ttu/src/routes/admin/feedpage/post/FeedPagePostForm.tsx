@@ -23,6 +23,7 @@ import { IFeedPageCategory } from "../../../../dto/feedpage/category/IFeedPageCa
 import i18n from "i18next";
 import { Loader } from "../../../../components/Loader";
 import {useParams} from "react-router-dom";
+import {UseFormWatch} from "react-hook-form/dist/types/form";
 
 interface IProps {
     handleSubmit: UseFormHandleSubmit<IFeedPagePostOutput, undefined>;
@@ -31,10 +32,10 @@ interface IProps {
     errors: FieldErrors<IFeedPagePostOutput>;
     getValues: UseFormGetValues<IFeedPagePostOutput>;
     onSubmit: (fieldValues: FieldValues) => void;
-
+    watch: UseFormWatch<IFeedPagePostOutput>
 }
 
-const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors, getValues, onSubmit }) => {
+const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors, getValues, onSubmit, watch }) => {
 
     const {id} = useParams();
     const { t } = useTranslation();
@@ -45,6 +46,7 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
     const [editorHtmlEng, setEditorHtmlEng] = useState(getValues("body.0.value"));
     const [editorHtmlEst, setEditorHtmlEst] = useState(getValues("body.1.value"));
 
+    const watchedField = watch("page")
     const onEditorStateChangeEng = (html: string) => {
         setValue(`body.${0}.value`, html);
         setEditorHtmlEng(html);
@@ -57,9 +59,8 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
         setEditorHtmlEst(html);
     };
 
-    const onPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log("Event target: ", event.target.value);
-        setPage(event.target.value);
+    const onPageChange = (page: string) => {
+        setPage(page);
     }
 
     const { data: categories, pending, error } =
@@ -91,12 +92,16 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
         }
     }, [id]);
 
+    useEffect(() => {
+        onPageChange(getValues("page") ?? EFeedPage.HARDWARE)
+    }, [watchedField]);
+
 
    
     return <>
         {pending && <Loader/>}
         <FormFloating>
-            <FormSelect className="no-br" id="page-choice" value={page} onChange={onPageChange}>
+            <FormSelect className="no-br" id="page-choice" {...register('page')}>
                 <option value={EFeedPage.HARDWARE}>{EFeedPage.HARDWARE}</option>
                 <option value={EFeedPage.RESEARCH}>{EFeedPage.RESEARCH}</option>
             </FormSelect>

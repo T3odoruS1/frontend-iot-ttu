@@ -63,7 +63,7 @@ export const ProjectForm: React.FC<IProps> =
                         name={`title.${0}.value`}
                         register={register}
                         type="text"
-                        error={t(errors.title?.[0]?.value?.message?.toString())}
+                        error={t(errors.title?.[0]?.value?.message?.toString(), {len: 150})}
                         label={t("projects.titleEng")}
                     />
                 </div>
@@ -73,7 +73,7 @@ export const ProjectForm: React.FC<IProps> =
                         name={`title.${1}.value`}
                         register={register}
                         type="text"
-                        error={t(errors.title?.[1]?.value?.message?.toString())}
+                        error={t(errors.title?.[1]?.value?.message?.toString(), {len: 150})}
                         label={t("projects.titleEst")}
                     />
                 </div>
