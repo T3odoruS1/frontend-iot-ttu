@@ -8,6 +8,8 @@ import {initReactI18next} from "react-i18next";
 import i18n from "i18next";
 import translations from "./i18n/translations.json"
 import {router} from "./router";
+import ReactGA from 'react-ga';
+
 
 
 interface LanguageTranslation {
@@ -44,6 +46,9 @@ const en = transformedTranslations.en;
 const et = transformedTranslations.et;
 
 console.log(transformedTranslations)
+
+ReactGA.initialize("G-5ELKNXLXTV")
+
 
 i18n.use(initReactI18next).init({
     resources: {en: {translation: en}, et: {translation: et}},

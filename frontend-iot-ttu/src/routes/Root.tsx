@@ -3,6 +3,7 @@ import {Outlet, useLocation, useNavigate, useParams} from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
 import i18n from "i18next";
 import {IJwtResponse} from "../dto/identity/IJwtResponse";
+import ReactGA from "react-ga";
 
 export const JwtContext = createContext<{
     jwtResponseCtx: IJwtResponse | null;
@@ -14,6 +15,8 @@ const Root = () => {
     const {lang} = useParams();
     const navigate = useNavigate();
     const langs = ["en", "et"];
+    const location = useLocation();
+
 
     const [jwtResponseCtx, setJwtResponseCtx] = useState(
         null as IJwtResponse | null
@@ -26,8 +29,9 @@ const Root = () => {
         }
     }, []);
 
-
-    const location = useLocation();
+    useEffect(() => {
+        ReactGA.pageview(location.pathname + location.search);
+    }, [location]);
 
 
     useEffect(() => {
