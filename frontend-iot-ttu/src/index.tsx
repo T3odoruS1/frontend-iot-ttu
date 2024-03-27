@@ -8,7 +8,7 @@ import {initReactI18next} from "react-i18next";
 import i18n from "i18next";
 import translations from "./i18n/translations.json"
 import {router} from "./router";
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 
 

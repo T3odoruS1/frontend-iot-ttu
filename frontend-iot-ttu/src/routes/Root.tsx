@@ -1,9 +1,8 @@
 import {createContext, useEffect, useState} from "react";
 import {Outlet, useLocation, useNavigate, useParams} from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
-import i18n from "i18next";
 import {IJwtResponse} from "../dto/identity/IJwtResponse";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 
 export const JwtContext = createContext<{
     jwtResponseCtx: IJwtResponse | null;
@@ -30,7 +29,9 @@ const Root = () => {
     }, []);
 
     useEffect(() => {
-        ReactGA.pageview(location.pathname + location.search);
+        // ReactGA.pageview(location.pathname + location.search);
+        ReactGA.send({ hitType: "pageview", page: location.pathname, title: location.search });
+
     }, [location]);
 
 

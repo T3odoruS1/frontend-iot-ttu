@@ -5,6 +5,7 @@ import {IBanner} from "../../../dto/banner/IBanner";
 import i18n from "i18next";
 import {Loader} from "../../../components/Loader";
 import Show from "../../../components/common/Show";
+import ButtonPrimary from "../../../components/common/ButtonPrimary";
 
 const CarouselComponent = () => {
 
@@ -81,11 +82,21 @@ const CarouselComponent = () => {
 export default CarouselComponent;
 
 const BannerContent: FC<{ banner: IBanner }> = ({banner}) => {
+
+    const scrollToContent = () => {
+        let elementPosition = document.getElementById("home-page-content")?.getBoundingClientRect()?.top! - 100;
+        window.scroll({
+            top: elementPosition,
+            behavior: 'smooth'
+        });
+    }
     return <div>
         <div className="carousel-item active text-center animated-text">
             <h1 className={"text-white home-page-title underline-last-line"}>{banner.title}</h1>
             <br/>
             <h4 className={"text-white home-page-subtitle"} >{banner.body}</h4>
+            <br/>
+            <ButtonPrimary onClick={scrollToContent}>Scroll</ButtonPrimary>
         </div>
     </div>
 };

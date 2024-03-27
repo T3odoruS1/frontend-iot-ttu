@@ -13,7 +13,7 @@ const Home = () => {
 
     return <>
         <CarouselComponent/>
-        <div className="home-page-content-container">
+        <div className="home-page-content-container mt-5" id={"home-page-content"}>
             <Row>
 
                 <Col lg={9} md={8}>
