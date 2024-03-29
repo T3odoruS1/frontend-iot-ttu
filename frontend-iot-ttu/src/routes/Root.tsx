@@ -29,9 +29,7 @@ const Root = () => {
     }, []);
 
     useEffect(() => {
-        // ReactGA.pageview(location.pathname + location.search);
         ReactGA.send({ hitType: "pageview", page: location.pathname, title: location.search });
-
     }, [location]);
 
 

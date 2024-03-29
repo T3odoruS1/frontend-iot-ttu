@@ -384,6 +384,10 @@
       "en": "Child",
       "et": "Laps"
     },
+    "lookCloser": {
+      "en": "Have a look!",
+      "et": "Vaata lähemalt!"
+    },
     "deleteUSure": {
       "en": "Are you sure you want to delete this?",
       "et": "Oled kindel, et tahad seda kustutada?"

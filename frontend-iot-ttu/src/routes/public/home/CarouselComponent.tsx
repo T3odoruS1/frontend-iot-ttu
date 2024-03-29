@@ -6,6 +6,8 @@ import i18n from "i18next";
 import {Loader} from "../../../components/Loader";
 import Show from "../../../components/common/Show";
 import ButtonPrimary from "../../../components/common/ButtonPrimary";
+import ButtonSmaller from "../../../components/common/ButtonSmaller";
+import {useTranslation} from "react-i18next";
 
 const CarouselComponent = () => {
 
@@ -83,6 +85,7 @@ export default CarouselComponent;
 
 const BannerContent: FC<{ banner: IBanner }> = ({banner}) => {
 
+    const {t} = useTranslation()
     const scrollToContent = () => {
         let elementPosition = document.getElementById("home-page-content")?.getBoundingClientRect()?.top! - 100;
         window.scroll({
@@ -91,12 +94,12 @@ const BannerContent: FC<{ banner: IBanner }> = ({banner}) => {
         });
     }
     return <div>
-        <div className="carousel-item active text-center animated-text">
+        <div className="carousel-item active text-center animated-text p-2">
             <h1 className={"text-white home-page-title underline-last-line"}>{banner.title}</h1>
             <br/>
-            <h4 className={"text-white home-page-subtitle"} >{banner.body}</h4>
-            <br/>
-            <ButtonPrimary onClick={scrollToContent}>Scroll</ButtonPrimary>
+            <h4 className={"text-white home-page-subtitle mb-2"} >{banner.body}</h4>
+
+            <ButtonSmaller onClick={scrollToContent}>{t("common.lookCloser")}</ButtonSmaller>
         </div>
     </div>
 };

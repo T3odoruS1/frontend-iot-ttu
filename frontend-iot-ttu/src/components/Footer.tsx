@@ -54,7 +54,7 @@ const UserData = () => {
     const logout = () => {
         identityService.logout().then(() => {
             setJwtResponseCtx!(null);
-            navigate(`/${i18n.language}/`)
+            navigate(`/${i18n.language}`)
         });
     }
 
