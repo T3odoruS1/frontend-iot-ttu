@@ -7,9 +7,11 @@ import {IContactPerson} from "../../../dto/contact/people/IContactPerson";
 import {ContactPersonService} from "../../../services/ContactPersonService";
 import i18n from "i18next";
 import {ContactPerson} from "../../../components/ContactPerson";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const Contact = () => {
     const {t} = useTranslation();
+    useDocumentTitle(t("titles.contact"))
     const service = new ContactPersonService();
     const {data: people, pending, error} =
         useFetch<IContactPerson[]>(service.getAll, [i18n.language])

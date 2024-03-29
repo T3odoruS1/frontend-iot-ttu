@@ -7,10 +7,11 @@ import hall from './../../../assets/ttu-hall.jpeg'
 import EditablePage from "../editablePage/EditablePage";
 import {PartnerImages} from "../../admin/home/partnerImage/PartnerImages";
 import {useTranslation} from "react-i18next";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const Home = () => {
     const {t} = useTranslation();
-
+    useDocumentTitle(t("titles.home"))
     return <>
         <CarouselComponent/>
         <div className="home-page-content-container mt-5" id={"home-page-content"}>

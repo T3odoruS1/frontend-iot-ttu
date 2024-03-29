@@ -15,12 +15,14 @@ import DatePink from "../../../../components/common/DatePink";
 import TopicAreasGray from "../../../../components/common/TopicAreasGray";
 import i18n, {use} from "i18next";
 import feedPage from "../../feedPage/FeedPage";
+import useDocumentTitle from "../../../../hooks/useDocumentTitle";
 
 interface IProps {
     news: INews;
 }
 
 const NewsElement: React.FC<IProps> = ({news}) => {
+
     const navigate = useNavigate();
     const getDate = (strDate: string) => {
         return (new Date(strDate)).toLocaleDateString();

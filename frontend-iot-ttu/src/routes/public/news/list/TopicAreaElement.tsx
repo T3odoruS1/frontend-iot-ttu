@@ -13,14 +13,18 @@ const TopicAreaElement = (props: IProps) => {
 		return str.length > len ? str.substring(0, len-3) + "..." : str;
 	}
 
+	const isSelected = (id: string) => {
+		return searchParams.has("topicArea") && searchParams.get("topicArea") === id;
+	}
+
 	return (
 		<div>
 
 				<li className="">
 					<div onClick={() => props.onTopicAreaChange(props.topicArea.id)} className={
-						(searchParams.has("topicArea") && searchParams.get("topicArea") === props.topicArea.id) ? "link-no-underline-selected" : "link-no-underline"
+						(isSelected(props.topicArea.id)) ? "link-no-underline-selected" : "link-no-underline"
 					}>
-						{truncate(props.topicArea.name, 20)}
+						{truncate(props.topicArea.name, 20)} <span style={{fontSize: "0.75rem"}}>{isSelected(props.topicArea.id) ? "✖" : ""}</span>
 					</div>
 				</li>
 

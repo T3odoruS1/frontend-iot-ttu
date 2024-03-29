@@ -648,5 +648,43 @@
       "en": "Go to repository",
       "et": "Vaata"
     }
+  },
+  "titles": {
+    "news": {
+      "en": "News",
+      "et": "Uudised"
+    },
+    "technology": {
+      "en": "Technology",
+      "et": "Tehnoloogia"
+    },
+    "research": {
+      "en": "Research topics",
+      "et": "Uurimitöö teemad"
+    },
+    "hardware": {
+      "en": "Available hardware",
+      "et": "Riistvara"
+    },
+    "projects": {
+      "en": "Projects",
+      "et": "Projektid"
+    },
+    "oss": {
+      "en": "Opensource solutions",
+      "et": "Vabavaralised lahendused"
+    },
+    "contact": {
+      "en": "Contact us",
+      "et": "Võta ühendust"
+    },
+    "admin": {
+      "en": "Admin",
+      "et": "Admin"
+    },
+    "home": {
+      "en": "Taltech IOT",
+      "et": "Taltech IOT"
+    }
   }
 }

@@ -3,6 +3,7 @@ import {Outlet, useLocation, useNavigate, useParams} from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
 import {IJwtResponse} from "../dto/identity/IJwtResponse";
 import ReactGA from "react-ga4";
+import useLivelinessCheck from "../hooks/useLivelinessCheck";
 
 export const JwtContext = createContext<{
     jwtResponseCtx: IJwtResponse | null;
@@ -17,6 +18,7 @@ const Root = () => {
     const location = useLocation();
 
 
+    useLivelinessCheck();
     const [jwtResponseCtx, setJwtResponseCtx] = useState(
         null as IJwtResponse | null
     );

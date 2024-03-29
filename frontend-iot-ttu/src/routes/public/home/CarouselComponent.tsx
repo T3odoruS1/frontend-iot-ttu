@@ -99,7 +99,7 @@ const BannerContent: FC<{ banner: IBanner }> = ({banner}) => {
             <br/>
             <h4 className={"text-white home-page-subtitle mb-2"} >{banner.body}</h4>
 
-            <ButtonSmaller onClick={scrollToContent}>{t("common.lookCloser")}</ButtonSmaller>
+            {/*<ButtonSmaller onClick={scrollToContent}>{t("common.lookCloser")}</ButtonSmaller>*/}
         </div>
     </div>
 };

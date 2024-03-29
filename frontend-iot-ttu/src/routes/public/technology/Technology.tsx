@@ -4,9 +4,13 @@ import {Col, Row} from "react-bootstrap";
 import {ImageLinkContainer} from "../../../components/ImageLinkContainer";
 import territory from "../../../assets/ttu-territory.jpeg";
 import hall from "../../../assets/ttu-hall.jpeg";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
+import {useTranslation} from "react-i18next";
 
 const Technology = () => {
     const pageIdentifier = "technology_main"
+    const {t} = useTranslation();
+    useDocumentTitle(t("titles.technology"))
     return <div>
         <Row>
 

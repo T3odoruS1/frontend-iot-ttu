@@ -3,6 +3,7 @@ import Header from "../../components/header/public/Header";
 import Footer from "../../components/Footer";
 import React, {useEffect} from "react";
 import {Loader} from "../../components/Loader";
+import useTrackPageNavigation from "../../hooks/useTrackPageNavigation";
 
 const Public = () => {
     const location = useLocation();
@@ -10,6 +11,7 @@ const Public = () => {
         console.log(location.pathname);
     }, [location]);
 
+    useTrackPageNavigation();
     const isHomePage = () => {
         return location.pathname === "/et" || location.pathname === "/en";
     }
