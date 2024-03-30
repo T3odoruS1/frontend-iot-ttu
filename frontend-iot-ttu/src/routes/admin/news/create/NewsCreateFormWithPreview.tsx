@@ -30,7 +30,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
             .length(2)
             .of(
                 yup.object().shape({
-                    value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+                    value: yup.string().trim().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
                     culture: yup.string().min(1, "").required(),
                 })
             )
@@ -40,7 +40,9 @@ const NewsCreateFormWithPreview = (props: IProps) => {
             .length(2)
             .of(
                 yup.object().shape({
-                    value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`)
+                    value: yup.string().trim()
+                        .notOneOf(["<p><br></p>"], "admin.news.adminNews.create.validation.fieldIsRequired")
+                        .min(1, `admin.news.adminNews.create.validation.fieldIsRequired`)
                         .required("admin.news.adminNews.create.validation.fieldIsRequired"),
                     culture: yup.string().min(1, "").required(),
                 })
@@ -49,6 +51,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         image: yup.string().required(`admin.news.adminNews.create.validation.imageRequired`),
         author: yup
             .string()
+            .trim()
             .min(1, `admin.news.adminNews.create.validation.AuthorNameLen`)
             .required(),
         topicAreas: yup
@@ -70,6 +73,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     const navigate = useNavigate();
     const {id} = useParams();
 
+
     useEffect(() => {
 
         if (id !== undefined) {
@@ -81,15 +85,14 @@ const NewsCreateFormWithPreview = (props: IProps) => {
                 }
             }).catch((e) => {
                     console.log("e")
-                setUnavailable(true)
-            }
+                    setUnavailable(true)
+                }
             )
         }
-        if(error || unavailable){
+        if (error || unavailable) {
             navigate("/error")
         }
     }, []);
-
 
 
     const {
@@ -107,6 +110,11 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         props.onSubmit(formValues);
         navigate("./")
     }
+
+    useEffect(() => {
+        console.log(getValues())
+    }, [preview]);
+
 
     const setFormValues = (news: INewsWTranslations) => {
         onEditorStateChangeEng(news!.body.find(b => {
@@ -148,7 +156,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     };
 
 
-    if(error || unavailable){
+    if (error || unavailable) {
         return <ErrorPage/>
     }
 

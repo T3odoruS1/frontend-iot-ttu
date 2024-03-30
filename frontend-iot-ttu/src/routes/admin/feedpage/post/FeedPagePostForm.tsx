@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import { EFeedPage } from "../../../../dto/feedpage/EFeedPage";
 import { FeedService } from "../../../../services/FeedService";
@@ -65,6 +65,8 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
 
     const { data: categories, pending, error } =
         useFetch<IFeedPageCategory[]>(service.getCategories, [i18n.language, page]);
+
+    const [editorLanguage, setEditorLanguage] = useState("EN");
 
     useEffect(() => {
         if(id !== undefined){
@@ -144,26 +146,45 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
             </div>
 
             <SubHeadingPurple className="mt-5">
-                {t("admin.news.adminNews.create.contentEng")}
+                {t("common.postContent")}
             </SubHeadingPurple>
-            <ReactQuill
-                theme="snow"
-                value={editorHtmlEng}
-                onChange={onEditorStateChangeEng}
-                modules={modules}
-                formats={formats}
-            />
 
-            <SubHeadingPurple className="mt-5">
-                {t("admin.news.adminNews.create.contentEst")}
-            </SubHeadingPurple>
-            <ReactQuill
-                theme="snow"
-                value={editorHtmlEst}
-                onChange={onEditorStateChangeEst}
-                modules={modules}
-                formats={formats}
-            />
+            <FormFloating className={"mt-2 mb-2"}>
+                <FormSelect id={"editor-language"} className={"b-radius-0"} value={editorLanguage}
+                            onChange={(e) => setEditorLanguage(e.target.value)}>
+                    <option value={"EN"}>EN</option>
+                    <option value={"ET"}>ET</option>
+                </FormSelect>
+                <FormLabel htmlFor={"editor-language"}>Editor language</FormLabel>
+            </FormFloating>
+            <div className={"text-danger"}>{t(errors.body?.[0]?.value?.message?.toString())}</div>
+            <div className={"text-danger"}>{t(errors.body?.[1]?.value?.message?.toString())}</div>
+
+
+            <div className={editorLanguage === "EN" ? "" : "d-none"}>
+                <ReactQuill
+                    theme="snow"
+                    value={editorHtmlEng}
+                    onChange={onEditorStateChangeEng}
+                    modules={modules}
+                    formats={formats}
+                />
+            </div>
+
+
+            {/*<SubHeadingPurple className="mt-5">*/}
+            {/*    {t("admin.news.adminNews.create.contentEst")}*/}
+            {/*</SubHeadingPurple>*/}
+
+            <div className={editorLanguage === "ET" ? "" : "d-none"}>
+                <ReactQuill
+                    theme="snow"
+                    value={editorHtmlEst}
+                    onChange={onEditorStateChangeEst}
+                    modules={modules}
+                    formats={formats}
+                />
+            </div>
             <ButtonPrimary className="mt-5" type="submit">
                 {t("admin.news.adminNews.create.create")}
             </ButtonPrimary>

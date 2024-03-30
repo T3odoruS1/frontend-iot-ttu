@@ -1,16 +1,19 @@
-import { FormFloating, FormSelect } from "react-bootstrap";
+import {FormFloating, FormSelect} from "react-bootstrap";
 import PageTitle from "../../../components/common/PageTitle";
-import { EFeedPage } from "../../../dto/feedpage/EFeedPage";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {EFeedPage} from "../../../dto/feedpage/EFeedPage";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import ButtonSmaller from "../../../components/common/ButtonSmaller";
-import { IFeedPage } from "../../../dto/feedpage/page/IFeedPage";
+import {IFeedPage} from "../../../dto/feedpage/page/IFeedPage";
 import useFetch from "../../../hooks/useFetch";
-import { FeedService } from "../../../services/FeedService";
+import {FeedService} from "../../../services/FeedService";
 import i18n from "i18next";
 import FeedPagePostElement from "./post/FeedPagePostElement";
-import { Loader } from "../../../components/Loader";
+import {Loader} from "../../../components/Loader";
 import Collapse from "../../../components/Collapse";
+import SubHeadingPurple from "../../../components/common/SubheadingPurple";
+import removeIcon from "../../../assets/iconpack/delete.svg"
+import edit from "../../../assets/iconpack/edit.svg"
 
 // Page selected using dropdown. Posts are hidden under categories, expandable.
 
@@ -34,7 +37,7 @@ const FeedPageList = () => {
     }
 
     const service = new FeedService();
-    const { data, pending, fetchData } = useFetch<IFeedPage>(service.getPage, [i18n.language, page]);
+    const {data, pending, fetchData} = useFetch<IFeedPage>(service.getPage, [i18n.language, page]);
 
 
     const toCreateCategory = () => {
@@ -51,9 +54,9 @@ const FeedPageList = () => {
             displaySuccess();
         }).catch(e => {
             alert(e);
-        }).finally(() => { 
-            setPendingLocal(false); 
-            fetchData() 
+        }).finally(() => {
+            setPendingLocal(false);
+            fetchData()
         })
     }
 
@@ -63,9 +66,9 @@ const FeedPageList = () => {
             displaySuccess();
         }).catch(e => {
             alert(e);
-        }).finally(() => { 
-            setPendingLocal(false); 
-            fetchData() 
+        }).finally(() => {
+            setPendingLocal(false);
+            fetchData()
         })
     }
 
@@ -82,8 +85,8 @@ const FeedPageList = () => {
     }, [page]);
 
     return <>
-        <PageTitle>Feed pages</PageTitle>
-        {(pending || pendingLocal) && <Loader />}
+        <SubHeadingPurple>Feed pages</SubHeadingPurple>
+        {(pending || pendingLocal) && <Loader/>}
         <ButtonSmaller onClick={toCreateCategory} className="m-2">Create category</ButtonSmaller>
         <ButtonSmaller onClick={toCreatePost} className="m-2">Create post</ButtonSmaller>
         <FormFloating>
@@ -94,24 +97,46 @@ const FeedPageList = () => {
         </FormFloating>
 
         {data?.feedPageCategories.map((category) => {
-            return <Collapse isActive={false} title={category.title} children={<div>
+            return <div className={"d-flex"}>
+                <Collapse isActive={false} title={category.title} children={<div>
 
+
+                    {category.feedPageCategoryPost.map(post => {
+                        return <div className="d-flex mt-2">
+                            <FeedPagePostElement
+                                feedPageCategoryId={""}
+                                title={post.title}
+                                body={post.body}
+                                createdAt={post.createdAt}
+                                id={""}/>
+                            <div className={"d-flex flex-column"}>
+                                <img className={"icon mb-2"}
+                                     onClick={() => {
+                                         updatePost(post.id)
+                                     }}
+                                     alt={"Edit"}
+                                     src={edit}/>
+                                <img className={"icon mb-2"}
+                                     onClick={() => removePost(post.id)}
+                                     alt={"Delete"}
+                                     src={removeIcon}/>
+                            </div>
+                        </div>
+                    })}
+
+                </div>}/>
                 {category.feedPageCategoryPost.length === 0 &&
-                    <ButtonSmaller onClick={() => removeCategory(category.id)} className="m-2">Remove category</ButtonSmaller>}
+                    <div className={"d-flex justify-content-center align-items-center"}>
+                        <img className={"icon mt-1 m-1"}
+                             onClick={() => removeCategory(category.id)}
+                             alt={"Delete"}
+                             src={removeIcon}/>
+                    </div>
+                }
 
-                {category.feedPageCategoryPost.map(post => {
-                    return <div className="">
-                        <ButtonSmaller onClick={() => updatePost(post.id)} className="mt-2">Edit</ButtonSmaller>
-                        <ButtonSmaller onClick={() => removePost(post.id)} className="mt-2">Delete</ButtonSmaller>
-                        <FeedPagePostElement
-                            feedPageCategoryId={""}
-                            title={post.title}
-                            body={post.body}
-                            createdAt={post.createdAt}
-                            id={""} /></div>
-                })}
+            </div>
 
-            </div>} />
+
         })}
 
     </>

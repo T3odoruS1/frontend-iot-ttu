@@ -12,6 +12,7 @@ import SubHeadingPurple from "../../../components/common/SubheadingPurple";
 import ButtonPrimary from "../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
 import {IUser} from "../../../dto/identity/IUser";
+import edit from "../../../assets/iconpack/edit.svg";
 
 interface IProps {
     email: string;
@@ -83,7 +84,8 @@ export const UserRolePopup = (props: IProps) => {
                 </form>
             </div>
         } trigger={
-            <ButtonSmaller className="mb-2">{t("user.changeRole")}</ButtonSmaller>
+            <img className={"icon"} alt={"Delete"}
+                 src={edit}/>
         }></Popup>
     );
 };

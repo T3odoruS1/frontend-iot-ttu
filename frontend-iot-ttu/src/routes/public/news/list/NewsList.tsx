@@ -133,13 +133,13 @@ const NewsList = () => {
                 {pending ? <Loader /> : (
                     <Row className="flex-column flex-md-row">
                         <Col className="col-md-9 order-md-0 order-1 news-grid">
-                            <Row>
+                            <Row >
                                 {news?.map((article) => (
                                     <NewsElement key={article.id} news={article} />
                                 ))}
                             </Row>
                         </Col>
-                        <Col className="col-md-3 order-md-1 order-0">
+                        <Col  className="col-md-3 order-md-1 order-0">
                             <TopicAreaFilters onTopicAreaChange={handleTopicAreaChange} />
                         </Col>
                     </Row>

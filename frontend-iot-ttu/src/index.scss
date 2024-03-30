@@ -173,14 +173,6 @@ body {
 }
 
 
-.demo {
-  border: 1px solid black;
-}
-
-//.top-text:hover, .dropdown-menu-custom:hover :active {
-//  color: #e4067e;
-//}
-
 .top-text:focus {
   color: white;
 }
@@ -356,6 +348,21 @@ ul li {
   color: #342b60;
   font-family: ThickTTU sans-serif;
   font-weight: 400;
+}
+
+.icon-wrapper{
+  max-width: 50px;
+  cursor: pointer;
+  color: #e4067e;
+}
+
+.icon-wrapper-lg{
+  max-width: 75px;
+  cursor: pointer;
+}
+
+.icon{
+  max-width: 25px;
 }
 
 .link-no-underline-selected {
@@ -548,7 +555,7 @@ b {
 }
 
 .collapse-card{
-  border-radius: 1rem;
+  //border-radius: 1rem;
 
   //padding-bottom: 0.5rem;
 }
@@ -585,9 +592,11 @@ ul{
   font-family: RegularTTU sans-serif;
   font-weight: 100;
   margin-top: 5rem;
+  width: 100vw;
+  max-width: 100vw;
+  overflow: hidden;
   min-height: 6rem;
   position: relative;
-  overflow: hidden;
   margin-bottom: -60px;
   z-index: 5;
 }
@@ -810,7 +819,7 @@ body.safari .banner-container {
   background-color: rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
   background-blend-mode: overlay;
-  border-radius: 1.3rem;
+  //border-radius: 1.3rem;
   background-repeat: no-repeat;
   min-height: 30vh;
 }
@@ -821,11 +830,11 @@ body.safari .banner-container {
 
 .banner-card {
   background-color: #dad9d9;
-  max-width: 700px;
+  max-width: 900px;
   padding-top: 0.45rem;
   padding-bottom: 0.45rem;
   padding-inline: 1rem;
-  border-radius: 2rem;
+  //border-radius: 2rem;
   margin-top: 2rem;
 }
 

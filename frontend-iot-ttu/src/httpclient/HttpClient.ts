@@ -25,6 +25,7 @@ export class HttpClient {
             headers: {
                 common: {
                     "Content-Type": "application/json",
+                    "TTU-IOT": "1"
                 },
             },
         });

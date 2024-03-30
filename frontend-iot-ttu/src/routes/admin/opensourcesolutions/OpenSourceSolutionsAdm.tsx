@@ -10,6 +10,11 @@ import ButtonSmaller from "../../../components/common/ButtonSmaller";
 import ActionConfirmationAlert from "../../../components/common/ActionConfirmationAlert";
 import ErrorPage from "../../ErrorPage";
 import {useNavigate} from "react-router-dom";
+import add from "../../../assets/iconpack/add.svg"
+import removeIcon from "../../../assets/iconpack/delete.svg"
+import edit from "../../../assets/iconpack/edit.svg"
+import SubHeadingPurple from "../../../components/common/SubheadingPurple";
+
 
 const OpenSourceSolutionAdm = () => {
     const {i18n, t} = useTranslation();
@@ -37,9 +42,12 @@ const OpenSourceSolutionAdm = () => {
 
 
     return <>
-        <PageTitle>Vabavaralised lahendused</PageTitle>
+        <SubHeadingPurple>{t("titles.oss")}</SubHeadingPurple>
         {pending && <Loader/>}
-        <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>{t('common.new')}</ButtonSmaller></div>
+        <img className={"icon-wrapper-lg"}
+             alt={"Add"}
+             onClick={toCreate}
+             src={add}/>
 
         <Table variant="striped">
             <caption>Open source solutions</caption>
@@ -57,14 +65,18 @@ const OpenSourceSolutionAdm = () => {
                         <tr key={solution.id}>
                             <th scope="row">{index + 1}</th>
                             <td>{solution.title}</td>
-                            <td>
-                                <ButtonSmaller onClick={() => {
-                                    toUpdate(solution.id)
-                                }} className="mb-2">{t("common.update")}</ButtonSmaller><br/>
+                            <td className={"d-flex"}>
+                                <div className={"mr-1"}>
+                                <img className={"icon"}
+                                     alt={"Update"}
+                                     src={edit}/>
+                                </div>
                                 <ActionConfirmationAlert action={() => {
                                     onDelete(solution.id)
                                 }} displayText={t("common.deleteUSure")}
-                                                         buttonText={t("common.delete")}/>
+                                                         triggerElement={<img className={"icon mx-2"}
+                                                                              alt={"Delete"}
+                                                                              src={removeIcon}/>}/>
                             </td>
                         </tr>
                     )

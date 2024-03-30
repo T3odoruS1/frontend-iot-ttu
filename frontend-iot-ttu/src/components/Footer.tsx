@@ -15,26 +15,30 @@ const Footer = () => {
     const {t} = useTranslation();
     if (jwtResponseCtx?.jwt) {
         return (
-            <footer className="footer d-flex top-gradient">
-                <div className="text-light m-5"><b>© 2023 TalTech Embedded AI Research Lab.</b></div>
-                <UserData/>
-                <div className={"m-2 d-flex justify-content-center align-items-center"}>
-                    <HeaderNavLink
-                    to={`/${i18n.language}/admin/news`}
-                    title={t("admin.header.admin")}
-                />
+            <footer className="navbar footer d-flex top-gradient d-flex flex-row">
+                <div className={"container-fluid"}>
+                    <div className="text-light m-5"><b>© 2023 TalTech Embedded AI Research Lab.</b></div>
+                    <UserData/>
+                    <div className={"m-2 d-flex justify-content-center align-items-center"}>
+                        <HeaderNavLink
+                            to={`/${i18n.language}/admin/news`}
+                            title={t("admin.header.admin")}
+                        />
+                    </div>
                 </div>
 
             </footer>
         );
     } else {
-        return <footer className="footer d-flex top-gradient">
-            <div className="text-light m-5"><b>© 2023 TalTech Embedded AI Research Lab.</b></div>
-            <div className={"m-2 w-100 pl-auto d-flex justify-content-center align-items-center"}>
-                <HeaderNavLink
-                    to={`/${i18n.language}/admin/news`}
-                    title={t("admin.header.admin")}
-                />
+        return <footer className="navbar footer d-flex top-gradient d-flex flex-row">
+            <div className={"container-fluid"}>
+                <div className="text-light m-5"><b>© 2023 TalTech Embedded AI Research Lab.</b></div>
+                <div className={"m-2 d-flex justify-content-center align-items-center"}>
+                    <HeaderNavLink
+                        to={`/${i18n.language}/admin/news`}
+                        title={t("admin.header.admin")}
+                    />
+                </div>
             </div>
         </footer>
     }

@@ -20,7 +20,7 @@ const schema = yup.object().shape({
     .length(2)
     .of(
       yup.object().shape({
-        value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+        value: yup.string().trim().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
         culture: yup.string().min(1, "").required(),
       })
     )
@@ -30,7 +30,9 @@ const schema = yup.object().shape({
     .length(2)
     .of(
       yup.object().shape({
-        value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+        value: yup.string().trim()
+            .notOneOf(["<p><br></p>"], "admin.news.adminNews.create.validation.fieldIsRequired")
+            .min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
         culture: yup.string().min(1, "").required(),
       })
     )

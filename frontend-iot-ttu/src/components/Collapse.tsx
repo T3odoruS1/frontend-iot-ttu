@@ -17,12 +17,12 @@ const Collapse: FC<IProps> = ({isActive, title, children}) => {
     });
 
 
-    return <div className={"collapse-card"}>
+    return <div className={"collapse-card w-100"}>
         <SubHeadingPurple className="toggle-category all-caps" {...getToggleProps({
             onClick: () => setExpanded((prevExpanded) => !prevExpanded)
         })}><span className={isExpanded ? "expanded-collapse-arrow" : "collape-arrow"}>› </span>{title}
         </SubHeadingPurple>
-        <div {...getCollapseProps()}><div className={"mt-2"}>{children}</div></div>
+        <div {...getCollapseProps()}><div className={"mb-2"}>{children}</div></div>
     </div>
 }
 

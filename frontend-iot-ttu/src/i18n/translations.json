@@ -276,6 +276,18 @@
       "en": "Date",
       "et": "Kuupäev"
     },
+    "postContent": {
+      "en":"Post content",
+      "et": "Postituse sisu"
+    },
+    "engRequired": {
+      "en":"Content in English is required",
+      "et": "Sisu inglise keeles on kohustuslik"
+    },
+    "estRequired": {
+      "en":"Content in Estonian is required",
+      "et": "Sisu eesti keeles on kohustuslik"
+    },
     "author": {
       "en": "Author",
       "et": "Autor"
@@ -378,7 +390,7 @@
     },
     "views": {
       "en": "Views",
-      "et": "Vaated"
+      "et": "Vaatamised"
     },
     "child": {
       "en": "Child",

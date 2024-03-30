@@ -1,4 +1,3 @@
-import { TitleAllCaps } from "../../../../components/common/TitleAllCaps";
 import { IFeedPagePost } from "../../../../dto/feedpage/post/IFeedPagePost";
 import {useTranslation} from "react-i18next";
 

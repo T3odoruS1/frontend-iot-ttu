@@ -17,7 +17,7 @@ import {ITopicAreaGet} from "../../../../dto/topicarea/ITopicAreaGet";
 
 const schema = yup.object().shape({
     name: yup.array().of(yup.object().shape({
-        value: yup.string().required(),
+        value: yup.string().trim().required(),
         culture: yup.string().required()
     }))
         .required()

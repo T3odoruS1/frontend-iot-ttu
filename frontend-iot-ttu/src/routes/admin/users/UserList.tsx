@@ -12,7 +12,11 @@ import {IRole} from "../../../dto/identity/IRole";
 import {useTranslation} from "react-i18next";
 import {IUser} from "../../../dto/identity/IUser";
 import Show from "../../../components/common/Show";
-import ButtonSmaller from "../../../components/common/ButtonSmaller";
+import addUser from "../../../assets/iconpack/addUser.svg"
+import removeUser from "../../../assets/iconpack/removeUser.svg";
+import {use} from "i18next";
+import SubHeadingPurple from "../../../components/common/SubheadingPurple";
+
 
 const UserList = () => {
     const navigate = useNavigate();
@@ -52,13 +56,16 @@ const UserList = () => {
 
     return (
         <>
-            <PageTitle>{t("user.listTitle")}</PageTitle>
+            <SubHeadingPurple>{t("user.listTitle")}</SubHeadingPurple>
             <Show>
                 <Show.When isTrue={pending}><Loader/></Show.When>
             </Show>
             <Show>
                 <Show.When isTrue={canUseActions()}>
-                    <ButtonSmaller onClick={toBlindRegister}>Create user</ButtonSmaller>
+                    {/*<ButtonSmaller onClick={toBlindRegister}>Create user</ButtonSmaller>*/}
+
+                        <img onClick={toBlindRegister} className={"icon-wrapper-lg"} alt={"View"} src={addUser}/>
+
                 </Show.When>
             </Show>
             <Table variant="striped">
@@ -84,14 +91,21 @@ const UserList = () => {
                                 <td>{user.email}</td>
                                 <td>{user.firstname}</td>
                                 <td>{user.lastname}</td>
-                                <td>{user.roles.at(0)?.name}</td>
+                                <td className={"d-flex"}>
+
+                                    <div>{user.roles.at(0)?.name} {user.roles.at(0)?.name?.length === 4 ? <span>&nbsp;</span> : ""}</div>
+
+                                    <div className={"mx-2"}>{<UserRolePopup user={user} roles={roles ?? []}
+                                                                            email={user.email} fetch={fetch}/>}</div>
+                                </td>
                                 <td>
                                     {canUseActions() && <>
-                                        <UserRolePopup user={user} roles={roles ?? []} email={user.email} fetch={fetch}/>
+
                                         <ActionConfirmationAlert action={() => {
-                                            deactivateUser(user.id);
+                                            deactivateUser(user.id)
                                         }} displayText={t("common.deleteUSure")}
-                                                                 buttonText={t("common.delete")}/>
+                                                                 triggerElement={<img className={"icon"} alt={"Delete"}
+                                                                                      src={removeUser}/>}/>
                                     </> || <p>{t("user.noRights")}</p>}
 
                                 </td>

@@ -39,19 +39,19 @@ const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
     }, [mobile]);
 
     return (
-        <div className={`collapse-card gray-bg p-2 ${!isExpanded ? "clickable-pointer" : ""} ${mobile ? "mb-2" : ""}`}>
+        <div className={`${!isExpanded ? "clickable-pointer" : ""} ${mobile ? "mb-2" : ""}`}>
             {tPending && <p>Loading...</p>}
             <div {...getToggleProps({
                 onClick: () => setExpanded((prevExpanded) => !prevExpanded),
             })} className={"filter_header w-100"}>
                 <h3 className="w-100 header-pink unselectable m-0">
+                    {t("public.news.filters")}
                     <span
                         className={isExpanded ? "expanded-collapse-arrow" : "collape-arrow"}>›
                     </span>
-                    {t("public.news.filters")}
                 </h3>
             </div>
-            <ul className={""} {...getCollapseProps()}>
+            <ul className={"m-0 p-0"} {...getCollapseProps()}>
                 {topicAreas?.map((topicArea) => (
                     <TopicAreaElement
                         key={topicArea.id} // Assuming each topicArea has a unique 'id'

@@ -16,11 +16,16 @@ import * as yup from "yup"
 import {FieldValues, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {IEmailRecepientOutput} from "../../../dto/recepient/IEmailRecepientOutput";
-import {Form} from "react-bootstrap";
+import {Form, Tab, Table} from "react-bootstrap";
 import InputControl from "../../../components/form/InputControl";
 import ButtonPrimary from "../../../components/common/ButtonPrimary";
 import Show from "../../../components/common/Show";
 import {SuccessAlert} from "../../../components/lottie/SuccessAlert";
+import removeIcon from "../../../assets/iconpack/delete.svg"
+import addPersonIcon from "../../../assets/iconpack/addUser.svg"
+import edit from "../../../assets/iconpack/edit.svg"
+import SubHeadingPurple from "../../../components/common/SubheadingPurple";
+
 
 const ContactPersonList = () => {
     const navigate = useNavigate();
@@ -80,48 +85,82 @@ const ContactPersonList = () => {
     return (
         <>
 
-            <PageTitle>Contact us page email recepients: </PageTitle>
+            <SubHeadingPurple>Contact us page email recepients: </SubHeadingPurple>
 
-            <Popup content={<AddRecepientElement onSubmit={onSubmit}/>} trigger={<ButtonSmaller>Add</ButtonSmaller>}/>
+            <Popup content={<AddRecepientElement onSubmit={onSubmit}/>} cname={"icon-wrapper-lg"}
+                   trigger={<img className={"icon-wrapper-lg"}
+                                 alt={"Delete"}
+                                 src={addPersonIcon}/>}/>
             <span className={"text-success"}>{message}</span>
 
-            <div className={""}>
-                {recepients?.map((rec, index) => {
-                    return <div className={" mt-2"}>
-                        {index + 1}) {rec.email}
-                        <span className={"m-4"}>
-                    <ActionConfirmationAlert action={() => {
-                        removeRecepient(rec.id)
-                    }}
-                                             displayText={"Are you sure you want to delete this recepient?"}
-                                             buttonText={"Delete"}/>
-                    </span>
-                    </div>
-                })}
+            <div className={"mt-2"}>
+                <Table className={"w-25"} variant={"striped"}>
+                    <tbody>
+                    {recepients?.map((rec, index) => {
+                        return <tr className={""}>
+                            <td>
+                                {index + 1}
+                            </td>
+                            <td>
+                                {rec.email}
+                            </td>
+                            <td>
+                                <ActionConfirmationAlert action={() => {
+                                    removeRecepient(rec.id)
+                                }}
+                                                         displayText={"Are you sure you want to delete this recepient?"}
+                                                         triggerElement={<img className={"icon"}
+                                                                              alt={"Delete"}
+                                                                              src={removeIcon}/>
+                                                         }/>
+                            </td>
+                        </tr>
+                    })}
+                    </tbody>
+                </Table>
             </div>
             <hr/>
 
-            <PageTitle>{t('contact.listTitle')}</PageTitle>
-            <ButtonSmaller onClick={toCreate}>{t("common.new")}</ButtonSmaller>
-            <div className={"my-5"}>{people?.map(person => {
-                return <div>
-                    <div className={''}>
-                        <ActionConfirmationAlert action={() => {
-                            remove(person.id)
-                        }} displayText={t("common.deleteUSure")}
-                                                 buttonText={t("common.delete")}/>
-                        <ButtonSmaller onClick={() => {
-                            toUpdate(person.id)
-                        }} className={"h-25 m-2 mb-5"}>{t("common.update")}</ButtonSmaller>
-                        <ContactPerson name={person.name} body={person.body}/>
+            <SubHeadingPurple>{t('contact.listTitle')}</SubHeadingPurple>
+            <img onClick={toCreate}
+                 className={"icon-wrapper-lg"}
+                 alt={"Delete"}
+                 src={addPersonIcon}/>
+
+            <Table variant={"striped"} className={"w-50"}>
+
+                <tbody>
+                {people?.map(person => {
+                    return <tr>
+                        <td className={''}>
+
+                            <ContactPerson name={person.name} body={person.body}/>
+                        </td>
+                        <td>
+                            <div className={"d-flex"}>
+
+                                <div className={"mx-2"}><img onClick={() => {
+                                    toUpdate(person.id)
+                                }} className={"icon icon-wrapper"}
+                                                            alt={"Delete"}
+                                                            src={edit}/>
+                                </div>
+                                <div className={"mx-2"}>
+                                    <ActionConfirmationAlert action={() => {
+                                        remove(person.id)
+                                    }} displayText={t("common.deleteUSure")}
+                                                             triggerElement={<img className={"icon icon-wrapper"}
+                                                                                  alt={"Delete"}
+                                                                                  src={removeIcon}/>}/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
 
 
-                    </div>
-                    <hr/>
-                </div>
-
-            })}
-            </div>
+                })}
+                </tbody>
+            </Table>
 
         </>
     );
@@ -148,18 +187,18 @@ const AddRecepientElement = (props: IProps) => {
 
 
     return <Form className={"m-4"} onSubmit={handleSubmit(props.onSubmit)}>
-                <div className={"mt-2"}>
-                    <InputControl
-                        name={`email`}
-                        register={register}
-                        type="text"
-                        error={errors.email?.message}
-                        label={"E-mail"}
-                    />
-                </div>
-                <ButtonPrimary className="mt-2" type="submit">
-                    {t("admin.news.adminNews.create.create")}
-                </ButtonPrimary>
-            </Form>
+        <div className={"mt-2"}>
+            <InputControl
+                name={`email`}
+                register={register}
+                type="text"
+                error={errors.email?.message}
+                label={"E-mail"}
+            />
+        </div>
+        <ButtonPrimary className="mt-2" type="submit">
+            {t("admin.news.adminNews.create.create")}
+        </ButtonPrimary>
+    </Form>
 
 }

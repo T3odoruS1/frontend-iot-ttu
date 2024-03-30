@@ -1,5 +1,5 @@
 import i18n from "i18next";
-import {Table} from "react-bootstrap";
+import {Col, Row, Table} from "react-bootstrap";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
 import {useNavigate} from "react-router-dom";
@@ -13,6 +13,13 @@ import {NewsService} from "../../../../services/NewsService";
 import {TopicAreaService} from "../../../../services/TopicAreaService";
 import {useTranslation} from "react-i18next";
 import {ITopicAreaGet} from "../../../../dto/topicarea/ITopicAreaGet";
+import edit from "../../../../assets/iconpack/edit.svg";
+import remove from "../../../../assets/iconpack/delete.svg";
+
+import eye from "../../../../assets/iconpack/eye.svg"
+import add from "../../../../assets/iconpack/add.svg";
+import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
+
 
 const NewsListAdm = () => {
 
@@ -29,7 +36,9 @@ const NewsListAdm = () => {
     const {t} = useTranslation();
 
     const onDelete = async (id: string) => {
-        newsService.remove(id).then(fetchData).catch(e => {alert(e)})
+        newsService.remove(id).then(fetchData).catch(e => {
+            alert(e)
+        })
     }
 
     const toCreate = () => {
@@ -49,7 +58,7 @@ const NewsListAdm = () => {
     }
 
     const onTopicAreaDelete = (id: string) => {
-
+        alert("NOT IMPLEMENTED")
     }
 
     if (!pending && (!news || !topicAreas)) {
@@ -59,8 +68,11 @@ const NewsListAdm = () => {
 
     return (
         <div>
-            <PageTitle>{t("news.news")}</PageTitle>
-            <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>{t("common.new")}</ButtonSmaller></div>
+            <SubHeadingPurple>{t("news.news")}</SubHeadingPurple>
+            <img className={"icon-wrapper-lg"}
+                 alt={"Add"}
+                 src={add}
+                 onClick={toCreate}/>
             {pending && <Loader/>}
 
             <Table variant="striped">
@@ -71,7 +83,6 @@ const NewsListAdm = () => {
                     <th scope="col">#</th>
                     <th scope="col">{t("news.title")}</th>
                     <th scope="col">{t("news.author")}</th>
-                    <th scope="col">{t("common.createdBy")}</th>
                     <th scope="col">{t("common.views")}</th>
                     <th scope="col">{t("common.createdAt")}</th>
                     <th scope="col">{t("common.actions")}</th>
@@ -85,19 +96,35 @@ const NewsListAdm = () => {
                                 <td>{newsPiece.title}</td>
                                 <td>{newsPiece.author}</td>
                                 <td>-</td>
-                                <td>-</td>
                                 <td>{(new Date(newsPiece.createdAt)).toLocaleDateString()}</td>
                                 <td>
-                                    <ButtonSmaller onClick={() => {
-                                        toUpdate(newsPiece.id)
-                                    }} className="mb-2">{t("common.update")}</ButtonSmaller><br/>
-                                    <ButtonSmaller onClick={() => {
-                                        toDetails(newsPiece.id);
-                                    }} className="mb-2">{t("common.view")}</ButtonSmaller><br/>
-                                    <ActionConfirmationAlert action={() => {
-                                        onDelete(newsPiece.id)
-                                    }} displayText={t("common.deleteUSure")}
-                                                             buttonText={t("common.delete")}/>
+                                    <Row>
+                                        <Col sm={"4"} className={"px-1"}>
+                                            <div className={"icon-wrapper"} onClick={() => toUpdate(newsPiece.id)}>
+                                                <img className={"icon"} alt={"Edit"} src={edit}/>
+                                            </div>
+                                        </Col>
+
+                                        <Col sm={"4"} className={"px-1"}>
+                                            <div className={"icon-wrapper"} onClick={() => {
+                                                toDetails(newsPiece.id);
+                                            }}>
+                                                <img className={"icon"} alt={"View"} src={eye}/>
+                                            </div>
+                                        </Col>
+
+                                        <Col sm={"4"} className={"px-1"}>
+                                            <div className={""}>
+                                                <ActionConfirmationAlert action={() => {
+                                                    onDelete(newsPiece.id)
+                                                }} displayText={t("common.deleteUSure")}
+                                                                         triggerElement={<img className={"icon"}
+                                                                                              alt={"Delete"}
+                                                                                              src={remove}/>}/>
+                                            </div>
+                                        </Col>
+
+                                    </Row>
                                 </td>
                             </tr>
                         )
@@ -108,18 +135,18 @@ const NewsListAdm = () => {
             <br/>
             <br/>
             <hr/>
-            <PageTitle>Topic areas</PageTitle>
+            <SubHeadingPurple>{t("common.topicAreas")}</SubHeadingPurple>
 
-            <div className={"m-2"}>
-                <ButtonSmaller type={"button"} onClick={toCreateTopic}>{t("common.new")}</ButtonSmaller>
-            </div>
+            <img className={"icon-wrapper-lg"}
+                 alt={"Add"}
+                 src={add}
+                 onClick={toCreateTopic}/>
             <Table>
                 <caption>Topic area list</caption>
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
+                <th scope="col">#</th>
                     <th scope="col">{t("common.name")}</th>
-                    <th scope="col">{t("common.createdAt")}</th>
                     <th scope="col">{t("news.numberOfPosts")}</th>
                     <th scope="col">{t("common.actions")}</th>
                 </tr>
@@ -132,8 +159,11 @@ const NewsListAdm = () => {
                             <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
                             <td>{topicArea.name}</td>
                             <td>-</td>
-                            <td>-</td>
-                            <td><ButtonSmaller>{t('common.delete')}</ButtonSmaller></td>
+                            <td><ActionConfirmationAlert action={() => {
+                                onTopicAreaDelete(topicArea.id)
+                            }} displayText={t("common.deleteUSure")}
+                                                         triggerElement={<img className={"icon"} alt={"Delete"}
+                                                                              src={remove}/>}/></td>
                         </tr>
                     </Fragment>)
                 })}

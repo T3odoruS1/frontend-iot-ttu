@@ -11,10 +11,11 @@ import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { INewsOutputDTO } from "../../../../dto/news/INewsOutputDTO";
 import { TopicAreaService } from "../../../../services/TopicAreaService";
-import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import useFetch from "../../../../hooks/useFetch";
 import ErrorPage from "../../../ErrorPage";
 import {ITopicAreaGet} from "../../../../dto/topicarea/ITopicAreaGet";
+import add from "../../../../assets/iconpack/add.svg"
+import removeIcon from "../../../../assets/iconpack/remove.svg"
 
 interface IProps {
 	control: Control<INewsOutputDTO, any>;
@@ -46,7 +47,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 			<div>
 				{fields.map((item, index) => {
 					return (
-						<section className="m-2" key={index}>
+						<section className="mb-2" key={index}>
 							<Row>
 								<Col md="9">
 									<FormFloating>
@@ -56,7 +57,8 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 											{...register(`topicAreas.${index}.id`)}
 											id={`topicAreas.${index}.id`}
 											name={`topicAreas.${index}.id`}>
-												<option key={-1} value="">{t('admin.news.adminNews.create.chooseTopicArea')}</option>
+											<option key={-1}
+													value="">{t('admin.news.adminNews.create.chooseTopicArea')}</option>
 											{topicAreas?.map((topicArea) => {
 												return (
 													<Fragment key={topicArea.id}>
@@ -75,33 +77,26 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
 										</FormLabel>
 									</FormFloating>
 								</Col>
-								<Col md="2">
-								{/*<TopicAreaCreatePopup topicAreas={topicAreasTranslated}/>*/}
-
-								</Col>
 								<Col md="1">
-									<ButtonSmaller onClick={()	=> {
-										remove(index)
-									}} className="m-2" type="button">
-										-
-									</ButtonSmaller>
+									<img className={"icon-wrapper"}
+										 alt={"Remove"}
+										 onClick={() => {
+											 remove(index)
+										 }}
+										 src={removeIcon}/>
 								</Col>
 							</Row>
 						</section>
 					);
 				})}
-				<ButtonSmaller
-					type="button"
-					className="mt-2"
-					onClick={() => {
-						console.log(errors.topicAreas?.[0]?.message?.toString());
-
-						append({
-							id: "",
-						});
-					}}>
-					{t("admin.news.adminNews.create.addTopicArea")}
-				</ButtonSmaller>
+				<img className={"icon-wrapper"}
+					 alt={"Add"}
+					 onClick={() => {
+						 append({
+							 id: "",
+						 });
+					 }}
+					 src={add}/>
 			</div>
 		</>
 	);

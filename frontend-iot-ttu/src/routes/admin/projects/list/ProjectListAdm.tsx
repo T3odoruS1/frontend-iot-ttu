@@ -6,11 +6,16 @@ import {useNavigate} from "react-router-dom";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import {Loader} from "../../../../components/Loader";
 import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
-import {Table} from "react-bootstrap";
+import {Col, Row, Table} from "react-bootstrap";
 // import {Fragment, useContext} from "react";
 import useFetch from "../../../../hooks/useFetch";
 import i18n from "i18next";
 import {useTranslation} from "react-i18next";
+import edit from "../../../../assets/iconpack/edit.svg";
+import eye from "../../../../assets/iconpack/eye.svg";
+import remove from "../../../../assets/iconpack/delete.svg";
+import add from "../../../../assets/iconpack/add.svg";
+import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
 
 const ProjectListAdm = () => {
 
@@ -56,8 +61,11 @@ const ProjectListAdm = () => {
 
     return (
         <div>
-            <PageTitle>{t("projects.projects")}</PageTitle>
-            <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>{t('common.new')}</ButtonSmaller></div>
+            <SubHeadingPurple>{t("projects.projects")}</SubHeadingPurple>
+            <img className={"icon-wrapper-lg"}
+                 alt={"Add"}
+                 src={add}
+                 onClick={toCreate}/>
             {pending && <Loader/>}
 
 
@@ -68,7 +76,6 @@ const ProjectListAdm = () => {
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">{t("common.title")}</th>
-                    <th scope="col">{t("common.createdBy")}</th>
                     <th scope="col">{t("common.views")}</th>
                     <th scope="col">{t("common.createdAt")}</th>
                     <th scope="col">{t("common.actions")}</th>
@@ -81,19 +88,35 @@ const ProjectListAdm = () => {
                                 <th scope="row">{index + 1}</th>
                                 <td>{project.title}</td>
                                 <td>-</td>
-                                <td>-</td>
                                 <td>{(new Date(project.createdAt)).toLocaleDateString()}</td>
                                 <td>
-                                    <ButtonSmaller onClick={() => {
-                                        toUpdate(project.id)
-                                    }} className="mb-2">{t("common.update")}</ButtonSmaller><br/>
-                                    <ButtonSmaller onClick={() => {
-                                        toDetails(project.id);
-                                    }} className="mb-2">{t("common.view")}</ButtonSmaller><br/>
-                                    <ActionConfirmationAlert action={() => {
-                                        onDelete(project.id)
-                                    }} displayText={t("common.deleteUSure")}
-                                                             buttonText={t("common.delete")}/>
+                                    <Row>
+                                        <Col sm={"4"} className={"px-1"}>
+                                            <div className={"icon-wrapper"} onClick={() => toUpdate(project.id)}>
+                                                <img className={"icon"} alt={"Edit"} src={edit}/>
+                                            </div>
+                                        </Col>
+
+                                        <Col sm={"4"} className={"px-1"}>
+                                            <div className={"icon-wrapper"} onClick={() => {
+                                                toDetails(project.id);
+                                            }}>
+                                                <img className={"icon"} alt={"View"} src={eye}/>
+                                            </div>
+                                        </Col>
+
+                                        <Col sm={"4"} className={"px-1"}>
+                                            <div className={""}>
+                                                <ActionConfirmationAlert action={() => {
+                                                    onDelete(project.id)
+                                                }} displayText={t("common.deleteUSure")}
+                                                                         triggerElement={<img className={"icon"}
+                                                                                              alt={"Delete"}
+                                                                                              src={remove}/>}/>
+                                            </div>
+                                        </Col>
+
+                                    </Row>
                                 </td>
                             </tr>
                         )
