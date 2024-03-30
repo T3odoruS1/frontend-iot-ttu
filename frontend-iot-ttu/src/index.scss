@@ -28,8 +28,9 @@ body {
   font-weight: 500;
 }
 
-img .ql-editor {
-  padding: 2rem;
+.ql-editor img {
+  padding-block: 2rem;
+  object-fit: contain;
 }
 
 .ql-editor li::before {

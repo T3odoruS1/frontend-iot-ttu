@@ -1,5 +1,4 @@
 import {useTranslation} from "react-i18next";
-import PageTitle from "../components/common/PageTitle";
 import SubHeadingPurple from "../components/common/SubheadingPurple";
 
 const ErrorPage = () => {

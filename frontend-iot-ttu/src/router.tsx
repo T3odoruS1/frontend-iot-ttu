@@ -58,14 +58,15 @@ export const router = createBrowserRouter([
         element: <Root/>,
         errorElement: <ErrorPage/>,
         children: [
-            {
-                path: "error",
-                element:<ErrorPage/>
-            },
+
             {
                 path: "admin",
                 element: <Admin/>,
                 children: [
+                    {
+                        path: "error",
+                        element:<ErrorPage/>
+                    },
                     {
                         path: "*",
                         element: <NotFoundPage/>
@@ -142,10 +143,6 @@ export const router = createBrowserRouter([
                         ],
                     },
                     {
-                        path: "statistics",
-                        element: <Statistics/>,
-                    },
-                    {
                         path: "technology",
                         element: <TechnologiesAdm/>,
                         children: [
@@ -204,6 +201,10 @@ export const router = createBrowserRouter([
                 path: "",
                 element: <Public/>,
                 children: [
+                    {
+                        path: "error",
+                        element:<ErrorPage/>
+                    },
                     {
                         path: "*",
                         element: <NotFoundPage/>

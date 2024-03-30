@@ -9,9 +9,12 @@ const useLivelinessCheck = () => {
     const {i18n} = useTranslation();
     const location = useLocation();
     useEffect(() => {
-        service.ping().then().catch(() => {
-            navigate(`/${i18n.language}/error`)
-        })
+        if(!location.pathname.includes("error")){
+            service.ping().then().catch(() => {
+                navigate(`/${i18n.language}/error`)
+            })
+        }
+
     }, [location]);
 }
 
