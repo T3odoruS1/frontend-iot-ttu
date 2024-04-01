@@ -91,7 +91,7 @@ const ProjectListAdm = () => {
                                                 <img className={"icon"} alt={"Edit"} src={edit}/>
                                             </div>
 
-                                            <div className={"icon-wrapper ms-2"} onClick={() => {
+                                            <div className={"icon-wrapper ms-4"} onClick={() => {
                                                 toDetails(project.id);
                                             }}>
                                                 <img className={"icon"} alt={"View"} src={eye}/>
@@ -103,7 +103,7 @@ const ProjectListAdm = () => {
                                                     onDelete(project.id)
                                                 }} displayText={t("common.deleteUSure")}
                                                                          triggerElement={<div
-                                                                             className={"icon-wrapper ms-2"}><img
+                                                                             className={"icon-wrapper ms-4"}><img
                                                                              className={"icon"}
                                                                              alt={"Delete"}
                                                                              src={remove}/></div>}/>

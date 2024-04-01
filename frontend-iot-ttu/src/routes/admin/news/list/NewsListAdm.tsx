@@ -105,7 +105,7 @@ const NewsListAdm = () => {
                                             <img className={"icon"} alt={"Edit"} src={edit}/>
                                         </div>
 
-                                        <div className={"icon-wrapper ms-2"} onClick={() => {
+                                        <div className={"icon-wrapper ms-4"} onClick={() => {
                                             toDetails(newsPiece.id);
                                         }}>
                                             <img className={"icon"} alt={"View"} src={eye}/>
@@ -114,7 +114,7 @@ const NewsListAdm = () => {
                                         <ActionConfirmationAlert action={() => {
                                             onDelete(newsPiece.id)
                                         }} displayText={t("common.deleteUSure")}
-                                                                 triggerElement={<div className={"icon-wrapper ms-2"}>
+                                                                 triggerElement={<div className={"icon-wrapper ms-4"}>
                                                                      <img className={"icon"}
                                                                           alt={"Delete"}
                                                                           src={remove}/>

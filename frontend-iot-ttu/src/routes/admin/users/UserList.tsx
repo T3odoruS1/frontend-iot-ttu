@@ -133,7 +133,7 @@ const UserList = () => {
                                                 deactivateUser(user.id)
                                             }} displayText={t("common.deleteUSure")}
                                                                      triggerElement={
-                                                                         <ButtonSmaller className={"ms-2"}>Reset
+                                                                         <ButtonSmaller className={"ms-4"}>Reset
                                                                              password</ButtonSmaller>}/>
                                         </> || <div>{t("user.noRights")}</div>}
 
