@@ -93,17 +93,17 @@ const UserList = () => {
                                 <td>{user.email}</td>
                                 <td>{user.firstname}</td>
                                 <td>{user.lastname}</td>
-                                <td width={150}  className={""}>
+                                <td>
 
                                     <div className={"d-flex"}>
-                                        <div>{user.roles.at(0)?.name} {user.roles.at(0)?.name?.length === 5 ?
+                                        <div>{user.roles[0].name} {user.roles[0].name.length === 5 ?
                                             <span></span> : ""}</div>
 
                                         <div className={"mx-2"}>{
                                             <Show>
                                                 <Show.When isTrue={canUseActions()}>
                                                     <div
-                                                        className={user.roles.at(0)?.name?.length === 5 ? " ms-5" : "ps-1"}>
+                                                        className={user.roles[0].name.length === 5 ? " ms-5" : "ps-1"}>
                                                         <UserRolePopup user={user} roles={roles ?? []}
                                                                        email={user.email} fetch={fetch}/>
                                                     </div>
@@ -115,7 +115,7 @@ const UserList = () => {
                                         }</div>
                                     </div>
                                 </td>
-                                <td width={200}>
+                                <td>
                                     <div className={"d-flex"} style={{width: 200}}>
 
                                         {canUseActions() && <>
