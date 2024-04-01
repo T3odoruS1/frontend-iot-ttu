@@ -63,7 +63,7 @@ export class IdentityService{
     }
 
     deactivateUser = async (data: IUserDeactivate): Promise<void> => {
-        const response = await this.client.postAuthenticated<void, IErrorResponse>("/users/lock", data)
+        const response = await this.client.postAuthenticated<void, IErrorResponse>("/users/delete", data)
         return processResponse<void>(response);
     }
 

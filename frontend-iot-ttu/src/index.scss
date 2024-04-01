@@ -352,9 +352,14 @@ ul li {
 
 .icon-wrapper{
   max-width: 50px;
-  cursor: pointer;
+  cursor: pointer !important;
   color: #e4067e;
 }
+
+.icon-wrapper-sm{
+  max-width: 30px;
+  cursor: pointer;
+  color: #e4067e;}
 
 .icon-wrapper-lg{
   max-width: 75px;
@@ -370,10 +375,13 @@ ul li {
   color: #e4067e;
   font-family: ThickTTU sans-serif;
   font-weight: 400;
+  cursor: pointer;
 }
 
 .link-no-underline:hover {
   color: #e4067e;
+  cursor: pointer;
+
 }
 
 .zoom-image {
@@ -479,9 +487,7 @@ ul li {
   width: 100%;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 1rem;
-  margin-bottom: 0;
-  margin-top: 1rem;
+  //border-radius: 1rem;
   //padding-bottom: 1rem;
   // border-top: 1px solid #e4067e;
 }
@@ -561,7 +567,7 @@ b {
 }
 
 .gray-bg{
-  background-color: #F1EEEE;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 ul{
@@ -821,7 +827,7 @@ body.safari .banner-container {
   background-blend-mode: overlay;
   //border-radius: 1.3rem;
   background-repeat: no-repeat;
-  min-height: 30vh;
+  aspect-ratio: 16/9 !important;
 }
 
 .nav-item a:hover{
@@ -830,8 +836,14 @@ body.safari .banner-container {
 
 .banner-card {
   background-color: #dad9d9;
-  max-width: 900px;
+  //max-width: 900px;
   padding-top: 0.45rem;
+  display: flex;
+  max-height: 50vh;
+  max-width: 75vh;
+  align-content: center;
+  //padding-right: 2rem;
+  justify-content: center;
   padding-bottom: 0.45rem;
   padding-inline: 1rem;
   //border-radius: 2rem;
@@ -840,6 +852,11 @@ body.safari .banner-container {
 
 .b-radius-0{
   border-radius: 0;
+}
+
+
+.admin-dashboard{
+  min-width: 840px;
 }
 
 .banner-container {
@@ -1326,7 +1343,7 @@ a:hover {
   width: 18rem;
   min-height: 20rem;
   background: rgba(255, 255, 255, 0);
-  border-radius: 1rem;
+  //border-radius: 1rem;
   overflow: hidden;
   font-family: ThickTTU sans-serif;
   font-size: 16px;
@@ -1334,11 +1351,15 @@ a:hover {
   --color: #32a6ff
 }
 
+.border-danger{
+  border: 0.5px solid red;
+}
+
 .notification:before {
   position: absolute;
   content: "";
   inset: 0.0625rem;
-  border-radius: 0.9375rem;
+  //border-radius: 0.9375rem;
   background: rgba(0, 0, 0, 0.05);
   z-index: 2
 }

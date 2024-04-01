@@ -26,8 +26,9 @@ const InputControl: FC<InputProps> =
          ...rest
      }) => {
         return (
-            <FormFloating>
+            <FormFloating className={error ? "border border-danger": ""}>
                 <FormControl
+
                     style={{
                         borderRadius: "0px"
                     }}

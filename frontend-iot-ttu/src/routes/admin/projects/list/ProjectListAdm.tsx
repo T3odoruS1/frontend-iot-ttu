@@ -1,13 +1,10 @@
 import {ProjectService} from "../../../../services/ProjectService";
 import {IProject} from "../../../../dto/project/IProject";
-import PageTitle from "../../../../components/common/PageTitle";
 import ErrorPage from "../../../ErrorPage";
 import {useNavigate} from "react-router-dom";
-import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import {Loader} from "../../../../components/Loader";
 import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
-import {Col, Row, Table} from "react-bootstrap";
-// import {Fragment, useContext} from "react";
+import {Table} from "react-bootstrap";
 import useFetch from "../../../../hooks/useFetch";
 import i18n from "i18next";
 import {useTranslation} from "react-i18next";
@@ -22,7 +19,7 @@ const ProjectListAdm = () => {
     // const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
 
     const projectService = new ProjectService();
-    const {data: projects, setData: setProjects,  pending, error}
+    const {data: projects, setData: setProjects, pending, error}
         = useFetch<IProject[]>(projectService.getAll, [i18n.language]);
 
     const navigate = useNavigate();
@@ -58,23 +55,23 @@ const ProjectListAdm = () => {
     }
 
 
-
     return (
         <div>
-            <SubHeadingPurple>{t("projects.projects")}</SubHeadingPurple>
-            <img className={"icon-wrapper-lg"}
-                 alt={"Add"}
-                 src={add}
-                 onClick={toCreate}/>
+            <div className={"d-flex"}>
+                <SubHeadingPurple className={"mt-2"}>{t("projects.projects")}</SubHeadingPurple>
+                <img className={"icon-wrapper"}
+                     alt={"Add"}
+                     src={add}
+                     onClick={toCreate}/>
+
+            </div>
             {pending && <Loader/>}
 
-
-            <Table variant="striped">
+            <Table responsive variant="striped">
                 <caption>{t("projects.projects")}</caption>
                 {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">{t("common.title")}</th>
                     <th scope="col">{t("common.views")}</th>
                     <th scope="col">{t("common.createdAt")}</th>
@@ -85,38 +82,33 @@ const ProjectListAdm = () => {
                 {projects?.map((project, index) => {
                         return (
                             <tr key={project.id}>
-                                <th scope="row">{index + 1}</th>
                                 <td>{project.title}</td>
-                                <td>-</td>
-                                <td>{(new Date(project.createdAt)).toLocaleDateString()}</td>
-                                <td>
-                                    <Row>
-                                        <Col sm={"4"} className={"px-1"}>
+                                <td >{project.viewCount}</td>
+                                <td >{(new Date(project.createdAt)).toLocaleDateString()}</td>
+                                <td >
+                                    <div className={"d-flex"}>
                                             <div className={"icon-wrapper"} onClick={() => toUpdate(project.id)}>
                                                 <img className={"icon"} alt={"Edit"} src={edit}/>
                                             </div>
-                                        </Col>
 
-                                        <Col sm={"4"} className={"px-1"}>
-                                            <div className={"icon-wrapper"} onClick={() => {
+                                            <div className={"icon-wrapper ms-2"} onClick={() => {
                                                 toDetails(project.id);
                                             }}>
                                                 <img className={"icon"} alt={"View"} src={eye}/>
                                             </div>
-                                        </Col>
 
-                                        <Col sm={"4"} className={"px-1"}>
+
                                             <div className={""}>
                                                 <ActionConfirmationAlert action={() => {
                                                     onDelete(project.id)
                                                 }} displayText={t("common.deleteUSure")}
-                                                                         triggerElement={<img className={"icon"}
-                                                                                              alt={"Delete"}
-                                                                                              src={remove}/>}/>
+                                                                         triggerElement={<div
+                                                                             className={"icon-wrapper ms-2"}><img
+                                                                             className={"icon"}
+                                                                             alt={"Delete"}
+                                                                             src={remove}/></div>}/>
                                             </div>
-                                        </Col>
-
-                                    </Row>
+                                    </div>
                                 </td>
                             </tr>
                         )

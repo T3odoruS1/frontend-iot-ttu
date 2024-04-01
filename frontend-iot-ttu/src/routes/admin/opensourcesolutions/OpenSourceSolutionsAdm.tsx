@@ -42,13 +42,16 @@ const OpenSourceSolutionAdm = () => {
 
 
     return <>
-        <SubHeadingPurple>{t("titles.oss")}</SubHeadingPurple>
-        {pending && <Loader/>}
-        <img className={"icon-wrapper-lg"}
-             alt={"Add"}
-             onClick={toCreate}
-             src={add}/>
 
+        <div className={"d-flex"}>
+            <SubHeadingPurple className={"mt-2"}>{t("titles.oss")}</SubHeadingPurple>
+            <img className={"icon-wrapper"}
+                 alt={"Add"}
+                 onClick={toCreate}
+                 src={add}/>
+        </div>
+
+        {pending && <Loader/>}
         <Table variant="striped">
             <caption>Open source solutions</caption>
             {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
@@ -66,17 +69,19 @@ const OpenSourceSolutionAdm = () => {
                             <th scope="row">{index + 1}</th>
                             <td>{solution.title}</td>
                             <td className={"d-flex"}>
-                                <div className={"mr-1"}>
-                                <img className={"icon"}
-                                     alt={"Update"}
-                                     src={edit}/>
+                                <div className={"mr-1 icon-wrapper"}>
+                                    <img className={"icon"}
+                                         alt={"Update"}
+                                         src={edit}/>
                                 </div>
                                 <ActionConfirmationAlert action={() => {
                                     onDelete(solution.id)
                                 }} displayText={t("common.deleteUSure")}
-                                                         triggerElement={<img className={"icon mx-2"}
-                                                                              alt={"Delete"}
-                                                                              src={removeIcon}/>}/>
+                                                         triggerElement={<div className={"icon-wrapper"}>
+                                                             <img
+                                                                 className={"icon mx-2"}
+                                                                 alt={"Delete"}
+                                                                 src={removeIcon}/></div>}/>
                             </td>
                         </tr>
                     )

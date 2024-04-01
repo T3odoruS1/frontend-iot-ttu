@@ -14,6 +14,9 @@ import Collapse from "../../../components/Collapse";
 import SubHeadingPurple from "../../../components/common/SubheadingPurple";
 import removeIcon from "../../../assets/iconpack/delete.svg"
 import edit from "../../../assets/iconpack/edit.svg"
+import Show from "../../../components/common/Show";
+import ActionConfirmationAlert from "../../../components/common/ActionConfirmationAlert";
+import {useTranslation} from "react-i18next";
 
 // Page selected using dropdown. Posts are hidden under categories, expandable.
 
@@ -79,6 +82,7 @@ const FeedPageList = () => {
     const updateCategory = (id: string) => {
         navigate(`./createPost/${id}`);
     }
+    const {t} = useTranslation();
 
     useEffect(() => {
 
@@ -97,43 +101,47 @@ const FeedPageList = () => {
         </FormFloating>
 
         {data?.feedPageCategories.map((category) => {
-            return <div className={"d-flex"}>
+            return <div className={"d-flex mt-2"}>
                 <Collapse isActive={false} title={category.title} children={<div>
-
-
                     {category.feedPageCategoryPost.map(post => {
                         return <div className="d-flex mt-2">
-                            <FeedPagePostElement
-                                feedPageCategoryId={""}
-                                title={post.title}
-                                body={post.body}
-                                createdAt={post.createdAt}
-                                id={""}/>
+                            <FeedPagePostElement post={post}/>
                             <div className={"d-flex flex-column"}>
-                                <img className={"icon mb-2"}
-                                     onClick={() => {
-                                         updatePost(post.id)
-                                     }}
-                                     alt={"Edit"}
-                                     src={edit}/>
-                                <img className={"icon mb-2"}
-                                     onClick={() => removePost(post.id)}
-                                     alt={"Delete"}
-                                     src={removeIcon}/>
+                                <div className={"icon-wrapper"}>
+                                    <img className={"icon mb-2"}
+                                         onClick={() => {
+                                             updatePost(post.id)
+                                         }}
+                                         alt={"Edit"}
+                                         src={edit}/>
+                                </div>
+                                <ActionConfirmationAlert
+                                    action={() => removePost(post.id)}
+                                displayText={"Are you sure you want to delete this post?"} triggerElement={<div
+                                    className={"icon-wrapper"}>
+                                    <img className={"icon mb-2"}
+                                         alt={"Delete"}
+                                         src={removeIcon}/>
+                                </div>}/>
                             </div>
+
                         </div>
                     })}
 
                 </div>}/>
-                {category.feedPageCategoryPost.length === 0 &&
-                    <div className={"d-flex justify-content-center align-items-center"}>
-                        <img className={"icon mt-1 m-1"}
-                             onClick={() => removeCategory(category.id)}
-                             alt={"Delete"}
-                             src={removeIcon}/>
-                    </div>
-                }
 
+                <Show>
+                    <Show.When isTrue={category.feedPageCategoryPost.length === 0}>
+                        <ActionConfirmationAlert action={() => removeCategory(category.id)}
+                                                 displayText={t("common.deleteUSure")} triggerElement={
+                            <div
+                                className={"icon-wrapper d-flex justify-content-center align-content-center mx-2 mt-4"}>
+                                <img className={"icon "}
+                                     alt={"Delete"}
+                                     src={removeIcon}/>
+                            </div>}/>
+                    </Show.When>
+                </Show>
             </div>
 
 

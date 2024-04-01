@@ -4,6 +4,7 @@ import {ITopicAreaPost} from "../dto/topicarea/ITopicAreaPost";
 import {IErrorResponse} from "../dto/IErrorResponse";
 import {processResponse} from "../httpclient/responseProcessor";
 import {HttpClient} from "../httpclient/HttpClient";
+import {ITopicAreaWithCount} from "../dto/topicarea/ITopicAreaWithCount";
 
 export class TopicAreaService {
     private client: HttpClient = HttpClient.getInstance();
@@ -13,9 +14,9 @@ export class TopicAreaService {
         return processResponse<IBaseEntity>(await this.client.postAuthenticated<IBaseEntity, IErrorResponse>(`topicAreas`, topicArea));
     }
 
-    getAll = async (lang: string): Promise<ITopicAreaGet[]> => {
-        return processResponse<ITopicAreaGet[]>(
-            await this.client.get<ITopicAreaGet[],IErrorResponse>(`/topicAreas/${lang}`)
+    getAll = async (lang: string): Promise<ITopicAreaWithCount[]> => {
+        return processResponse<ITopicAreaWithCount[]>(
+            await this.client.get<ITopicAreaWithCount[],IErrorResponse>(`/topicAreas/${lang}/withCount`)
         );
     }
 

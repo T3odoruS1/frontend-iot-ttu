@@ -68,12 +68,38 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
 
     const [editorLanguage, setEditorLanguage] = useState("EN");
 
+    const setCategoryAndPage = (categoryId: string) => {
+        let pageIsSet = false;
+        service.getCategories(i18n.language, EFeedPage.HARDWARE).then(result => {
+            if(result.some(category => category.id === categoryId)){
+                setPage(EFeedPage.HARDWARE)
+                setValue("page", EFeedPage.HARDWARE)
+                setTimeout(() => {
+                    setValue(`feedPageCategoryId`, categoryId);
+                }, 1000)
+                pageIsSet = true;
+            }
+        })
+        if(!pageIsSet){
+            service.getCategories(i18n.language, EFeedPage.RESEARCH).then(result => {
+                if(result.some(category => category.id === categoryId)){
+                    setPage(EFeedPage.RESEARCH)
+                    setValue("page", EFeedPage.RESEARCH)
+                    setTimeout(() => {
+                        setValue(`feedPageCategoryId`, categoryId);
+                    }, 1000)
+                    pageIsSet = true;
+                }
+            })
+        }
+    }
+
     useEffect(() => {
         if(id !== undefined){
             service.getPostMultilang(id).then(resp => {
                 setTimeout(() => {
-                    setValue(`feedPageCategoryId`, resp.feedPageCategoryId);
-                }, 1000);
+                    setCategoryAndPage(resp.feedPageCategoryId)
+                }, 1000)
 
                 setValue(`id`, resp.id);
                 onEditorStateChangeEng(resp!.body.find(b => {

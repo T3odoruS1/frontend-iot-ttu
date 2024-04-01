@@ -84,16 +84,19 @@ const AdminBannerList = () => {
     return (
         <>
             <div className={""}>
-                <SubHeadingPurple>{t("banners.adminTitle")}</SubHeadingPurple>
+                <div className={"d-flex"}>
+                    <SubHeadingPurple className={"mt-2"}>{t("banners.adminTitle")}</SubHeadingPurple>
+                    <img className={"icon-wrapper"}
+                         alt={"Add"}
+                         src={add}
+                         onClick={toCreate}/>
+                </div>
                 <div>{t("banners.instructions")}</div>
             </div>
             {(pending || updatePending) && <Loader/>}
             {success && <SuccessAlert scroll={false}/>}
             <div className={""}>
-            <img className={"icon-wrapper-lg"}
-                 alt={"Add"}
-                 src={add}
-            onClick={toCreate}/>
+
 
             {dndUsed && <img className={"icon-wrapper-lg"}
                              alt={"Add"}
@@ -108,7 +111,7 @@ const AdminBannerList = () => {
                             {banners?.map((banner, index) => {
                                 return (<Draggable key={banner.id} draggableId={banner.id} index={index}>
                                     {(provided) => (
-                                        <li className={"banner-card m-0 mb-2"}
+                                        <li className={"banner-card flex-column m-0 mb-2"}
                                             ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                             <BannerComponentAdmin banner={banner}/>
                                             <div className={"d-flex justify-content-center"}>

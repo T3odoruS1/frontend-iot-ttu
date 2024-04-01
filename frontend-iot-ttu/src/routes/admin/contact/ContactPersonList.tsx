@@ -23,6 +23,8 @@ import Show from "../../../components/common/Show";
 import {SuccessAlert} from "../../../components/lottie/SuccessAlert";
 import removeIcon from "../../../assets/iconpack/delete.svg"
 import addPersonIcon from "../../../assets/iconpack/addUser.svg"
+import add from "../../../assets/iconpack/add.svg"
+
 import edit from "../../../assets/iconpack/edit.svg"
 import SubHeadingPurple from "../../../components/common/SubheadingPurple";
 
@@ -85,16 +87,19 @@ const ContactPersonList = () => {
     return (
         <>
 
-            <SubHeadingPurple>Contact us page email recepients: </SubHeadingPurple>
+            <div className={"d-flex"}>
+                <SubHeadingPurple className={"mt-2"}>
+                    Contact us page email recipients
+                </SubHeadingPurple>
+                <Popup
+                    content={<AddRecepientElement onSubmit={onSubmit}/>} cname={"icon-wrapper-lg"}
+                    trigger={<img className={"icon-wrapper"} alt={"Add"} src={add}/>}/>
+            </div>
 
-            <Popup content={<AddRecepientElement onSubmit={onSubmit}/>} cname={"icon-wrapper-lg"}
-                   trigger={<img className={"icon-wrapper-lg"}
-                                 alt={"Delete"}
-                                 src={addPersonIcon}/>}/>
             <span className={"text-success"}>{message}</span>
 
             <div className={"mt-2"}>
-                <Table className={"w-25"} variant={"striped"}>
+                <Table responsive className={"w-25"} variant={"striped"}>
                     <tbody>
                     {recepients?.map((rec, index) => {
                         return <tr className={""}>
@@ -121,29 +126,32 @@ const ContactPersonList = () => {
             </div>
             <hr/>
 
-            <SubHeadingPurple>{t('contact.listTitle')}</SubHeadingPurple>
-            <img onClick={toCreate}
-                 className={"icon-wrapper-lg"}
-                 alt={"Delete"}
-                 src={addPersonIcon}/>
+            <div className={"d-flex"}>
+                <SubHeadingPurple className={"mt-2"}>{t('contact.listTitle')}</SubHeadingPurple>
+                <img onClick={toCreate}
+                     className={"icon-wrapper"}
+                     alt={"Add contact person"}
+                     src={add}/>
 
-            <Table variant={"striped"} className={"w-50"}>
+            </div>
+
+            <Table responsive className={"w-50 mt-2"}>
 
                 <tbody>
                 {people?.map(person => {
                     return <tr>
-                        <td className={''}>
+                        <td width={400} className={'p-0'}>
 
                             <ContactPerson name={person.name} body={person.body}/>
                         </td>
-                        <td>
+                        <td width={50} className={"p-0"}>
                             <div className={"d-flex"}>
 
                                 <div className={"mx-2"}><img onClick={() => {
                                     toUpdate(person.id)
                                 }} className={"icon icon-wrapper"}
-                                                            alt={"Delete"}
-                                                            src={edit}/>
+                                                             alt={"Delete"}
+                                                             src={edit}/>
                                 </div>
                                 <div className={"mx-2"}>
                                     <ActionConfirmationAlert action={() => {

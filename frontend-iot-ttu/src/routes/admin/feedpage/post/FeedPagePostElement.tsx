@@ -1,14 +1,21 @@
 import { IFeedPagePost } from "../../../../dto/feedpage/post/IFeedPagePost";
 import {useTranslation} from "react-i18next";
+import {FC, ReactElement} from "react";
 
+interface IProps{
+    post: IFeedPagePost,
+    additionalElements?: ReactElement;
+}
 
-
-const FeedPagePostElement = (post: IFeedPagePost) => {
+const FeedPagePostElement: FC<IProps> = ({post, additionalElements}) => {
     const {t} = useTranslation();
     return <div className="notification w-100">
         <div className="notiglow"></div>
         <div className="notiborderglow"></div>
-        <h1 className="notititle header-pink all-caps">{post.title}</h1>
+        <div className={"d-flex"}>
+            <h1 className="notititle header-pink all-caps">{post.title}</h1>
+            {additionalElements}
+        </div>
         <div className="notibody">
             <div>
                 <p>{t("common.createdAt")}: {new Date(post.createdAt ?? "").toLocaleDateString()}</p>

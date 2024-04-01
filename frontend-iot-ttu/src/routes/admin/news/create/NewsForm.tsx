@@ -139,7 +139,10 @@ const NewsForm: React.FC<IProps> =
                     {t("common.postContent")}
                 </SubHeadingPurple>
 
-
+                <div
+                    className={"text-danger"}>{errors.body?.[0]?.value?.message ?? t("common.engRequired")}</div>
+                <div
+                    className={"text-danger"}>{errors.body?.[1]?.value?.message ?? t("common.estRequired")}</div>
                 <FormFloating>
                     <FormSelect id={"editor-language"} className={"b-radius-0"} value={editorLanguage}
                                 onChange={(e) => setEditorLanguage(e.target.value)}>
@@ -148,8 +151,6 @@ const NewsForm: React.FC<IProps> =
                     </FormSelect>
                     <FormLabel htmlFor={"editor-language"}>Editor language</FormLabel>
                 </FormFloating>
-                <div className={"text-danger"}>{t(errors.body?.[0]?.value?.message?.toString())}</div>
-                <div className={"text-danger"}>{t(errors.body?.[1]?.value?.message?.toString())}</div>
 
 
                 <div className={editorLanguage === "EN" ? "" : "d-none"}>
@@ -161,11 +162,6 @@ const NewsForm: React.FC<IProps> =
                         formats={formats}
                     />
                 </div>
-
-
-                {/*<SubHeadingPurple className="mt-5">*/}
-                {/*    {t("admin.news.adminNews.create.contentEst")}*/}
-                {/*</SubHeadingPurple>*/}
 
                 <div className={editorLanguage === "ET" ? "" : "d-none"}>
                     <ReactQuill

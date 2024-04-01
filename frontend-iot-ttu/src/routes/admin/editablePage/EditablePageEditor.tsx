@@ -13,6 +13,7 @@ import {useTranslation} from "react-i18next";
 import {SuccessAlert} from "../../../components/lottie/SuccessAlert";
 import {PageContentService} from "../../../services/PageContentService";
 import useFetch from "../../../hooks/useFetch";
+import {FormFloating, FormLabel, FormSelect} from "react-bootstrap";
 
 interface IProps {
     pageIdentifier: string;
@@ -36,7 +37,9 @@ const schema = yup.object().shape({
         .length(2)
         .of(
             yup.object().shape({
-                value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+                value: yup.string().trim()
+                    .notOneOf(["<p><br></p>"], "admin.news.adminNews.create.validation.fieldIsRequired")
+                    .min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
                 culture: yup.string().min(1, "").required(),
             })
         )
@@ -132,6 +135,12 @@ export const EditablePageEditor = (props: IProps) => {
         setEditorHtmlEst(html);
     };
 
+    const [editorLanguage, setEditorLanguage] = useState("EN");
+
+    useEffect(() => {
+        console.log(errors);
+    }, [editorLanguage]);
+
 
     return (
         <>
@@ -152,7 +161,7 @@ export const EditablePageEditor = (props: IProps) => {
                             label={t("pageContent.titleEng")}
                         />
                     </div>
-                    <div className={"mt-2"}>
+                    <div className={"mt-2 mb-2"}>
                         <InputControl
                             register={register}
                             error={t(errors.title?.[1]?.value?.message?.toString())}
@@ -160,30 +169,39 @@ export const EditablePageEditor = (props: IProps) => {
                             label={t("pageContent.titleEng")}
                         />
                     </div>
+                    <div
+                        className={"text-danger"}>{errors.body?.[0]?.value?.message !== undefined ? t("common.engRequired") : ""}</div>
+                    <div
+                        className={"text-danger"}>{errors.body?.[1]?.value?.message !== undefined ? t("common.estRequired") : ""}</div>
+                    <FormFloating>
+                        <FormSelect id={"editor-language"} className={"b-radius-0"} value={editorLanguage}
+                                    onChange={(e) => setEditorLanguage(e.target.value)}>
+                            <option value={"EN"}>EN</option>
+                            <option value={"ET"}>ET</option>
+                        </FormSelect>
+                        <FormLabel htmlFor={"editor-language"}>Editor language</FormLabel>
+                    </FormFloating>
 
-                    <SubHeadingPurple className="mt-5">
-                        {t("admin.news.adminNews.create.contentEng")}
-                    </SubHeadingPurple>
-                    <p>{errors.body?.[0]?.value?.message?.toString()}</p>
-                    <ReactQuill
-                        theme="snow"
-                        value={editorHtmlEng}
-                        onChange={onEditorStateChangeEng}
-                        modules={modules}
-                        formats={formats}
-                    />
 
-                    <SubHeadingPurple className="mt-5">
-                        {t("admin.news.adminNews.create.contentEst")}
-                    </SubHeadingPurple>
-                    <p>{errors.body?.[1]?.value?.message?.toString()}</p>
-                    <ReactQuill
-                        theme="snow"
-                        value={editorHtmlEst}
-                        onChange={onEditorStateChangeEst}
-                        modules={modules}
-                        formats={formats}
-                    />
+                    <div className={editorLanguage === "EN" ? "" : "d-none"}>
+                        <ReactQuill
+                            theme="snow"
+                            value={editorHtmlEng}
+                            onChange={onEditorStateChangeEng}
+                            modules={modules}
+                            formats={formats}
+                        />
+                    </div>
+
+                    <div className={editorLanguage === "ET" ? "" : "d-none"}>
+                        <ReactQuill
+                            theme="snow"
+                            value={editorHtmlEst}
+                            onChange={onEditorStateChangeEst}
+                            modules={modules}
+                            formats={formats}
+                        />
+                    </div>
                     <div className={"my-2"}>
                         <ButtonPrimary type={"submit"}>
                             {t("common.submit")}

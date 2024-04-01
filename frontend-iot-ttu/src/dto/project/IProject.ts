@@ -9,5 +9,6 @@ export interface IProject extends IBaseEntity {
     projectVolume: number,
     projectManager: string,
     year: number,
+    viewCount: number,
     topicAreas: ITopicAreaGet[]
 }

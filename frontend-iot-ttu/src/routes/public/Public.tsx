@@ -11,9 +11,9 @@ const Public = () => {
         console.log(location.pathname);
     }, [location]);
 
-    useTrackPageNavigation();
+    // useTrackPageNavigation(); // Events turned out to be useless.
     const isHomePage = () => {
-        return location.pathname === "/et" || location.pathname === "/en";
+        return location.pathname === "/et" || location.pathname === "/en" || location.pathname === "/et/" || location.pathname === "/en/";
     }
     return (
         <>

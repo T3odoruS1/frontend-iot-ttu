@@ -84,8 +84,10 @@ export const UserRolePopup = (props: IProps) => {
                 </form>
             </div>
         } trigger={
+            <div className={"icon-wrapper"}>
             <img className={"icon"} alt={"Delete"}
                  src={edit}/>
+            </div>
         }></Popup>
     );
 };

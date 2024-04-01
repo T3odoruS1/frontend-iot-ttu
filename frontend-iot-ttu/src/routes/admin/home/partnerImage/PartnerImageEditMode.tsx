@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import Popup from "../../../../components/Popup";
 import {FieldValues, useForm} from "react-hook-form";
-import {Form} from "react-bootstrap";
+import {Form, Table} from "react-bootstrap";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import ImageUploader from "../../../../components/form/ImageUpload";
 import {IPartnerImageOutput} from "../../../../dto/partnerImage/IPartnerImageOutput";
@@ -14,6 +14,8 @@ import InputControl from "../../../../components/form/InputControl";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 
+import add from "../../../../assets/iconpack/add.svg"
+import removeIcon from "../../../../assets/iconpack/delete.svg"
 
 export const PartnerImageEditMode = () => {
     const service = new PartnerImageService();
@@ -52,13 +54,36 @@ export const PartnerImageEditMode = () => {
     return (
         <>
             <p>{t(message)}</p>
-            <Popup trigger={<ButtonSmaller>{t("common.new")}</ButtonSmaller>} content={<AddPartnerImage onSubmit={onSubmit}/>}/>
-            {images?.map(i => {
-                return <div className={"w-100"}>
-                    <img className={"partner-image"} src={i.image} alt={"Partner image"}/>
-                    <ButtonSmaller onClick={() => remove(i.id)}>{t("common.delete")}</ButtonSmaller>
-                </div>
-            })}
+            <Popup cname={"icon-wrapper"} trigger={
+                    <img className={"icon-wrapper mb-2"}
+                         alt={"Add"}
+                         src={add}/>
+            } content={<AddPartnerImage onSubmit={onSubmit}/>}/>
+            <Table>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </Table>
+            <Table>
+                <tbody>
+                {images?.map(i => {
+                    return <tr className={"w-100"}>
+                        <td>
+                            <img className={"partner-image"} src={i.image} alt={"Partner image"}/>
+                        </td>
+
+                        <td><img className={"icon-wrapper mb-2"}
+                                 onClick={() => remove(i.id)}
+                                 alt={"Delete"}
+                                 src={removeIcon}/>
+                        </td>
+                    </tr>
+                })}
+                </tbody>
+            </Table>
         </>
     );
 };

@@ -1,6 +1,6 @@
 import PageTitle from "../../../../../components/common/PageTitle";
 import InputControl from "../../../../../components/form/InputControl";
-import {Form} from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
 import * as yup from "yup";
 import {FieldValues, set, useForm} from "react-hook-form";
 import {IContactPersonOutput} from "../../../../../dto/contact/people/IContactPersonOutput";
@@ -117,34 +117,55 @@ const BannerCreate = () => {
             {errorResponse && <p>{errorResponse}</p>}
             {success && <SuccessAlert/>}
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={t(errors.title?.[0]?.value?.message, {len: 45})}
-                        name={"title.0.value"}
-                        label={"Main title english"}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={t(errors.title?.[1]?.value?.message, {len: 45})}
-                        name={"title.1.value"}
-                        label={"Main title estonian"}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={t(errors.body?.[0]?.value?.message, {len: 90})}
-                        name={"body.0.value"}
-                        label={"Main title english"}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={t(errors.body?.[1]?.value?.message, {len: 90})}
-                        name={"body.1.value"}
-                        label={"Main title estonian"}/>
-                </div>
+
+                <Row>
+                    <Col md={6}>
+                        <div className={"mt-2"}>
+                            <InputControl
+                                register={register}
+                                error={t(errors.title?.[0]?.value?.message, {len: 45})}
+                                name={"title.0.value"}
+                                label={t("banners.titleEng")}/>
+                        </div>
+
+                    </Col>
+                    <Col md={6}>
+                        <div className={"mt-2"}>
+                            <InputControl
+                                register={register}
+                                error={t(errors.title?.[1]?.value?.message, {len: 45})}
+                                name={"title.1.value"}
+                                label={t("banners.titleEst")}/>
+                        </div>
+
+                    </Col>
+
+                </Row>
+
+                <Row>
+                    <Col md={6}>
+
+                        <div className={"mt-2"}>
+                            <InputControl
+                                register={register}
+                                error={t(errors.body?.[0]?.value?.message, {len: 90})}
+                                name={"body.0.value"}
+                                label={t("banners.subtitleEng")}/>
+                        </div>
+
+                    </Col>
+                    <Col md={6}>
+                        <div className={"mt-2"}>
+                            <InputControl
+                                register={register}
+                                error={t(errors.body?.[1]?.value?.message, {len: 90})}
+                                name={"body.1.value"}
+                                label={t("banners.subtitleEst")}/>
+                        </div>
+
+                    </Col>
+
+                </Row>
                 <div className={"mt-2"}>
                     {t(errors.image?.message)}
                     <ImageUploader
