@@ -89,12 +89,12 @@ const FeedPageList = () => {
     }, [page]);
 
     return <>
-        <SubHeadingPurple>Feed pages</SubHeadingPurple>
+        <SubHeadingPurple>{t("feedPage.technologyPages")}</SubHeadingPurple>
         {(pending || pendingLocal) && <Loader/>}
         <div className={"d-flex"}>
 
-            <a onClick={toCreateCategory} className="link-arrow clickable-pointer link-no-underline">Create category</a>
-            <a onClick={toCreatePost} className="ms-4 link-arrow clickable-pointer link-no-underline">Create post</a>
+            <div onClick={toCreateCategory} className="link-arrow clickable-pointer">{t("feedPage.createCategory")}</div>
+            <div onClick={toCreatePost} className="ms-4 link-arrow clickable-pointer">{t("feedPage.createPost")}</div>
         </div>
         <FormFloating>
             <FormSelect className={"no-br"} value={page} onChange={onPageChange}>

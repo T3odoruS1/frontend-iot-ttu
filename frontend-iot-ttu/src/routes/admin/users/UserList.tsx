@@ -36,7 +36,7 @@ const UserList = () => {
         return jwtResponseCtx?.roleIds.at(0) !== roles?.find(r => r.name === "MODERATOR")?.id;
     }
 
-    const canCreateUser =() => {
+    const canCreateUser = () => {
         if (jwtResponseCtx?.roleIds.length === 0) {
             return false;
         }
@@ -52,6 +52,10 @@ const UserList = () => {
                 fetch();
             }
         })
+    }
+
+    const toChangePassword = () => {
+        navigate("./changepassword");
     }
 
 
@@ -110,7 +114,8 @@ const UserList = () => {
                                         <div className={"mx-2"}>{
                                             <Show>
                                                 <Show.When isTrue={canUseActionsOnUser(user.id)}>
-                                                    <div className={user.roles.at(0)?.name?.length === 5 ? " ms-5" : "ps-1"}>
+                                                    <div
+                                                        className={user.roles.at(0)?.name?.length === 5 ? " ms-5" : "ps-1"}>
                                                         <UserRolePopup user={user} roles={roles ?? []}
                                                                        email={user.email} fetch={fetch}/>
                                                     </div>
@@ -136,10 +141,11 @@ const UserList = () => {
                                                                          </div>}/>
                                             <ActionConfirmationAlert action={() => {
                                                 restPassword(user.id)
-                                            }} displayText={t("common.deleteUSure")}
+                                            }} displayText={t("user.resetPasswordUSure")}
                                                                      triggerElement={
-                                                                         <div className={"ms-4 link-arrow clickable-pointer"}>Reset
-                                                                             password</div>}/>
+                                                                         <div className={"ms-4 link-arrow clickable-pointer"}>
+                                                                             {t("user.resetPassword")}
+                                                                         </div>}/>
                                         </> || <div>{t("user.noRights")}</div>}
 
                                     </div>
@@ -150,6 +156,9 @@ const UserList = () => {
                 )}
                 </tbody>
             </Table>
+            <div onClick={toChangePassword} className={"link-arrow clickable-pointer"}>
+                {t("user.changeMyPass")}
+            </div>
         </>
     );
 };

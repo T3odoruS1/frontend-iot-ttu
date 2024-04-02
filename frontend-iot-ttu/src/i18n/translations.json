@@ -527,6 +527,18 @@
     "logout": {
       "en": "Logout",
       "et": "Logi välja"
+    },
+    "changeMyPass": {
+      "en": "Change my password",
+      "et": "Muuda minu salasõna"
+    },
+    "resetPassword": {
+      "en": "Reset password",
+      "et": "Lähtestage parool"
+    },
+    "resetPasswordUSure": {
+      "en": "Are you sure you want to reset password for this user? New password will be sent via email to the user.",
+      "et": "Kas olete kindel, et soovite selle kasutaja parooli lähtestada? Uus parool saadetakse kasutajale e -posti teel."
     }
   },
   "pageContent": {
@@ -581,6 +593,26 @@
     "fail": {
       "en": "Something went wrong. Try again later!",
       "et": "Midagi läks valesti, prooviga hiljem uuesti!"
+    },
+    "recipientsTitle": {
+      "en": "Contact us page email recipients",
+      "et": "Võta ühendust lehekülje emailide vastuvõtjad"
+    },
+    "recipientDeleted": {
+      "en": "Recipient deleted",
+      "et": "Emailide vastuvõtja kustutatud"
+    },
+    "recipientAdded": {
+      "en": "Recipient added",
+      "et": "Emailide vastuvõtja lisatud"
+    },
+    "oops": {
+      "en": "Oops... something went wrong",
+      "et": "Midagi läks valesti"
+    },
+    "RUSure": {
+      "en": "Are you sure you want to delete this recipient?",
+      "et": "Oled kindel et tahad kustutada selle emaili vastuvõtjat?"
     }
   },
   "news": {
@@ -697,6 +729,20 @@
     "home": {
       "en": "Taltech IOT",
       "et": "Taltech IOT"
+    }
+  },
+  "feedPage": {
+    "createCategory": {
+      "en": "Create category",
+      "et": "Loo uus kategooria"
+    },
+    "createPost": {
+      "en": "Create post",
+      "et": "Loo uus postitus"
+    },
+    "technologyPages": {
+      "en": "Technology posts",
+      "et": "Tehnoloogia postitused"
     }
   }
 }

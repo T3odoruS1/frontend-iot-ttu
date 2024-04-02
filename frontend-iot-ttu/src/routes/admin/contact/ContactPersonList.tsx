@@ -13,16 +13,14 @@ import {IEmailRecepient} from "../../../dto/recepient/IEmailRecepient";
 import {EmailRecepientService} from "../../../services/EmailRecepientService";
 import Popup from "../../../components/Popup";
 import * as yup from "yup"
-import {FieldValues, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {IEmailRecepientOutput} from "../../../dto/recepient/IEmailRecepientOutput";
 import {Form, Tab, Table} from "react-bootstrap";
 import InputControl from "../../../components/form/InputControl";
 import ButtonPrimary from "../../../components/common/ButtonPrimary";
-import Show from "../../../components/common/Show";
-import {SuccessAlert} from "../../../components/lottie/SuccessAlert";
+
 import removeIcon from "../../../assets/iconpack/delete.svg"
-import addPersonIcon from "../../../assets/iconpack/addUser.svg"
 import add from "../../../assets/iconpack/add.svg"
 
 import edit from "../../../assets/iconpack/edit.svg"
@@ -40,9 +38,7 @@ const ContactPersonList = () => {
 
     const {
         data: recepients,
-        pending: recepientsPending,
-        setData: setRecepients,
-        error: recepientsError,
+
         fetchData: fetchRecepients
     } =
         useFetch<IEmailRecepient[]>(recepientService.getAll)
@@ -62,25 +58,25 @@ const ContactPersonList = () => {
             });
             setData(filtered);
         }).catch(() => {
-            alert("Something went wrong");
+            alert("contact.oops");
         });
     }
 
     const removeRecepient = (id: string) => {
         recepientService.delete(id).then((res) => {
             fetchRecepients();
-            setMessage("Recepient deleted")
+            setMessage("contact.recipientDeleted")
         }).catch(() => {
-            alert("Something went wrong");
+            alert("contact.oops");
         })
     }
 
     const onSubmit = (fieldValues: IEmailRecepientOutput) => {
         recepientService.create(fieldValues).then((res) => {
             fetchRecepients();
-            setMessage("Recepient added")
+            setMessage("contact.recipientAdded")
         }).catch(() => {
-            alert("Something went wrong");
+            alert("contact.oops");
         });
     }
 
@@ -89,14 +85,14 @@ const ContactPersonList = () => {
 
             <div className={"d-flex"}>
                 <SubHeadingPurple className={"mt-2"}>
-                    Contact us page email recipients
+                    {t("contact.recipientsTitle")}
                 </SubHeadingPurple>
                 <Popup
                     content={<AddRecepientElement onSubmit={onSubmit}/>} cname={"icon-wrapper-lg"}
                     trigger={<img className={"icon-wrapper"} alt={"Add"} src={add}/>}/>
             </div>
 
-            <span className={"text-success"}>{message}</span>
+            <span className={"text-success"}>{t(message)}</span>
 
             <div className={"mt-2"}>
                 <Table responsive className={"w-25"} variant={"striped"}>
@@ -113,7 +109,7 @@ const ContactPersonList = () => {
                                 <ActionConfirmationAlert action={() => {
                                     removeRecepient(rec.id)
                                 }}
-                                                         displayText={"Are you sure you want to delete this recepient?"}
+                                                         displayText={t("contact.RUSure")}
                                                          triggerElement={<img className={"icon"}
                                                                               alt={"Delete"}
                                                                               src={removeIcon}/>

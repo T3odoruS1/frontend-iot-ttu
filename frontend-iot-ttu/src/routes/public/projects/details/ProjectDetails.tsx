@@ -22,7 +22,11 @@ const ProjectDetails = () => {
     const projectService = new ProjectService();
     const {data: project, pending, error} = useFetch<IProject>(projectService.getById, [i18n.language, id ?? ""]);
     const onContactUsClick = () => {
-        navigate("../../contact")
+        if(project){
+            navigate(`../../contact?fromProject=${project.id}`)
+        }else{
+            navigate(`../../contact?fromNews`)
+        }
     }
 
 

@@ -64,9 +64,12 @@ const NewsList = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [page, setPage] = useState<number>(parseInt(new URLSearchParams(location.search).get('page') || '1', 10));
-    const [size, setSize] = useState<number>(6); // Assuming 'size' won't change for now
-    const [topicArea, setTopicArea] = useState<string | null>(new URLSearchParams(location.search).get('topicArea'));
+    const [page, setPage] =
+        useState<number>(parseInt(new URLSearchParams(location.search).get('page') || '1', 10));
+    const [size, setSize] =
+        useState<number>(6); // Assuming 'size' won't change for now
+    const [topicArea, setTopicArea] =
+        useState<string | null>(new URLSearchParams(location.search).get('topicArea'));
     const { data: news, pending, total, error, fetch } =
         usePaginatedFetch<INews, NewsService>(new NewsService(), page - 1, size, topicArea ? [topicArea] : []);
 

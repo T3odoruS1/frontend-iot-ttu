@@ -21,7 +21,11 @@ const NewsPiece = () => {
     const {data: news, pending, error} =
         useFetch<INews>(newsService.getById, [i18n.language, id ?? ""])
     const onContactUsClick = () => {
-        navigate("../../contact")
+        if(news){
+            navigate(`../../contact?fromNews=${news.id}`)
+        }else{
+            navigate(`../../contact?fromNews`)
+        }
     }
 
     console.log(news)

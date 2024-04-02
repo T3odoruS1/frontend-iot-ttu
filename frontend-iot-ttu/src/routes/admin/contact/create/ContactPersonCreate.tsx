@@ -17,9 +17,11 @@ import {reducedFormats, reducedModules} from "../../../../configs/configurations
 
 const schema = yup.object().shape({
     id: yup.string().uuid().nullable(),
-    name: yup.string().required(),
+    name: yup.string().trim().required(),
     body: yup.array().length(2).of(yup.object().shape({
-        value: yup.string().required(),
+        value: yup.string().trim()
+            .notOneOf(["<p><br></p>"], "admin.news.adminNews.create.validation.fieldIsRequired")
+            .required(),
         culture: yup.string().required()
     })).required()
 })
@@ -136,7 +138,7 @@ const ContactPersonCreate = () => {
                     <Col>
                         <div className={'contact-person-editor'}>
                             <p className="mt-5">
-                                {t("contact.contactInfoEng")}
+                                {t("contact.contactInfoEst")}
                             </p>
                             <ReactQuill
                                 theme="snow"

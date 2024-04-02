@@ -3,14 +3,16 @@ import * as yup from "yup";
 import {MailService} from "../../../services/MailService";
 import {FieldValues, useForm} from "react-hook-form";
 import {IContactDto} from "../../../dto/contact/IContactDto";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {yupResolver} from "@hookform/resolvers/yup";
 import InputControl from "../../../components/form/InputControl";
 import SubHeadingPurple from "../../../components/common/SubheadingPurple";
 import ButtonPrimary from "../../../components/common/ButtonPrimary";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {IErrorResponse} from "../../../dto/IErrorResponse";
+import {NewsService} from "../../../services/NewsService";
+import {ProjectService} from "../../../services/ProjectService";
 
 
 const schema = yup.object().shape({
@@ -24,10 +26,12 @@ const schema = yup.object().shape({
 const ContactForm = () => {
 
     const mailService = new MailService();
-    const navigate = useNavigate();
     const {t} = useTranslation();
     const [message, setMessage] = useState("")
     const [success, setSuccess] = useState(true);
+    const location = useLocation();
+    const newsService = new NewsService();
+    const projectService = new ProjectService();
 
     const onSubmit = (fieldValues: FieldValues) => {
         mailService.contact(fieldValues as IContactDto).then((response) => {
@@ -42,10 +46,27 @@ const ContactForm = () => {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: {errors}
     } = useForm<IContactDto>({
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+
+
+        const params = new URLSearchParams(location.search);
+        if(params.has("fromNews")){
+            newsService.getById("et", params.get("fromNews")!).then(news => {
+                    setValue("messageText", `[Vaatasin uudist pealkirjaga: ${news.title}]`)
+            }).catch(e => {});
+        }else if(params.has("fromProject")){
+            projectService.getById("et", params.get("fromProject")!).then(project => {
+                setValue("messageText", `[Vaatasin projekti pealkirjaga: ${project.title}]`)
+            }).catch(e => {});
+        }
+
+    }, []);
 
 
     return (

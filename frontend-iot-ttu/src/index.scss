@@ -242,6 +242,7 @@ body {
 
 img.content_image {
   width: 100%;
+  object-fit: contain;
   aspect-ratio: 16/9;
 }
 
@@ -313,7 +314,7 @@ ul li {
   list-style-type: none;
 }
 
-.clickable-pointer :hover {
+.clickable-pointer {
   cursor: pointer;
   pointer-events: auto;
 }
@@ -503,6 +504,7 @@ ul li {
   overflow: hidden;
   min-height: 200px;
   min-width: 500px;
+  max-width: 70vw;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -753,7 +755,8 @@ Quill
 }
 
 .popup-content {
-  min-width: 500px;
+  min-width: 30vw;
+  min-height: 20vw;
   background-color: white;
 }
 
@@ -813,7 +816,6 @@ Quill
 .create-partner-image {
   padding: 3rem;
   min-width: 600px;
-  height: 300px;
 }
 
 body.safari .banner-container {
