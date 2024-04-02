@@ -91,8 +91,11 @@ const FeedPageList = () => {
     return <>
         <SubHeadingPurple>Feed pages</SubHeadingPurple>
         {(pending || pendingLocal) && <Loader/>}
-        <ButtonSmaller onClick={toCreateCategory} className="m-2">Create category</ButtonSmaller>
-        <ButtonSmaller onClick={toCreatePost} className="m-2">Create post</ButtonSmaller>
+        <div className={"d-flex"}>
+
+            <a onClick={toCreateCategory} className="link-arrow clickable-pointer link-no-underline">Create category</a>
+            <a onClick={toCreatePost} className="ms-4 link-arrow clickable-pointer link-no-underline">Create post</a>
+        </div>
         <FormFloating>
             <FormSelect className={"no-br"} value={page} onChange={onPageChange}>
                 <option value={EFeedPage.HARDWARE}>{EFeedPage.HARDWARE}</option>
@@ -117,7 +120,7 @@ const FeedPageList = () => {
                                 </div>
                                 <ActionConfirmationAlert
                                     action={() => removePost(post.id)}
-                                displayText={"Are you sure you want to delete this post?"} triggerElement={<div
+                                    displayText={"Are you sure you want to delete this post?"} triggerElement={<div
                                     className={"icon-wrapper"}>
                                     <img className={"icon mb-2"}
                                          alt={"Delete"}

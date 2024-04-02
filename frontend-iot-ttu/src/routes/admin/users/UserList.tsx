@@ -29,12 +29,18 @@ const UserList = () => {
 
     const {data: roles} = useFetch<IRole[]>(identityService.getRoles);
 
-    const canUseActions = (): boolean => {
+    const canUseActionsOnUser = (id: string): boolean => {
+        if (jwtResponseCtx?.roleIds.length === 0 || jwtResponseCtx?.appUserId === id) {
+            return false;
+        }
+        return jwtResponseCtx?.roleIds.at(0) !== roles?.find(r => r.name === "MODERATOR")?.id;
+    }
+
+    const canCreateUser =() => {
         if (jwtResponseCtx?.roleIds.length === 0) {
             return false;
         }
         return jwtResponseCtx?.roleIds.at(0) !== roles?.find(r => r.name === "MODERATOR")?.id;
-
     }
 
     const deactivateUser = (id: string) => {
@@ -55,12 +61,16 @@ const UserList = () => {
         navigate("./create")
     }
 
+    const restPassword = (id: string) => {
+        alert("NOT IMPLEMENTED")
+    }
+
     return (
         <>
             <div className={"d-flex"}>
                 <SubHeadingPurple className={"mt-2"}>{t("user.listTitle")}</SubHeadingPurple>
                 <Show>
-                    <Show.When isTrue={canUseActions()}>
+                    <Show.When isTrue={canCreateUser()}>
                         <img onClick={toBlindRegister} className={"icon-wrapper-sm m-2"} alt={"View"} src={addUser}/>
 
                     </Show.When>
@@ -94,21 +104,16 @@ const UserList = () => {
                                 <td>{user.firstname}</td>
                                 <td>{user.lastname}</td>
                                 <td>
-
                                     <div className={"d-flex"}>
-                                        <div>{user.roles[0].name} {user.roles[0].name.length === 5 ?
-                                            <span></span> : ""}</div>
+                                        <div>{user.roles.at(0)?.name}</div>
 
                                         <div className={"mx-2"}>{
                                             <Show>
-                                                <Show.When isTrue={canUseActions()}>
-                                                    <div
-                                                        className={user.roles[0].name.length === 5 ? " ms-5" : "ps-1"}>
+                                                <Show.When isTrue={canUseActionsOnUser(user.id)}>
+                                                    <div className={user.roles.at(0)?.name?.length === 5 ? " ms-5" : "ps-1"}>
                                                         <UserRolePopup user={user} roles={roles ?? []}
                                                                        email={user.email} fetch={fetch}/>
                                                     </div>
-
-
                                                 </Show.When>
                                             </Show>
 
@@ -118,7 +123,7 @@ const UserList = () => {
                                 <td>
                                     <div className={"d-flex"} style={{width: 200}}>
 
-                                        {canUseActions() && <>
+                                        {canUseActionsOnUser(user.id) && <>
 
                                             <ActionConfirmationAlert action={() => {
                                                 deactivateUser(user.id)
@@ -130,11 +135,11 @@ const UserList = () => {
                                                                                  src={removeUser}/>
                                                                          </div>}/>
                                             <ActionConfirmationAlert action={() => {
-                                                deactivateUser(user.id)
+                                                restPassword(user.id)
                                             }} displayText={t("common.deleteUSure")}
                                                                      triggerElement={
-                                                                         <ButtonSmaller className={"ms-4"}>Reset
-                                                                             password</ButtonSmaller>}/>
+                                                                         <div className={"ms-4 link-arrow clickable-pointer"}>Reset
+                                                                             password</div>}/>
                                         </> || <div>{t("user.noRights")}</div>}
 
                                     </div>

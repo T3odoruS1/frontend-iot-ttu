@@ -6,7 +6,7 @@ import {IErrorResponse} from "../dto/IErrorResponse";
 import {IOpenSourceSolution} from "../dto/opensourcesolutions/IOpenSourceSolution";
 import {IRequestOSSAccess} from "../dto/opensourcesolutions/IRequestOSSAccess";
 
-export class OpenSourceSolutionService{
+export class OpenSourceSolutionService {
     private client: HttpClient = HttpClient.getInstance();
 
     private baseUrl: string = "openSourceSolution"
@@ -41,9 +41,15 @@ export class OpenSourceSolutionService{
         );
     }
 
-    getAll =async (lang:string): Promise<IOpenSourceSolution[]> => {
+    getAll = async (lang: string): Promise<IOpenSourceSolution[]> => {
         return processResponse<IOpenSourceSolution[]>(
             await this.client.get<IOpenSourceSolution[], IErrorResponse>(`${this.baseUrl}/${lang}`)
+        );
+    }
+
+    getAllWEmails = async (lang: string): Promise<IOpenSourceSolution[]> => {
+        return processResponse<IOpenSourceSolution[]>(
+            await this.client.get<IOpenSourceSolution[], IErrorResponse>(`${this.baseUrl}/${lang}/requestInfo`)
         );
     }
 
@@ -58,9 +64,6 @@ export class OpenSourceSolutionService{
             await this.client.post<void, IErrorResponse>(`${this.baseUrl}/${lang}/requestAccess`, data)
         );
     }
-
-
-
 
 
 }

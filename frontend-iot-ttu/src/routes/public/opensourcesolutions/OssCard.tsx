@@ -15,6 +15,7 @@ import InputControl from "../../../components/form/InputControl";
 import {IOpenSourceSolution} from "../../../dto/opensourcesolutions/IOpenSourceSolution";
 import lock from "../../../assets/Lock icon.svg"
 import unlock from "../../../assets/Lock open.svg"
+import ReactGA from "react-ga4";
 
 
 interface IProps {
@@ -46,8 +47,14 @@ const OSSCard: FC<IProps> = ({solution}) => {
     const onSubmit = (fieldValues: FieldValues) => {
         let data: IRequestOSSAccess = {solutionId: solution.id, email: fieldValues.email};
         service.getAccess(data, i18n.language).then(res => {
+            ReactGA.event({
+                category: "Vabavaralised lahendused email",
+                action: data.solutionId,
+                label: data.email
+            });
             setMessage("Check your inbox!")
             setSuccessful(true);
+
         }).catch(e => {
             setMessage("Oops, something went wrong :(")
             setSuccessful(false);
@@ -88,6 +95,7 @@ const OSSCard: FC<IProps> = ({solution}) => {
                             </Show.When>
                             <Show.When isTrue={submitMode}>
                                 <Form onSubmit={handleSubmit(onSubmit)}>
+                                    <span className={"text-dark"}>{message}</span>
                                     <InputControl type={"text"} error={errors.email?.message} register={register}
                                                   name={'email'} label={t(`oss.emailToGet`)}/>
                                     <div className={"d-flex"}>

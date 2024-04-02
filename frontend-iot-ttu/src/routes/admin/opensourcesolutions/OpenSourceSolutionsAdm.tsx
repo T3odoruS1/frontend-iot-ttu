@@ -14,6 +14,9 @@ import add from "../../../assets/iconpack/add.svg"
 import removeIcon from "../../../assets/iconpack/delete.svg"
 import edit from "../../../assets/iconpack/edit.svg"
 import SubHeadingPurple from "../../../components/common/SubheadingPurple";
+import {AccessDetail} from "./AccessDetail";
+import Checkbox
+    from "@react-buddy/ide-toolbox/dist/previews/tools-panel/props-edit-table/table-items/table-item/table-item-control/checkbox";
 
 
 const OpenSourceSolutionAdm = () => {
@@ -21,7 +24,7 @@ const OpenSourceSolutionAdm = () => {
     const service = new OpenSourceSolutionService();
     const navigate = useNavigate();
     const {data, pending, error, fetchData} =
-        useFetch<IOpenSourceSolution[]>(service.getAll, [i18n.language]);
+        useFetch<IOpenSourceSolution[]>(service.getAllWEmails, [i18n.language]);
     const onDelete = async (id: string) => {
         await service.delete(id);
         fetchData();
@@ -57,8 +60,10 @@ const OpenSourceSolutionAdm = () => {
             {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">{t("common.title")}</th>
+                <th scope="col">Public</th>
+                <th scope="col">Link to</th>
+                <th scope="col">Access requests</th>
                 <th scope="col">{t("common.actions")}</th>
             </tr>
             </thead>
@@ -66,22 +71,34 @@ const OpenSourceSolutionAdm = () => {
             {data?.map((solution, index) => {
                     return (
                         <tr key={solution.id}>
-                            <th scope="row">{index + 1}</th>
                             <td>{solution.title}</td>
-                            <td className={"d-flex"}>
-                                <div className={"mr-1 icon-wrapper"}>
-                                    <img className={"icon"}
-                                         alt={"Update"}
-                                         src={edit}/>
+                            <td>
+                                <input type="checkbox" className={"form-check"} disabled checked={!solution.private}/>
+                            </td>
+                            <td>
+                                <a target={"_blank"} href={solution.link}>{solution.link.slice(0, 20)}{solution.link.length > 20 ? "..." : ""}</a>
+                            </td>
+                            <td>
+                                <AccessDetail accessDetails={solution.accessDetails}/>
+                            </td>
+                            <td>
+                                <div className={"d-flex"}>
+
+                                    <div onClick={() => toUpdate(solution.id)} className={"mr-1 icon-wrapper"}>
+                                        <img className={"icon"}
+                                             alt={"Update"}
+                                             src={edit}/>
+                                    </div>
+
+                                    <ActionConfirmationAlert action={() => {
+                                        onDelete(solution.id)
+                                    }} displayText={t("common.deleteUSure")}
+                                                             triggerElement={<div className={"icon-wrapper"}>
+                                                                 <img
+                                                                     className={"icon ms-4"}
+                                                                     alt={"Delete"}
+                                                                     src={removeIcon}/></div>}/>
                                 </div>
-                                <ActionConfirmationAlert action={() => {
-                                    onDelete(solution.id)
-                                }} displayText={t("common.deleteUSure")}
-                                                         triggerElement={<div className={"icon-wrapper"}>
-                                                             <img
-                                                                 className={"icon mx-2"}
-                                                                 alt={"Delete"}
-                                                                 src={removeIcon}/></div>}/>
                             </td>
                         </tr>
                     )

@@ -5,6 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import {TopicAreaService} from "../../services/TopicAreaService";
 import TopicAreaElement from "../../routes/public/news/list/TopicAreaElement";
 import {ITopicAreaGet} from "../../dto/topicarea/ITopicAreaGet";
+import dropdownIcon from "../../assets/iconpack/Dropdown Arrow Icon.svg"
 
 interface IProps {
     onTopicAreaChange: (newTopicArea: string | null) => void;
@@ -46,9 +47,12 @@ const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
             })} className={"filter_header w-100"}>
                 <h3 className="w-100 header-pink unselectable m-0">
                     {t("public.news.filters")}
-                    <span
-                        className={isExpanded ? "expanded-collapse-arrow" : "collape-arrow"}>›
-                    </span>
+                    <img
+                        alt={"dropdown"}
+                        src={dropdownIcon}
+                        className={`${isExpanded ? 'expanded-collapse-arrow' : 'collapse-arrow'} icon`}
+                    />
+
                 </h3>
             </div>
             <ul className={"m-0 p-0"} {...getCollapseProps()}>

@@ -25,7 +25,7 @@ export class HttpClient {
             headers: {
                 common: {
                     "Content-Type": "application/json",
-                    "Iot-App": "1"
+                    "IOT-App": "1"
                 },
             },
         });

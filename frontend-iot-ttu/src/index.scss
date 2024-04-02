@@ -985,14 +985,20 @@ body.safari .banner-container {
 }
 
 
-.expanded-collapse-arrow{
-  writing-mode: vertical-lr;
-  pointer-events: none;
+/* Base icon style, including transition */
+.icon {
+  transition: transform 0.3s ease; /* Smooth transition for the rotation */
+  pointer-events: none; /* Keeping your rule to disable pointer events */
 }
 
-.collape-arrow{
- margin-inline: 0.58rem;
-  pointer-events: none;
+/* Expanded state - no additional rotation */
+.expanded-collapse-arrow {
+  transform: rotate(0deg); /* Ensures the arrow points down when expanded */
+}
+
+/* Collapsed state - rotate arrow */
+.collapse-arrow {
+  transform: rotate(-90deg); /* Arrow points left when collapsed */
 }
 
 .image-link {
