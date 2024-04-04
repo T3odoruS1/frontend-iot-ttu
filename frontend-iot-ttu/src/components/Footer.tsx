@@ -19,7 +19,7 @@ const Footer = () => {
                 <div className={"container-fluid"}>
                     <div className="text-light m-5"><b>© 2023 TalTech Embedded AI Research Lab.</b></div>
                     <UserData/>
-                    <div className={"m-2 d-flex justify-content-center align-items-center"}>
+                    <div className={"d-flex justify-content-center align-items-center"}>
                         <HeaderNavLink
                             to={`/${i18n.language}/admin/news`}
                             title={t("admin.header.admin")}
@@ -32,7 +32,7 @@ const Footer = () => {
     } else {
         return <footer className="navbar footer d-flex top-gradient d-flex flex-row">
             <div className={"container-fluid"}>
-                <div className="text-light m-5"><b>© 2023 TalTech Embedded AI Research Lab.</b></div>
+                <div className="text-light"><b>© 2023 TalTech Embedded AI Research Lab.</b></div>
                 <div className={"m-2 d-flex justify-content-center align-items-center"}>
                     <HeaderNavLink
                         to={`/${i18n.language}/admin/news`}
@@ -62,7 +62,7 @@ const UserData = () => {
         });
     }
 
-    return <div className={"m-5"}>
+    return <div className={""}>
         <h5 className={"text-white"}>{t('common.loggedInAs')} {jwtResponseCtx!.username}</h5>
         <h5 className={"text-white"}>{t('common.withRole')} {roles?.find(r => r.id === jwtResponseCtx?.roleIds?.at(0))?.name}</h5>
         <ButtonSmaller onClick={logout}>{t('user.logout')}</ButtonSmaller>

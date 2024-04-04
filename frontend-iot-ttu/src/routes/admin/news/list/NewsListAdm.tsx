@@ -21,6 +21,7 @@ import add from "../../../../assets/iconpack/add.svg";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
 import {ITopicAreaWithCount} from "../../../../dto/topicarea/ITopicAreaWithCount";
 import Show from "../../../../components/common/Show";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 
 const NewsListAdm = () => {
@@ -67,119 +68,119 @@ const NewsListAdm = () => {
 
 
     return (
-        <div>
-            <div className={"d-flex"}>
-                <SubHeadingPurple className={"mt-2"}>{t("news.news")}</SubHeadingPurple>
-                <img className={"icon-wrapper"}
-                     alt={"Add"}
-                     src={add}
-                     onClick={toCreate}/>
-            </div>
-            {pending && <Loader/>}
+<LayoutNoHeader bodyContent={<div>
+    <div className={"d-flex"}>
+        <SubHeadingPurple className={"mt-2"}>{t("news.news")}</SubHeadingPurple>
+        <img className={"icon-wrapper"}
+             alt={"Add"}
+             src={add}
+             onClick={toCreate}/>
+    </div>
+    {pending && <Loader/>}
 
-            <Table responsive variant="striped">
-                <caption>{t("news.news")}</caption>
-                {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
-                <thead>
+    <Table responsive variant="striped">
+        <caption>{t("news.news")}</caption>
+        {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">{t("news.title")}</th>
+            <th scope="col">{t("news.author")}</th>
+            <th scope="col">{t("common.views")}</th>
+            <th scope="col">{t("common.createdAt")}</th>
+            <th scope="col">{t("common.actions")}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {news?.map((newsPiece, index) => {
+                return (
+                    <tr key={newsPiece.id}>
+                        <th scope="row">{index + 1}</th>
+                        <td>{newsPiece.title}</td>
+                        <td>{newsPiece.author}</td>
+                        <td>{newsPiece.viewCount}</td>
+                        <td>{(new Date(newsPiece.createdAt)).toLocaleDateString()}</td>
+                        <td>
+                            <div className={"d-flex"}>
+                                <div className={"icon-wrapper "} onClick={() => toUpdate(newsPiece.id)}>
+                                    <img className={"icon"} alt={"Edit"} src={edit}/>
+                                </div>
+
+                                <div className={"icon-wrapper ms-4"} onClick={() => {
+                                    toDetails(newsPiece.id);
+                                }}>
+                                    <img className={"icon"} alt={"View"} src={eye}/>
+                                </div>
+
+                                <ActionConfirmationAlert action={() => {
+                                    onDelete(newsPiece.id)
+                                }} displayText={t("common.deleteUSure")}
+                                                         triggerElement={<div className={"icon-wrapper ms-4"}>
+                                                             <img className={"icon"}
+                                                                  alt={"Delete"}
+                                                                  src={remove}/>
+                                                         </div>}/>
+                            </div>
+                        </td>
+                    </tr>
+                )
+            }
+        )}
+        </tbody>
+    </Table>
+    <br/>
+    <br/>
+    <hr/>
+    <div className={"d-flex"}>
+        <SubHeadingPurple className={"mt-2"}>{t("common.topicAreas")}</SubHeadingPurple>
+
+        <img className={"icon-wrapper"}
+             alt={"Add"}
+             src={add}
+             onClick={toCreateTopic}/>
+
+    </div>
+    <Table responsive>
+        <caption>Topic area list</caption>
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">{t("common.name")}</th>
+            <th scope="col">{t("news.numberOfPosts")}</th>
+            <th scope="col">{t("common.actions")}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {topicAreas?.map((topicArea, index) => {
+            return (<Fragment key={topicArea.id}>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{t("news.title")}</th>
-                    <th scope="col">{t("news.author")}</th>
-                    <th scope="col">{t("common.views")}</th>
-                    <th scope="col">{t("common.createdAt")}</th>
-                    <th scope="col">{t("common.actions")}</th>
+                    <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
+                    <td>{topicArea.name}</td>
+                    <td>{topicArea.count}</td>
+                    <td>
+                        <Show>
+                            <Show.When isTrue={topicArea.count === 0}>
+                                <ActionConfirmationAlert action={() => {
+                                    onTopicAreaDelete(topicArea.id)
+                                }} displayText={t("common.deleteUSure")}
+                                                         triggerElement={
+                                                             <div
+                                                                 className={"icon-wrapper"}>
+                                                                 <img
+                                                                     className={"icon"}
+                                                                     alt={"Delete"}
+                                                                     src={remove}/>
+                                                             </div>}/>
+                            </Show.When>
+                        </Show>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                {news?.map((newsPiece, index) => {
-                        return (
-                            <tr key={newsPiece.id}>
-                                <th scope="row">{index + 1}</th>
-                                <td>{newsPiece.title}</td>
-                                <td>{newsPiece.author}</td>
-                                <td>{newsPiece.viewCount}</td>
-                                <td>{(new Date(newsPiece.createdAt)).toLocaleDateString()}</td>
-                                <td>
-                                    <div className={"d-flex"}>
-                                        <div className={"icon-wrapper "} onClick={() => toUpdate(newsPiece.id)}>
-                                            <img className={"icon"} alt={"Edit"} src={edit}/>
-                                        </div>
-
-                                        <div className={"icon-wrapper ms-4"} onClick={() => {
-                                            toDetails(newsPiece.id);
-                                        }}>
-                                            <img className={"icon"} alt={"View"} src={eye}/>
-                                        </div>
-
-                                        <ActionConfirmationAlert action={() => {
-                                            onDelete(newsPiece.id)
-                                        }} displayText={t("common.deleteUSure")}
-                                                                 triggerElement={<div className={"icon-wrapper ms-4"}>
-                                                                     <img className={"icon"}
-                                                                          alt={"Delete"}
-                                                                          src={remove}/>
-                                                                 </div>}/>
-                                    </div>
-                                </td>
-                            </tr>
-                        )
-                    }
-                )}
-                </tbody>
-            </Table>
-            <br/>
-            <br/>
-            <hr/>
-            <div className={"d-flex"}>
-                <SubHeadingPurple className={"mt-2"}>{t("common.topicAreas")}</SubHeadingPurple>
-
-                <img className={"icon-wrapper"}
-                     alt={"Add"}
-                     src={add}
-                     onClick={toCreateTopic}/>
-
-            </div>
-            <Table responsive>
-                <caption>Topic area list</caption>
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{t("common.name")}</th>
-                    <th scope="col">{t("news.numberOfPosts")}</th>
-                    <th scope="col">{t("common.actions")}</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                {topicAreas?.map((topicArea, index) => {
-                    return (<Fragment key={topicArea.id}>
-                        <tr>
-                            <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
-                            <td>{topicArea.name}</td>
-                            <td>{topicArea.count}</td>
-                            <td>
-                                <Show>
-                                    <Show.When isTrue={topicArea.count === 0}>
-                                        <ActionConfirmationAlert action={() => {
-                                            onTopicAreaDelete(topicArea.id)
-                                        }} displayText={t("common.deleteUSure")}
-                                                                 triggerElement={
-                                                                     <div
-                                                                         className={"icon-wrapper"}>
-                                                                         <img
-                                                                             className={"icon"}
-                                                                             alt={"Delete"}
-                                                                             src={remove}/>
-                                                                     </div>}/>
-                                    </Show.When>
-                                </Show>
-                            </td>
-                        </tr>
-                    </Fragment>)
-                })}
-                </tbody>
-            </Table>
-        </div>
+            </Fragment>)
+        })}
+        </tbody>
+    </Table>
+</div>}/>
     );
 };
 

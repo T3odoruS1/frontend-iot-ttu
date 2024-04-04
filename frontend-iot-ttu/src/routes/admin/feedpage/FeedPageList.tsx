@@ -17,6 +17,7 @@ import edit from "../../../assets/iconpack/edit.svg"
 import Show from "../../../components/common/Show";
 import ActionConfirmationAlert from "../../../components/common/ActionConfirmationAlert";
 import {useTranslation} from "react-i18next";
+import LayoutNoHeader from "../../../components/structure/LayoutNoHeader";
 
 // Page selected using dropdown. Posts are hidden under categories, expandable.
 
@@ -88,7 +89,7 @@ const FeedPageList = () => {
 
     }, [page]);
 
-    return <>
+    return <LayoutNoHeader bodyContent={<>
         <SubHeadingPurple>{t("feedPage.technologyPages")}</SubHeadingPurple>
         {(pending || pendingLocal) && <Loader/>}
         <div className={"d-flex"}>
@@ -107,14 +108,14 @@ const FeedPageList = () => {
             return <div className={"d-flex mt-2"}>
                 <Collapse isActive={false} title={category.title} children={<div>
                     {category.feedPageCategoryPost.map(post => {
-                        return <div className="d-flex mt-2">
+                        return <div className="d-flex">
                             <FeedPagePostElement post={post}/>
                             <div className={"d-flex flex-column"}>
-                                <div className={"icon-wrapper"}>
+                                <div className={"icon-wrapper"} onClick={() => {
+                                    updatePost(post.id)
+                                }}>
                                     <img className={"icon mb-2"}
-                                         onClick={() => {
-                                             updatePost(post.id)
-                                         }}
+
                                          alt={"Edit"}
                                          src={edit}/>
                                 </div>
@@ -150,7 +151,7 @@ const FeedPageList = () => {
 
         })}
 
-    </>
+    </>}/>
 }
 
 export default FeedPageList;

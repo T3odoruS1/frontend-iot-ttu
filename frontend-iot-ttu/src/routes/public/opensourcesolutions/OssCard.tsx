@@ -16,6 +16,7 @@ import {IOpenSourceSolution} from "../../../dto/opensourcesolutions/IOpenSourceS
 import lock from "../../../assets/Lock icon.svg"
 import unlock from "../../../assets/Lock open.svg"
 import ReactGA from "react-ga4";
+import ButtonContent from "../../../components/common/ButtonContent";
 
 
 interface IProps {
@@ -41,34 +42,26 @@ const OSSCard: FC<IProps> = ({solution}) => {
 
     const service = new OpenSourceSolutionService();
     const [message, setMessage] = useState("");
-    const [successful, setSuccessful] = useState(true);
+
+    const [pending, setPending] = useState(false);
 
 
     const onSubmit = (fieldValues: FieldValues) => {
         let data: IRequestOSSAccess = {solutionId: solution.id, email: fieldValues.email};
+        setPending(true);
         service.getAccess(data, i18n.language).then(res => {
-            ReactGA.event({
-                category: "Vabavaralised lahendused email",
-                action: data.solutionId,
-                label: data.email
-            });
             setMessage("Check your inbox!")
-            setSuccessful(true);
 
         }).catch(e => {
             setMessage("Oops, something went wrong :(")
-            setSuccessful(false);
-        })
+        }).finally(() => {setPending(false)})
     }
 
 
-    return <Col md={6}>
-        <div className={"p-2"}>
-            <div className={"oss-card notification d-flex w-100"}
-            >
-                <div className={"notiglow"}></div>
-                <div className="notiborderglow"></div>
-                <h3 className="notititle header-purple">{
+    return <Col md={6} className={"mt-5"}>
+        <div className={"p-2 ttu-card"}>
+            <h1>
+                {
                     <Show>
                         <Show.When isTrue={solution.private}>
                             <img className={"lock"} alt={"Private"} src={lock}/>
@@ -78,47 +71,44 @@ const OSSCard: FC<IProps> = ({solution}) => {
                         </Show.Else>
                     </Show>
                 }{solution.title}
-                </h3>
-                <div className="notibody d-flex flex-column mt-0 align-items-start"
-                     style={{flexGrow: 1}}
-                >
-                    <p className={"mt-1"}>{solution.body}</p>
+            </h1>
+            <div className="d-flex oss-body flex-column mt-0 align-items-start px-4 mx-2">
+                <p className={"mt-1"}>{solution.body}</p>
 
-                    <div className={"to-bottom mb-2 w-100"}>
+                <div className={"to-bottom mb-2 w-100"}>
+                    <Show>
 
-                        <Show>
+                        <Show.When isTrue={solution.private}>
+                            <ButtonPrimary onClick={() => {
+                                setSubmitMode(true)
+                            }}>{t("oss.getAccess")}</ButtonPrimary>
+                        </Show.When>
+                        <Show.When isTrue={submitMode}>
+                            <Form onSubmit={handleSubmit(onSubmit)}>
+                                <span className={"text-dark"}>{message}</span>
+                                <InputControl type={"text"} error={errors.email?.message} register={register}
+                                              name={'email'} label={t(`oss.emailToGet`)}/>
+                                <div className={"d-flex"}>
+                                    <ButtonPrimary
+                                        className="btn_custom_out mt-2 align-self-center" type={"button"}
+                                        onClick={handleSubmit(onSubmit)}>
+                                        <ButtonContent isLoading={pending} content={t('common.submit')}/>
+                                    </ButtonPrimary>
+                                    <ButtonPrimary className="btn_custom_out mt-2 mx-2 align-self-center"
+                                                   onClick={() => {
+                                                       setSubmitMode(false)
+                                                   }}>{t("common.cancel")}</ButtonPrimary>
+                                </div>
+                            </Form>
 
-                            <Show.When isTrue={solution.private}>
-                                <ButtonPrimary onClick={() => {
-                                    setSubmitMode(true)
-                                }}>{t("oss.getAccess")}</ButtonPrimary>
-                            </Show.When>
-                            <Show.When isTrue={submitMode}>
-                                <Form onSubmit={handleSubmit(onSubmit)}>
-                                    <span className={"text-dark"}>{message}</span>
-                                    <InputControl type={"text"} error={errors.email?.message} register={register}
-                                                  name={'email'} label={t(`oss.emailToGet`)}/>
-                                    <div className={"d-flex"}>
-                                        <ButtonPrimary
-                                            className="btn_custom_out mt-2 align-self-center" type={"button"}
-                                            onClick={handleSubmit(onSubmit)}>
-                                            {t('common.submit')}
-                                        </ButtonPrimary>
-                                        <ButtonPrimary className="btn_custom_out mt-2 mx-2 align-self-center"
-                                                       onClick={() => {
-                                                           setSubmitMode(false)
-                                                       }}>{t("common.cancel")}</ButtonPrimary>
-                                    </div>
-                                </Form>
-
-                            </Show.When>
-                            <Show.Else>
-                                <ButtonPrimary onClick={goToLink}>{t("oss.gotoRepo")}</ButtonPrimary>
-                            </Show.Else>
-                        </Show>
-                    </div>
+                        </Show.When>
+                        <Show.Else>
+                            <ButtonPrimary onClick={goToLink}>{t("oss.gotoRepo")}</ButtonPrimary>
+                        </Show.Else>
+                    </Show>
                 </div>
             </div>
+
         </div>
     </Col>
 }

@@ -13,6 +13,7 @@ import React, {useEffect, useState} from "react";
 import {IErrorResponse} from "../../../dto/IErrorResponse";
 import {NewsService} from "../../../services/NewsService";
 import {ProjectService} from "../../../services/ProjectService";
+import ButtonContent from "../../../components/common/ButtonContent";
 
 
 const schema = yup.object().shape({
@@ -32,15 +33,17 @@ const ContactForm = () => {
     const location = useLocation();
     const newsService = new NewsService();
     const projectService = new ProjectService();
+    const [pending, setPending] = useState(false);
 
     const onSubmit = (fieldValues: FieldValues) => {
+        setPending(true);
         mailService.contact(fieldValues as IContactDto).then((response) => {
             setMessage("contact.success")
             setSuccess(true)
         }).catch(e => {
             setMessage("conatct.fail")
             setSuccess(false);
-        })
+        }).finally(() => setPending(false))
     }
 
     const {
@@ -133,7 +136,7 @@ const ContactForm = () => {
                 />
             </div>
             <ButtonPrimary className="mt-2" type="submit">
-                {t("public.contact.form.submit")}
+                <ButtonContent isLoading={pending} content={t("public.contact.form.submit")}/>
             </ButtonPrimary>
         </form>
 

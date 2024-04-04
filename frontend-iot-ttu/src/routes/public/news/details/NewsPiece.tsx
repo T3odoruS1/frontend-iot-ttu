@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import NewsContent from "../../../../components/NewsContent";
+import NewsContentAdm from "../../../../components/NewsContentAdm";
 import NavigationButton from "../../../../components/common/NavigationButton";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
@@ -10,6 +10,11 @@ import useFetch from "../../../../hooks/useFetch";
 import {INews} from "../../../../dto/news/INews";
 import {NewsService} from "../../../../services/NewsService";
 import i18n from "i18next";
+import LayoutMulticolour from "../../../../components/structure/LayoutMulticolour";
+import PageTitle from "../../../../components/common/PageTitle";
+import {Col, Row} from "react-bootstrap";
+import {getTopicAreasAsStr} from "../../../../utils/utils";
+import React from "react";
 
 const NewsPiece = () => {
     const {t} = useTranslation();
@@ -21,9 +26,9 @@ const NewsPiece = () => {
     const {data: news, pending, error} =
         useFetch<INews>(newsService.getById, [i18n.language, id ?? ""])
     const onContactUsClick = () => {
-        if(news){
+        if (news) {
             navigate(`../../contact?fromNews=${news.id}`)
-        }else{
+        } else {
             navigate(`../../contact?fromNews`)
         }
     }
@@ -32,28 +37,54 @@ const NewsPiece = () => {
 
     if (error == "400" || error == "404") return <NotFoundPage/>
     if (error == "500") return <ErrorPage></ErrorPage>;
-    if (!error) return (
-        <div>
-            <div className={"mb-4"}>
+    if (!error) return (<LayoutMulticolour
+        headerContent={
+            <div className={"w-100 mb-2"}>
                 <NavigationButton to={"../"}>{t("public.news.news-list")}</NavigationButton>
+                <PageTitle>{news?.title}</PageTitle>
+                <Row className="w-100 mb-5">
+
+                    <Col md="9">
+                        <img
+                            src={news?.image}
+                            alt="Poster_image"
+                            className="content_image max-w"
+                        />
+                    </Col>
+                    <Col md="3" className={"mt-md-0 mt-2"}>
+                        <p className={"text-small-gray"}>{t("common.date")}</p>
+                        <h5 className={"header-pink mt-1"}>{new Date(news?.createdAt!).toLocaleDateString()}</h5>
+                        <p className={"text-small-gray"}>{t("common.author")}</p>
+                        <h5 className={"header-pink mt-1"}>{news?.author}</h5>
+                        <p className={"text-small-gray"}>{t("common.topicAreas")}</p>
+                        <h5 className={"header-pink mt-1"}>{getTopicAreasAsStr(news?.topicAreas ?? [])}</h5>
+                    </Col>
+
+                </Row>
             </div>
-
-            {pending ? <Loader/> : (<NewsContent
-                title={news?.title ?? ""}
-                image={news?.image ?? ""}
-                createdAt={new Date(news?.createdAt ?? "").toLocaleDateString()}
-                author={news?.author ?? ""}
-                content={news?.body ?? ""}
-                topicAreas={news?.topicAreas ?? []}
-            />)}
-
-            <div className={"mt-5"}>
-                <ButtonPrimary onClick={onContactUsClick}>{t("public.news.contact")}</ButtonPrimary>
+        }
+        bodyContent={
+            <div className="w-100 mt-2">
+                <div className="quill">
+                    <div className="result-div ql-container ql-snow" style={{position: "relative"}}>
+                        <div
+                            className="ql-editor"
+                            dangerouslySetInnerHTML={{__html: news?.body ?? ""}}
+                        />
+                    </div>
+                </div>
+                <div className={"mt-5"}>
+                    <ButtonPrimary onClick={onContactUsClick}>{t("public.news.contact")}</ButtonPrimary>
+                </div>
             </div>
-
-        </div>
-    );
+        }
+    />);
     return <></>
 };
 
 export default NewsPiece;
+
+<div>
+
+
+</div>

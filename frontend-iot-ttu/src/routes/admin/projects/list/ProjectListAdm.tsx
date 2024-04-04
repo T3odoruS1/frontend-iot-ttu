@@ -13,6 +13,7 @@ import eye from "../../../../assets/iconpack/eye.svg";
 import remove from "../../../../assets/iconpack/delete.svg";
 import add from "../../../../assets/iconpack/add.svg";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const ProjectListAdm = () => {
 
@@ -56,7 +57,7 @@ const ProjectListAdm = () => {
 
 
     return (
-        <div>
+        <LayoutNoHeader bodyContent={<div>
             <div className={"d-flex"}>
                 <SubHeadingPurple className={"mt-2"}>{t("projects.projects")}</SubHeadingPurple>
                 <img className={"icon-wrapper"}
@@ -83,31 +84,31 @@ const ProjectListAdm = () => {
                         return (
                             <tr key={project.id}>
                                 <td>{project.title}</td>
-                                <td >{project.viewCount}</td>
-                                <td >{(new Date(project.createdAt)).toLocaleDateString()}</td>
-                                <td >
+                                <td>{project.viewCount}</td>
+                                <td>{(new Date(project.createdAt)).toLocaleDateString()}</td>
+                                <td>
                                     <div className={"d-flex"}>
-                                            <div className={"icon-wrapper"} onClick={() => toUpdate(project.id)}>
-                                                <img className={"icon"} alt={"Edit"} src={edit}/>
-                                            </div>
+                                        <div className={"icon-wrapper"} onClick={() => toUpdate(project.id)}>
+                                            <img className={"icon"} alt={"Edit"} src={edit}/>
+                                        </div>
 
-                                            <div className={"icon-wrapper ms-4"} onClick={() => {
-                                                toDetails(project.id);
-                                            }}>
-                                                <img className={"icon"} alt={"View"} src={eye}/>
-                                            </div>
+                                        <div className={"icon-wrapper ms-4"} onClick={() => {
+                                            toDetails(project.id);
+                                        }}>
+                                            <img className={"icon"} alt={"View"} src={eye}/>
+                                        </div>
 
 
-                                            <div className={""}>
-                                                <ActionConfirmationAlert action={() => {
-                                                    onDelete(project.id)
-                                                }} displayText={t("common.deleteUSure")}
-                                                                         triggerElement={<div
-                                                                             className={"icon-wrapper ms-4"}><img
-                                                                             className={"icon"}
-                                                                             alt={"Delete"}
-                                                                             src={remove}/></div>}/>
-                                            </div>
+                                        <div className={""}>
+                                            <ActionConfirmationAlert action={() => {
+                                                onDelete(project.id)
+                                            }} displayText={t("common.deleteUSure")}
+                                                                     triggerElement={<div
+                                                                         className={"icon-wrapper ms-4"}><img
+                                                                         className={"icon"}
+                                                                         alt={"Delete"}
+                                                                         src={remove}/></div>}/>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -117,7 +118,7 @@ const ProjectListAdm = () => {
                 </tbody>
             </Table>
 
-        </div>
+        </div>}/>
     );
 };
 

@@ -10,6 +10,7 @@ import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
 import InputControl from "../../../../components/form/InputControl";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const schema = yup.object().shape({
     password: yup.string().required("common.requiredField"),
@@ -47,8 +48,7 @@ const ChangePassword = () => {
         }).finally(() => setPending(false));
     }
 
-    return (
-        <>
+    return (<LayoutNoHeader bodyContent={ <>
             <PageTitle>{t("common.changePassword")}</PageTitle>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 {success && <SuccessAlert/>}
@@ -73,7 +73,7 @@ const ChangePassword = () => {
                     {t("common.submit")}
                 </ButtonPrimary>
             </Form>
-        </>
+        </>}/>
     );
 };
 

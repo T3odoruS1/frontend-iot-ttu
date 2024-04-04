@@ -13,6 +13,7 @@ import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import { useNavigate } from "react-router-dom";
 import { SuccessAlert } from "../../../../components/lottie/SuccessAlert";
 import { Loader } from "../../../../components/Loader";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const schema = yup.object().shape({
     id: yup.string().uuid().nullable(),
@@ -71,7 +72,7 @@ const FeedPageCategoryCreate = () => {
         )
     }
 
-    return <>
+    return <LayoutNoHeader bodyContent={<>
         <PageTitle>Feed page category create</PageTitle>
         {pending && <Loader />}
         {success && <SuccessAlert />}
@@ -107,7 +108,7 @@ const FeedPageCategoryCreate = () => {
                 {t("admin.news.adminNews.create.create")}
             </ButtonPrimary>
         </Form>
-    </>
+    </>}/>
 }
 
 export default FeedPageCategoryCreate;

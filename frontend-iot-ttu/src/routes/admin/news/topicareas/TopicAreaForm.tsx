@@ -14,6 +14,7 @@ import {useNavigate} from "react-router-dom";
 import useFetch from "../../../../hooks/useFetch";
 import ErrorPage from "../../../ErrorPage";
 import {ITopicAreaGet} from "../../../../dto/topicarea/ITopicAreaGet";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const schema = yup.object().shape({
     name: yup.array().of(yup.object().shape({
@@ -59,30 +60,31 @@ const TopicAreaForm = () => {
         return <ErrorPage/>
     }
 
-    return (
-        <>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <SubHeadingPurple>{t("admin.topicAreas.createTopicArea")}</SubHeadingPurple>
-                {errorResponse && <div className={"text-danger"}>
-                    {t(`admin.topicAreas.${errorResponse}`)}
-                </div>}
+    return (<LayoutNoHeader bodyContent={
+            <>
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <SubHeadingPurple>{t("admin.topicAreas.createTopicArea")}</SubHeadingPurple>
+                    {errorResponse && <div className={"text-danger"}>
+                        {t(`admin.topicAreas.${errorResponse}`)}
+                    </div>}
 
-                <div className={"mt-2"}>
-                    <InputControl type={"text"} error={errors.name?.[0]?.value?.message}
-                                  register={register}
-                                  name={'name.0.value'} label={"Topic area in english"}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl type={"text"} error={errors.name?.[1]?.value?.message} register={register}
-                                  name={'name.1.value'} label={"Topic area in estonian"}/>
-                </div>
-                <ButtonPrimary
-                    className="btn_custom_out m-2 w-25 align-self-center" type={"button"}
-                    onClick={handleSubmit(onSubmit)}>
-                    Submit
-                </ButtonPrimary>
-            </Form>
-        </>
+                    <div className={"mt-2"}>
+                        <InputControl type={"text"} error={errors.name?.[0]?.value?.message}
+                                      register={register}
+                                      name={'name.0.value'} label={"Topic area in english"}/>
+                    </div>
+                    <div className={"mt-2"}>
+                        <InputControl type={"text"} error={errors.name?.[1]?.value?.message} register={register}
+                                      name={'name.1.value'} label={"Topic area in estonian"}/>
+                    </div>
+                    <ButtonPrimary
+                        className="btn_custom_out m-2 w-25 align-self-center" type={"button"}
+                        onClick={handleSubmit(onSubmit)}>
+                        Submit
+                    </ButtonPrimary>
+                </Form>
+            </>
+        }/>
     );
 };
 

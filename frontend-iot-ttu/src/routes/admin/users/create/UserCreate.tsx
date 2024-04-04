@@ -6,6 +6,7 @@ import {useContext, useState} from "react";
 import {JwtContext} from "../../../Root";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const UserCreate = () => {
 
@@ -33,7 +34,7 @@ const UserCreate = () => {
             })
     }
 
-    return <UserCreateForm error={error} onSubmit={handleSubmit}/>
+    return <LayoutNoHeader bodyContent={<UserCreateForm error={error} onSubmit={handleSubmit}/>}/>
 }
 
 export default UserCreate;

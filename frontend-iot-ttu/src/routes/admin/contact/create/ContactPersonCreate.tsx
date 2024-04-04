@@ -14,6 +14,7 @@ import i18n from "i18next";
 import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
 import ReactQuill from "react-quill";
 import {reducedFormats, reducedModules} from "../../../../configs/configurations";
+import LayoutDefault from "../../../../components/structure/LayoutDefault";
 
 const schema = yup.object().shape({
     id: yup.string().uuid().nullable(),
@@ -47,22 +48,21 @@ const ContactPersonCreate = () => {
     const onSubmit = (fieldValues: FieldValues) => {
         setErrorResponse("")
         setPending(true)
-        if(fieldValues.id === undefined){
+        if (fieldValues.id === undefined) {
             service.create(fieldValues as IContactPersonOutput).then(() => {
                 onSuccess();
             }).catch((err) => {
                 setErrorResponse(err.message);
             })
-        }else{
+        } else {
             service.update(fieldValues as IContactPersonOutput).then(() => {
-               onSuccess();
+                onSuccess();
             }).catch((err) => {
                 setErrorResponse(err.message);
             })
         }
 
     }
-
 
 
     const {
@@ -79,12 +79,12 @@ const ContactPersonCreate = () => {
     }
 
     useEffect(() => {
-       setLangs();
+        setLangs();
     }, []);
 
     useEffect(() => {
         setLangs();
-        if(id !== undefined){
+        if (id !== undefined) {
             service.getPreview(id).then(res => {
                 setValue(`id`, res.id);
                 setValue(`name`, res.name);
@@ -109,8 +109,11 @@ const ContactPersonCreate = () => {
 
     return (
         <>
-            <PageTitle>{t(`contact.createPerson`)}</PageTitle>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <LayoutDefault headerContent={
+                <PageTitle>{t(`contact.createPerson`)}</PageTitle>
+
+            } bodyContent={
+                <Form onSubmit={handleSubmit(onSubmit)}>
                 {success && <SuccessAlert/>}
                 {errorResponse && <p className={"text-danger"}>{errorResponse}</p>}
                 <div className={"mt-2"}>
@@ -158,7 +161,8 @@ const ContactPersonCreate = () => {
                 </ButtonPrimary>
 
 
-            </Form>
+            </Form>}/>
+
         </>
     )
         ;

@@ -8,6 +8,7 @@ import {Row} from "react-bootstrap";
 import React from "react";
 import OSSCard from "./OssCard";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
+import LayoutMulticolour from "../../../components/structure/LayoutMulticolour";
 
 const OpenSourceSolutions = () => {
     const {i18n, t} = useTranslation();
@@ -16,13 +17,18 @@ const OpenSourceSolutions = () => {
         useFetch<IOpenSourceSolution[]>(service.getAll, [i18n.language])
     useDocumentTitle(t("titles.oss"))
     return <>
-        <PageTitle>Vabavaralised lahendused</PageTitle>
-        {pending && <Loader/>}
-        <Row>
-            {data?.map(solution => {
-                return <OSSCard solution={solution}/>
-            })}
-        </Row>
+        <LayoutMulticolour headerContent={
+            <PageTitle>Vabavaralised lahendused</PageTitle>
+
+        } bodyContent={<>
+            {pending && <Loader/>}
+            <Row>
+                {data?.map(solution => {
+                    return <OSSCard solution={solution}/>
+                })}
+            </Row>
+        </>}/>
+
     </>
 }
 

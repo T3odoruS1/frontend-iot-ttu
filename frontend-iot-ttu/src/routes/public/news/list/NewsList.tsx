@@ -1,5 +1,5 @@
 import {Col, Row} from "react-bootstrap";
-import TopicAreaFilters from "../../../../components/common/FilterBox";
+import TopicAreaFilters from "./FilterBox";
 import PageTitle from "../../../../components/common/PageTitle";
 import {useTranslation} from "react-i18next";
 import {Loader} from "../../../../components/Loader";
@@ -16,6 +16,7 @@ import TopicAreasGray from "../../../../components/common/TopicAreasGray";
 import i18n, {use} from "i18next";
 import feedPage from "../../feedPage/FeedPage";
 import useDocumentTitle from "../../../../hooks/useDocumentTitle";
+import LayoutMulticolour from "../../../../components/structure/LayoutMulticolour";
 
 interface IProps {
     news: INews;
@@ -45,12 +46,14 @@ const NewsElement: React.FC<IProps> = ({news}) => {
         <Col md="6" className="clickable-pointer mb-5" onClick={navigateToDetails}>
             <div className="w-100">
                 <div className={"zoom-img-container"}>
-                <img className="thumbnail zoom-image" src={news.image !== undefined && news.image !== "" ? news.image : placeholder} alt=""/>
+                    <img className="thumbnail zoom-image"
+                         src={news.image !== undefined && news.image !== "" ? news.image : placeholder} alt=""/>
                 </div>
+                <div className={"d-flex flex-column"}>
                 <DatePink date={getDate(news.createdAt)}/>
-                <br/>
-                <TopicAreasGray>{getTopicAreasAsStr()}</TopicAreasGray>
-                <h3 className="header-purple">{news.title}</h3>
+                {/*<TopicAreasGray>{getTopicAreasAsStr()}</TopicAreasGray>*/}
+                </div>
+                <h1>{news.title}</h1>
             </div>
         </Col>
 
@@ -60,7 +63,7 @@ const NewsElement: React.FC<IProps> = ({news}) => {
 
 
 const NewsList = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -70,7 +73,7 @@ const NewsList = () => {
         useState<number>(6); // Assuming 'size' won't change for now
     const [topicArea, setTopicArea] =
         useState<string | null>(new URLSearchParams(location.search).get('topicArea'));
-    const { data: news, pending, total, error, fetch } =
+    const {data: news, pending, total, error, fetch} =
         usePaginatedFetch<INews, NewsService>(new NewsService(), page - 1, size, topicArea ? [topicArea] : []);
 
 
@@ -85,19 +88,15 @@ const NewsList = () => {
             setPage(1);
             locationHasChanged = true;
         }
-        if(!hasSize){
+        if (!hasSize) {
             locationHasChanged = true;
             setPage(1);
             searchParams.set('size', '6');
         }
-        if(locationHasChanged){
-            navigate(`/${i18n.language}/news?${searchParams.toString()}`, { replace: true });
+        if (locationHasChanged) {
+            navigate(`/${i18n.language}/news?${searchParams.toString()}`, {replace: true});
         }
     }, [i18n.language, navigate, location.search, topicArea]);
-
-
-
-
 
 
     const handlePageClick = (pageNumber: number) => {
@@ -109,12 +108,11 @@ const NewsList = () => {
 
     const handleTopicAreaChange = (newTopicArea: string | null) => {
         const searchParams = new URLSearchParams(location.search);
-        if(topicArea === newTopicArea){
+        if (topicArea === newTopicArea) {
             setTopicArea(null);
             setPage(1);
             searchParams.delete("topicArea");
-        }
-        else if (newTopicArea) {
+        } else if (newTopicArea) {
             searchParams.set('topicArea', newTopicArea);
             searchParams.set('page', "1");
             setPage(1);
@@ -128,38 +126,42 @@ const NewsList = () => {
     };
 
     if (error === "500") {
-        return <ErrorPage />;
+        return <ErrorPage/>;
     } else {
-        return (
-            <>
+        return (<LayoutMulticolour
+            headerContent={
                 <PageTitle>{t("public.news.news")}</PageTitle>
-                {pending ? <Loader /> : (
-                    <Row className="flex-column flex-md-row">
-                        <Col className="col-md-9 order-md-0 order-1 news-grid">
-                            <Row >
-                                {news?.map((article) => (
-                                    <NewsElement key={article.id} news={article} />
-                                ))}
-                            </Row>
-                        </Col>
-                        <Col  className="col-md-3 order-md-1 order-0">
-                            <TopicAreaFilters onTopicAreaChange={handleTopicAreaChange} />
-                        </Col>
-                    </Row>
-                )}
+            }
+            bodyContent={
+                <>
+                    {pending ? <Loader /> : (
+                        <Row className="flex-column flex-md-row mt-md-5 mt-2">
+                            <Col className="col-md-9 order-md-0 order-1 news-grid">
+                                <Row >
+                                    {news?.map((article) => (
+                                        <NewsElement key={article.id} news={article} />
+                                    ))}
+                                </Row>
+                            </Col>
+                            <Col  className="col-md-3 order-md-1 order-0">
+                                <TopicAreaFilters onTopicAreaChange={handleTopicAreaChange} />
+                            </Col>
+                        </Row>
+                    )}
 
-                <Pagination
-                    activePage={page}
-                    itemsCountPerPage={size}
-                    totalItemsCount={total}
-                    pageRangeDisplayed={5}
-                    onChange={handlePageClick}
-                    innerClass="pagination-navigation"
-                    linkClass="pagination-element"
-                    activeLinkClass="active-page-li"
-                />
-            </>
-        );
+                    <Pagination
+                        activePage={page}
+                        itemsCountPerPage={size}
+                        totalItemsCount={total}
+                        pageRangeDisplayed={5}
+                        onChange={handlePageClick}
+                        innerClass="pagination-navigation"
+                        linkClass="pagination-element"
+                        activeLinkClass="active-page-li"
+                    />
+                </>
+            }
+        />);
     }
 };
 

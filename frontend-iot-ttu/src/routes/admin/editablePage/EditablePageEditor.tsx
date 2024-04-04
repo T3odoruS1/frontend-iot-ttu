@@ -14,6 +14,8 @@ import {SuccessAlert} from "../../../components/lottie/SuccessAlert";
 import {PageContentService} from "../../../services/PageContentService";
 import useFetch from "../../../hooks/useFetch";
 import {FormFloating, FormLabel, FormSelect} from "react-bootstrap";
+import LayoutNoHeader from "../../../components/structure/LayoutNoHeader";
+import ButtonContent from "../../../components/common/ButtonContent";
 
 interface IProps {
     pageIdentifier: string;
@@ -99,7 +101,10 @@ export const EditablePageEditor = (props: IProps) => {
         setValue(`body.${1}.culture`, "et");
     }
 
+    const [pendingUpload, setPendingUpload] = useState(false);
+
     const upload = async (fieldValues: FieldValues) => {
+        setPendingUpload(true);
         if (!exists) {
             service.create(fieldValues as IPageContentMultilang).then(response => {
                 if (response.pageIdentifier !== undefined) {
@@ -110,7 +115,7 @@ export const EditablePageEditor = (props: IProps) => {
                 } else {
                     setMessage("Something went wrong");
                 }
-            })
+            }).finally(() => setPendingUpload(false))
         } else {
             console.log(fieldValues)
             service.update(fieldValues as IPageContentMultilang).then(response => {
@@ -120,8 +125,8 @@ export const EditablePageEditor = (props: IProps) => {
                 setTimeout(() => {
                     setSuccess(false);
                 }, 1000)
-            })
-                .catch(e => setMessage("Something went wrong"))
+            }).catch(e => setMessage("Something went wrong"))
+                .finally(() => setPendingUpload(false))
         }
     }
 
@@ -143,73 +148,70 @@ export const EditablePageEditor = (props: IProps) => {
 
 
     return (
-        <>
-            {success && <SuccessAlert /> || <><PageTitle>{t("common.forPage")} {props.pageIdentifier}</PageTitle>
-                <p>{message}</p>
-                <form onSubmit={
-                    handleSubmit((dto) => {
-                        upload(dto);
-                    }, (errors) => console.log(errors))
-                }>
-                    <SubHeadingPurple>{t("common.titles")}</SubHeadingPurple>
-                    <div className={"mt-2"}>
-                        <InputControl
-                            error={t(errors.title?.[0]?.value?.message?.toString())}
-                            register={register}
-                            name={`title.${0}.value`}
-                            type={"text"}
-                            label={t("pageContent.titleEng")}
-                        />
-                    </div>
-                    <div className={"mt-2 mb-2"}>
-                        <InputControl
-                            register={register}
-                            error={t(errors.title?.[1]?.value?.message?.toString())}
-                            name={`title.${1}.value`}
-                            label={t("pageContent.titleEng")}
-                        />
-                    </div>
-                    <div
-                        className={"text-danger"}>{errors.body?.[0]?.value?.message !== undefined ? t("common.engRequired") : ""}</div>
-                    <div
-                        className={"text-danger"}>{errors.body?.[1]?.value?.message !== undefined ? t("common.estRequired") : ""}</div>
-                    <FormFloating>
-                        <FormSelect id={"editor-language"} className={"b-radius-0"} value={editorLanguage}
-                                    onChange={(e) => setEditorLanguage(e.target.value)}>
-                            <option value={"EN"}>EN</option>
-                            <option value={"ET"}>ET</option>
-                        </FormSelect>
-                        <FormLabel htmlFor={"editor-language"}>Editor language</FormLabel>
-                    </FormFloating>
+        <LayoutNoHeader bodyContent={success && <SuccessAlert /> || <><PageTitle>{t("common.forPage")} {props.pageIdentifier}</PageTitle>
+            <p>{message}</p>
+            <form onSubmit={
+                handleSubmit((dto) => {
+                    upload(dto);
+                }, (errors) => console.log(errors))
+            }>
+                <SubHeadingPurple>{t("common.titles")}</SubHeadingPurple>
+                <div className={"mt-2"}>
+                    <InputControl
+                        error={t(errors.title?.[0]?.value?.message?.toString())}
+                        register={register}
+                        name={`title.${0}.value`}
+                        type={"text"}
+                        label={t("pageContent.titleEng")}
+                    />
+                </div>
+                <div className={"mt-2 mb-2"}>
+                    <InputControl
+                        register={register}
+                        error={t(errors.title?.[1]?.value?.message?.toString())}
+                        name={`title.${1}.value`}
+                        label={t("pageContent.titleEng")}
+                    />
+                </div>
+                <div
+                    className={"text-danger"}>{errors.body?.[0]?.value?.message !== undefined ? t("common.engRequired") : ""}</div>
+                <div
+                    className={"text-danger"}>{errors.body?.[1]?.value?.message !== undefined ? t("common.estRequired") : ""}</div>
+                <FormFloating>
+                    <FormSelect id={"editor-language"} className={"b-radius-0"} value={editorLanguage}
+                                onChange={(e) => setEditorLanguage(e.target.value)}>
+                        <option value={"EN"}>EN</option>
+                        <option value={"ET"}>ET</option>
+                    </FormSelect>
+                    <FormLabel htmlFor={"editor-language"}>Editor language</FormLabel>
+                </FormFloating>
 
 
-                    <div className={editorLanguage === "EN" ? "" : "d-none"}>
-                        <ReactQuill
-                            theme="snow"
-                            value={editorHtmlEng}
-                            onChange={onEditorStateChangeEng}
-                            modules={modules}
-                            formats={formats}
-                        />
-                    </div>
+                <div className={editorLanguage === "EN" ? "" : "d-none"}>
+                    <ReactQuill
+                        theme="snow"
+                        value={editorHtmlEng}
+                        onChange={onEditorStateChangeEng}
+                        modules={modules}
+                        formats={formats}
+                    />
+                </div>
 
-                    <div className={editorLanguage === "ET" ? "" : "d-none"}>
-                        <ReactQuill
-                            theme="snow"
-                            value={editorHtmlEst}
-                            onChange={onEditorStateChangeEst}
-                            modules={modules}
-                            formats={formats}
-                        />
-                    </div>
-                    <div className={"my-2"}>
-                        <ButtonPrimary type={"submit"}>
-                            {t("common.submit")}
-                        </ButtonPrimary>
-                    </div>
-                </form>
-            </>}
-
-        </>
+                <div className={editorLanguage === "ET" ? "" : "d-none"}>
+                    <ReactQuill
+                        theme="snow"
+                        value={editorHtmlEst}
+                        onChange={onEditorStateChangeEst}
+                        modules={modules}
+                        formats={formats}
+                    />
+                </div>
+                <div className={"my-2"}>
+                    <ButtonPrimary type={"submit"}>
+                        <ButtonContent isLoading={pendingUpload} content={t("common.submit")}/>
+                    </ButtonPrimary>
+                </div>
+            </form>
+        </>}/>
     );
 };

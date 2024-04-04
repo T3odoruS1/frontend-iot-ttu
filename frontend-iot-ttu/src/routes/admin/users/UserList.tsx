@@ -17,6 +17,7 @@ import removeUser from "../../../assets/iconpack/removeUser.svg";
 import {use} from "i18next";
 import SubHeadingPurple from "../../../components/common/SubheadingPurple";
 import ButtonSmaller from "../../../components/common/ButtonSmaller";
+import LayoutNoHeader from "../../../components/structure/LayoutNoHeader";
 
 
 const UserList = () => {
@@ -69,8 +70,7 @@ const UserList = () => {
         alert("NOT IMPLEMENTED")
     }
 
-    return (
-        <>
+    return (<LayoutNoHeader bodyContent={<>
             <div className={"d-flex"}>
                 <SubHeadingPurple className={"mt-2"}>{t("user.listTitle")}</SubHeadingPurple>
                 <Show>
@@ -159,7 +159,7 @@ const UserList = () => {
             <div onClick={toChangePassword} className={"link-arrow clickable-pointer"}>
                 {t("user.changeMyPass")}
             </div>
-        </>
+        </>}/>
     );
 };
 

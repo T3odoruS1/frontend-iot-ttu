@@ -7,6 +7,7 @@ import {useState} from "react";
 import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
 import Show from "../../../../components/common/Show";
 import {Loader} from "../../../../components/Loader";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const ProjectCreate = () => {
 
@@ -48,17 +49,19 @@ const ProjectCreate = () => {
     }
 
 
-    return <>
-        <Show>
-            <Show.When isTrue={pending}><Loader/></Show.When>
-        </Show>
-        <Show>
-            <Show.When isTrue={success}><SuccessAlert/></Show.When>
-        </Show>
-        <Show>
-            <Show.When isTrue={!success}><CreateProjectFormWithPreview onSubmit={handleSubmit}/></Show.When>
-        </Show>
-    </>
+    return <LayoutNoHeader bodyContent={
+        <>
+            <Show>
+                <Show.When isTrue={pending}><Loader/></Show.When>
+            </Show>
+            <Show>
+                <Show.When isTrue={success}><SuccessAlert/></Show.When>
+            </Show>
+            <Show>
+                <Show.When isTrue={!success}><CreateProjectFormWithPreview onSubmit={handleSubmit}/></Show.When>
+            </Show>
+        </>
+    }/>
 }
 
 export default ProjectCreate;

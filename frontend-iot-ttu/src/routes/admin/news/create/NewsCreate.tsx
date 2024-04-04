@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
 import {Loader} from "../../../../components/Loader";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 
 const NewsCreate = () => {
@@ -41,11 +42,13 @@ const NewsCreate = () => {
 
     }
 
-    return <>
-        {pending && <Loader/>}
-        {success && <SuccessAlert/> || <NewsCreateForm onSubmit={onSubmit}/>}
+    return <LayoutNoHeader bodyContent={
+        <>
+            {pending && <Loader/>}
+            {success && <SuccessAlert/> || <NewsCreateForm onSubmit={onSubmit}/>}
 
-    </>
+        </>
+    }/>
 }
 
 export default NewsCreate;

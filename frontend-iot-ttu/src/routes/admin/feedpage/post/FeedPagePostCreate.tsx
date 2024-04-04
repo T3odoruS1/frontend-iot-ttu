@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { Loader } from "../../../../components/Loader";
 import { SuccessAlert } from "../../../../components/lottie/SuccessAlert";
 import Show from "../../../../components/common/Show";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const schema = yup.object().shape({
   id: yup.string().uuid().nullable(),
@@ -94,7 +95,7 @@ const FeedPagePostCreate = () => {
   }
 
 
-  return <>
+  return <LayoutNoHeader bodyContent={<>
     <PageTitle>Create feed page post</PageTitle>
 
     <Show>
@@ -107,13 +108,13 @@ const FeedPagePostCreate = () => {
 
     <FormFloating>
       <FormCheck
-        type="checkbox"
-        id="custom-switch"
-        label="Preview"
-        checked={preview}
-        onChange={() => {
-          setPreview(!preview);
-        }}
+          type="checkbox"
+          id="custom-switch"
+          label="Preview"
+          checked={preview}
+          onChange={() => {
+            setPreview(!preview);
+          }}
       />
 
     </FormFloating>
@@ -133,8 +134,7 @@ const FeedPagePostCreate = () => {
           getValues={getValues}
           errors={errors}/>
     </div>
-
-  </>
+  </>}/>
 }
 
 export default FeedPagePostCreate;

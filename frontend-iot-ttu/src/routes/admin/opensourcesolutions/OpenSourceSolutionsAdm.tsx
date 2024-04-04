@@ -17,6 +17,7 @@ import SubHeadingPurple from "../../../components/common/SubheadingPurple";
 import {AccessDetail} from "./AccessDetail";
 import Checkbox
     from "@react-buddy/ide-toolbox/dist/previews/tools-panel/props-edit-table/table-items/table-item/table-item-control/checkbox";
+import LayoutNoHeader from "../../../components/structure/LayoutNoHeader";
 
 
 const OpenSourceSolutionAdm = () => {
@@ -44,70 +45,72 @@ const OpenSourceSolutionAdm = () => {
     }
 
 
-    return <>
+    return <LayoutNoHeader bodyContent={
+        <>
 
-        <div className={"d-flex"}>
-            <SubHeadingPurple className={"mt-2"}>{t("titles.oss")}</SubHeadingPurple>
-            <img className={"icon-wrapper"}
-                 alt={"Add"}
-                 onClick={toCreate}
-                 src={add}/>
-        </div>
+            <div className={"d-flex"}>
+                <SubHeadingPurple className={"mt-2"}>{t("titles.oss")}</SubHeadingPurple>
+                <img className={"icon-wrapper"}
+                     alt={"Add"}
+                     onClick={toCreate}
+                     src={add}/>
+            </div>
 
-        {pending && <Loader/>}
-        <Table variant="striped">
-            <caption>Open source solutions</caption>
-            {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
-            <thead>
-            <tr>
-                <th scope="col">{t("common.title")}</th>
-                <th scope="col">Public</th>
-                <th scope="col">Link to</th>
-                <th scope="col">Access requests</th>
-                <th scope="col">{t("common.actions")}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {data?.map((solution, index) => {
-                    return (
-                        <tr key={solution.id}>
-                            <td>{solution.title}</td>
-                            <td>
-                                <input type="checkbox" className={"form-check"} disabled checked={!solution.private}/>
-                            </td>
-                            <td>
-                                <a target={"_blank"} href={solution.link}>{solution.link.slice(0, 20)}{solution.link.length > 20 ? "..." : ""}</a>
-                            </td>
-                            <td>
-                                <AccessDetail accessDetails={solution.accessDetails}/>
-                            </td>
-                            <td>
-                                <div className={"d-flex"}>
+            {pending && <Loader/>}
+            <Table variant="striped">
+                <caption>Open source solutions</caption>
+                {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
+                <thead>
+                <tr>
+                    <th scope="col">{t("common.title")}</th>
+                    <th scope="col">Public</th>
+                    <th scope="col">Link to</th>
+                    <th scope="col">Access requests</th>
+                    <th scope="col">{t("common.actions")}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {data?.map((solution, index) => {
+                        return (
+                            <tr key={solution.id}>
+                                <td>{solution.title}</td>
+                                <td>
+                                    <input type="checkbox" className={"form-check"} disabled checked={!solution.private}/>
+                                </td>
+                                <td>
+                                    <a target={"_blank"} href={solution.link}>{solution.link.slice(0, 20)}{solution.link.length > 20 ? "..." : ""}</a>
+                                </td>
+                                <td>
+                                    <AccessDetail accessDetails={solution.accessDetails}/>
+                                </td>
+                                <td>
+                                    <div className={"d-flex"}>
 
-                                    <div onClick={() => toUpdate(solution.id)} className={"mr-1 icon-wrapper"}>
-                                        <img className={"icon"}
-                                             alt={"Update"}
-                                             src={edit}/>
+                                        <div onClick={() => toUpdate(solution.id)} className={"mr-1 icon-wrapper"}>
+                                            <img className={"icon"}
+                                                 alt={"Update"}
+                                                 src={edit}/>
+                                        </div>
+
+                                        <ActionConfirmationAlert action={() => {
+                                            onDelete(solution.id)
+                                        }} displayText={t("common.deleteUSure")}
+                                                                 triggerElement={<div className={"icon-wrapper"}>
+                                                                     <img
+                                                                         className={"icon ms-4"}
+                                                                         alt={"Delete"}
+                                                                         src={removeIcon}/></div>}/>
                                     </div>
+                                </td>
+                            </tr>
+                        )
+                    }
+                )}
+                </tbody>
+            </Table>
 
-                                    <ActionConfirmationAlert action={() => {
-                                        onDelete(solution.id)
-                                    }} displayText={t("common.deleteUSure")}
-                                                             triggerElement={<div className={"icon-wrapper"}>
-                                                                 <img
-                                                                     className={"icon ms-4"}
-                                                                     alt={"Delete"}
-                                                                     src={removeIcon}/></div>}/>
-                                </div>
-                            </td>
-                        </tr>
-                    )
-                }
-            )}
-            </tbody>
-        </Table>
-
-    </>
+        </>
+    }/>
 }
 
 export default OpenSourceSolutionAdm;

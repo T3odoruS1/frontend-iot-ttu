@@ -2,6 +2,7 @@ import {FC, ReactElement, ReactNode, useState} from "react";
 import {useCollapse} from "react-collapsed";
 import SubHeadingPurple from "./common/SubheadingPurple";
 import {Col, Row} from "react-bootstrap";
+import dropdownIcon from "../assets/iconpack/Dropdown Arrow Icon.svg";
 
 interface IProps {
     isActive: boolean;
@@ -19,13 +20,21 @@ const Collapse: FC<IProps> = ({isActive, title, children, headerControls}) => {
     });
 
 
-    return <div className={"collapse-card w-100"}>
+    return <div className={"w-100"}>
 
-        <div className={"toggle-category"}>
-            <SubHeadingPurple className=" all-caps" {...getToggleProps({
+        <div className={""}>
+            <h1
+                className="p-2"
+                {...getToggleProps({
                 onClick: () => setExpanded((prevExpanded) => !prevExpanded)
-            })}><span className={isExpanded ? "expanded-collapse-arrow" : "collape-arrow"}>› </span>{title}
-            </SubHeadingPurple>
+            })}><span>{title}
+                 <img
+                     alt={"dropdown"}
+                     src={dropdownIcon}
+                     className={`${isExpanded ? 'expanded-collapse-arrow' : 'collapse-arrow'} icon`}
+                 />
+            </span>
+            </h1>
         </div>
 
         <div {...getCollapseProps()}>

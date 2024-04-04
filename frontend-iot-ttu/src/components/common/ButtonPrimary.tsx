@@ -1,5 +1,3 @@
-import { FC } from "react";
-import IBaseProps from "../IBaseProps";
 
 const ButtonPrimary = ({...rest}) => {
 	return (
@@ -19,8 +17,8 @@ const ButtonPrimary = ({...rest}) => {
 				padding: "calc(1.1rem - 4px) calc(2.3125rem - 4px) calc(1.4rem - 4px)",
 				borderRadius: "60px",
 			}}
+
 			{...rest}>
-			
 		</button>
 	);
 };

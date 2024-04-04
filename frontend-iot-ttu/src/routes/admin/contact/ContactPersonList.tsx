@@ -25,6 +25,7 @@ import add from "../../../assets/iconpack/add.svg"
 
 import edit from "../../../assets/iconpack/edit.svg"
 import SubHeadingPurple from "../../../components/common/SubheadingPurple";
+import LayoutDefault from "../../../components/structure/LayoutDefault";
 
 
 const ContactPersonList = () => {
@@ -82,89 +83,88 @@ const ContactPersonList = () => {
 
     return (
         <>
-
-            <div className={"d-flex"}>
+            <LayoutDefault headerContent={<div className={"d-flex"}>
                 <SubHeadingPurple className={"mt-2"}>
                     {t("contact.recipientsTitle")}
                 </SubHeadingPurple>
                 <Popup
                     content={<AddRecepientElement onSubmit={onSubmit}/>} cname={"icon-wrapper-lg"}
                     trigger={<img className={"icon-wrapper"} alt={"Add"} src={add}/>}/>
-            </div>
+            </div>} bodyContent={<>
+                <span className={"text-success"}>{t(message)}</span>
 
-            <span className={"text-success"}>{t(message)}</span>
+                <div className={"mt-2"}>
+                    <Table responsive className={"w-25"} variant={"striped"}>
+                        <tbody>
+                        {recepients?.map((rec, index) => {
+                            return <tr className={""}>
+                                <td>
+                                    {index + 1}
+                                </td>
+                                <td>
+                                    {rec.email}
+                                </td>
+                                <td>
+                                    <ActionConfirmationAlert action={() => {
+                                        removeRecepient(rec.id)
+                                    }}
+                                                             displayText={t("contact.RUSure")}
+                                                             triggerElement={<img className={"icon"}
+                                                                                  alt={"Delete"}
+                                                                                  src={removeIcon}/>
+                                                             }/>
+                                </td>
+                            </tr>
+                        })}
+                        </tbody>
+                    </Table>
+                </div>
+                <hr/>
 
-            <div className={"mt-2"}>
-                <Table responsive className={"w-25"} variant={"striped"}>
+                <div className={"d-flex"}>
+                    <SubHeadingPurple className={"mt-2"}>{t('contact.listTitle')}</SubHeadingPurple>
+                    <img onClick={toCreate}
+                         className={"icon-wrapper"}
+                         alt={"Add contact person"}
+                         src={add}/>
+
+                </div>
+
+                <Table responsive className={"w-50 mt-2"}>
+
                     <tbody>
-                    {recepients?.map((rec, index) => {
-                        return <tr className={""}>
-                            <td>
-                                {index + 1}
+                    {people?.map(person => {
+                        return <tr>
+                            <td width={400} className={'p-0'}>
+
+                                <ContactPerson name={person.name} body={person.body}/>
                             </td>
-                            <td>
-                                {rec.email}
-                            </td>
-                            <td>
-                                <ActionConfirmationAlert action={() => {
-                                    removeRecepient(rec.id)
-                                }}
-                                                         displayText={t("contact.RUSure")}
-                                                         triggerElement={<img className={"icon"}
-                                                                              alt={"Delete"}
-                                                                              src={removeIcon}/>
-                                                         }/>
+                            <td width={50} className={"p-0"}>
+                                <div className={"d-flex"}>
+
+                                    <div className={"mx-2"}><img onClick={() => {
+                                        toUpdate(person.id)
+                                    }} className={"icon icon-wrapper"}
+                                                                 alt={"Delete"}
+                                                                 src={edit}/>
+                                    </div>
+                                    <div className={"mx-2"}>
+                                        <ActionConfirmationAlert action={() => {
+                                            remove(person.id)
+                                        }} displayText={t("common.deleteUSure")}
+                                                                 triggerElement={<img className={"icon icon-wrapper"}
+                                                                                      alt={"Delete"}
+                                                                                      src={removeIcon}/>}/>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
+
+
                     })}
                     </tbody>
-                </Table>
-            </div>
-            <hr/>
+                </Table></>}/>
 
-            <div className={"d-flex"}>
-                <SubHeadingPurple className={"mt-2"}>{t('contact.listTitle')}</SubHeadingPurple>
-                <img onClick={toCreate}
-                     className={"icon-wrapper"}
-                     alt={"Add contact person"}
-                     src={add}/>
-
-            </div>
-
-            <Table responsive className={"w-50 mt-2"}>
-
-                <tbody>
-                {people?.map(person => {
-                    return <tr>
-                        <td width={400} className={'p-0'}>
-
-                            <ContactPerson name={person.name} body={person.body}/>
-                        </td>
-                        <td width={50} className={"p-0"}>
-                            <div className={"d-flex"}>
-
-                                <div className={"mx-2"}><img onClick={() => {
-                                    toUpdate(person.id)
-                                }} className={"icon icon-wrapper"}
-                                                             alt={"Delete"}
-                                                             src={edit}/>
-                                </div>
-                                <div className={"mx-2"}>
-                                    <ActionConfirmationAlert action={() => {
-                                        remove(person.id)
-                                    }} displayText={t("common.deleteUSure")}
-                                                             triggerElement={<img className={"icon icon-wrapper"}
-                                                                                  alt={"Delete"}
-                                                                                  src={removeIcon}/>}/>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-
-                })}
-                </tbody>
-            </Table>
 
         </>
     );

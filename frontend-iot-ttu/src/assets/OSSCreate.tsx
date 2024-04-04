@@ -12,6 +12,7 @@ import {SuccessAlert} from "../components/lottie/SuccessAlert";
 import InputControl from "../components/form/InputControl";
 import {Form, FormCheck} from "react-bootstrap";
 import ButtonPrimary from "../components/common/ButtonPrimary";
+import LayoutNoHeader from "../components/structure/LayoutNoHeader";
 
 const schema = yup.object().shape({
     id: yup.string().uuid().nullable(),
@@ -102,61 +103,60 @@ const OSSCreate = () => {
         setLangs();
     }, []);
 
-    return (
-        <>
-            <PageTitle>{t("oss.title")}</PageTitle>
-            {errorResponse && <p>{errorResponse}</p>}
-            {success && <SuccessAlert/>}
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={errors.title?.[0]?.value?.message}
-                        name={"title.0.value"}
-                        label={t("projects.titleEng")}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={errors.title?.[1]?.value?.message}
-                        name={"title.1.value"}
-                        label={t("projects.titleEst")}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={errors.body?.[0]?.value?.message}
-                        name={"body.0.value"}
-                        label={t("oss.descriptionEng")}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={errors.body?.[1]?.value?.message}
-                        name={"body.1.value"}
-                        label={t("oss.descriptionEst")}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={errors.link?.message}
-                        name={"link"}
-                        label={t("oss.link")}/>
-                </div>
-                <div className={"mt-2"}>
-                    <FormCheck
-                        {...register("private")}
-                        label={t("oss.privateRepo")}
-                        type={"switch"}
-                    />
-                </div>
-                <ButtonPrimary
-                    className="btn_custom_out mt-5 w-25 align-self-center" type={"button"}
-                    onClick={handleSubmit(onSubmit)}>
-                    {t("common.submit")}
-                </ButtonPrimary>
-            </Form>
-        </>
+    return (<LayoutNoHeader bodyContent={<>
+        <PageTitle>{t("oss.title")}</PageTitle>
+        {errorResponse && <p>{errorResponse}</p>}
+        {success && <SuccessAlert/>}
+        <Form onSubmit={handleSubmit(onSubmit)}>
+            <div className={"mt-2"}>
+                <InputControl
+                    register={register}
+                    error={errors.title?.[0]?.value?.message}
+                    name={"title.0.value"}
+                    label={t("projects.titleEng")}/>
+            </div>
+            <div className={"mt-2"}>
+                <InputControl
+                    register={register}
+                    error={errors.title?.[1]?.value?.message}
+                    name={"title.1.value"}
+                    label={t("projects.titleEst")}/>
+            </div>
+            <div className={"mt-2"}>
+                <InputControl
+                    register={register}
+                    error={errors.body?.[0]?.value?.message}
+                    name={"body.0.value"}
+                    label={t("oss.descriptionEng")}/>
+            </div>
+            <div className={"mt-2"}>
+                <InputControl
+                    register={register}
+                    error={errors.body?.[1]?.value?.message}
+                    name={"body.1.value"}
+                    label={t("oss.descriptionEst")}/>
+            </div>
+            <div className={"mt-2"}>
+                <InputControl
+                    register={register}
+                    error={errors.link?.message}
+                    name={"link"}
+                    label={t("oss.link")}/>
+            </div>
+            <div className={"mt-2"}>
+                <FormCheck
+                    {...register("private")}
+                    label={t("oss.privateRepo")}
+                    type={"switch"}
+                />
+            </div>
+            <ButtonPrimary
+                className="btn_custom_out mt-5 w-25 align-self-center" type={"button"}
+                onClick={handleSubmit(onSubmit)}>
+                {t("common.submit")}
+            </ButtonPrimary>
+        </Form>
+    </>}/>
     );
 };
 

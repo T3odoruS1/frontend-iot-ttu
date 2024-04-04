@@ -1,4 +1,4 @@
-import NewsContent from "./NewsContent";
+import NewsContentAdm from "./NewsContentAdm";
 import {INewsOutputDTO} from "../dto/news/INewsOutputDTO";
 import placeholder from "../assets/placeholder.webp"
 import i18n from 'i18next';
@@ -55,7 +55,7 @@ const ContentPreview = (props: IProps) => {
     return (
         <>
             <div className="d-inline-flex justify-content-center align-items-center w-100">
-                <NewsContent
+                <NewsContentAdm
                     title={
                         i18n.language === "en"
                             ? (getContent(props.formValues?.title?.at(1)?.value, "No title"))

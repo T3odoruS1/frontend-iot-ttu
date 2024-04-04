@@ -5,6 +5,7 @@ import {PartnerImageDisplay} from "./PartnerImageDisplay";
 import {PartnerImageEditMode} from "./PartnerImageEditMode";
 import {useTranslation} from "react-i18next";
 import edit from "../../../../assets/iconpack/edit.svg";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 export const PartnerImages = () => {
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
@@ -12,19 +13,19 @@ export const PartnerImages = () => {
     const [editMode, setEditMode] = useState(false)
 
     useEffect(() => {
-        if(!jwtResponseCtx?.jwt){
+        if (!jwtResponseCtx?.jwt) {
             setEditMode(false);
         }
     }, [jwtResponseCtx]);
 
-    if(editMode){
-        return <>
+    if (editMode) {
+        return <LayoutNoHeader bodyContent={<>
             <PartnerImageEditMode/>
             <br/>
             <img className={"icon-wrapper mb-2"}
                  onClick={() => setEditMode(!editMode)}
                  alt={"Edit"}
-                 src={edit}/></>
+                 src={edit}/></>}/>
     }
 
     return (
@@ -39,5 +40,6 @@ export const PartnerImages = () => {
                      src={edit}/>
             }
         </>
+
     );
 };
