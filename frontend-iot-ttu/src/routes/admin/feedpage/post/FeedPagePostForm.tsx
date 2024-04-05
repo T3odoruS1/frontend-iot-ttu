@@ -183,8 +183,10 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
                 </FormSelect>
                 <FormLabel htmlFor={"editor-language"}>Editor language</FormLabel>
             </FormFloating>
-            <div className={"text-danger"}>{t(errors.body?.[0]?.value?.message?.toString())}</div>
-            <div className={"text-danger"}>{t(errors.body?.[1]?.value?.message?.toString())}</div>
+            <div
+                className={"text-danger"}>{errors.body?.[0]?.value?.message !== undefined ? t("common.engRequired") : ""}</div>
+            <div
+                className={"text-danger"}>{errors.body?.[1]?.value?.message !== undefined ? t("common.estRequired") : ""}</div>
 
 
             <div className={editorLanguage === "EN" ? "" : "d-none"}>

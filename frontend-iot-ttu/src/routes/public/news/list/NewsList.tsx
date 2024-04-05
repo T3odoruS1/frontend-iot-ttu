@@ -17,6 +17,7 @@ import i18n, {use} from "i18next";
 import feedPage from "../../feedPage/FeedPage";
 import useDocumentTitle from "../../../../hooks/useDocumentTitle";
 import LayoutMulticolour from "../../../../components/structure/LayoutMulticolour";
+import Show from "../../../../components/common/Show";
 
 interface IProps {
     news: INews;
@@ -149,16 +150,21 @@ const NewsList = () => {
                         </Row>
                     )}
 
-                    <Pagination
-                        activePage={page}
-                        itemsCountPerPage={size}
-                        totalItemsCount={total}
-                        pageRangeDisplayed={5}
-                        onChange={handlePageClick}
-                        innerClass="pagination-navigation"
-                        linkClass="pagination-element"
-                        activeLinkClass="active-page-li"
-                    />
+                    <Show>
+                        <Show.When isTrue={total !== 0}>
+                            <Pagination
+                                activePage={page}
+                                itemsCountPerPage={size}
+                                totalItemsCount={total}
+                                pageRangeDisplayed={5}
+                                onChange={handlePageClick}
+                                innerClass="pagination-navigation"
+                                linkClass="pagination-element"
+                                activeLinkClass="active-page-li"
+                            />
+                        </Show.When>
+                    </Show>
+
                 </>
             }
         />);

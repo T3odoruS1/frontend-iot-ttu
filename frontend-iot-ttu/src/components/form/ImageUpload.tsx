@@ -96,11 +96,12 @@ const ImageUploader: FC<Props> = ({
                     </label>
 
                 </div>
-                <ButtonSmaller className="mt-4" onClick={onImageRemove} type="button">{t("common.remove")}</ButtonSmaller>
+                {preview && <ButtonSmaller className="mt-4" onClick={onImageRemove} type="button">{t("common.remove")}</ButtonSmaller>}
+
             </div>
             <div className="col-md-4">
                 {preview && (
-                    <div className="mt-3">
+                    <div className="">
                         <img
                             src={preview as string}
                             alt="Thumbnail preview"

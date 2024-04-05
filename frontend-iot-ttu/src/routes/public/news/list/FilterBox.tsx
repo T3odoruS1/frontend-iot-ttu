@@ -9,6 +9,7 @@ import dropdownIcon from "../../../../assets/iconpack/Dropdown Arrow Icon.svg"
 import {useLocation} from "react-router-dom";
 import Show from "../../../../components/common/Show";
 import {Loader} from "../../../../components/Loader";
+import {ITopicAreaWithCount} from "../../../../dto/topicarea/ITopicAreaWithCount";
 
 interface IProps {
     onTopicAreaChange: (newTopicArea: string | null) => void;
@@ -17,7 +18,7 @@ interface IProps {
 const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
     const {t, i18n} = useTranslation();
     const service = new TopicAreaService();
-    const {data: topicAreas, pending: tPending} = useFetch<ITopicAreaGet[]>(service.getAll, [i18n.language]);
+    const {data: topicAreas, pending: tPending} = useFetch<ITopicAreaWithCount[]>(service.getAll, [i18n.language]);
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search)
     const isInitiallyMobile = window.innerWidth < 768;
@@ -84,13 +85,17 @@ const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
                     All categories
                 </h4>
                 {topicAreas?.map((topicArea) => (
-                    <h4 key={topicArea.id}
-                        className={isSelected(topicArea.id) ? "post-category-active" : "post-category"}
-                        onClick={() => {
-                            onTopicAreaChange(topicArea.id)
-                        }}>
-                        {topicArea.name}
-                    </h4>
+                    <Show>
+                        <Show.When isTrue={topicArea.count !== 0}>
+                            <h4 key={topicArea.id}
+                                className={isSelected(topicArea.id) ? "post-category-active" : "post-category"}
+                                onClick={() => {
+                                    onTopicAreaChange(topicArea.id)
+                                }}>
+                                {topicArea.name}
+                            </h4>
+                        </Show.When>
+                    </Show>
                 ))}
 
             </div>

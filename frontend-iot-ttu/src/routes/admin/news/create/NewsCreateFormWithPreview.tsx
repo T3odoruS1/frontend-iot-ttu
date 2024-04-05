@@ -101,20 +101,16 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         getValues,
         handleSubmit,
         control,
+        setFocus,
         formState: {errors},
     } = useForm<INewsOutputDTO>({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(schema)
     });
 
     const onSubmit = (formValues: FieldValues) => {
         props.onSubmit(formValues);
         navigate("./")
     }
-
-    useEffect(() => {
-        console.log(getValues())
-    }, [preview]);
-
 
     const setFormValues = (news: INewsWTranslations) => {
         onEditorStateChangeEng(news!.body.find(b => {
@@ -186,6 +182,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
                     register={register}
                     errors={errors}
                     handleSubmit={handleSubmit}
+                    setFocus={setFocus}
                     onEditorStateChangeEng={onEditorStateChangeEng}
                     onEditorChangeEst={onEditorStateChangeEst}
                     editorHtmlEng={editorHtmlEng}

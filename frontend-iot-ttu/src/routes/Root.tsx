@@ -4,6 +4,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import {IJwtResponse} from "../dto/identity/IJwtResponse";
 import ReactGA from "react-ga4";
 import useLivelinessCheck from "../hooks/useLivelinessCheck";
+import {IdentityService} from "../services/IdentityService";
 
 export const JwtContext = createContext<{
     jwtResponseCtx: IJwtResponse | null;
@@ -23,12 +24,26 @@ const Root = () => {
         null as IJwtResponse | null
     );
 
+    const identityService = new IdentityService();
+
     useEffect(() => {
         const data = window.localStorage.getItem("jwt");
         if (data) {
             setJwtResponseCtx(JSON.parse(data));
         }
+
+        const logout = () => {
+            if(!window.localStorage.getItem("jwt")){
+                identityService.logout();
+            }
+        }
+        window.addEventListener('storage',logout)
+        return () => {
+            window.removeEventListener('storage', logout);
+        }
     }, []);
+
+
 
     useEffect(() => {
         ReactGA.send({ hitType: "pageview", page: location.pathname, title: location.search });

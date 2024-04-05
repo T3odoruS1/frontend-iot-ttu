@@ -2,7 +2,7 @@ import {
     Control, FieldValues,
     UseFormGetValues,
     UseFormHandleSubmit,
-    UseFormRegister,
+    UseFormRegister, UseFormSetFocus,
     UseFormSetValue,
 } from "react-hook-form";
 import ReactQuill from "react-quill";
@@ -27,6 +27,7 @@ interface IProps {
     editorHtmlEst: string;
     setValue: UseFormSetValue<INewsOutputDTO>;
     getValues: UseFormGetValues<INewsOutputDTO>;
+    setFocus: UseFormSetFocus<INewsOutputDTO>;
     onSubmit: (event: any) => void;
     handleSubmit: UseFormHandleSubmit<INewsOutputDTO, undefined>;
 }
@@ -42,6 +43,7 @@ const NewsForm: React.FC<IProps> =
          editorHtmlEst,
          onSubmit,
          setValue,
+        setFocus,
          getValues,
          handleSubmit,
      }) => {
@@ -118,18 +120,15 @@ const NewsForm: React.FC<IProps> =
                     </Col>
 
                     <Col md={6}>
-                        <SubHeadingPurple className="mt-5">
-                            {t("admin.news.adminNews.create.categories")}
-                        </SubHeadingPurple>
-                        {errors?.topicAreas?.message &&
-                            <p><span className="text-danger"> {t(errors?.topicAreas?.message?.toString())}</span></p>
-                        }
+                        <div className={"mt-4"}>
                         <NewsTopicAreaInput
                             control={control}
+                            setFocus={setFocus}
                             setValue={setValue}
                             register={register}
                             errors={errors}
                         />
+                        </div>
                     </Col>
 
                 </Row>
@@ -140,9 +139,9 @@ const NewsForm: React.FC<IProps> =
                 </SubHeadingPurple>
 
                 <div
-                    className={"text-danger"}>{errors.body?.[0]?.value?.message ?? t("common.engRequired")}</div>
+                    className={"text-danger"}>{errors.body?.[0]?.value?.message !== undefined ? t("common.engRequired") : ""}</div>
                 <div
-                    className={"text-danger"}>{errors.body?.[1]?.value?.message ?? t("common.estRequired")}</div>
+                    className={"text-danger"}>{errors.body?.[1]?.value?.message !== undefined ? t("common.estRequired") : ""}</div>
                 <FormFloating>
                     <FormSelect id={"editor-language"} className={"b-radius-0"} value={editorLanguage}
                                 onChange={(e) => setEditorLanguage(e.target.value)}>

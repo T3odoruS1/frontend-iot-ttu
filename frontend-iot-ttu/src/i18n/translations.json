@@ -133,8 +133,8 @@
               "et": "Autori nimi peab olema vähemalt 1 täht"
             },
             "topicAreaMandatory": {
-              "en": "Choose at least 1 topic area",
-              "et": "Vali vähemalt 1 kategooria"
+              "en": "You should choose a category",
+              "et": "Sa pead kategooria valima"
             },
             "imageRequired": {
               "en": "Add some image for this post",
