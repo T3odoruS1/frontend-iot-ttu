@@ -101,10 +101,18 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         getValues,
         handleSubmit,
         control,
+        watch,
+        reset,
         setFocus,
         formState: {errors},
     } = useForm<INewsOutputDTO>({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(schema), defaultValues: {
+            topicAreas: [
+                {
+                    id: ""
+                }
+            ]
+        }
     });
 
     const onSubmit = (formValues: FieldValues) => {
@@ -113,29 +121,29 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     }
 
     const setFormValues = (news: INewsWTranslations) => {
-        onEditorStateChangeEng(news!.body.find(b => {
+        const defaultValues = {
+            topicAreas: news.topicAreas.map(area => ({ id: area.id })),
+            title: [
+                { value: news.title.find(t => t.culture === "en")?.value ?? "", culture: "en" },
+                { value: news.title.find(t => t.culture === "et")?.value ?? "", culture: "et" }
+            ],
+            image: news.image,
+            author: news.author,
+            id: news.id,
+            body: [
+                { value: news.body.find(b => b.culture === "en")?.value ?? "", culture: "en" },
+                { value: news.body.find(b => b.culture === "et")?.value ?? "", culture: "et" }
+            ]
+        };
+        reset(defaultValues);
+
+        setEditorHtmlEng(news!.body.find(b => {
             return b.culture === "en"
         })?.value ?? "");
-        onEditorStateChangeEst(news!.body.find(b => {
+        setEditorHtmlEst(news!.body.find(b => {
             return b.culture === "et"
         })?.value ?? "");
-
-        setValue(`topicAreas`, news.topicAreas);
-
-        setValue(`title.0.value`, news!.title!.find(t => {
-            return t.culture === "en"
-        })?.value ?? "");
-        setValue(`title.0.culture`, "en")
-
-        setValue(`title.1.value`, news!.title!.find(t => {
-            return t.culture === "et"
-        })?.value ?? "");
-        setValue(`title.1.culture`, "et")
-
-        setValue(`image`, news.image);
-        setValue(`author`, news.author);
-        setValue(`id`, news.id);
-    }
+    };
 
 
     const [editorHtmlEng, setEditorHtmlEng] = useState<string>("");

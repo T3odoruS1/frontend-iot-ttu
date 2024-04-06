@@ -3,7 +3,7 @@ import {
     FieldErrors,
     UseFormRegister,
     UseFormSetValue,
-    useFieldArray, UseFormSetFocus,
+    useFieldArray, UseFormSetFocus, UseFormGetValues,
 } from "react-hook-form";
 import {Col, FormFloating, FormLabel, FormSelect, Row} from "react-bootstrap";
 import React, {Fragment, useEffect} from "react";
@@ -25,7 +25,7 @@ interface IProps {
     register: UseFormRegister<INewsOutputDTO>;
     errors: FieldErrors<INewsOutputDTO>;
     setFocus: UseFormSetFocus<INewsOutputDTO>;
-
+    getValues: UseFormGetValues<INewsOutputDTO>;
 }
 
 const NewsTopicAreaInput: React.FC<IProps> = ({
@@ -33,26 +33,22 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
                                                   setValue,
                                                   register,
                                                   errors,
-                                                  setFocus
+                                                  setFocus,
+                                                  getValues
                                               }) => {
     const {fields, remove, append} = useFieldArray({
         control: control,
-        name: "topicAreas",
+        name: "topicAreas"
     });
     const {t} = useTranslation();
     const service = new TopicAreaService();
 
-    useEffect(() => {
-
-        if (fields.length === 0) {
-            append({id: ""})
-        }
-
-
-
-    }, [control]);
-
     const {data: topicAreas, error} = useFetch<ITopicAreaGet[]>(service.getAll, [i18n.language]);
+
+    // useEffect(() => {
+    //     append({id: ""});
+    //     remove(fields.length - 1);
+    // }, [getValues("topicAreas")]);
 
     if (error) return <ErrorPage/>
 

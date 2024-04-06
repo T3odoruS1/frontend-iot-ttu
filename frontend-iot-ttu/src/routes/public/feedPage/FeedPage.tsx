@@ -89,7 +89,7 @@ const FeedPage: FC<IProps> = ({pageIdentifier}) => {
                 <div  {...getCollapseProps()}>
                 {data?.feedPageCategories.map((category) => {
                     return <h4 key={category.id} onClick={() => setActiveCategory(category)}
-                               className={activeCategory?.id === category.id ? "post-category-active" : "post-category"}>
+                               className={activeCategory?.id === category.id ? "post-category-active clickable-pointer" : "post-category clickable-pointer"}>
                         {category.title}
                     </h4>
                 })}

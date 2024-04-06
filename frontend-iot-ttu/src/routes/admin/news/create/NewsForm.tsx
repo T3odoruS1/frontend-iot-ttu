@@ -124,6 +124,7 @@ const NewsForm: React.FC<IProps> =
                         <NewsTopicAreaInput
                             control={control}
                             setFocus={setFocus}
+                            getValues={getValues}
                             setValue={setValue}
                             register={register}
                             errors={errors}

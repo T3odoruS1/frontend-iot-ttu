@@ -86,7 +86,7 @@ const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
                     <Show key={topicArea.id}>
                         <Show.When isTrue={topicArea.count !== 0}>
                             <h4 key={topicArea.id}
-                                className={isSelected(topicArea.id) ? "post-category-active" : "post-category"}
+                                className={isSelected(topicArea.id) ? "post-category-active clickable-pointer" : "post-category clickable-pointer"}
                                 onClick={() => {
                                     onTopicAreaChange(topicArea.id)
                                 }}>

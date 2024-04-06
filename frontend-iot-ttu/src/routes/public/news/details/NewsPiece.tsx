@@ -1,5 +1,4 @@
 import {useNavigate, useParams} from "react-router-dom";
-import NavigationButton from "../../../../components/common/NavigationButton";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
 import ErrorPage from "../../../ErrorPage";
@@ -13,6 +12,7 @@ import PageTitle from "../../../../components/common/PageTitle";
 import {Col, Row} from "react-bootstrap";
 import React from "react";
 import {Loader} from "../../../../components/Loader";
+import arrow from "../../../../assets/iconpack/Arrow Left.svg";
 
 const NewsPiece = () => {
     const {t} = useTranslation();
@@ -34,14 +34,20 @@ const NewsPiece = () => {
         navigate(`../?topicArea=${id}`)
     }
 
+    const onBack = () => {
+        navigate("../")
+    }
+
     if (error == "400" || error == "404") return <NotFoundPage/>
     if (error == "500") return <ErrorPage></ErrorPage>;
     if (!error) return (<LayoutMulticolour
         headerContent={
             <div className={"w-100 mb-2"}>
                 {pending && <Loader/>}
-                <NavigationButton to={"../"}>{t("public.news.news-list")}</NavigationButton>
-                <PageTitle>{news?.title}</PageTitle>
+                <div className={"d-flex"}>
+                    <img onClick={onBack} className={"icon-wrapper arrow-left"} src={arrow}/>
+                    <PageTitle>{news?.title}</PageTitle>
+                </div>
                 <Row className="w-100 mb-5">
 
                     <Col md="9">
