@@ -157,6 +157,10 @@
       }
     },
     "topicAreas": {
+      "400": {
+        "en": "Already exists",
+        "et": "Juba olemas"
+      },
       "createTopicArea": {
         "en": "Create new topic area",
         "et": "Loo uus kategooria"
