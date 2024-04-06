@@ -5,7 +5,7 @@ import ActionConfirmationAlert from "../../../components/common/ActionConfirmati
 import {Table} from "react-bootstrap";
 import {UserRolePopup} from "./UserRolePopup";
 import {useNavigate} from "react-router-dom";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {JwtContext} from "../../Root";
 import useFetch from "../../../hooks/useFetch";
 import {IRole} from "../../../dto/identity/IRole";
@@ -27,6 +27,8 @@ const UserList = () => {
 
     const {data: users, pending, error, fetchData: fetch} =
         useFetch<IUser[]>(identityService.getUsers, [])
+
+    const [message, setMessage] = useState("");
 
     const {data: roles} = useFetch<IRole[]>(identityService.getRoles);
 
@@ -50,9 +52,13 @@ const UserList = () => {
             if (r === undefined) {
                 navigate("./login");
             } else {
+                setMessage("user.userDeleted")
+                setTimeout(() => {
+                    setMessage("");
+                }, 5000);
                 fetch();
             }
-        })
+        }).catch(e => alert(e))
     }
 
     const toChangePassword = () => {
@@ -66,8 +72,17 @@ const UserList = () => {
         navigate("./create")
     }
 
+
     const restPassword = (id: string) => {
-        alert("NOT IMPLEMENTED")
+        identityService.resetPassword({userId: id})
+            .then(() => {
+                setMessage("user.operationSuccessful")
+                setTimeout(() => {
+                    setMessage("");
+                }, 5000);
+            }).catch(() => {
+            alert("Oops... something went wrong")
+        })
     }
 
     return (<LayoutNoHeader bodyContent={<>
@@ -84,6 +99,7 @@ const UserList = () => {
                 <Show.When isTrue={pending}><Loader/></Show.When>
             </Show>
 
+            <div className={"text-success"}>{t(message)}</div>
             <Table responsive={"xl"} variant="striped">
                 <caption>{t("user.users")}</caption>
                 <thead>
@@ -143,7 +159,8 @@ const UserList = () => {
                                                 restPassword(user.id)
                                             }} displayText={t("user.resetPasswordUSure")}
                                                                      triggerElement={
-                                                                         <div className={"ms-4 link-arrow clickable-pointer"}>
+                                                                         <div
+                                                                             className={"ms-4 link-arrow clickable-pointer"}>
                                                                              {t("user.resetPassword")}
                                                                          </div>}/>
                                         </> || <div>{t("user.noRights")}</div>}

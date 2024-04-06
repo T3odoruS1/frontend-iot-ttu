@@ -27,7 +27,7 @@ const Contact = () => {
                     </Col>
                     <Col md={6}>
                         {people?.map(p => {
-                            return <div className={"d-flex justify-content-end "}>
+                            return <div key={p.id} className={"d-flex justify-content-end "}>
                                 <ContactPerson name={p.name} body={p.body}/>
                             </div>
                         })}

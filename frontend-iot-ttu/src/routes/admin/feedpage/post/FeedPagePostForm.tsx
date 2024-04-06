@@ -50,8 +50,6 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
     const onEditorStateChangeEng = (html: string) => {
         setValue(`body.${0}.value`, html);
         setEditorHtmlEng(html);
-        console.log(errors);
-        
     };
 
     const onEditorStateChangeEst = (html: string) => {
@@ -143,7 +141,7 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
                     <FormSelect className="no-br" id="category-choice" {...register("feedPageCategoryId")}>
                         <option></option>
                         {categories?.map(category => {
-                            return <option value={category.id}>{category.title}</option>
+                            return <option key={category.id} value={category.id}>{category.title}</option>
                         })}
                     </FormSelect>
                     <FormLabel htmlFor="category-choice">

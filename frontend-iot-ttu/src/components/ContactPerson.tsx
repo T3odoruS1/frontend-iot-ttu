@@ -14,7 +14,7 @@ export const ContactPerson = (props: IProps) => {
             <div className={"contact-hr"}>
 
             </div>
-            <p className={" mt-2 contact-person-data"}>
+            <div className={" mt-2 contact-person-data"}>
                 <div className="quill">
                     <div className="result-div ql-container ql-snow" style={{position: "relative"}}>
                         <div
@@ -23,7 +23,7 @@ export const ContactPerson = (props: IProps) => {
                         />
                     </div>
                 </div>
-            </p>
+            </div>
         </div>
     );
 };

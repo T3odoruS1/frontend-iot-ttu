@@ -26,7 +26,7 @@ const UserCreate = () => {
                 //     setJwtResponseCtx!(response);
                 //     navigate("../..")
                 // }
-                navigate("../..");
+                navigate("./../");
             })
             .catch((e) => {
                 console.log(e)

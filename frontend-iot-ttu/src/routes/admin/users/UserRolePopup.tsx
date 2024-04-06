@@ -74,7 +74,7 @@ export const UserRolePopup = (props: IProps) => {
                         <FormSelect className={"no-br"} {...register("roleId")} id={`roleId`}
                                     aria-label={"Chose user role"} name={"roleId"}>
                             {props.roles.map(r => {
-                                return <option value={r.id}>{r.name}</option>
+                                return <option key={r.id} value={r.id}>{r.name}</option>
                             })}
                         </FormSelect>
                         <ButtonPrimary className="mt-2" type="submit">

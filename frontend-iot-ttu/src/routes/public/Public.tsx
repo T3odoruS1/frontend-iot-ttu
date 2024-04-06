@@ -7,9 +7,6 @@ import useTrackPageNavigation from "../../hooks/useTrackPageNavigation";
 
 const Public = () => {
     const location = useLocation();
-    useEffect(() => {
-        console.log(location.pathname);
-    }, [location]);
 
     // useTrackPageNavigation(); // Events turned out to be useless.
     const isHomePage = () => {

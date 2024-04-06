@@ -1,9 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
-import NewsContentAdm from "../../../../components/NewsContentAdm";
 import NavigationButton from "../../../../components/common/NavigationButton";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
-import {Loader} from "../../../../components/Loader";
 import ErrorPage from "../../../ErrorPage";
 import NotFoundPage from "../../../NotFoundPage";
 import useFetch from "../../../../hooks/useFetch";
@@ -13,14 +11,13 @@ import i18n from "i18next";
 import LayoutMulticolour from "../../../../components/structure/LayoutMulticolour";
 import PageTitle from "../../../../components/common/PageTitle";
 import {Col, Row} from "react-bootstrap";
-import {getTopicAreasAsStr} from "../../../../utils/utils";
 import React from "react";
+import {Loader} from "../../../../components/Loader";
 
 const NewsPiece = () => {
     const {t} = useTranslation();
     const {id} = useParams();
     const navigate = useNavigate();
-    // const {newsPiece: news, pending, error} = useNews(id ?? "");
     const newsService = new NewsService();
 
     const {data: news, pending, error} =
@@ -33,13 +30,16 @@ const NewsPiece = () => {
         }
     }
 
-    console.log(news)
+    const toTopicArea = (id: string) => {
+        navigate(`../?topicArea=${id}`)
+    }
 
     if (error == "400" || error == "404") return <NotFoundPage/>
     if (error == "500") return <ErrorPage></ErrorPage>;
     if (!error) return (<LayoutMulticolour
         headerContent={
             <div className={"w-100 mb-2"}>
+                {pending && <Loader/>}
                 <NavigationButton to={"../"}>{t("public.news.news-list")}</NavigationButton>
                 <PageTitle>{news?.title}</PageTitle>
                 <Row className="w-100 mb-5">
@@ -57,7 +57,17 @@ const NewsPiece = () => {
                         <p className={"text-small-gray"}>{t("common.author")}</p>
                         <h5 className={"header-pink mt-1"}>{news?.author}</h5>
                         <p className={"text-small-gray"}>{t("common.topicAreas")}</p>
-                        <h5 className={"header-pink mt-1"}>{getTopicAreasAsStr(news?.topicAreas ?? [])}</h5>
+                        <h5 className={"header-pink mt-1"}>
+                            {news?.topicAreas.map((topicArea, index) => {
+                                return <span key={topicArea.id}
+                                    onClick={() => {
+                                        toTopicArea(topicArea.id)
+                                    }}
+                                    className={"clickable-pointer purple-on-hover"}>
+                                    {topicArea.name}{news?.topicAreas.length !== index + 1 ? ", " : ""}
+                                </span>
+                            })}
+                        </h5>
                     </Col>
 
                 </Row>

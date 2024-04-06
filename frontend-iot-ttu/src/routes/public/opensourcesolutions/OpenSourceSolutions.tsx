@@ -5,7 +5,7 @@ import {IOpenSourceSolution} from "../../../dto/opensourcesolutions/IOpenSourceS
 import PageTitle from "../../../components/common/PageTitle";
 import {Loader} from "../../../components/Loader";
 import {Row} from "react-bootstrap";
-import React from "react";
+import React, {Fragment} from "react";
 import OSSCard from "./OssCard";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import LayoutMulticolour from "../../../components/structure/LayoutMulticolour";
@@ -18,13 +18,13 @@ const OpenSourceSolutions = () => {
     useDocumentTitle(t("titles.oss"))
     return <>
         <LayoutMulticolour headerContent={
-            <PageTitle>Vabavaralised lahendused</PageTitle>
+            <PageTitle>{t("titles.oss")}</PageTitle>
 
         } bodyContent={<>
             {pending && <Loader/>}
             <Row>
                 {data?.map(solution => {
-                    return <OSSCard solution={solution}/>
+                    return <Fragment key={solution.id}><OSSCard solution={solution}/></Fragment>
                 })}
             </Row>
         </>}/>

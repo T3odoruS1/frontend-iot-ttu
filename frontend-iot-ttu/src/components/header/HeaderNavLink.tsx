@@ -35,11 +35,11 @@ const HeaderNavLink = (props: IProps) => {
 
     return (
 
-        <li key={Math.random()} className="nav-item header-item">
+        <div key={Math.random()} className="nav-item header-item">
             <Link  className={elementIsActive(props.to) ? "nav-link top-text top-text-active" : "nav-link top-text" } aria-current="page" to={props.to}>
                 {props.title}
             </Link>
-        </li>
+        </div>
 
     );
 };

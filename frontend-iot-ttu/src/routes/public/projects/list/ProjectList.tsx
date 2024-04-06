@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {FC, useState} from "react";
+import {FC, Fragment, useState} from "react";
 import usePaginatedFetch from "../../../../hooks/usePaginatedFetch";
 import {ProjectService} from "../../../../services/ProjectService";
 import {IProject} from "../../../../dto/project/IProject";
@@ -18,7 +18,6 @@ interface IProps {
 }
 
 
-
 export const ProjectCardElement: FC<IProps> = ({project}) => {
     const navigate = useNavigate();
 
@@ -29,18 +28,19 @@ export const ProjectCardElement: FC<IProps> = ({project}) => {
     const {t} = useTranslation();
 
 
-    return (<Col md={6} onClick={navigateToDetails}>
-            <div className={"mb-5 p-2"}>
-                <div className={"d-md-flex d-block"}>
-                    <KeyVal label={t("common.year")} value={project.year.toString()}/>
-                    <KeyVal label={t("common.projectManager")} value={project.projectManager} cname={"mx-md-2"}/>
-                    <KeyVal label={t("common.volume")} value={formatCurrency(project.projectVolume)} cname={"mx-md-2"}/>
+    return (
+            <Col  md={6} onClick={navigateToDetails}>
+                <div className={"mb-5 p-2"}>
+                    <div className={"d-md-flex d-block"}>
+                        <KeyVal label={t("common.year")} value={project.year.toString()}/>
+                        <KeyVal label={t("common.projectManager")} value={project.projectManager} cname={"mx-md-2"}/>
+                        <KeyVal label={t("common.volume")} value={formatCurrency(project.projectVolume)} cname={"mx-md-2"}/>
+                    </div>
+                    <h1>
+                        {project.title}
+                    </h1>
                 </div>
-                <h1>
-                    {project.title}
-                </h1>
-            </div>
-        </Col>
+            </Col>
 
     );
 };
@@ -53,26 +53,18 @@ const ProjectList = () => {
 
     return (
         <>
-            <div className={"layout-boundary"}>
-            </div>
-            <div className={"gray-bg bg-fill"}>
-                <div className={"layout-boundary"}>
-
-                </div>
-            </div>
-
             <LayoutMulticolour
                 headerContent={
                     <EditablePage pageIdentifier={"projects"} showTitle={true}/>
                 }
                 bodyContent={
                     pending ? <Loader/> :
-                            (<Row className={"mt-2"}>
-                                {projects.map((proj) => {
-                                    return <ProjectCardElement project={proj}/>
-                                })}
-                            </Row>)
-            }/>
+                        (<Row className={"mt-2"}>
+                            {projects.map((proj) => {
+                                return <Fragment key={proj.id}><ProjectCardElement project={proj}/></Fragment>
+                            })}
+                        </Row>)
+                }/>
 
         </>
     );

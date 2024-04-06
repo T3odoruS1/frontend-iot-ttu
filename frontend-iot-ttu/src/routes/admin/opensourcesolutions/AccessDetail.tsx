@@ -27,7 +27,7 @@ export const AccessDetail: FC<{ accessDetails: IAccessDetail[] }> = ({accessDeta
                 <hr/>
                 {accessDetails.map((detail) => {
                     return (
-                        <div>
+                        <div key={Math.random() * 1000}>
                             {new Date(detail.date).toLocaleDateString()} | {detail.email}
                         </div>)
                 })}

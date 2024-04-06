@@ -3,8 +3,6 @@ import {useCollapse} from "react-collapsed";
 import {useTranslation} from "react-i18next";
 import useFetch from "../../../../hooks/useFetch";
 import {TopicAreaService} from "../../../../services/TopicAreaService";
-import TopicAreaElement from "./TopicAreaElement";
-import {ITopicAreaGet} from "../../../../dto/topicarea/ITopicAreaGet";
 import dropdownIcon from "../../../../assets/iconpack/Dropdown Arrow Icon.svg"
 import {useLocation} from "react-router-dom";
 import Show from "../../../../components/common/Show";
@@ -50,7 +48,7 @@ const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
 
     return (
         <div className={`${!isExpanded ? "clickable-pointer" : ""} ${mobile ? "mb-2" : ""}`}>
-            {tPending && <p><Loader/></p>}
+            {tPending && <Loader/>}
 
             <Show>
                 <Show.When isTrue={mobile}>
@@ -85,7 +83,7 @@ const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
                     All categories
                 </h4>
                 {topicAreas?.map((topicArea) => (
-                    <Show>
+                    <Show key={topicArea.id}>
                         <Show.When isTrue={topicArea.count !== 0}>
                             <h4 key={topicArea.id}
                                 className={isSelected(topicArea.id) ? "post-category-active" : "post-category"}

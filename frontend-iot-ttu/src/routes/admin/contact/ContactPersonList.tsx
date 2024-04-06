@@ -1,11 +1,9 @@
-import PageTitle from "../../../components/common/PageTitle";
 import useFetch from "../../../hooks/useFetch";
 import {IContactPerson} from "../../../dto/contact/people/IContactPerson";
 import {ContactPersonService} from "../../../services/ContactPersonService";
 import i18n from "i18next";
 import {useNavigate} from "react-router-dom";
 import {ContactPerson} from "../../../components/ContactPerson";
-import ButtonSmaller from "../../../components/common/ButtonSmaller";
 import React, {useState} from "react";
 import ActionConfirmationAlert from "../../../components/common/ActionConfirmationAlert";
 import {useTranslation} from "react-i18next";
@@ -16,7 +14,7 @@ import * as yup from "yup"
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {IEmailRecepientOutput} from "../../../dto/recepient/IEmailRecepientOutput";
-import {Form, Tab, Table} from "react-bootstrap";
+import {Form, Table} from "react-bootstrap";
 import InputControl from "../../../components/form/InputControl";
 import ButtonPrimary from "../../../components/common/ButtonPrimary";
 
@@ -97,7 +95,7 @@ const ContactPersonList = () => {
                     <Table responsive className={"w-25"} variant={"striped"}>
                         <tbody>
                         {recepients?.map((rec, index) => {
-                            return <tr className={""}>
+                            return <tr key={rec.id} className={""}>
                                 <td>
                                     {index + 1}
                                 </td>
@@ -134,7 +132,7 @@ const ContactPersonList = () => {
 
                     <tbody>
                     {people?.map(person => {
-                        return <tr>
+                        return <tr key={person.id}>
                             <td width={400} className={'p-0'}>
 
                                 <ContactPerson name={person.name} body={person.body}/>

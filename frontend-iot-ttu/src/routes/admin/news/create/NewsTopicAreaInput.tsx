@@ -40,20 +40,19 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
         name: "topicAreas",
     });
     const {t} = useTranslation();
-
     const service = new TopicAreaService();
 
     useEffect(() => {
+
         if (fields.length === 0) {
             append({id: ""})
         }
-    }, []);
+
+
+
+    }, [control]);
 
     const {data: topicAreas, error} = useFetch<ITopicAreaGet[]>(service.getAll, [i18n.language]);
-
-    const highlightError = (index: number) => {
-        return errors.topicAreas?.[index]?.message !== undefined
-    }
 
     if (error) return <ErrorPage/>
 
@@ -110,7 +109,7 @@ const NewsTopicAreaInput: React.FC<IProps> = ({
                                 </Col>
                                 <Col md="1">
                                     <Show>
-                                        <Show.When isTrue={index !== 0}>
+                                        <Show.When isTrue={fields.length > 1}>
                                             <img className={"icon-wrapper"}
                                                  alt={"Remove"}
                                                  onClick={() => {

@@ -45,8 +45,6 @@ const transformedTranslations = transformTranslations(translations);
 const en = transformedTranslations.en;
 const et = transformedTranslations.et;
 
-console.log(transformedTranslations)
-
 ReactGA.initialize("G-5ELKNXLXTV")
 
 

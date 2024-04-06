@@ -105,10 +105,10 @@ const FeedPageList = () => {
         </FormFloating>
 
         {data?.feedPageCategories.map((category) => {
-            return <div className={"d-flex mt-2"}>
+            return <div key={category.id} className={"d-flex mt-2"}>
                 <Collapse isActive={false} title={category.title} children={<div>
                     {category.feedPageCategoryPost.map(post => {
-                        return <div className="d-flex">
+                        return <div key={post.id} className="d-flex">
                             <FeedPagePostElement post={post}/>
                             <div className={"d-flex flex-column"}>
                                 <div className={"icon-wrapper"} onClick={() => {

@@ -1,4 +1,3 @@
-import {OutgoingHttpHeader} from "node:http";
 import {AxiosError, AxiosInstance, AxiosResponse, HttpStatusCode} from "axios";
 import {IApiResponse} from "./IApiResponse";
 import {IJwtResponse} from "../dto/identity/IJwtResponse";

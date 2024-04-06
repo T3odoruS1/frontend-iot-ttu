@@ -134,7 +134,7 @@
             },
             "topicAreaMandatory": {
               "en": "You should choose a category",
-              "et": "Sa pead kategooria valima"
+              "et": "Kategooria on kohustuslik"
             },
             "imageRequired": {
               "en": "Add some image for this post",
@@ -480,6 +480,14 @@
       "en": "User management",
       "et": "Kasutajate haldamine"
     },
+    "registerInstruction": {
+      "en": "Input all user data. Email will be sent to specified address. Password will be specified there",
+      "et": "Sisestage kõik kasutajaandmed. E -post saadetakse määratud aadressile. Seal täpsustatakse parool"
+    },
+    "createUser": {
+      "en": "Create new moderator/admin",
+      "et": "Looge uus moderaator/administraator"
+    },
     "changeRole": {
       "en": "Change role",
       "et": "Muuda rolli"
@@ -539,6 +547,14 @@
     "resetPasswordUSure": {
       "en": "Are you sure you want to reset password for this user? New password will be sent via email to the user.",
       "et": "Kas olete kindel, et soovite selle kasutaja parooli lähtestada? Uus parool saadetakse kasutajale e -posti teel."
+    },
+    "userDeleted": {
+      "en": "User deleted",
+      "et": "Kasutaja kustutatud"
+    },
+    "operationSuccessful": {
+      "en": "Success",
+      "et": "Tehtud"
     }
   },
   "pageContent": {

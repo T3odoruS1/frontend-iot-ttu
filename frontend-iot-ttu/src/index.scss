@@ -338,10 +338,23 @@ ul li {
 }
 
 
-.thumbnail {
-  aspect-ratio: 16/9;
-  width: 100%;
-  object-fit: cover;
+
+.image-wrapper {
+  overflow: hidden; /* Hide parts of the image that overflow the container */
+  position: relative; /* Establish a positioning context for the image */
+  width: 100%; /* Container width - can be set to a specific value if needed */
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (9 / 16 = 0.5625) */
+}
+
+.responsive-image {
+  position: absolute; /* Position relative to the image-wrapper */
+  top: 50%; /* Align the center of the image with the center of the container */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the image */
+  min-width: 100%; /* Ensure the image covers the full width of the container */
+  min-height: 100%; /* Ensure the image covers the full height of the container */
+  width: auto; /* Maintain the original aspect ratio of the image */
+  height: auto; /* Maintain the original aspect ratio of the image */
 }
 
 .filter_box {
@@ -389,6 +402,10 @@ ul li {
   max-width: 25px;
 }
 
+.purple-on-hover:hover{
+  color: #342b60;
+}
+
 .link-no-underline-selected {
   text-decoration: none;
   color: #e4067e;
@@ -403,39 +420,60 @@ ul li {
 
 }
 
-.zoom-image {
-  width: 100%; /* Make the image fit the container */
-  transition: transform 0.5s ease; /* Animate the transform property, change duration and timing function as needed */
-}
-
-//.zoom-img-container{
-//  width: 300px;
+//.zoom-img-container {
+//  width: 100%; /* Container width */
+//  overflow: hidden; /* Hide overflow when image is zoomed */
+//  position: relative; /* Establish a positioning context */
+//  padding-top: 56.25%; /* 16:9 Aspect Ratio (9/16 = 0.5625) */
+//}
+//
+///* Ensure the image covers the container, maintaining aspect ratio */
+//.thumbnail {
+//  position: absolute; /* Position relative to .zoom-img-container */
+//  top: 0;
+//  left: 0;
+//  width: 100%; /* Make the image stretch to cover the width of the container */
+//  height: 100%; /* Make the image stretch to cover the height of the container */
+//  object-fit: cover; /* Cover the container without stretching the image */
+//  transition: transform 0.5s ease; /* Smooth transition for zoom effect */
+//}
+//
+///* Zoom effect on hover */
+//.thumbnail:hover {
+//  transform: scale(1.1); /* Scale the image up to create a zoom effect */
 //}
 
 
-
+/* Container to enforce 16/9 aspect ratio */
 .zoom-img-container {
-  width: 100%; /* Adjust based on your preference */
-  height: 100%; /* Adjust based on your preference */
-  overflow: hidden;
-  display: flex; /* Centers the image in the container */
-  justify-content: center;
-  align-items: center;
+  width: 100%; /* Adjust the width as needed */
+  overflow: hidden; /* Hide overflow when image is zoomed */
+  position: relative; /* Establish a positioning context */
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (9/16 = 0.5625) */
+  display: flex; /* Ensures the content is centered */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
 
-.zoom-img-container img {
+/* Ensure the image covers the container, maintaining aspect ratio */
+.thumbnail {
+  position: absolute; /* Position relative to .zoom-img-container */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto; /* Auto width for maintaining aspect ratio */
+  height: 100%; /* Stretch to cover the height of the container */
+  object-fit: cover; /* Cover the container without stretching the image */
   transition: transform 0.5s ease; /* Smooth transition for zoom effect */
-  width: 100%; /* Maintain the width of the image */
-  height: auto; /* Maintain aspect ratio */
 }
 
-.zoom-img-container:hover img {
-  transform: scale(1.1); /* Adjust scale value as needed for desired zoom */
+/* Zoom effect on hover */
+.thumbnail:hover {
+  transform: scale(1.1); /* Scale the image up to create a zoom effect */
 }
 
-.zoom-image:hover {
-  transform: scale(1.1); /* Scale the image to 110% of its original size on hover */
-}
+
 
 .dropdown-icon {
   color: #e4067e;

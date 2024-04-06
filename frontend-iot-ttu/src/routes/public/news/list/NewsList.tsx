@@ -12,10 +12,7 @@ import ErrorPage from "../../../ErrorPage";
 import {useLocation, useNavigate} from "react-router-dom";
 import placeholder from "../../../../assets/placeholder.webp";
 import DatePink from "../../../../components/common/DatePink";
-import TopicAreasGray from "../../../../components/common/TopicAreasGray";
-import i18n, {use} from "i18next";
-import feedPage from "../../feedPage/FeedPage";
-import useDocumentTitle from "../../../../hooks/useDocumentTitle";
+import i18n from "i18next";
 import LayoutMulticolour from "../../../../components/structure/LayoutMulticolour";
 import Show from "../../../../components/common/Show";
 
@@ -30,13 +27,6 @@ const NewsElement: React.FC<IProps> = ({news}) => {
         return (new Date(strDate)).toLocaleDateString();
     }
 
-    const getTopicAreasAsStr = () => {
-        const names: string[] = []
-        news.topicAreas.map((area) => {
-            names.push(area.name);
-        })
-        return names.join(", ")
-    }
     const navigateToDetails = () => {
         navigate(`./${news.id}`);
     }
@@ -46,13 +36,13 @@ const NewsElement: React.FC<IProps> = ({news}) => {
 
         <Col md="6" className="clickable-pointer mb-5" onClick={navigateToDetails}>
             <div className="w-100">
-                <div className={"zoom-img-container"}>
+                <div className="zoom-img-container">
                     <img className="thumbnail zoom-image"
-                         src={news.image !== undefined && news.image !== "" ? news.image : placeholder} alt=""/>
+                         src={news.image !== undefined && news.image !== "" ? news.image : placeholder}
+                         alt=""/>
                 </div>
                 <div className={"d-flex flex-column"}>
-                <DatePink date={getDate(news.createdAt)}/>
-                {/*<TopicAreasGray>{getTopicAreasAsStr()}</TopicAreasGray>*/}
+                    <DatePink date={getDate(news.createdAt)}/>
                 </div>
                 <h1>{news.title}</h1>
             </div>

@@ -57,7 +57,7 @@ const FeedPage: FC<IProps> = ({pageIdentifier}) => {
             <Col className="col-md-9 order-md-0 order-1 news-grid">
                 <Row className={"p-md-0 p-2"}>
                     {activeCategory?.feedPageCategoryPost.map((post) => {
-                        return <FeedPagePostElement post={post}/>
+                        return <div key={post.id}><FeedPagePostElement post={post}/></div>
                     })}
                 </Row>
             </Col>
@@ -88,7 +88,7 @@ const FeedPage: FC<IProps> = ({pageIdentifier}) => {
                 </Show>
                 <div  {...getCollapseProps()}>
                 {data?.feedPageCategories.map((category) => {
-                    return <h4 onClick={() => setActiveCategory(category)}
+                    return <h4 key={category.id} onClick={() => setActiveCategory(category)}
                                className={activeCategory?.id === category.id ? "post-category-active" : "post-category"}>
                         {category.title}
                     </h4>
