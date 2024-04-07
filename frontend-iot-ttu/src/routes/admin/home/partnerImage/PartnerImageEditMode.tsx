@@ -1,8 +1,7 @@
 import {PartnerImageService} from "../../../../services/PartnerImageService";
 import useFetch from "../../../../hooks/useFetch";
 import {IPartnerImage} from "../../../../dto/partnerImage/IPartnerImage";
-import React, {useState} from "react";
-import ButtonSmaller from "../../../../components/common/ButtonSmaller";
+import React, {FC, useState} from "react";
 import Popup from "../../../../components/Popup";
 import {FieldValues, useForm} from "react-hook-form";
 import {Form, Table} from "react-bootstrap";
@@ -53,12 +52,13 @@ export const PartnerImageEditMode = () => {
     const {t} = useTranslation();
     return (
         <>
-            <p>{t(message)}</p>
             <Popup cname={"icon-wrapper"} trigger={
                     <img className={"icon-wrapper mb-2"}
                          alt={"Add"}
                          src={add}/>
-            } content={<AddPartnerImage onSubmit={onSubmit}/>}/>
+            } content={
+                <AddPartnerImage message={t(message)} onSubmit={onSubmit}/>
+            }/>
             <Table>
                 <tbody>
                 <tr>
@@ -90,6 +90,7 @@ export const PartnerImageEditMode = () => {
 
 
 interface PIProps {
+    message?: string;
     onSubmit: (fieldValues: FieldValues) => void
 }
 
@@ -110,7 +111,7 @@ export const AddPartnerImage = (props: PIProps) => {
     const {t} = useTranslation();
     return <div className={"create-partner-image"}>
         <Form onSubmit={handleSubmit(props.onSubmit)}>
-
+            {props.message}
             <ImageUploader register={register}
                            setValue={setValue}
                            getValue={getValues}

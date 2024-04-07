@@ -38,7 +38,9 @@ const schema = yup.object().shape({
       })
     )
     .required(),
-  feedPageCategoryId: yup.string().uuid().required(`admin.news.adminNews.create.validation.fieldIsRequired`),
+  feedPageCategoryId: yup.string()
+      .uuid("admin.news.adminNews.create.validation.fieldIsRequired")
+      .required(`admin.news.adminNews.create.validation.fieldIsRequired`),
   page: yup.string()
 });
 

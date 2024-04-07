@@ -131,7 +131,7 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
                 <option value={EFeedPage.HARDWARE}>{EFeedPage.HARDWARE}</option>
                 <option value={EFeedPage.RESEARCH}>{EFeedPage.RESEARCH}</option>
             </FormSelect>
-            <FormLabel htmlFor="page-choice">Choose a page where you want to place this post</FormLabel>
+            <FormLabel htmlFor="page-choice">{t("feedPage.choosePage")}</FormLabel>
         </FormFloating>
 
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -145,7 +145,7 @@ const FeedPagePostForm: FC<IProps> = ({ handleSubmit, register, setValue, errors
                         })}
                     </FormSelect>
                     <FormLabel htmlFor="category-choice">
-                        Choose a page where you want to place this post {<span className="text-danger">{errors.feedPageCategoryId?.message}</span>}
+                        {t("feedPage.chooseCategory")} {<span className="text-danger">{t(errors.feedPageCategoryId?.message)}</span>}
                     </FormLabel>
                 </FormFloating>
             </div>

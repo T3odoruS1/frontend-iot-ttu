@@ -36,12 +36,12 @@ const LanguageSwitcher = (props: IProps) => {
 			{lang === "en" ? (
 				<div className={`d-flex ${props.toLeft ? "justify-content-end" : ""}`}>
 					<a
-						className="language-switcher m-2 selected"
+						className="language-switcher m-2 selected clickable-pointer"
 						onClick={() => changeLanguage("en")}>
 						ENG
 					</a>
 					<a
-						className="language-switcher m-2"
+						className="language-switcher m-2 clickable-pointer"
 						onClick={() => changeLanguage("et")}>
 						EST
 					</a>
@@ -49,12 +49,12 @@ const LanguageSwitcher = (props: IProps) => {
 			):(
 				<div className={`d-flex ${props.toLeft ? "justify-content-end": ""}`}>
 					<a
-						className="language-switcher m-2"
+						className="language-switcher m-2 clickable-pointer"
 						onClick={() => changeLanguage("en")}>
 						ENG
 					</a>
 					<a
-						className="language-switcher m-2 selected"
+						className="language-switcher m-2 selected clickable-pointer"
 						onClick={() => changeLanguage("et")}>
 						EST
 					</a>

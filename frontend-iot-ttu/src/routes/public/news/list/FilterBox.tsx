@@ -76,11 +76,11 @@ const FilterBox: FC<IProps> = ({onTopicAreaChange}) => {
             </Show>
             <div className={"m-0 p-0"} {...getCollapseProps()}>
                 <h4 key="1233"
-                    className={isSelected() ? "post-category-active" : "post-category"}
+                    className={isSelected() ? "post-category-active clickable-pointer" : "post-category clickable-pointer"}
                     onClick={() => {
                         onTopicAreaChange(null)
                     }}>
-                    All categories
+                    {t("public.header.allCategories")}
                 </h4>
                 {topicAreas?.map((topicArea) => (
                     <Show key={topicArea.id}>

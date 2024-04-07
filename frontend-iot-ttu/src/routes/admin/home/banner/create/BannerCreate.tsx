@@ -179,7 +179,7 @@ const BannerCreate = () => {
                     <ButtonPrimary
                         className="btn_custom_out mt-5 w-25 align-self-center" type={"button"}
                         onClick={handleSubmit(onSubmit)}>
-                        {t("Saata")}
+                        {t("common.submit")}
                     </ButtonPrimary>
                 </Form>
             </>

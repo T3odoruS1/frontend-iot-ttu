@@ -197,6 +197,10 @@
         "en": "Open source solutions",
         "et": "Vabavaralised lahendused"
       },
+      "allCategories": {
+        "en": "All categories",
+        "et": "Kõik kategooriad"
+      },
       "projects": {
         "en": "Projects",
         "et": "Projektid"
@@ -763,6 +767,14 @@
     "technologyPages": {
       "en": "Technology posts",
       "et": "Tehnoloogia postitused"
+    },
+    "choosePage": {
+      "en": "Choose a page where you want to place this post",
+      "et": "Valige leht, kuhu soovite selle postituse paigutada"
+    },
+    "chooseCategory": {
+      "en": "Choose a category",
+      "et": "Valige kategooria"
     }
   }
 }

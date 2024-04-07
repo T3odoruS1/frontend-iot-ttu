@@ -39,7 +39,9 @@ const NewsListAdm = () => {
     const {t} = useTranslation();
 
     const onDelete = async (id: string) => {
-        newsService.remove(id).then(fetchData).catch(e => {
+        newsService.remove(id).then(() => {
+            fetchData();
+        fetchTopicAreas();}).catch(e => {
             alert(e)
         })
     }
