@@ -95,7 +95,7 @@ const BannerContent: FC<{ banner: IBanner }> = ({banner}) => {
     }
     return <div>
         <div className="carousel-item active text-center animated-text p-2">
-            <h1 className={"text-white home-page-title underline-last-line"}>{banner.title}</h1>
+            <h1 className={"text-white home-page-title pb-3 underline-last-line"}>{banner.title}</h1>
             <br/>
             <h4 className={"text-white home-page-subtitle mb-2"} >{banner.body}</h4>
 
