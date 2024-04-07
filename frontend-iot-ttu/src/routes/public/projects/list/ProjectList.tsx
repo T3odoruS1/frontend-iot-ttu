@@ -30,7 +30,7 @@ export const ProjectCardElement: FC<IProps> = ({project}) => {
 
     return (
             <Col  md={6} onClick={navigateToDetails}>
-                <div className={"mb-5 p-2"}>
+                <div className={"mb-5 p-2 clickable-pointer"}>
                     <div className={"d-md-flex d-block"}>
                         <KeyVal label={t("common.year")} value={project.year.toString()}/>
                         <KeyVal label={t("common.projectManager")} value={project.projectManager} cname={"mx-md-2"}/>

@@ -123,10 +123,10 @@ const AdminBannerList = () => {
                                                                                                           alt={"Delete"}
                                                                                                           src={removeIcon}/>}/>
                                                         </div>
-                                                        <div className={"m-2"}>
+                                                        <div  onClick={() => toUpdate(banner.id)}
+                                                            className={"m-2"}>
                                                             <img className={"icon"}
-                                                                 onClick={() => toUpdate(banner.id)}
-                                                                 alt={"Delete"}
+                                                                 alt={"Update"}
                                                                  src={updateIcon}/>
                                                         </div>
                                                     </div>

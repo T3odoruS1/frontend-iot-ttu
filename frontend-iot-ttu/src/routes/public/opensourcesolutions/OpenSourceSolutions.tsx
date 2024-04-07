@@ -22,11 +22,11 @@ const OpenSourceSolutions = () => {
 
         } bodyContent={<>
             {pending && <Loader/>}
-            <Row>
+            <div className={"mt-5"}>
                 {data?.map(solution => {
-                    return <Fragment key={solution.id}><OSSCard solution={solution}/></Fragment>
+                    return <div className={"mb-4"} key={solution.id}><OSSCard solution={solution}/></div>
                 })}
-            </Row>
+            </div>
         </>}/>
 
     </>
