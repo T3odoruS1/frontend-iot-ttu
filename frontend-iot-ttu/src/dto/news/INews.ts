@@ -6,6 +6,7 @@ export interface INews extends IBaseEntity {
     body: string;
     author: string;
     image: string;
+    viewCount: number;
     createdAt: string;
     topicAreas: ITopicAreaGet[];
 }

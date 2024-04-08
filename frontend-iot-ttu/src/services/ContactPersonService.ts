@@ -30,7 +30,10 @@ export class ContactPersonService{
         return processResponse<IContactPerson[]>(result);
     }
 
-    // TODO add update
+    update = async (data: IContactPersonOutput): Promise<void> => {
+        return processResponse<void>(
+            await this.client.putAuthenticated<void, IErrorResponse>("/contactPerson", data))
+    }
 
     delete = async (id: string): Promise<void> => {
         return processResponse<void>(await this.client.deleteAuthenticated<void, IErrorResponse>(`/contactPerson/${id}`));

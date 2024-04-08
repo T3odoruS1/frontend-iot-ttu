@@ -12,12 +12,13 @@ import SubHeadingPurple from "../../../components/common/SubheadingPurple";
 import ButtonPrimary from "../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
 import {IUser} from "../../../dto/identity/IUser";
+import edit from "../../../assets/iconpack/edit.svg";
 
 interface IProps {
     email: string;
     user: IUser
     roles: IRole[]
-    fetch: () => {}
+    fetch: () => void
 }
 
 const schema = yup.object().shape({
@@ -25,6 +26,8 @@ const schema = yup.object().shape({
 })
 
 export const UserRolePopup = (props: IProps) => {
+    const identityService = new IdentityService();
+
 
     const {t} = useTranslation();
 
@@ -45,8 +48,10 @@ export const UserRolePopup = (props: IProps) => {
             }).catch(e => setMessage("Service unavailable"))
     }
 
-    const identityService = new IdentityService();
-    const {register, handleSubmit, setValue, formState: {errors}} =
+    const {register,
+        handleSubmit,
+        setValue,
+        formState: {errors}} =
         useForm<{ roleId: string }>({resolver: yupResolver(schema)});
 
     useEffect(() => {
@@ -69,7 +74,7 @@ export const UserRolePopup = (props: IProps) => {
                         <FormSelect className={"no-br"} {...register("roleId")} id={`roleId`}
                                     aria-label={"Chose user role"} name={"roleId"}>
                             {props.roles.map(r => {
-                                return <option value={r.id}>{r.name}</option>
+                                return <option key={r.id} value={r.id}>{r.name}</option>
                             })}
                         </FormSelect>
                         <ButtonPrimary className="mt-2" type="submit">
@@ -79,7 +84,10 @@ export const UserRolePopup = (props: IProps) => {
                 </form>
             </div>
         } trigger={
-            <ButtonSmaller className="mb-2">{t("user.changeRole")}</ButtonSmaller>
+            <div className={"icon-wrapper"}>
+            <img className={"icon"} alt={"Delete"}
+                 src={edit}/>
+            </div>
         }></Popup>
     );
 };

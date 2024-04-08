@@ -14,6 +14,13 @@ import {Loader} from "../../../../components/Loader";
 import {IBannerSequenceUpdate} from "../../../../dto/banner/IBannerSequenceUpdate";
 import {useState} from "react";
 import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
+import removeIcon from "../../../../assets/iconpack/delete.svg"
+import updateIcon from "../../../../assets/iconpack/edit.svg"
+import add from "../../../../assets/iconpack/add.svg"
+import save from "../../../../assets/iconpack/saveChanges.svg"
+import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
+
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
@@ -40,7 +47,6 @@ const AdminBannerList = () => {
 
     const onDnD = (result: any) => {
         if (!result.destination) return;
-        console.log(result)
         const items = Array.from(banners!)
         const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
@@ -75,49 +81,67 @@ const AdminBannerList = () => {
         navigate(`./create/${id}`);
     }
 
-    return (
-        <>
-            <PageTitle>{t("banners.adminTitle")}</PageTitle>
-            <p>{t("banners.instructions")}</p>
-            <ButtonSmaller onClick={toCreate}>{t("common.new")}</ButtonSmaller>
-            {(pending || updatePending) && <Loader/>}
-            {success && <SuccessAlert scroll={false}/>}
-            {dndUsed && <ButtonSmaller className={"mx-2"} onClick={saveSequence}>{t("common.save")}</ButtonSmaller>}
-            <DragDropContext onDragEnd={onDnD}>
-                <Droppable droppableId={"banners"}>
-                    {(provided) => (
-                        <ul className={"banners p-0"} {...provided.droppableProps} ref={provided.innerRef}>
-                            {banners?.map((banner, index) => {
-                                return (<Draggable key={banner.id} draggableId={banner.id} index={index}>
-                                    {(provided) => (
-                                        <li className={"banner-card"}
-                                            ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                            <BannerComponentAdmin banner={banner}/>
-                                            <div className={"d-flex justify-content-center"}>
-                                                <div className={"m-2"}>
-                                                    <ActionConfirmationAlert action={() => {
-                                                        remove(banner.id)
-                                                    }} displayText={t("common.deleteUSure")}
-                                                                             buttonText={t('common.delete')}/>
-                                                </div>
-                                                <div className={"m-2"}>
-                                                    <ButtonSmaller
-                                                        onClick={() => toUpdate(banner.id)}
-                                                        className={"align-self-center"}>
-                                                        {t('common.update')}
-                                                    </ButtonSmaller>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    )}
-                                </Draggable>)
-                            })}
-                            {provided.placeholder}
-                        </ul>
-                    )}
-                </Droppable>
-            </DragDropContext>
-        </>
+    return (<LayoutNoHeader bodyContent={
+            <>
+                <div className={""}>
+                    <div className={"d-flex"}>
+                        <SubHeadingPurple className={"mt-2"}>{t("banners.adminTitle")}</SubHeadingPurple>
+                        <img className={"icon-wrapper"}
+                             alt={"Add"}
+                             src={add}
+                             onClick={toCreate}/>
+                    </div>
+                    <div>{t("banners.instructions")}</div>
+                </div>
+                {(pending || updatePending) && <Loader/>}
+                {success && <SuccessAlert scroll={false}/>}
+                <div className={""}>
+
+
+                    {dndUsed && <img className={"icon-wrapper-lg"}
+                                     alt={"Add"}
+                                     onClick={saveSequence}
+                                     src={save}/>}
+                </div>
+                <div className={""}>
+                    <DragDropContext onDragEnd={onDnD}>
+                        <Droppable droppableId={"banners"}>
+                            {(provided) => (
+                                <ul className={"banners unselectable p-0"} {...provided.droppableProps} ref={provided.innerRef}>
+                                    {banners?.map((banner, index) => {
+                                        return (<Draggable key={banner.id} draggableId={banner.id} index={index}>
+                                            {(provided) => (
+                                                <li className={"banner-card flex-column m-0 mb-2"}
+                                                    ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                    <BannerComponentAdmin banner={banner}/>
+                                                    <div className={"d-flex justify-content-center"}>
+                                                        <div className={"m-2"}>
+                                                            <ActionConfirmationAlert action={() => {
+                                                                remove(banner.id)
+                                                            }} displayText={t("common.deleteUSure")}
+                                                                                     triggerElement={<img className={"icon"}
+                                                                                                          alt={"Delete"}
+                                                                                                          src={removeIcon}/>}/>
+                                                        </div>
+                                                        <div  onClick={() => toUpdate(banner.id)}
+                                                            className={"m-2"}>
+                                                            <img className={"icon"}
+                                                                 alt={"Update"}
+                                                                 src={updateIcon}/>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            )}
+                                        </Draggable>)
+                                    })}
+                                    {provided.placeholder}
+                                </ul>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>
+            </>
+        }/>
     );
 };
 

@@ -1,9 +1,8 @@
 import PageTitle from "../../../../../components/common/PageTitle";
 import InputControl from "../../../../../components/form/InputControl";
-import {Form} from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
 import * as yup from "yup";
-import {FieldValues, set, useForm} from "react-hook-form";
-import {IContactPersonOutput} from "../../../../../dto/contact/people/IContactPersonOutput";
+import {FieldValues, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {IBannerOutput} from "../../../../../dto/banner/IBannerOutput";
 import ImageUploader from "../../../../../components/form/ImageUpload";
@@ -14,16 +13,17 @@ import i18n from "i18next";
 import {useNavigate, useParams} from "react-router-dom";
 import {SuccessAlert} from "../../../../../components/lottie/SuccessAlert";
 import {useTranslation} from "react-i18next";
+import LayoutNoHeader from "../../../../../components/structure/LayoutNoHeader";
 
 const schema = yup.object().shape({
     id: yup.string().uuid().nullable(),
     image: yup.string().required("common.requiredField"),
     body: yup.array().length(2).of(yup.object().shape({
-        value: yup.string().required("common.requiredField").max(45, "common.toolong"),
+        value: yup.string().trim().required("common.requiredField").max(45, "common.toolong"),
         culture: yup.string().required("common.requiredField")
     })).required("common.requiredField"),
     title: yup.array().length(2).of(yup.object().shape({
-        value: yup.string().required("common.requiredField").max(90, "common.toolong"),
+        value: yup.string().trim().required("common.requiredField").max(90, "common.toolong"),
         culture: yup.string().required("common.requiredField")
     })).required("common.requiredField"),
 })
@@ -111,57 +111,79 @@ const BannerCreate = () => {
     }, []);
 
 
-    return (
-        <>
-            <PageTitle>{t("banners.createTitle")}</PageTitle>
-            {errorResponse && <p>{errorResponse}</p>}
-            {success && <SuccessAlert/>}
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={t(errors.title?.[0]?.value?.message, {len: 45})}
-                        name={"title.0.value"}
-                        label={"Main title english"}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={t(errors.title?.[1]?.value?.message, {len: 45})}
-                        name={"title.1.value"}
-                        label={"Main title estonian"}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={t(errors.body?.[0]?.value?.message, {len: 90})}
-                        name={"body.0.value"}
-                        label={"Main title english"}/>
-                </div>
-                <div className={"mt-2"}>
-                    <InputControl
-                        register={register}
-                        error={t(errors.body?.[1]?.value?.message, {len: 90})}
-                        name={"body.1.value"}
-                        label={"Main title estonian"}/>
-                </div>
-                <div className={"mt-2"}>
-                    {t(errors.image?.message)}
-                    <ImageUploader
-                        register={register}
-                        setValue={setValue}
-                        getValue={getValues}
-                        name={"image"}
-                        label={"image"}
-                        fileSize={5}/>
-                </div>
-                <ButtonPrimary
-                    className="btn_custom_out mt-5 w-25 align-self-center" type={"button"}
-                    onClick={handleSubmit(onSubmit)}>
-                    {t("Saata")}
-                </ButtonPrimary>
-            </Form>
-        </>
+    return (<LayoutNoHeader bodyContent={
+            <>
+                <PageTitle>{t("banners.createTitle")}</PageTitle>
+                {errorResponse && <p>{errorResponse}</p>}
+                {success && <SuccessAlert/>}
+                <Form onSubmit={handleSubmit(onSubmit)}>
+
+                    <Row>
+                        <Col md={6}>
+                            <div className={"mt-2"}>
+                                <InputControl
+                                    register={register}
+                                    error={t(errors.title?.[0]?.value?.message, {len: 45})}
+                                    name={"title.0.value"}
+                                    label={t("banners.titleEng")}/>
+                            </div>
+
+                        </Col>
+                        <Col md={6}>
+                            <div className={"mt-2"}>
+                                <InputControl
+                                    register={register}
+                                    error={t(errors.title?.[1]?.value?.message, {len: 45})}
+                                    name={"title.1.value"}
+                                    label={t("banners.titleEst")}/>
+                            </div>
+
+                        </Col>
+
+                    </Row>
+
+                    <Row>
+                        <Col md={6}>
+
+                            <div className={"mt-2"}>
+                                <InputControl
+                                    register={register}
+                                    error={t(errors.body?.[0]?.value?.message, {len: 90})}
+                                    name={"body.0.value"}
+                                    label={t("banners.subtitleEng")}/>
+                            </div>
+
+                        </Col>
+                        <Col md={6}>
+                            <div className={"mt-2"}>
+                                <InputControl
+                                    register={register}
+                                    error={t(errors.body?.[1]?.value?.message, {len: 90})}
+                                    name={"body.1.value"}
+                                    label={t("banners.subtitleEst")}/>
+                            </div>
+
+                        </Col>
+
+                    </Row>
+                    <div className={"mt-2"}>
+                        {t(errors.image?.message)}
+                        <ImageUploader
+                            register={register}
+                            setValue={setValue}
+                            getValue={getValues}
+                            name={"image"}
+                            label={"image"}
+                            fileSize={5}/>
+                    </div>
+                    <ButtonPrimary
+                        className="btn_custom_out mt-5 w-25 align-self-center" type={"button"}
+                        onClick={handleSubmit(onSubmit)}>
+                        {t("common.submit")}
+                    </ButtonPrimary>
+                </Form>
+            </>
+        }/>
     );
 };
 

@@ -45,7 +45,7 @@ export const LoginForm = (props: IProps) => {
                     <InputControl
                         name={`password`}
                         register={register}
-                        type="text"
+                        type="password"
                         error={errors.password?.message}
                         label={"Password"}
                     />

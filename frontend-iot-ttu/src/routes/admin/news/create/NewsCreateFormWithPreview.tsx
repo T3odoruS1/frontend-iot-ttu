@@ -30,7 +30,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
             .length(2)
             .of(
                 yup.object().shape({
-                    value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+                    value: yup.string().trim().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
                     culture: yup.string().min(1, "").required(),
                 })
             )
@@ -40,7 +40,10 @@ const NewsCreateFormWithPreview = (props: IProps) => {
             .length(2)
             .of(
                 yup.object().shape({
-                    value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+                    value: yup.string().trim()
+                        .notOneOf(["<p><br></p>"], "admin.news.adminNews.create.validation.fieldIsRequired")
+                        .min(1, `admin.news.adminNews.create.validation.fieldIsRequired`)
+                        .required("admin.news.adminNews.create.validation.fieldIsRequired"),
                     culture: yup.string().min(1, "").required(),
                 })
             )
@@ -48,6 +51,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         image: yup.string().required(`admin.news.adminNews.create.validation.imageRequired`),
         author: yup
             .string()
+            .trim()
             .min(1, `admin.news.adminNews.create.validation.AuthorNameLen`)
             .required(),
         topicAreas: yup
@@ -69,6 +73,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     const navigate = useNavigate();
     const {id} = useParams();
 
+
     useEffect(() => {
 
         if (id !== undefined) {
@@ -80,15 +85,14 @@ const NewsCreateFormWithPreview = (props: IProps) => {
                 }
             }).catch((e) => {
                     console.log("e")
-                setUnavailable(true)
-            }
+                    setUnavailable(true)
+                }
             )
         }
-        if(error || unavailable){
+        if (error || unavailable) {
             navigate("/error")
         }
     }, []);
-
 
 
     const {
@@ -97,9 +101,18 @@ const NewsCreateFormWithPreview = (props: IProps) => {
         getValues,
         handleSubmit,
         control,
+        watch,
+        reset,
+        setFocus,
         formState: {errors},
     } = useForm<INewsOutputDTO>({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(schema), defaultValues: {
+            topicAreas: [
+                {
+                    id: ""
+                }
+            ]
+        }
     });
 
     const onSubmit = (formValues: FieldValues) => {
@@ -108,29 +121,29 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     }
 
     const setFormValues = (news: INewsWTranslations) => {
-        onEditorStateChangeEng(news!.body.find(b => {
+        const defaultValues = {
+            topicAreas: news.topicAreas.map(area => ({ id: area.id })),
+            title: [
+                { value: news.title.find(t => t.culture === "en")?.value ?? "", culture: "en" },
+                { value: news.title.find(t => t.culture === "et")?.value ?? "", culture: "et" }
+            ],
+            image: news.image,
+            author: news.author,
+            id: news.id,
+            body: [
+                { value: news.body.find(b => b.culture === "en")?.value ?? "", culture: "en" },
+                { value: news.body.find(b => b.culture === "et")?.value ?? "", culture: "et" }
+            ]
+        };
+        reset(defaultValues);
+
+        setEditorHtmlEng(news!.body.find(b => {
             return b.culture === "en"
         })?.value ?? "");
-        onEditorStateChangeEst(news!.body.find(b => {
+        setEditorHtmlEst(news!.body.find(b => {
             return b.culture === "et"
         })?.value ?? "");
-
-        setValue(`topicAreas`, news.topicAreas);
-
-        setValue(`title.0.value`, news!.title!.find(t => {
-            return t.culture === "en"
-        })?.value ?? "");
-        setValue(`title.0.culture`, "en")
-
-        setValue(`title.1.value`, news!.title!.find(t => {
-            return t.culture === "et"
-        })?.value ?? "");
-        setValue(`title.1.culture`, "et")
-
-        setValue(`image`, news.image);
-        setValue(`author`, news.author);
-        setValue(`id`, news.id);
-    }
+    };
 
 
     const [editorHtmlEng, setEditorHtmlEng] = useState<string>("");
@@ -147,7 +160,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     };
 
 
-    if(error || unavailable){
+    if (error || unavailable) {
         return <ErrorPage/>
     }
 
@@ -177,6 +190,7 @@ const NewsCreateFormWithPreview = (props: IProps) => {
                     register={register}
                     errors={errors}
                     handleSubmit={handleSubmit}
+                    setFocus={setFocus}
                     onEditorStateChangeEng={onEditorStateChangeEng}
                     onEditorChangeEst={onEditorStateChangeEst}
                     editorHtmlEng={editorHtmlEng}

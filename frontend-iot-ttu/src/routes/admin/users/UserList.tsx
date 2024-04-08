@@ -1,40 +1,49 @@
 import {IdentityService} from "../../../services/IdentityService";
-import useUsers from "../../../hooks/useUsers";
 import PageTitle from "../../../components/common/PageTitle";
 import {Loader} from "../../../components/Loader";
 import ActionConfirmationAlert from "../../../components/common/ActionConfirmationAlert";
 import {Table} from "react-bootstrap";
 import {UserRolePopup} from "./UserRolePopup";
 import {useNavigate} from "react-router-dom";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {JwtContext} from "../../Root";
 import useFetch from "../../../hooks/useFetch";
 import {IRole} from "../../../dto/identity/IRole";
-import {NewsService} from "../../../services/NewsService";
-import {ProjectService} from "../../../services/ProjectService";
-import {INews} from "../../../dto/news/INews";
-import i18n from "i18next";
-import {IProject} from "../../../dto/project/IProject";
 import {useTranslation} from "react-i18next";
+import {IUser} from "../../../dto/identity/IUser";
+import Show from "../../../components/common/Show";
+import addUser from "../../../assets/iconpack/addUser.svg"
+import removeUser from "../../../assets/iconpack/removeUser.svg";
+import {use} from "i18next";
+import SubHeadingPurple from "../../../components/common/SubheadingPurple";
+import ButtonSmaller from "../../../components/common/ButtonSmaller";
+import LayoutNoHeader from "../../../components/structure/LayoutNoHeader";
+
 
 const UserList = () => {
     const navigate = useNavigate();
     const identityService = new IdentityService();
     const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
 
-    // leave this as it is. components needs fetch callback
-    const {users, pending, error, fetch} = useUsers(identityService)
+    const {data: users, pending, error, fetchData: fetch} =
+        useFetch<IUser[]>(identityService.getUsers, [])
+
+    const [message, setMessage] = useState("");
 
     const {data: roles} = useFetch<IRole[]>(identityService.getRoles);
 
-    const canUseActions = (): boolean => {
-        if(jwtResponseCtx?.roleIds.length === 0){
+    const canUseActionsOnUser = (id: string): boolean => {
+        if (jwtResponseCtx?.roleIds.length === 0 || jwtResponseCtx?.appUserId === id) {
             return false;
         }
-        if(jwtResponseCtx?.roleIds.at(0) === roles?.find(r => r.name === "USER")?.id){
+        return jwtResponseCtx?.roleIds.at(0) !== roles?.find(r => r.name === "MODERATOR")?.id;
+    }
+
+    const canCreateUser = () => {
+        if (jwtResponseCtx?.roleIds.length === 0) {
             return false;
         }
-        return true;
+        return jwtResponseCtx?.roleIds.at(0) !== roles?.find(r => r.name === "MODERATOR")?.id;
     }
 
     const deactivateUser = (id: string) => {
@@ -42,27 +51,57 @@ const UserList = () => {
         identityService.deactivateUser({userId: id}).then(r => {
             if (r === undefined) {
                 navigate("./login");
-                // return <NotAuthenticated/> will not work here.
             } else {
+                setMessage("user.userDeleted")
+                setTimeout(() => {
+                    setMessage("");
+                }, 5000);
                 fetch();
             }
-        })
+        }).catch(e => alert(e))
     }
+
+    const toChangePassword = () => {
+        navigate("./changepassword");
+    }
+
 
     const {t} = useTranslation();
 
-    // // TODO enable for production
-    // if(!jwtResponseCtx?.jwt || jwtResponseCtx.roleIds.length === 0){
-    //     return <NotAuthenticated/>
-    // }
+    const toBlindRegister = () => {
+        navigate("./create")
+    }
 
-    return (
-        <>
-            <PageTitle>{t("user.listTitle")}</PageTitle>
-            {pending && <Loader/>}
-            <Table variant="striped">
+
+    const restPassword = (id: string) => {
+        identityService.resetPassword({userId: id})
+            .then(() => {
+                setMessage("user.operationSuccessful")
+                setTimeout(() => {
+                    setMessage("");
+                }, 5000);
+            }).catch(() => {
+            alert("Oops... something went wrong")
+        })
+    }
+
+    return (<LayoutNoHeader bodyContent={<>
+            <div className={"d-flex"}>
+                <SubHeadingPurple className={"mt-2"}>{t("user.listTitle")}</SubHeadingPurple>
+                <Show>
+                    <Show.When isTrue={canCreateUser()}>
+                        <img onClick={toBlindRegister} className={"icon-wrapper-sm m-2"} alt={"View"} src={addUser}/>
+
+                    </Show.When>
+                </Show>
+            </div>
+            <Show>
+                <Show.When isTrue={pending}><Loader/></Show.When>
+            </Show>
+
+            <div className={"text-success"}>{t(message)}</div>
+            <Table responsive={"xl"} variant="striped">
                 <caption>{t("user.users")}</caption>
-                {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -84,16 +123,49 @@ const UserList = () => {
                                 <td>{user.email}</td>
                                 <td>{user.firstname}</td>
                                 <td>{user.lastname}</td>
-                                <td>{user.roles.at(0)?.name}</td>
                                 <td>
-                                    {canUseActions() && <>
-                                        <UserRolePopup user={user} roles={roles ?? []} email={user.email} fetch={fetch}/>
-                                        <ActionConfirmationAlert action={() => {
-                                            deactivateUser(user.id);
-                                        }} displayText={t("common.deleteUSure")}
-                                                                 buttonText={t("common.delete")}/>
-                                    </> || <p>{t("user.noRights")}</p>}
+                                    <div className={"d-flex"}>
+                                        <div>{user.roles.at(0)?.name}</div>
 
+                                        <div className={"mx-2"}>{
+                                            <Show>
+                                                <Show.When isTrue={canUseActionsOnUser(user.id)}>
+                                                    <div
+                                                        className={user.roles.at(0)?.name?.length === 5 ? " ms-5" : "ps-1"}>
+                                                        <UserRolePopup user={user} roles={roles ?? []}
+                                                                       email={user.email} fetch={fetch}/>
+                                                    </div>
+                                                </Show.When>
+                                            </Show>
+
+                                        }</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className={"d-flex"} style={{width: 200}}>
+
+                                        {canUseActionsOnUser(user.id) && <>
+
+                                            <ActionConfirmationAlert action={() => {
+                                                deactivateUser(user.id)
+                                            }} displayText={t("common.deleteUSure")}
+                                                                     triggerElement={
+                                                                         <div className={"icon-wrapper"}>
+                                                                             <img
+                                                                                 className={"icon"} alt={"Delete"}
+                                                                                 src={removeUser}/>
+                                                                         </div>}/>
+                                            <ActionConfirmationAlert action={() => {
+                                                restPassword(user.id)
+                                            }} displayText={t("user.resetPasswordUSure")}
+                                                                     triggerElement={
+                                                                         <div
+                                                                             className={"ms-4 link-arrow clickable-pointer"}>
+                                                                             {t("user.resetPassword")}
+                                                                         </div>}/>
+                                        </> || <div>{t("user.noRights")}</div>}
+
+                                    </div>
                                 </td>
                             </tr>
                         )
@@ -101,7 +173,10 @@ const UserList = () => {
                 )}
                 </tbody>
             </Table>
-        </>
+            <div onClick={toChangePassword} className={"link-arrow clickable-pointer"}>
+                {t("user.changeMyPass")}
+            </div>
+        </>}/>
     );
 };
 

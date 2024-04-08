@@ -1,13 +1,13 @@
-import {FC, useEffect, useRef, useState} from "react";
+import {FC, ReactElement, useEffect, useRef, useState} from "react";
 import ButtonSmaller from "./ButtonSmaller";
 import {useTranslation} from "react-i18next";
 
 interface IProps {
     action: () => void;
     displayText: string;
-    buttonText: string;
+    triggerElement: ReactElement;
 }
-const ActionConfirmationAlert: FC<IProps> = ({action, displayText, buttonText}) => {
+const ActionConfirmationAlert: FC<IProps> = ({action, displayText, triggerElement}) => {
     const [confirmDelete, setConfirmDelete] = useState(false);
     const popupRef = useRef<HTMLDivElement>(null);
 
@@ -74,12 +74,9 @@ const ActionConfirmationAlert: FC<IProps> = ({action, displayText, buttonText}) 
     }
 
     return (
-        <ButtonSmaller
-            type="button"
-            onClick={() => setConfirmDelete(true)}>
-            {buttonText}
-        </ButtonSmaller>
-
+        <div onClick={() => setConfirmDelete(true)}>
+            {triggerElement}
+        </div>
     );
 };
 

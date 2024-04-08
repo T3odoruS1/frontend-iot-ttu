@@ -14,12 +14,15 @@ import i18n from "i18next";
 import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
 import ReactQuill from "react-quill";
 import {reducedFormats, reducedModules} from "../../../../configs/configurations";
+import LayoutDefault from "../../../../components/structure/LayoutDefault";
 
 const schema = yup.object().shape({
     id: yup.string().uuid().nullable(),
-    name: yup.string().required(),
+    name: yup.string().trim().required(),
     body: yup.array().length(2).of(yup.object().shape({
-        value: yup.string().required(),
+        value: yup.string().trim()
+            .notOneOf(["<p><br></p>"], "admin.news.adminNews.create.validation.fieldIsRequired")
+            .required(),
         culture: yup.string().required()
     })).required()
 })
@@ -31,26 +34,35 @@ const ContactPersonCreate = () => {
     const navigate = useNavigate();
     const [success, setSuccess] = useState(false);
     const {id} = useParams();
+    const [pending, setPending] = useState(false);
 
+    const onSuccess = () => {
+        setSuccess(true);
+        setPending(false);
+        setTimeout(() => {
+            setSuccess(false);
+            navigate(`/${i18n.language}/admin/contact`);
+        }, 1000)
+    }
 
     const onSubmit = (fieldValues: FieldValues) => {
         setErrorResponse("")
-        if(fieldValues.id === undefined){
+        setPending(true)
+        if (fieldValues.id === undefined) {
             service.create(fieldValues as IContactPersonOutput).then(() => {
-                setSuccess(true);
-                setTimeout(() => {
-                    setSuccess(false);
-                    navigate(`/${i18n.language}/admin/contact`);
-                }, 1000)
+                onSuccess();
             }).catch((err) => {
                 setErrorResponse(err.message);
             })
-        }else{
-            alert("Call back once endpoint added!");
+        } else {
+            service.update(fieldValues as IContactPersonOutput).then(() => {
+                onSuccess();
+            }).catch((err) => {
+                setErrorResponse(err.message);
+            })
         }
 
     }
-
 
 
     const {
@@ -67,12 +79,12 @@ const ContactPersonCreate = () => {
     }
 
     useEffect(() => {
-       setLangs();
+        setLangs();
     }, []);
 
     useEffect(() => {
         setLangs();
-        if(id !== undefined){
+        if (id !== undefined) {
             service.getPreview(id).then(res => {
                 setValue(`id`, res.id);
                 setValue(`name`, res.name);
@@ -97,8 +109,11 @@ const ContactPersonCreate = () => {
 
     return (
         <>
-            <PageTitle>{t(`contact.createPerson`)}</PageTitle>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <LayoutDefault headerContent={
+                <PageTitle>{t(`contact.createPerson`)}</PageTitle>
+
+            } bodyContent={
+                <Form onSubmit={handleSubmit(onSubmit)}>
                 {success && <SuccessAlert/>}
                 {errorResponse && <p className={"text-danger"}>{errorResponse}</p>}
                 <div className={"mt-2"}>
@@ -126,7 +141,7 @@ const ContactPersonCreate = () => {
                     <Col>
                         <div className={'contact-person-editor'}>
                             <p className="mt-5">
-                                {t("contact.contactInfoEng")}
+                                {t("contact.contactInfoEst")}
                             </p>
                             <ReactQuill
                                 theme="snow"
@@ -146,7 +161,8 @@ const ContactPersonCreate = () => {
                 </ButtonPrimary>
 
 
-            </Form>
+            </Form>}/>
+
         </>
     )
         ;

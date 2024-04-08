@@ -1,5 +1,5 @@
 import {Control, UseFormGetValues, UseFormHandleSubmit, UseFormRegister, UseFormSetValue} from "react-hook-form";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
 import InputControl from "../../../../components/form/InputControl";
@@ -7,6 +7,7 @@ import {IProjectOutput} from "../../../../dto/project/IProjectOutput";
 import ReactQuill from "react-quill";
 import {formats, modules} from "../../../../configs/configurations";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
+import {FormFloating, FormLabel, FormSelect} from "react-bootstrap";
 
 interface IProps {
     register: UseFormRegister<IProjectOutput>;
@@ -45,6 +46,8 @@ export const ProjectForm: React.FC<IProps> =
             setValue(`body.${1}.culture`, "et");
         }, []);
 
+        const [editorLanguage, setEditorLanguage] = useState("EN");
+
 
         return (
             <form onSubmit={
@@ -63,7 +66,7 @@ export const ProjectForm: React.FC<IProps> =
                         name={`title.${0}.value`}
                         register={register}
                         type="text"
-                        error={t(errors.title?.[0]?.value?.message?.toString())}
+                        error={t(errors.title?.[0]?.value?.message?.toString(), {len: 150})}
                         label={t("projects.titleEng")}
                     />
                 </div>
@@ -73,7 +76,7 @@ export const ProjectForm: React.FC<IProps> =
                         name={`title.${1}.value`}
                         register={register}
                         type="text"
-                        error={t(errors.title?.[1]?.value?.message?.toString())}
+                        error={t(errors.title?.[1]?.value?.message?.toString(), {len: 150})}
                         label={t("projects.titleEst")}
                     />
                 </div>
@@ -111,26 +114,47 @@ export const ProjectForm: React.FC<IProps> =
                 </div>
 
                 <SubHeadingPurple className="mt-5">
-                    {t("admin.news.adminNews.create.contentEng")}
+                    {t("common.postContent")}
                 </SubHeadingPurple>
-                <ReactQuill
-                    theme="snow"
-                    value={editorHtmlEng}
-                    onChange={onEditorStateChangeEng}
-                    modules={modules}
-                    formats={formats}
-                />
 
-                <SubHeadingPurple className="mt-5">
-                    {t("admin.news.adminNews.create.contentEst")}
-                </SubHeadingPurple>
-                <ReactQuill
-                    theme="snow"
-                    value={editorHtmlEst}
-                    onChange={onEditorChangeEst}
-                    modules={modules}
-                    formats={formats}
-                />
+                <FormFloating className={"mt-2 mb-2"}>
+                    <FormSelect id={"editor-language"} className={"b-radius-0"} value={editorLanguage}
+                                onChange={(e) => setEditorLanguage(e.target.value)}>
+                        <option value={"EN"}>EN</option>
+                        <option value={"ET"}>ET</option>
+                    </FormSelect>
+                    <FormLabel htmlFor={"editor-language"}>Editor language</FormLabel>
+                </FormFloating>
+                <div
+                    className={"text-danger"}>{errors.body?.[0]?.value?.message !== undefined ? t("common.engRequired") : ""}</div>
+                <div
+                    className={"text-danger"}>{errors.body?.[1]?.value?.message !== undefined ? t("common.estRequired") : ""}</div>
+
+
+                <div className={editorLanguage === "EN" ? "" : "d-none"}>
+                    <ReactQuill
+                        theme="snow"
+                        value={editorHtmlEng}
+                        onChange={onEditorStateChangeEng}
+                        modules={modules}
+                        formats={formats}
+                    />
+                </div>
+
+
+                {/*<SubHeadingPurple className="mt-5">*/}
+                {/*    {t("admin.news.adminNews.create.contentEst")}*/}
+                {/*</SubHeadingPurple>*/}
+
+                <div className={editorLanguage === "ET" ? "" : "d-none"}>
+                    <ReactQuill
+                        theme="snow"
+                        value={editorHtmlEst}
+                        onChange={onEditorChangeEst}
+                        modules={modules}
+                        formats={formats}
+                    />
+                </div>
 
                 <ButtonPrimary className="mt-5" type="submit">
                     {t("admin.news.adminNews.create.create")}

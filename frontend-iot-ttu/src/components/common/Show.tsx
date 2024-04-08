@@ -5,7 +5,7 @@ type ShowProps = {
 };
 
 type ConditionProps = {
-    isTrue: boolean;
+    isTrue: boolean | null;
     children: ReactNode;
 };
 

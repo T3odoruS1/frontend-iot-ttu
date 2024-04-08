@@ -7,7 +7,7 @@ const ButtonSmaller = ({...rest}) => {
 			style={{
 				fontSize: "0.8rem",
 				fontWeight: 900,
-				maxHeight: "2rem",
+				// maxHeight: "2rem",
 				textTransform: "uppercase",
 				color: "#fff",
 				border: "4px solid #e4067e",
@@ -15,9 +15,9 @@ const ButtonSmaller = ({...rest}) => {
 				backgroundColor: "#e4067e",
 				display: "inline-block",
 				textDecoration: "none",
-				textAlign: "center",
-				padding: "0.1rem",
-				minWidth:"6rem",
+				// textAlign: "center",
+				padding: "0.0rem",
+				// minWidth:"6rem",
 				borderRadius: "60px",
 			}}
 			{...rest}>

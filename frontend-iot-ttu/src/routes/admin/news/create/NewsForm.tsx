@@ -2,7 +2,7 @@ import {
     Control, FieldValues,
     UseFormGetValues,
     UseFormHandleSubmit,
-    UseFormRegister,
+    UseFormRegister, UseFormSetFocus,
     UseFormSetValue,
 } from "react-hook-form";
 import ReactQuill from "react-quill";
@@ -13,9 +13,9 @@ import {INewsOutputDTO} from "../../../../dto/news/INewsOutputDTO";
 import InputControl from "../../../../components/form/InputControl";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {formats, modules} from "../../../../configs/configurations";
-import {FormLabel} from "react-bootstrap";
+import {Col, FormFloating, FormLabel, FormSelect, Row} from "react-bootstrap";
 
 interface IProps {
     register: UseFormRegister<INewsOutputDTO>;
@@ -27,6 +27,7 @@ interface IProps {
     editorHtmlEst: string;
     setValue: UseFormSetValue<INewsOutputDTO>;
     getValues: UseFormGetValues<INewsOutputDTO>;
+    setFocus: UseFormSetFocus<INewsOutputDTO>;
     onSubmit: (event: any) => void;
     handleSubmit: UseFormHandleSubmit<INewsOutputDTO, undefined>;
 }
@@ -42,6 +43,7 @@ const NewsForm: React.FC<IProps> =
          editorHtmlEst,
          onSubmit,
          setValue,
+        setFocus,
          getValues,
          handleSubmit,
      }) => {
@@ -52,7 +54,7 @@ const NewsForm: React.FC<IProps> =
             setValue(`body.${1}.culture`, "et");
         }, []);
 
-
+        const [editorLanguage, setEditorLanguage] = useState("EN");
 
 
         const {t} = useTranslation();
@@ -94,7 +96,7 @@ const NewsForm: React.FC<IProps> =
                     <span className="text-danger"> {t(errors.image?.message.toString())}</span>
                 }
                 </FormLabel>
-                    <ImageUploader
+                <ImageUploader
                     label={t("admin.news.adminNews.create.uploadPoster")}
                     register={register}
                     setValue={setValue}
@@ -102,51 +104,75 @@ const NewsForm: React.FC<IProps> =
                     name={"image"}
                     fileSize={5}
                 />
-                <SubHeadingPurple className="mt-5">
-                    {t("admin.news.adminNews.create.author")}
-                </SubHeadingPurple>
-                <InputControl
-                    name={"author"}
-                    register={register}
-                    type="text"
-                    error={t(errors.author?.message?.toString())}
-                    label={t("admin.news.adminNews.create.authorName")}
-                />
+
+                <Row>
+                    <Col md={6}>
+                        <SubHeadingPurple className="mt-5">
+                            {t("admin.news.adminNews.create.author")}
+                        </SubHeadingPurple>
+                        <InputControl
+                            name={"author"}
+                            register={register}
+                            type="text"
+                            error={t(errors.author?.message?.toString())}
+                            label={t("admin.news.adminNews.create.authorName")}
+                        />
+                    </Col>
+
+                    <Col md={6}>
+                        <div className={"mt-4"}>
+                        <NewsTopicAreaInput
+                            control={control}
+                            setFocus={setFocus}
+                            getValues={getValues}
+                            setValue={setValue}
+                            register={register}
+                            errors={errors}
+                        />
+                        </div>
+                    </Col>
+
+                </Row>
+
 
                 <SubHeadingPurple className="mt-5">
-                    {t("admin.news.adminNews.create.categories")}
+                    {t("common.postContent")}
                 </SubHeadingPurple>
-                {errors?.topicAreas?.message &&
-                    <p><span className="text-danger"> {t(errors?.topicAreas?.message?.toString())}</span></p>
-                }
-                <NewsTopicAreaInput
-                    control={control}
-                    setValue={setValue}
-                    register={register}
-                    errors={errors}
-                />
 
-                <SubHeadingPurple className="mt-5">
-                    {t("admin.news.adminNews.create.contentEng")}
-                </SubHeadingPurple>
-                <ReactQuill
-                    theme="snow"
-                    value={editorHtmlEng}
-                    onChange={onEditorStateChangeEng}
-                    modules={modules}
-                    formats={formats}
-                />
+                <div
+                    className={"text-danger"}>{errors.body?.[0]?.value?.message !== undefined ? t("common.engRequired") : ""}</div>
+                <div
+                    className={"text-danger"}>{errors.body?.[1]?.value?.message !== undefined ? t("common.estRequired") : ""}</div>
+                <FormFloating>
+                    <FormSelect id={"editor-language"} className={"b-radius-0"} value={editorLanguage}
+                                onChange={(e) => setEditorLanguage(e.target.value)}>
+                        <option value={"EN"}>EN</option>
+                        <option value={"ET"}>ET</option>
+                    </FormSelect>
+                    <FormLabel htmlFor={"editor-language"}>Editor language</FormLabel>
+                </FormFloating>
 
-                <SubHeadingPurple className="mt-5">
-                    {t("admin.news.adminNews.create.contentEst")}
-                </SubHeadingPurple>
-                <ReactQuill
-                    theme="snow"
-                    value={editorHtmlEst}
-                    onChange={onEditorChangeEst}
-                    modules={modules}
-                    formats={formats}
-                />
+
+                <div className={editorLanguage === "EN" ? "" : "d-none"}>
+                    <ReactQuill
+                        theme="snow"
+                        value={editorHtmlEng}
+                        onChange={onEditorStateChangeEng}
+                        modules={modules}
+                        formats={formats}
+                    />
+                </div>
+
+                <div className={editorLanguage === "ET" ? "" : "d-none"}>
+                    <ReactQuill
+                        theme="snow"
+                        value={editorHtmlEst}
+                        onChange={onEditorChangeEst}
+                        modules={modules}
+                        formats={formats}
+                    />
+                </div>
+
                 <ButtonPrimary className="mt-5" type="submit">
                     {t("admin.news.adminNews.create.create")}
                 </ButtonPrimary>

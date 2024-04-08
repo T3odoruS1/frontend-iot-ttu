@@ -10,6 +10,7 @@ import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
 import InputControl from "../../../../components/form/InputControl";
 import ButtonPrimary from "../../../../components/common/ButtonPrimary";
 import {useTranslation} from "react-i18next";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const schema = yup.object().shape({
     password: yup.string().required("common.requiredField"),
@@ -47,23 +48,22 @@ const ChangePassword = () => {
         }).finally(() => setPending(false));
     }
 
-    return (
-        <>
+    return (<LayoutNoHeader bodyContent={ <>
             <PageTitle>{t("common.changePassword")}</PageTitle>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 {success && <SuccessAlert/>}
                 {message && <p className={"text-danger"}>{message}</p>}
 
                 <div className={"mt-2"}>
-                    <InputControl type={"text"} error={t(errors.oldPassword?.message)} register={register}
+                    <InputControl type={"password"} error={t(errors.oldPassword?.message)} register={register}
                                   name={'oldPassword'} label={"Old password"}/>
                 </div>
                 <div className={"mt-2"}>
-                    <InputControl type={"text"} error={t(errors.password?.message)} register={register}
+                    <InputControl type={"password"} error={t(errors.password?.message)} register={register}
                                   name={'password'} label={"New password"}/>
                 </div>
                 <div className={"mt-2"}>
-                    <InputControl type={"text"} error={t(errors.confirmPassword?.message)} register={register}
+                    <InputControl type={"password"} error={t(errors.confirmPassword?.message)} register={register}
                                   name={'confirmPassword'} label={"Confirm new password"}/>
                 </div>
 
@@ -73,7 +73,7 @@ const ChangePassword = () => {
                     {t("common.submit")}
                 </ButtonPrimary>
             </Form>
-        </>
+        </>}/>
     );
 };
 

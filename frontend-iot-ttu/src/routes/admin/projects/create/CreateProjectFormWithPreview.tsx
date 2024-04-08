@@ -12,15 +12,19 @@ import {ProjectService} from "../../../../services/ProjectService";
 import {ProjectPreview} from "./ProjectPreview";
 import {IProjectMultilang} from "../../../../dto/project/IProjectMultilang";
 import useFetch from "../../../../hooks/useFetch";
+import Show from "../../../../components/common/Show";
+import {Loader} from "../../../../components/Loader";
 
 interface IProps {
     onSubmit: (event: FieldValues) => void;
 }
 
+const titleLen = 150;
+
 const schema = yup.object().shape({
     id: yup.string().uuid().optional(),
     year: yup.number().typeError(`admin.projects.validation.year`).min(0).max(3000).required(),
-    projectManager: yup.string().required("admin.news.adminNews.create.validation.fieldIsRequired"),
+    projectManager: yup.string().trim().required("admin.news.adminNews.create.validation.fieldIsRequired"),
     projectVolume: yup.number().typeError(`admin.projects.validation.projectVolume`).min(0).max(2000000000).required(),
     image: yup.string().nullable(),
     title: yup
@@ -28,7 +32,7 @@ const schema = yup.object().shape({
         .length(2)
         .of(
             yup.object().shape({
-                value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).max(90, "Too long insert transation ").required(),
+                value: yup.string().trim().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).max(titleLen, "common.toolong").required(),
                 culture: yup.string().min(1, "").required(),
             })
         )
@@ -38,7 +42,10 @@ const schema = yup.object().shape({
         .length(2)
         .of(
             yup.object().shape({
-                value: yup.string().min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
+                value: yup.string()
+                    .trim()
+                    .notOneOf(["<p><br></p>"], "admin.news.adminNews.create.validation.fieldIsRequired")
+                    .min(1, `admin.news.adminNews.create.validation.fieldIsRequired`).required(),
                 culture: yup.string().min(1, "").required(),
             })
         )
@@ -118,6 +125,9 @@ const CreateProjectFormWithPreview = (props: IProps) => {
 
     return (
         <>
+            <Show>
+                <Show.When isTrue={pending}><Loader/></Show.When>
+            </Show>
             <div className="">
                 <PageTitle>{t('projects.projects')}</PageTitle>
                 <FormFloating>

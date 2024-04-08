@@ -5,7 +5,7 @@ import {IErrorResponse} from "../dto/IErrorResponse";
 export class LivelinessService{
     private client: HttpClient = HttpClient.getInstance();
 
-    liveliness = async (): Promise<void> => {
-        return processResponse<void>(await this.client.get<void, IErrorResponse>("/ping"));
+    ping = async (): Promise<void> => {
+        return processResponse<void>(await this.client.get<void, IErrorResponse>("/general/status"));
     }
 }

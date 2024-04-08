@@ -5,4 +5,5 @@ export interface IFeedPagePostOutput{
     feedPageCategoryId: string;
     title: IContent[];
     body: IContent[];
+    page?: string | undefined;
 }

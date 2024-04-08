@@ -5,6 +5,9 @@ import {FieldValues} from "react-hook-form";
 import {IProjectOutput} from "../../../../dto/project/IProjectOutput";
 import {useState} from "react";
 import {SuccessAlert} from "../../../../components/lottie/SuccessAlert";
+import Show from "../../../../components/common/Show";
+import {Loader} from "../../../../components/Loader";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const ProjectCreate = () => {
 
@@ -13,45 +16,52 @@ const ProjectCreate = () => {
     const [pending, setPending] = useState(false);
 
     const [success, setSuccess] = useState(false)
+
+    const onSuccess = () =>{
+        setSuccess(true);
+        setPending(false);
+        setTimeout(() => {
+            setSuccess(false);
+
+            navigate(`../`);
+        }, 1000)
+    }
     const handleSubmit = async (data: FieldValues) => {
         setPending(true)
         const result = data as IProjectOutput;
-        console.log(result);
         if (!result.id) {
-            console.log(result)
-            const response = await projectService.create(data as IProjectOutput);
-            if (response !== undefined) {
-                setSuccess(true)
-                setTimeout(() => {
-                    setSuccess(false);
-                    setPending(false)
-                    navigate(`../`);
-                }, 1000)
-
-            }
-        } else {
-            projectService.update(result).then(r => {
-                setSuccess(true)
-                setTimeout(() => {
-                    setSuccess(false);
-                    setPending(false)
-                    navigate(`../`);
-                }, 1000)
+            projectService.create(data as IProjectOutput).then((response) => {
+                if (response !== undefined) {
+                    onSuccess();
+                }
             }).catch(e => {
                 alert("Error" + e.message)
-            })
+            });
 
+        } else {
+            projectService.update(result).then(r => {
+                onSuccess();
+            }).catch(e => {
+                alert("Error" + e.message)
+            });
         }
 
     }
 
 
-    return <>
-        {success &&
-            <SuccessAlert/>
-        }
-        {!success && <CreateProjectFormWithPreview onSubmit={handleSubmit}/>}
-    </>
+    return <LayoutNoHeader bodyContent={
+        <>
+            <Show>
+                <Show.When isTrue={pending}><Loader/></Show.When>
+            </Show>
+            <Show>
+                <Show.When isTrue={success}><SuccessAlert/></Show.When>
+            </Show>
+            <Show>
+                <Show.When isTrue={!success}><CreateProjectFormWithPreview onSubmit={handleSubmit}/></Show.When>
+            </Show>
+        </>
+    }/>
 }
 
 export default ProjectCreate;

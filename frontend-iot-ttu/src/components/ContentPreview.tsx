@@ -1,4 +1,4 @@
-import NewsContent from "./NewsContent";
+import NewsContentAdm from "./NewsContentAdm";
 import {INewsOutputDTO} from "../dto/news/INewsOutputDTO";
 import placeholder from "../assets/placeholder.webp"
 import i18n from 'i18next';
@@ -25,27 +25,13 @@ const ContentPreview = (props: IProps) => {
         return placeholder;
     }
 
-    function flattenTopics(topics:ITopicAreaGetMultilang[]): ITopicAreaGetMultilang[] {
-        let flatList: ITopicAreaGetMultilang[] = [];
-
-        topics.forEach(topic => {
-            flatList.push(topic);
-
-            if (topic.childrenTopicAreas && topic.childrenTopicAreas.length) {
-                flatList = flatList.concat(flattenTopics(topic.childrenTopicAreas));
-            }
-        });
-
-        return flatList;
-    }
-
     function translateTopicAreas(culture: string): ITopicAreaGet[] {
         if(props.formValues.topicAreas === undefined){
             return [];
         }
         return props.formValues?.topicAreas?.map(userTopic => {
             // Find the matching topic from allTopicAreas
-            const matchingTopic = flattenTopics(props.topicAreas).find(topic => topic.id === userTopic.id)
+            const matchingTopic = props.topicAreas.find(topic => topic.id === userTopic.id)
 
             if (!matchingTopic) {
                 // If there's no matching topic and the title is available, return the title as name, else empty string
@@ -69,7 +55,7 @@ const ContentPreview = (props: IProps) => {
     return (
         <>
             <div className="d-inline-flex justify-content-center align-items-center w-100">
-                <NewsContent
+                <NewsContentAdm
                     title={
                         i18n.language === "en"
                             ? (getContent(props.formValues?.title?.at(1)?.value, "No title"))

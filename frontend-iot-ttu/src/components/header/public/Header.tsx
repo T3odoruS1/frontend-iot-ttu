@@ -1,7 +1,6 @@
-import {Link, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import TalTechSVG from "../TalTechSVG";
 import HeaderNavLink from "../HeaderNavLink";
-import LanguageSwitcher from "../LanguageSwitcher";
 import i18n from "i18next";
 import {useTranslation} from "react-i18next";
 import {DesktopHeaderBody} from "../DesktopHeaderBody";

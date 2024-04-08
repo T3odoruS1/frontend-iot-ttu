@@ -5,6 +5,8 @@ import {IRegister} from "../../../../dto/identity/IRegister";
 import {useContext, useState} from "react";
 import {JwtContext} from "../../../Root";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const UserCreate = () => {
 
@@ -12,17 +14,19 @@ const UserCreate = () => {
     const identityService = new IdentityService();
     const [error, setError] = useState<string>("")
     const navigate = useNavigate();
+    const {i18n} = useTranslation()
 
-    const handleSubit = async (data: FieldValues) => {
+    const handleSubmit = async (data: FieldValues) => {
         console.log(data)
-        identityService.register(data as IRegister)
+        identityService.blindRegister(data as IRegister, i18n.language)
             .then(response => {
-                if (!response.jwt) {
-                    console.log("No jwt in response")
-                }else{
-                    setJwtResponseCtx!(response);
-                    navigate("../..")
-                }
+                // if (!response.jwt) {
+                //     console.log("No jwt in response")
+                // }else{
+                //     setJwtResponseCtx!(response);
+                //     navigate("../..")
+                // }
+                navigate("./../");
             })
             .catch((e) => {
                 console.log(e)
@@ -30,7 +34,7 @@ const UserCreate = () => {
             })
     }
 
-    return <UserCreateForm error={error} onSubmit={handleSubit}/>
+    return <LayoutNoHeader bodyContent={<UserCreateForm error={error} onSubmit={handleSubmit}/>}/>
 }
 
 export default UserCreate;

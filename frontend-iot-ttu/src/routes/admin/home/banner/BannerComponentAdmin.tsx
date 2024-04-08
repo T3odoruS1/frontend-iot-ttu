@@ -12,8 +12,8 @@ export const BannerComponentAdmin: FC<IProps> = (props: IProps) => {
             backgroundSize: 'cover'
         }}>
 
-            <div className={"d-flex flex-column justify-content-center align-content-center"}>
-                <h1 className={"text-white home-page-title underline-last-line"}>{props.banner.title}</h1>
+            <div className={"d-flex flex-column justify-content-center align-content-center p-4"}>
+                <h3 className={"text-white home-page-title pb-3 underline-last-line"}>{props.banner.title}</h3>
                 <h4 className={"text-white home-page-subtitle"}>{props.banner.body}</h4>
             </div>
 

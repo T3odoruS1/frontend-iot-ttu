@@ -1,8 +1,10 @@
 import {createContext, useEffect, useState} from "react";
 import {Outlet, useLocation, useNavigate, useParams} from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
-import i18n from "i18next";
 import {IJwtResponse} from "../dto/identity/IJwtResponse";
+import ReactGA from "react-ga4";
+import useLivelinessCheck from "../hooks/useLivelinessCheck";
+import {IdentityService} from "../services/IdentityService";
 
 export const JwtContext = createContext<{
     jwtResponseCtx: IJwtResponse | null;
@@ -14,20 +16,38 @@ const Root = () => {
     const {lang} = useParams();
     const navigate = useNavigate();
     const langs = ["en", "et"];
+    const location = useLocation();
 
+
+    useLivelinessCheck();
     const [jwtResponseCtx, setJwtResponseCtx] = useState(
         null as IJwtResponse | null
     );
+
+    const identityService = new IdentityService();
 
     useEffect(() => {
         const data = window.localStorage.getItem("jwt");
         if (data) {
             setJwtResponseCtx(JSON.parse(data));
         }
+
+        const logout = () => {
+            if(!window.localStorage.getItem("jwt")){
+                identityService.logout();
+            }
+        }
+        window.addEventListener('storage',logout)
+        return () => {
+            window.removeEventListener('storage', logout);
+        }
     }, []);
 
 
-    const location = useLocation();
+
+    useEffect(() => {
+        ReactGA.send({ hitType: "pageview", page: location.pathname, title: location.search });
+    }, [location]);
 
 
     useEffect(() => {

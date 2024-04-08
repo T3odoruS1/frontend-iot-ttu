@@ -1,12 +1,13 @@
 import React, {useState, useEffect, FC} from 'react';
-import hall from './../../../assets/ttu-hall.jpeg'
-import copter from './../../../assets/ttu-copter-shot.jpg'
-import territory from './../../../assets/ttu-territory.jpeg'
 import {BannerService} from "../../../services/BannerService";
 import useFetch from "../../../hooks/useFetch";
 import {IBanner} from "../../../dto/banner/IBanner";
 import i18n from "i18next";
 import {Loader} from "../../../components/Loader";
+import Show from "../../../components/common/Show";
+import ButtonPrimary from "../../../components/common/ButtonPrimary";
+import ButtonSmaller from "../../../components/common/ButtonSmaller";
+import {useTranslation} from "react-i18next";
 
 const CarouselComponent = () => {
 
@@ -24,10 +25,8 @@ const CarouselComponent = () => {
     useEffect(() => {
         const cont = banners?.map((b, index) => {
             return <BannerContent
-                key={index}
-                heading={b.title}
-                content={b.body}/>
-        })
+                banner={b}/>
+        }) ?? []
         setContents(cont ?? [])
 
         if(backgrounds !== undefined){
@@ -44,7 +43,7 @@ const CarouselComponent = () => {
 
             const intervalId = setInterval(() => {
                 setIndex((prevIndex) => (prevIndex === backgrounds.length - 1 ? 0 : prevIndex + 1));
-            }, 3000); // Slide transition every 3 seconds
+            }, 5000); // Slide transition every 3 seconds
 
             return () => {
                 clearInterval(intervalId);
@@ -66,33 +65,41 @@ const CarouselComponent = () => {
         backgroundStyle.backgroundPosition = `center`
     }
 
-    return (
-        <div
-            className="banner-container"
-            data-ride="carousel"
-            style={backgroundStyle}
-        >
-            {pending && <Loader/>}
-            {banners && banners.length > 0 && (
-                <BannerContent
-                    key={banners[index].id} // Assuming each banner has a unique 'id' field
-                    heading={banners[index].title}
-                    content={banners[index].body}
-                />
-            )}
-        </div>
 
-    );
+    return <Show>
+        <Show.When isTrue={banners && banners[index] && banners.length > 0}>
+            <div
+                className="banner-container"
+                data-ride="carousel"
+                style={backgroundStyle}>
+                {contents[index]}
+            </div>
+        </Show.When>
+        {/*<Show.Else><Loader/></Show.Else>*/}
+    </Show>
+
+
 };
 
 export default CarouselComponent;
 
-const BannerContent: FC<{heading: string, content: string}> = ({heading, content}) => {
-    return <div className="">
-        <div className="carousel-item active text-center animated-text">
-            <h1 className={"text-white home-page-title underline-last-line"}>{heading}</h1>
+const BannerContent: FC<{ banner: IBanner }> = ({banner}) => {
+
+    const {t} = useTranslation()
+    const scrollToContent = () => {
+        let elementPosition = document.getElementById("home-page-content")?.getBoundingClientRect()?.top! - 100;
+        window.scroll({
+            top: elementPosition,
+            behavior: 'smooth'
+        });
+    }
+    return <div>
+        <div className="carousel-item active text-center animated-text p-2">
+            <h1 className={"text-white home-page-title pb-3 underline-last-line"}>{banner.title}</h1>
             <br/>
-            <h4 className={"text-white home-page-subtitle"} >{content}</h4>
+            <h4 className={"text-white home-page-subtitle mb-2"} >{banner.body}</h4>
+
+            {/*<ButtonSmaller onClick={scrollToContent}>{t("common.lookCloser")}</ButtonSmaller>*/}
         </div>
     </div>
 };

@@ -13,8 +13,6 @@ export class NewsService implements IPaginatedService<INews> {
     getAll = async (lang: string, page: number = 0, size: number = 500, topicAreaId: string | null = null): Promise<INews[]> => {
         const response =
             await this.client.get<INews[], IErrorResponse>(`news/${lang}?page=${page}&size=${size}` + (topicAreaId ? `&topicAreaId=${topicAreaId}` : ""));
-
-        console.log(response)
         return processResponse<INews[]>(response);
     }
 

@@ -17,7 +17,7 @@ interface IProps {
     topicAreas: ITopicAreaGet[];
 }
 
-const NewsContent = (props: IProps) => {
+const NewsContentAdm = (props: IProps) => {
     const [t] = useTranslation();
 
     const joinTopicAreas = (): string => {
@@ -25,7 +25,6 @@ const NewsContent = (props: IProps) => {
     }
     return (
         <div className="w-100">
-            <TitleAllCaps color={TitleColors.purple} className="">{props.title}</TitleAllCaps>
             <Row className="w-100 mb-5">
 
                 <Col md="9">
@@ -45,8 +44,7 @@ const NewsContent = (props: IProps) => {
                 </Col>
 
             </Row>
-            <hr/>
-            <div className="w-100 mt-5">
+            <div className="w-100 mt-2">
                 <div className="quill">
                     <div className="result-div ql-container ql-snow" style={{position: "relative"}}>
                         <div
@@ -60,4 +58,4 @@ const NewsContent = (props: IProps) => {
     );
 };
 
-export default NewsContent;
+export default NewsContentAdm;

@@ -20,7 +20,6 @@ interface IProps {
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
-    password: yup.string().required(),
     firstName: yup.string().required(),
     lastName: yup.string().required(),
     userName: yup.string().required(),
@@ -39,8 +38,8 @@ export const UserCreateForm = (props: IProps) => {
 
     return (
         <>
-            <PageTitle>Create new moderator/admin</PageTitle>
-            <p>Input all user data. Email will be sent to specified address and new user will finish registration</p>
+            <PageTitle>{t("user.createUser")}</PageTitle>
+            <p>{t("user.registerInstruction")}</p>
             <p className={"text-danger"}>{props.error}</p>
             <form onSubmit={
                 handleSubmit((dto) => {
@@ -53,27 +52,16 @@ export const UserCreateForm = (props: IProps) => {
                         register={register}
                         type="text"
                         error={errors.email?.message}
-                        label={"E-mail"}
+                        label={t("user.email")}
                     />
                 </div>
-
-                <div className={"mt-2"}>
-                    <InputControl
-                        name={`password`}
-                        register={register}
-                        type="password"
-                        error={errors.password?.message}
-                        label={"Password"}
-                    />
-                </div>
-
                 <div className={"mt-2"}>
                     <InputControl
                         name={`firstName`}
                         register={register}
                         type="text"
                         error={errors.firstName?.message}
-                        label={"First name"}
+                        label={t("user.firstname")}
                     />
                 </div>
 
@@ -83,7 +71,7 @@ export const UserCreateForm = (props: IProps) => {
                         register={register}
                         type="text"
                         error={errors.lastName?.message}
-                        label={"Last name"}
+                        label={t("user.lastname")}
                     />
                 </div>
 
@@ -93,7 +81,7 @@ export const UserCreateForm = (props: IProps) => {
                         register={register}
                         type="text"
                         error={errors.userName?.message}
-                        label={"User name"}
+                        label={t("user.username")}
                     />
                 </div>
 
@@ -104,10 +92,11 @@ export const UserCreateForm = (props: IProps) => {
                             {...register("roleId")}
                             id={"roleId"}
                             name={"roleId"}
+                            className={"no-br"}
                         >
-                            <option value={""}>Choose role</option>
+                            <option value={""}>{t("user.role")}</option>
                             {roles?.map(r => {
-                                return <option value={r.id}>{r.name}</option>
+                                return <option key={r.id} value={r.id}>{r.name}</option>
                             })}
                         </FormSelect>
                     </FormFloating>

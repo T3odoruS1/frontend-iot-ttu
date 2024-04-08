@@ -5,6 +5,7 @@ import {ILogin} from "../../../../dto/identity/ILogin";
 import {useContext, useState} from "react";
 import {JwtContext} from "../../../Root";
 import {useNavigate} from "react-router-dom";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const Login = () => {
   const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
@@ -16,7 +17,7 @@ const Login = () => {
     identityService.login(data as ILogin).then(response =>{
       if(response !== undefined && response){
         setJwtResponseCtx!(response);
-        navigate("../..")
+        navigate("../../news")
       }
       console.log("Success")
     }).catch(e => {
@@ -28,7 +29,7 @@ const Login = () => {
 
     })
   }
-  return <LoginForm error={error} onSubmit={handleSubmit}/>
+  return <LayoutNoHeader bodyContent={<LoginForm error={error} onSubmit={handleSubmit}/>}/>
 }
 
 export default Login;

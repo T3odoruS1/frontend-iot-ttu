@@ -1,7 +1,14 @@
 import {Outlet} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
+import PageTitle from "../../../components/common/PageTitle";
 
 const Projects = () => {
-  return <><Outlet/></>
+  const {t} = useTranslation()
+  useDocumentTitle(t("titles.projects"))
+  return <>
+        <Outlet/>
+  </>
 }
 
 export default Projects;

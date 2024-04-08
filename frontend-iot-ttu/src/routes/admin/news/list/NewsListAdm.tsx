@@ -1,5 +1,5 @@
 import i18n from "i18next";
-import {Table} from "react-bootstrap";
+import {Col, Row, Table} from "react-bootstrap";
 import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
 import {useNavigate} from "react-router-dom";
@@ -7,34 +7,43 @@ import PageTitle from "../../../../components/common/PageTitle";
 import {Loader} from "../../../../components/Loader";
 import ErrorPage from "../../../ErrorPage";
 import {Fragment} from "react";
-import {NotAuthenticated} from "../../NotAuthenticated";
 import useFetch from "../../../../hooks/useFetch";
 import {INews} from "../../../../dto/news/INews";
 import {NewsService} from "../../../../services/NewsService";
 import {TopicAreaService} from "../../../../services/TopicAreaService";
-import {ITopicAreaWithChildren} from "../../../../dto/topicarea/ITopicAreaWithChildren";
 import {useTranslation} from "react-i18next";
+import {ITopicAreaGet} from "../../../../dto/topicarea/ITopicAreaGet";
+import edit from "../../../../assets/iconpack/edit.svg";
+import remove from "../../../../assets/iconpack/delete.svg";
+
+import eye from "../../../../assets/iconpack/eye.svg"
+import add from "../../../../assets/iconpack/add.svg";
+import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
+import {ITopicAreaWithCount} from "../../../../dto/topicarea/ITopicAreaWithCount";
+import Show from "../../../../components/common/Show";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
+
 
 const NewsListAdm = () => {
 
     const newsService = new NewsService();
     const topicAreaService = new TopicAreaService();
 
-    const {data: news, setData: setNews, pending, error} =
+    const {data: news, setData: setNews, pending, error, fetchData} =
         useFetch<INews[]>(newsService.getAll, [i18n.language])
-    const {data: topicAreas, pending: pendingTopicAreas, error: topicAreasError} =
-        useFetch<ITopicAreaWithChildren[]>(topicAreaService.getAll, [i18n.language]);
+    const {data: topicAreas, pending: pendingTopicAreas, error: topicAreasError, fetchData: fetchTopicAreas} =
+        useFetch<ITopicAreaWithCount[]>(topicAreaService.getAll, [i18n.language]);
 
     let topicAreaIndex = 0;
     const navigate = useNavigate();
     const {t} = useTranslation();
 
     const onDelete = async (id: string) => {
-        await newsService.remove(id);
-        let filtered = news!.filter(function (obj) {
-            return obj.id !== id;
-        });
-        setNews(filtered);
+        newsService.remove(id).then(() => {
+            fetchData();
+        fetchTopicAreas();}).catch(e => {
+            alert(e)
+        })
     }
 
     const toCreate = () => {
@@ -53,115 +62,127 @@ const NewsListAdm = () => {
         navigate(`./${id}`);
     }
 
-    // For testing the client.
-    // if(error && error == "401"){
-    //     return <NotAuthenticated/>
-    // }
-
-
-    if (!pending && (!news || !topicAreas)) {
-        return <ErrorPage/>
+    const onTopicAreaDelete = (id: string) => {
+        topicAreaService.remove(id).then(() => {
+            fetchTopicAreas()
+        })
     }
 
 
     return (
-        <div>
-            <PageTitle>{t("news.news")}</PageTitle>
-            <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>{t("common.new")}</ButtonSmaller></div>
-            {pending && <Loader/>}
+<LayoutNoHeader bodyContent={<div>
+    <div className={"d-flex"}>
+        <SubHeadingPurple className={"mt-2"}>{t("news.news")}</SubHeadingPurple>
+        <img className={"icon-wrapper"}
+             alt={"Add"}
+             src={add}
+             onClick={toCreate}/>
+    </div>
+    {pending && <Loader/>}
 
-            <Table variant="striped">
-                <caption>{t("news.news")}</caption>
-                {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
-                <thead>
+    <Table responsive variant="striped">
+        <caption>{t("news.news")}</caption>
+        {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">{t("news.title")}</th>
+            <th scope="col">{t("news.author")}</th>
+            <th scope="col">{t("common.views")}</th>
+            <th scope="col">{t("common.createdAt")}</th>
+            <th scope="col">{t("common.actions")}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {news?.map((newsPiece, index) => {
+                return (
+                    <tr key={newsPiece.id}>
+                        <th scope="row">{index + 1}</th>
+                        <td>{newsPiece.title}</td>
+                        <td>{newsPiece.author}</td>
+                        <td>{newsPiece.viewCount}</td>
+                        <td>{(new Date(newsPiece.createdAt)).toLocaleDateString()}</td>
+                        <td>
+                            <div className={"d-flex"}>
+                                <div className={"icon-wrapper "} onClick={() => toUpdate(newsPiece.id)}>
+                                    <img className={"icon"} alt={"Edit"} src={edit}/>
+                                </div>
+
+                                <div className={"icon-wrapper ms-4"} onClick={() => {
+                                    toDetails(newsPiece.id);
+                                }}>
+                                    <img className={"icon"} alt={"View"} src={eye}/>
+                                </div>
+
+                                <ActionConfirmationAlert action={() => {
+                                    onDelete(newsPiece.id)
+                                }} displayText={t("common.deleteUSure")}
+                                                         triggerElement={<div className={"icon-wrapper ms-4"}>
+                                                             <img className={"icon"}
+                                                                  alt={"Delete"}
+                                                                  src={remove}/>
+                                                         </div>}/>
+                            </div>
+                        </td>
+                    </tr>
+                )
+            }
+        )}
+        </tbody>
+    </Table>
+    <br/>
+    <br/>
+    <hr/>
+    <div className={"d-flex"}>
+        <SubHeadingPurple className={"mt-2"}>{t("common.topicAreas")}</SubHeadingPurple>
+
+        <img className={"icon-wrapper"}
+             alt={"Add"}
+             src={add}
+             onClick={toCreateTopic}/>
+
+    </div>
+    <Table responsive>
+        <caption>Topic area list</caption>
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">{t("common.name")}</th>
+            <th scope="col">{t("news.numberOfPosts")}</th>
+            <th scope="col">{t("common.actions")}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {topicAreas?.map((topicArea, index) => {
+            return (<Fragment key={topicArea.id}>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{t("news.title")}</th>
-                    <th scope="col">{t("news.author")}</th>
-                    <th scope="col">{t("common.createdBy")}</th>
-                    <th scope="col">{t("common.views")}</th>
-                    <th scope="col">{t("common.createdAt")}</th>
-                    <th scope="col">{t("common.actions")}</th>
+                    <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
+                    <td>{topicArea.name}</td>
+                    <td>{topicArea.count}</td>
+                    <td>
+                        <Show>
+                            <Show.When isTrue={topicArea.count === 0}>
+                                <ActionConfirmationAlert action={() => {
+                                    onTopicAreaDelete(topicArea.id)
+                                }} displayText={t("common.deleteUSure")}
+                                                         triggerElement={
+                                                             <div
+                                                                 className={"icon-wrapper"}>
+                                                                 <img
+                                                                     className={"icon"}
+                                                                     alt={"Delete"}
+                                                                     src={remove}/>
+                                                             </div>}/>
+                            </Show.When>
+                        </Show>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                {news?.map((newsPiece, index) => {
-                        return (
-                            <tr key={newsPiece.id}>
-                                <th scope="row">{index + 1}</th>
-                                <td>{newsPiece.title}</td>
-                                <td>{newsPiece.author}</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>{(new Date(newsPiece.createdAt)).toLocaleDateString()}</td>
-                                <td>
-                                    <ButtonSmaller onClick={() => {
-                                        toUpdate(newsPiece.id)
-                                    }} className="mb-2">{t("common.update")}</ButtonSmaller><br/>
-                                    <ButtonSmaller onClick={() => {
-                                        toDetails(newsPiece.id);
-                                    }} className="mb-2">{t("common.view")}</ButtonSmaller><br/>
-                                    <ActionConfirmationAlert action={() => {
-                                        onDelete(newsPiece.id)
-                                    }} displayText={t("common.deleteUSure")}
-                                                             buttonText={t("common.delete")}/>
-                                </td>
-                            </tr>
-                        )
-                    }
-                )}
-                </tbody>
-            </Table>
-            <br/>
-            <br/>
-            <hr/>
-            <PageTitle>Topic areas</PageTitle>
-
-            <div className={"m-2"}>
-                <ButtonSmaller type={"button"} onClick={toCreateTopic}>{t("common.new")}</ButtonSmaller>
-            </div>
-            <Table>
-                <caption>Topic area list</caption>
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{t("common.name")}</th>
-                    <th scope="col">{t("common.child")}</th>
-                    <th scope="col">{t("common.createdAt")}</th>
-                    <th scope="col">{t("news.numberOfPosts")}</th>
-                    <th scope="col">{t("common.actions")}</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                {topicAreas?.map((topicArea, index) => {
-                    return (<Fragment key={topicArea.id}>
-                        <tr>
-                            <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
-                            <td>{topicArea.name}</td>
-                            <td></td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td><ButtonSmaller>{t('common.delete')}</ButtonSmaller></td>
-                        </tr>
-
-                        {topicArea.childrenTopicAreas?.map((child, index) => {
-                            return (<tr key={child.id}>
-                                <th scope="row">{topicAreaIndex = topicAreaIndex + 1}</th>
-                                <td></td>
-                                <td>{child.name}</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td><ButtonSmaller>{t('common.delete')}</ButtonSmaller></td>
-
-                            </tr>)
-                        })
-                        }
-                    </Fragment>)
-                })}
-                </tbody>
-            </Table>
-        </div>
+            </Fragment>)
+        })}
+        </tbody>
+    </Table>
+</div>}/>
     );
 };
 

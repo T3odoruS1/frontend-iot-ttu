@@ -11,7 +11,6 @@ const AdminNews = React.lazy(() => import("./routes/admin/news/AdminNews"));
 const NewsCreate = React.lazy(() => import("./routes/admin/news/create/NewsCreate"));
 const ProjectsAdm = React.lazy(() => import("./routes/admin/projects/ProjectsAdm"));
 const ProjectCreate = React.lazy(() => import("./routes/admin/projects/create/ProjectCreate"));
-const Statistics = React.lazy(() => import("./routes/admin/statistics/Statistics"));
 const TechnologiesAdm = React.lazy(() => import("./routes/admin/technology/TechnologiesAdm"));
 const Login = React.lazy(() => import("./routes/admin/users/login/Login"));
 const Users = React.lazy(() => import("./routes/admin/users/Users"));
@@ -58,14 +57,19 @@ export const router = createBrowserRouter([
         element: <Root/>,
         errorElement: <ErrorPage/>,
         children: [
-            {
-                path: "*",
-                element: <NotFoundPage/>
-            },
+
             {
                 path: "admin",
                 element: <Admin/>,
                 children: [
+                    {
+                        path: "error",
+                        element:<ErrorPage/>
+                    },
+                    {
+                        path: "*",
+                        element: <NotFoundPage/>
+                    },
                     {
                         path: "",
                         element: <AdminLandingPage/>
@@ -138,10 +142,6 @@ export const router = createBrowserRouter([
                         ],
                     },
                     {
-                        path: "statistics",
-                        element: <Statistics/>,
-                    },
-                    {
                         path: "technology",
                         element: <TechnologiesAdm/>,
                         children: [
@@ -200,6 +200,14 @@ export const router = createBrowserRouter([
                 path: "",
                 element: <Public/>,
                 children: [
+                    {
+                        path: "error",
+                        element:<ErrorPage/>
+                    },
+                    {
+                        path: "*",
+                        element: <NotFoundPage/>
+                    },
                     {
                         path: "contact",
                         element: <Contact/>,

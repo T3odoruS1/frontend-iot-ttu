@@ -1,10 +1,10 @@
 import {IBaseEntity} from "../dto/IBaseEntity";
-import {ITopicAreaGetMultilang} from "../dto/topicarea/ITopicAreaGet";
+import {ITopicAreaGet, ITopicAreaGetMultilang} from "../dto/topicarea/ITopicAreaGet";
 import {ITopicAreaPost} from "../dto/topicarea/ITopicAreaPost";
-import {ITopicAreaWithChildren} from "../dto/topicarea/ITopicAreaWithChildren";
 import {IErrorResponse} from "../dto/IErrorResponse";
 import {processResponse} from "../httpclient/responseProcessor";
 import {HttpClient} from "../httpclient/HttpClient";
+import {ITopicAreaWithCount} from "../dto/topicarea/ITopicAreaWithCount";
 
 export class TopicAreaService {
     private client: HttpClient = HttpClient.getInstance();
@@ -14,9 +14,9 @@ export class TopicAreaService {
         return processResponse<IBaseEntity>(await this.client.postAuthenticated<IBaseEntity, IErrorResponse>(`topicAreas`, topicArea));
     }
 
-    getAll = async (lang: string): Promise<ITopicAreaWithChildren[]> => {
-        return processResponse<ITopicAreaWithChildren[]>(
-            await this.client.get<ITopicAreaWithChildren[],IErrorResponse>(`/topicAreas/${lang}`)
+    getAll = async (lang: string): Promise<ITopicAreaWithCount[]> => {
+        return processResponse<ITopicAreaWithCount[]>(
+            await this.client.get<ITopicAreaWithCount[],IErrorResponse>(`/topicAreas/${lang}/withCount`)
         );
     }
 
@@ -26,5 +26,9 @@ export class TopicAreaService {
         )
     }
 
-    // TODO update
+    remove = async (id: string): Promise<void> => {
+        return processResponse<void>(
+            await this.client.deleteAuthenticated<void, IErrorResponse>(`/topicAreas/${id}`)
+        )
+    }
 }

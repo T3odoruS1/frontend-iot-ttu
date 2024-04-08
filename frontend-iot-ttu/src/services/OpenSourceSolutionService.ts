@@ -6,7 +6,7 @@ import {IErrorResponse} from "../dto/IErrorResponse";
 import {IOpenSourceSolution} from "../dto/opensourcesolutions/IOpenSourceSolution";
 import {IRequestOSSAccess} from "../dto/opensourcesolutions/IRequestOSSAccess";
 
-export class OpenSourceSolutionService{
+export class OpenSourceSolutionService {
     private client: HttpClient = HttpClient.getInstance();
 
     private baseUrl: string = "openSourceSolution"
@@ -41,9 +41,15 @@ export class OpenSourceSolutionService{
         );
     }
 
-    getAll =async (lang:string): Promise<IOpenSourceSolution[]> => {
+    getAll = async (lang: string): Promise<IOpenSourceSolution[]> => {
         return processResponse<IOpenSourceSolution[]>(
             await this.client.get<IOpenSourceSolution[], IErrorResponse>(`${this.baseUrl}/${lang}`)
+        );
+    }
+
+    getAllWEmails = async (lang: string): Promise<IOpenSourceSolution[]> => {
+        return processResponse<IOpenSourceSolution[]>(
+            await this.client.get<IOpenSourceSolution[], IErrorResponse>(`${this.baseUrl}/${lang}/requestInfo`)
         );
     }
 
@@ -53,14 +59,11 @@ export class OpenSourceSolutionService{
         );
     }
 
-    getAccess = async (data: IRequestOSSAccess): Promise<void> => {
+    getAccess = async (data: IRequestOSSAccess, lang: string): Promise<void> => {
         return processResponse<void>(
-            await this.client.post<void, IErrorResponse>(`${this.baseUrl}/requestAccess`, data)
+            await this.client.post<void, IErrorResponse>(`${this.baseUrl}/${lang}/requestAccess`, data)
         );
     }
-
-
-
 
 
 }

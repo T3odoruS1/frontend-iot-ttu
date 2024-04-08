@@ -1,23 +1,26 @@
 import {ProjectService} from "../../../../services/ProjectService";
 import {IProject} from "../../../../dto/project/IProject";
-import PageTitle from "../../../../components/common/PageTitle";
 import ErrorPage from "../../../ErrorPage";
 import {useNavigate} from "react-router-dom";
-import ButtonSmaller from "../../../../components/common/ButtonSmaller";
 import {Loader} from "../../../../components/Loader";
 import ActionConfirmationAlert from "../../../../components/common/ActionConfirmationAlert";
 import {Table} from "react-bootstrap";
-// import {Fragment, useContext} from "react";
 import useFetch from "../../../../hooks/useFetch";
 import i18n from "i18next";
 import {useTranslation} from "react-i18next";
+import edit from "../../../../assets/iconpack/edit.svg";
+import eye from "../../../../assets/iconpack/eye.svg";
+import remove from "../../../../assets/iconpack/delete.svg";
+import add from "../../../../assets/iconpack/add.svg";
+import SubHeadingPurple from "../../../../components/common/SubheadingPurple";
+import LayoutNoHeader from "../../../../components/structure/LayoutNoHeader";
 
 const ProjectListAdm = () => {
 
     // const {jwtResponseCtx, setJwtResponseCtx} = useContext(JwtContext);
 
     const projectService = new ProjectService();
-    const {data: projects, setData: setProjects,  pending, error}
+    const {data: projects, setData: setProjects, pending, error}
         = useFetch<IProject[]>(projectService.getAll, [i18n.language]);
 
     const navigate = useNavigate();
@@ -53,22 +56,24 @@ const ProjectListAdm = () => {
     }
 
 
-
     return (
-        <div>
-            <PageTitle>{t("projects.projects")}</PageTitle>
-            <div className={"mb-3"}><ButtonSmaller onClick={toCreate}>{t('common.new')}</ButtonSmaller></div>
+        <LayoutNoHeader bodyContent={<div>
+            <div className={"d-flex"}>
+                <SubHeadingPurple className={"mt-2"}>{t("projects.projects")}</SubHeadingPurple>
+                <img className={"icon-wrapper"}
+                     alt={"Add"}
+                     src={add}
+                     onClick={toCreate}/>
+
+            </div>
             {pending && <Loader/>}
 
-
-            <Table variant="striped">
+            <Table responsive variant="striped">
                 <caption>{t("projects.projects")}</caption>
                 {/*{pending && <div className={"m-5 d-flex justify-content-center align-items-center"}><LineLoader/></div>}*/}
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">{t("common.title")}</th>
-                    <th scope="col">{t("common.createdBy")}</th>
                     <th scope="col">{t("common.views")}</th>
                     <th scope="col">{t("common.createdAt")}</th>
                     <th scope="col">{t("common.actions")}</th>
@@ -78,22 +83,33 @@ const ProjectListAdm = () => {
                 {projects?.map((project, index) => {
                         return (
                             <tr key={project.id}>
-                                <th scope="row">{index + 1}</th>
                                 <td>{project.title}</td>
-                                <td>-</td>
-                                <td>-</td>
+                                <td>{project.viewCount}</td>
                                 <td>{(new Date(project.createdAt)).toLocaleDateString()}</td>
                                 <td>
-                                    <ButtonSmaller onClick={() => {
-                                        toUpdate(project.id)
-                                    }} className="mb-2">{t("common.update")}</ButtonSmaller><br/>
-                                    <ButtonSmaller onClick={() => {
-                                        toDetails(project.id);
-                                    }} className="mb-2">{t("common.view")}</ButtonSmaller><br/>
-                                    <ActionConfirmationAlert action={() => {
-                                        onDelete(project.id)
-                                    }} displayText={t("common.deleteUSure")}
-                                                             buttonText={t("common.delete")}/>
+                                    <div className={"d-flex"}>
+                                        <div className={"icon-wrapper"} onClick={() => toUpdate(project.id)}>
+                                            <img className={"icon"} alt={"Edit"} src={edit}/>
+                                        </div>
+
+                                        <div className={"icon-wrapper ms-4"} onClick={() => {
+                                            toDetails(project.id);
+                                        }}>
+                                            <img className={"icon"} alt={"View"} src={eye}/>
+                                        </div>
+
+
+                                        <div className={""}>
+                                            <ActionConfirmationAlert action={() => {
+                                                onDelete(project.id)
+                                            }} displayText={t("common.deleteUSure")}
+                                                                     triggerElement={<div
+                                                                         className={"icon-wrapper ms-4"}><img
+                                                                         className={"icon"}
+                                                                         alt={"Delete"}
+                                                                         src={remove}/></div>}/>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         )
@@ -102,7 +118,7 @@ const ProjectListAdm = () => {
                 </tbody>
             </Table>
 
-        </div>
+        </div>}/>
     );
 };
 

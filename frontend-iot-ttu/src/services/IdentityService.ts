@@ -46,13 +46,11 @@ export class IdentityService{
 
      getUsers = async (): Promise<IUser[]> => {
         const response = await this.client.getAuthenticated<IUser[], IErrorResponse>("/users");
-        console.log("Users have been fetched")
         return processResponse<IUser[]>(response);
     }
 
     getRoles = async (): Promise<IRole[]> => {
         const response = await this.client.getAuthenticated<IRole[], IErrorResponse>("/users/roles");
-        console.log("Roles have been fetched")
         return processResponse<IRole[]>(response);
     }
 
@@ -63,7 +61,13 @@ export class IdentityService{
     }
 
     deactivateUser = async (data: IUserDeactivate): Promise<void> => {
-        const response = await this.client.postAuthenticated<void, IErrorResponse>("/users/lock", data)
+        const response = await this.client.postAuthenticated<void, IErrorResponse>("/users/delete", data)
+        return processResponse<void>(response);
+    }
+
+    blindRegister = async (data: IRegister, lang: string) : Promise<void> => {
+        const response =
+            await this.client.post<void, IErrorResponse>(`/users/${lang}/registerUnknown`, data);
         return processResponse<void>(response);
     }
 
@@ -73,6 +77,11 @@ export class IdentityService{
             this.saveToLocalStorage(response.data)
         }
         return processResponse<IJwtResponse>(response);
+    }
+
+    resetPassword = async (data: {userId: string}): Promise<void> => {
+        const response = await this.client.postAuthenticated<void, IErrorResponse>("/users/resetPassword", data);
+        return processResponse<void>(response);
     }
 
     saveToLocalStorage = async (jwtPromise: IJwtResponse)=>{
