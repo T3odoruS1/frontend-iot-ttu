@@ -6,7 +6,7 @@ import {IApiResponse} from "./IApiResponse";
 
 export class HttpClient {
 
-    private static baseUrl = window.__ENV__?.BASE_URL;
+    private static baseUrl = process.env.BASE_URL
 
    
     protected axios!: AxiosInstance;
