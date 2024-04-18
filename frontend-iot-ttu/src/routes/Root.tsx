@@ -19,7 +19,7 @@ const Root = () => {
     const location = useLocation();
 
 
-    useLivelinessCheck();
+    //useLivelinessCheck();
     const [jwtResponseCtx, setJwtResponseCtx] = useState(
         null as IJwtResponse | null
     );
