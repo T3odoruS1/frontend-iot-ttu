@@ -4,6 +4,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+COPY myserver.crt /etc/nginx/ssl/myserver.crt
+COPY myserver.key /etc/nginx/ssl/myserver.key
 RUN npm run build
 
 # Stage 2: Serve the app with NGINX
