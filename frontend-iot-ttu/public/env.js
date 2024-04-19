@@ -1,3 +1,3 @@
 window.__ENV__ = {
-  BASE_URL: "http://185.170.213.135:5181/api/v1"
+  BASE_URL: "https://193.40.231.152/test/api/v1"
 };
