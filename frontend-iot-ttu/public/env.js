@@ -1,3 +1,3 @@
-window.__ENV__ = {
-  BASE_URL: "https://193.40.231.152:443/test/api/v1"
+window.__ENV__ = { 
+  BASE_URL: "https://193.40.231.152:8443/test/api/v1"
 };

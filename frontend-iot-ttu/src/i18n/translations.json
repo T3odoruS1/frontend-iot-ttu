@@ -284,6 +284,10 @@
       "en": "Date",
       "et": "Kuupäev"
     },
+    "analyticsDashboard": {
+      "en":"Analytics dashboard",
+      "et": "Analüütika"
+    },
     "postContent": {
       "en":"Post content",
       "et": "Postituse sisu"

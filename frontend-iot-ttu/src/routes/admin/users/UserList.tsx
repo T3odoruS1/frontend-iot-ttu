@@ -176,6 +176,11 @@ const UserList = () => {
             <div onClick={toChangePassword} className={"link-arrow clickable-pointer"}>
                 {t("user.changeMyPass")}
             </div>
+            <a target={"_blank"}
+                className={"link-arrow link-no-underline fw-lighter"}
+               href={"https://analytics.google.com/analytics/web/#/p433902250/reports/reportinghub?params=_u..nav%3Dmaui"}>
+                {t("common.analyticsDashboard")}
+            </a>
         </>}/>
     );
 };

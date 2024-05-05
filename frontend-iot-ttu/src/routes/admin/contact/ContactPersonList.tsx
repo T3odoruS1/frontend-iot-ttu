@@ -140,9 +140,9 @@ const ContactPersonList = () => {
                             <td width={50} className={"p-0"}>
                                 <div className={"d-flex"}>
 
-                                    <div className={"mx-2"}><img onClick={() => {
+                                    <div onClick={() => {
                                         toUpdate(person.id)
-                                    }} className={"icon icon-wrapper"}
+                                    }} className={"mx-2"}><img  className={"icon icon-wrapper"}
                                                                  alt={"Delete"}
                                                                  src={edit}/>
                                     </div>

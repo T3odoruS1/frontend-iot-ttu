@@ -19,12 +19,6 @@ const Footer = () => {
                 <div className={"container-fluid"}>
                     <div className="text-light m-5"><b>© 2023 TalTech Embedded AI Research Lab.</b></div>
                     <UserData/>
-                    <div className={"d-flex justify-content-center align-items-center"}>
-                        <HeaderNavLink
-                            to={`/${i18n.language}/admin/news`}
-                            title={t("admin.header.admin")}
-                        />
-                    </div>
                 </div>
 
             </footer>
@@ -33,12 +27,6 @@ const Footer = () => {
         return <footer className="navbar footer d-flex top-gradient d-flex flex-row">
             <div className={"container-fluid"}>
                 <div className="text-light"><b>© 2023 TalTech Embedded AI Research Lab.</b></div>
-                <div className={"m-2 d-flex justify-content-center align-items-center"}>
-                    <HeaderNavLink
-                        to={`/${i18n.language}/admin/news`}
-                        title={t("admin.header.admin")}
-                    />
-                </div>
             </div>
         </footer>
     }
