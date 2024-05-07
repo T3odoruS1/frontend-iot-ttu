@@ -4,12 +4,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build
+# Declare an argument
+ARG ENV
+RUN npm run build:${ENV}
 # Stage 2: Serve the application using serve
 FROM node:alpine
-
-# Install serve to serve the static files
-RUN npm install -g serve
 
 # Copy the built app from the previous stage
 COPY --from=build-stage /app/build /app
