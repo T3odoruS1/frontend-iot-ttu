@@ -1,3 +1,3 @@
 window.__ENV__ = { 
-  BASE_URL: "https://193.40.231.152:8443/test/api/v1"
+  BASE_URL: "https://iot.taltech.ee/backend"
 };
