@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 // import i18n from "i18next";
 // import {bool, boolean} from "yup";
 import {useTranslation} from "react-i18next";
+import HeaderNavLink from "./HeaderNavLink";
 
 
 interface IProps{
@@ -22,6 +23,12 @@ const LanguageSwitcher = (props: IProps) => {
 		// No return function needed here unless you have specific cleanup logic
 	}, [lang, i18n]);
 
+	const toLang = (lng: string) => {
+		const pathSegments = location.pathname.split("/");
+		pathSegments[1] = lng;
+		return pathSegments.join("/");
+	}
+
 	const changeLanguage = useCallback((lng: string) => {
 		if (lng === i18n.language) return; // Prevent unnecessary language changes
 		i18n.changeLanguage(lng);
@@ -33,33 +40,20 @@ const LanguageSwitcher = (props: IProps) => {
 
 	return (
 		<div className="">
-			{lang === "en" ? (
+
 				<div className={`d-flex ${props.toLeft ? "justify-content-end" : ""}`}>
-					<a
-						className="language-switcher m-2 selected clickable-pointer"
-						onClick={() => changeLanguage("en")}>
-						ENG
-					</a>
-					<a
-						className="language-switcher m-2 clickable-pointer"
-						onClick={() => changeLanguage("et")}>
-						EST
-					</a>
+					<HeaderNavLink
+						to={toLang("en")}
+						title={"ENG"}
+						selected={lang === "en"}
+					/>
+					<HeaderNavLink
+						to={toLang("et")}
+						title={"EST"}
+						selected={lang === "et"}
+
+					/>
 				</div>
-			):(
-				<div className={`d-flex ${props.toLeft ? "justify-content-end": ""}`}>
-					<a
-						className="language-switcher m-2 clickable-pointer"
-						onClick={() => changeLanguage("en")}>
-						ENG
-					</a>
-					<a
-						className="language-switcher m-2 selected clickable-pointer"
-						onClick={() => changeLanguage("et")}>
-						EST
-					</a>
-				</div>
-			)}
 			
 		</div>
 	);
