@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import i18n from "i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 import {useTranslation} from "react-i18next";
-import React from "react";
+import React, {Fragment} from "react";
 import HeaderNavLink from "./HeaderNavLink";
 
 interface IProps {
@@ -26,7 +26,7 @@ export const DesktopHeaderBody: React.FC<IProps> = (props) => {
                     <ul key={Math.random()} className="navbar-nav header-container mb-2 mb-lg-0">
                         {props.routes.map((el, index) => {
                             if(index !== props.routes.length - 1){
-                                return <div key={Math.random()} className={"nav-item header-item"}>{el}</div>;
+                                return <Fragment key={Math.random()}>{el}</Fragment>;
                             }else {
                                 return <li key={Math.random()}>
                                     <LanguageSwitcher toLeft={true}/>
