@@ -3,6 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 interface IProps {
     title: string;
     to: string;
+    selected?: boolean;
 }
 
 const HeaderNavLink = (props: IProps) => {
@@ -10,6 +11,10 @@ const HeaderNavLink = (props: IProps) => {
     const location = useLocation();
 
     const elementIsActive = (path: string) => {
+
+        if(props.selected !== undefined){
+            return props.selected;
+        }
 
         if(path === "/en" || path === "/et"){
             return location.pathname === "/en" || location.pathname === "/et"
@@ -36,7 +41,8 @@ const HeaderNavLink = (props: IProps) => {
     return (
 
         <div key={Math.random()} className="nav-item header-item">
-            <Link  className={elementIsActive(props.to) ? "nav-link top-text top-text-active" : "nav-link top-text" } aria-current="page" to={props.to}>
+            <Link  className={elementIsActive(props.to) ? "nav-link top-text top-text-active" :
+                "nav-link top-text" } aria-current="page" to={props.to}>
                 {props.title}
             </Link>
         </div>

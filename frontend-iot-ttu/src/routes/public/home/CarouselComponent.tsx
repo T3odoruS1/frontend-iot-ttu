@@ -97,7 +97,7 @@ const BannerContent: FC<{ banner: IBanner }> = ({banner}) => {
         <div className="carousel-item active text-center animated-text p-2">
             <h1 className={"text-white home-page-title pb-3 underline-last-line"}>{banner.title}</h1>
             <br/>
-            <h4 className={"text-white home-page-subtitle mb-2"} >{banner.body}</h4>
+            <h2 className={"text-white home-page-subtitle mb-2"} >{banner.body}</h2>
 
             {/*<ButtonSmaller onClick={scrollToContent}>{t("common.lookCloser")}</ButtonSmaller>*/}
         </div>
