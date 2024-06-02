@@ -22,6 +22,7 @@ interface IProps {
 
 
 const NewsCreateFormWithPreview = (props: IProps) => {
+    const backupKey = "news";
     const {t} = useTranslation();
     const schema = yup.object().shape({
         id: yup.string().nullable(),
@@ -74,27 +75,6 @@ const NewsCreateFormWithPreview = (props: IProps) => {
     const {id} = useParams();
 
 
-    useEffect(() => {
-
-        if (id !== undefined) {
-            newsService.getMultiLang(id).then(res => {
-                console.log("res")
-                if (res !== undefined && "body" in res) {
-                    console.log(res);
-                    setFormValues(res);
-                }
-            }).catch((e) => {
-                    console.log("e")
-                    setUnavailable(true)
-                }
-            )
-        }
-        if (error || unavailable) {
-            navigate("/error")
-        }
-    }, []);
-
-
     const {
         register,
         setValue,
@@ -114,36 +94,55 @@ const NewsCreateFormWithPreview = (props: IProps) => {
             ]
         }
     });
+    const setFormValues = (news: INewsWTranslations) => {
+        if(news === undefined) return;
+        const defaultValues = {
+            topicAreas: news.topicAreas?.map(area => ({ id: area.id })),
+            title: news.title,
+            image: news.image,
+            author: news.author,
+            id: news.id,
+            body: news.body
+        };
+        reset(defaultValues);
+
+        setEditorHtmlEng(news!.body?.find(b => {
+            return b.culture === "en"
+        })?.value ?? "");
+        setEditorHtmlEst(news!.body?.find(b => {
+            return b.culture === "et"
+        })?.value ?? "");
+    };
+
+
+
+    useEffect(() => {
+
+        if (id !== undefined) {
+            newsService.getMultiLang(id).then(res => {
+                console.log("res")
+                if (res !== undefined && "body" in res) {
+                    console.log(res);
+                    setFormValues(res);
+                }
+            }).catch((e) => {
+                    console.log("e")
+                    setUnavailable(true)
+                }
+            )
+        }
+        if (error || unavailable) {
+            navigate("/error")
+        }
+
+
+    }, []);
 
     const onSubmit = (formValues: FieldValues) => {
         props.onSubmit(formValues);
         navigate("./")
     }
 
-    const setFormValues = (news: INewsWTranslations) => {
-        const defaultValues = {
-            topicAreas: news.topicAreas.map(area => ({ id: area.id })),
-            title: [
-                { value: news.title.find(t => t.culture === "en")?.value ?? "", culture: "en" },
-                { value: news.title.find(t => t.culture === "et")?.value ?? "", culture: "et" }
-            ],
-            image: news.image,
-            author: news.author,
-            id: news.id,
-            body: [
-                { value: news.body.find(b => b.culture === "en")?.value ?? "", culture: "en" },
-                { value: news.body.find(b => b.culture === "et")?.value ?? "", culture: "et" }
-            ]
-        };
-        reset(defaultValues);
-
-        setEditorHtmlEng(news!.body.find(b => {
-            return b.culture === "en"
-        })?.value ?? "");
-        setEditorHtmlEst(news!.body.find(b => {
-            return b.culture === "et"
-        })?.value ?? "");
-    };
 
 
     const [editorHtmlEng, setEditorHtmlEng] = useState<string>("");
