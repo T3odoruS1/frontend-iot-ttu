@@ -23,7 +23,7 @@ const schema = yup.object().shape({
         culture: yup.string().required("common.requiredField")
     })).required("common.requiredField"),
     title: yup.array().length(2).of(yup.object().shape({
-        value: yup.string().trim().required("common.requiredField").max(90, "common.toolong"),
+        value: yup.string().trim().required("common.requiredField").max(150, "common.toolong"),
         culture: yup.string().required("common.requiredField")
     })).required("common.requiredField"),
 })
