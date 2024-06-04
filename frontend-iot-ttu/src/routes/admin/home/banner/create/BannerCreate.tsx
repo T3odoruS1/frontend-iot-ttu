@@ -19,11 +19,11 @@ const schema = yup.object().shape({
     id: yup.string().uuid().nullable(),
     image: yup.string().required("common.requiredField"),
     body: yup.array().length(2).of(yup.object().shape({
-        value: yup.string().trim().required("common.requiredField").max(45, "common.toolong"),
+        value: yup.string().trim().required("common.requiredField").max(90, "common.toolong"),
         culture: yup.string().required("common.requiredField")
     })).required("common.requiredField"),
     title: yup.array().length(2).of(yup.object().shape({
-        value: yup.string().trim().required("common.requiredField").max(150, "common.toolong"),
+        value: yup.string().trim().required("common.requiredField").max(45, "common.toolong"),
         culture: yup.string().required("common.requiredField")
     })).required("common.requiredField"),
 })
